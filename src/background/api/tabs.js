@@ -1,11 +1,7 @@
 /**
  *
  */
-export const CONTENT_SCRIPTS = [
-	'dist/common.js',
-	'dist/container.js',
-	'dist/helpers.js'
-];
+export const CONTENT_SCRIPTS = ['dist/container.js', 'dist/helpers.js'];
 
 /**
  *
