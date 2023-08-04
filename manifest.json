@@ -24,7 +24,6 @@
 	],
 	"background": {
 		"scripts": [
-			"dist/common.js",
 			"dist/background.js"
 		]
 	},

@@ -98,11 +98,6 @@ module.exports = {
 	optimization: {
 		splitChunks: {
 			cacheGroups: {
-				common: {
-					name: 'common',
-					chunks: 'initial',
-					minChunks: 2
-				},
 				containerStyles: styleCacheGroup('container'),
 				helpersStyles: styleCacheGroup('helpers'),
 				optionsStyles: styleCacheGroup('options'),
