@@ -27,9 +27,7 @@
 		"<all_urls>"
 	],
 	"background": {
-		"scripts": [
-			"dist/background.js"
-		]
+		"service_worker": "dist/background.js"
 	},
 	"options_ui": {
 		"page": "pages/options.html"
