@@ -17,7 +17,7 @@ const MarkdownPage = ({name}) => {
 
 	useEffect(() => {
 		const basePath = `data/pages/${name}`;
-		const url = browser.extension.getURL(`${basePath}/index.md`);
+		const url = browser.runtime.getURL(`${basePath}/index.md`);
 
 		fetch(url)
 			.then((response) => response.text())

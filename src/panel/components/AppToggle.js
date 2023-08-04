@@ -16,7 +16,7 @@ function AppToggle({onClick}) {
 			title={intl.formatMessage({id: 'Panel.toggle'})}
 		>
 			<img
-				src={browser.extension.getURL('img/icon-48.png')}
+				src={browser.runtime.getURL('img/icon-48.png')}
 				alt={intl.formatMessage({id: 'Panel.toggle'})}
 			/>
 		</button>
