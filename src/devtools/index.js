@@ -1,9 +1,11 @@
 import React from 'react';
-import {render} from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import store from './store';
 import DevTools from './components/DevTools';
 
 /**
  *
  */
-render(<DevTools store={store} />, document.getElementById('devtools'));
+createRoot(document.getElementById('devtools')).render(
+	<DevTools store={store} />
+);

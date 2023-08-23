@@ -1,5 +1,5 @@
 import React from 'react';
-import {render} from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import {Provider} from 'react-redux';
 import {IntlProvider, addLocaleData} from 'react-intl';
 import fr from 'react-intl/locale-data/fr';
@@ -34,13 +34,12 @@ const start = () => {
 		container.className = CONTAINER_ID;
 		document.body.appendChild(container);
 
-		render(
+		createRoot(container).render(
 			<Provider store={store}>
 				<IntlProvider locale="fr" messages={messages}>
 					<AppContainer />
 				</IntlProvider>
-			</Provider>,
-			container
+			</Provider>
 		);
 	}, noop);
 };
