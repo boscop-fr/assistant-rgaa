@@ -1,5 +1,4 @@
-import {takeEvery} from 'redux-saga';
-import {call, put, select} from 'redux-saga/effects';
+import {call, put, select, takeEvery} from 'redux-saga/effects';
 import {applyHelpers, revertHelpers} from '../actions/helpers';
 import {APPLY, REVERT, TOGGLE} from '../actions/styles';
 import {areStylesEnabled} from '../selectors/styles';
@@ -38,19 +37,19 @@ function* revertStylesSaga() {
  *
  */
 export function* watchToggleStyles() {
-	yield* takeEvery(TOGGLE, toggleStylesSaga);
+	yield takeEvery(TOGGLE, toggleStylesSaga);
 }
 
 /**
  *
  */
 export function* watchApplyStyles() {
-	yield* takeEvery(APPLY, applyStylesSaga);
+	yield takeEvery(APPLY, applyStylesSaga);
 }
 
 /**
  *
  */
 export function* watchRevertStyles() {
-	yield* takeEvery(REVERT, revertStylesSaga);
+	yield takeEvery(REVERT, revertStylesSaga);
 }

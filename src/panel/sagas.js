@@ -1,3 +1,4 @@
+import {all} from 'redux-saga/effects';
 import * as panel from '../common/sagas/panel';
 import * as imports from '../common/sagas/imports';
 import * as tests from '../common/sagas/tests';
@@ -8,7 +9,7 @@ import * as styles from '../common/sagas/styles';
  *
  */
 export default function* sagas() {
-	yield [
+	yield all([
 		panel.watchSetPosition(),
 		imports.watchApply(),
 		tests.watchEnable(),
@@ -17,5 +18,5 @@ export default function* sagas() {
 		styles.watchToggleStyles(),
 		styles.watchApplyStyles(),
 		styles.watchRevertStyles()
-	];
+	]);
 }

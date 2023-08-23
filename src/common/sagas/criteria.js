@@ -1,5 +1,4 @@
-import {takeEvery} from 'redux-saga';
-import {put, select} from 'redux-saga/effects';
+import {put, select, takeEvery} from 'redux-saga/effects';
 import {
 	TOGGLE_CRITERION,
 	openCriterion,
@@ -23,5 +22,5 @@ function* toggleCriterionWorker({payload}) {
  *
  */
 export function* watchToggleCriterion() {
-	yield* takeEvery(TOGGLE_CRITERION, toggleCriterionWorker);
+	yield takeEvery(TOGGLE_CRITERION, toggleCriterionWorker);
 }

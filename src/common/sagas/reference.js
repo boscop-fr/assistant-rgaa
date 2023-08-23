@@ -1,5 +1,4 @@
-import {takeEvery} from 'redux-saga';
-import {call, put} from 'redux-saga/effects';
+import {all, call, put, takeEvery} from 'redux-saga/effects';
 import {setOption} from '../api/options';
 import {getReference, flattenReference} from '../api/reference';
 import {getHelpers} from '../api/helpers';
@@ -13,11 +12,11 @@ import {reset as resetChecklist} from '../actions/checklist';
  *
  */
 function* setReferenceVersionWorker({payload: {version}}) {
-	const [reference, helpers, instructions] = yield [
+	const [reference, helpers, instructions] = yield all([
 		call(getReference, version),
 		call(getHelpers, version),
 		call(fetchInstructions, version)
-	];
+	]);
 
 	const flattened = flattenReference(reference);
 
@@ -33,5 +32,5 @@ function* setReferenceVersionWorker({payload: {version}}) {
  *
  */
 export function* watchSetReferenceVersion() {
-	yield* takeEvery(SET_REFERENCE_VERSION, setReferenceVersionWorker);
+	yield takeEvery(SET_REFERENCE_VERSION, setReferenceVersionWorker);
 }

@@ -1,5 +1,4 @@
-import {takeEvery} from 'redux-saga';
-import {put, select, call} from 'redux-saga/effects';
+import {put, select, call, takeEvery} from 'redux-saga/effects';
 import {router} from '../../panel/routes';
 import {
 	getVersion,
@@ -31,5 +30,5 @@ function* applyWorker() {
  *
  */
 export function* watchApply() {
-	yield* takeEvery(APPLY, applyWorker);
+	yield takeEvery(APPLY, applyWorker);
 }
