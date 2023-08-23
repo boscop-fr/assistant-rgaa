@@ -1,9 +1,9 @@
 import React from 'react';
 import {RouterProvider, createMemoryRouter} from 'react-router';
 import AppContainer from './components/AppContainer';
-import HelpPage from './components/HelpPage';
+import MarkdownPage from './components/MarkdownPage';
 import ImportPageContainer from './components/ImportPageContainer';
-import ReferencePageContainer from './components/ReferencePageContainer';
+import ReferencePage from './components/ReferencePage';
 
 export const router = createMemoryRouter([
 	{
@@ -12,7 +12,7 @@ export const router = createMemoryRouter([
 		children: [
 			{
 				index: true,
-				element: <ReferencePageContainer />
+				element: <ReferencePage />
 			},
 			{
 				path: 'import',
@@ -20,7 +20,7 @@ export const router = createMemoryRouter([
 			},
 			{
 				path: 'help',
-				element: <HelpPage />
+				element: <MarkdownPage name="help" />
 			}
 		]
 	}

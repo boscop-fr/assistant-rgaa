@@ -7,7 +7,7 @@ import messages from '../common/messages/fr';
 import {OPEN_PANEL, CLOSE_PANEL} from '../common/actions/runtime';
 import getStore from './getStore';
 import {CONTAINER_ID} from './api/container';
-import AppContainer from './components/AppContainer';
+import App from './components/App';
 
 /**
  *	A DOM node containing the application.
@@ -31,7 +31,7 @@ const start = () => {
 		createRoot(container).render(
 			<Provider store={store}>
 				<IntlProvider locale="fr" messages={messages}>
-					<AppContainer />
+					<App />
 				</IntlProvider>
 			</Provider>
 		);

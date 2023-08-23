@@ -1,5 +1,5 @@
 import React from 'react';
-import ReferenceFormContainer from './ReferenceFormContainer';
+import ReferenceForm from './ReferenceForm';
 
 /**
  *
@@ -7,7 +7,7 @@ import ReferenceFormContainer from './ReferenceFormContainer';
 export default function App() {
 	return (
 		<div>
-			<ReferenceFormContainer />
+			<ReferenceForm />
 		</div>
 	);
 }

@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import {useSelector} from 'react-redux';
 import {CONTAINER_ID} from '../api/container';
 import ResizeHandle from './ResizeHandle';
 import PanelIframe from './PanelIframe';
+import {getPosition, isFolded} from '../../common/selectors/panel';
 
 /**
  *
@@ -17,7 +18,10 @@ const HandlePosition = {
 /**
  *
  */
-export default function App({position, folded}) {
+export default function App() {
+	const position = useSelector(getPosition);
+	const folded = useSelector(isFolded);
+
 	return (
 		<div
 			className={classNames({
@@ -39,8 +43,3 @@ export default function App({position, folded}) {
 		</div>
 	);
 }
-
-App.propTypes = {
-	position: PropTypes.oneOf(['left', 'right', 'bottom']).isRequired,
-	folded: PropTypes.bool.isRequired
-};

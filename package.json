@@ -100,7 +100,6 @@
     "react-router": "^6.15.0",
     "react-router-dom": "^6.15.0",
     "react-tabs": "^2.2.1",
-    "recompose": "^0.20.2",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.2.3",

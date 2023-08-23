@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import {useSelector} from 'react-redux';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {describe, info, component} from '../../helpers/api/helpers';
+import {getHelpersByTest} from '../../common/selectors/helpers';
 
 /**
  *
  */
-function TestHelpers({id, helpers, isOpen, onToggleRequest}) {
+function TestHelpers({id}) {
 	const intl = useIntl();
+	const [isOpen, setOpen] = useState(false);
+	const helpers = useSelector((state) => getHelpersByTest(state, id));
 	const containerClass = classNames('TestHelpers', 'TestSection', {
 		'is-open': isOpen
 	});
@@ -16,7 +20,7 @@ function TestHelpers({id, helpers, isOpen, onToggleRequest}) {
 		'u-hidden': !isOpen
 	});
 
-	const toggle = () => onToggleRequest(!isOpen);
+	const toggle = () => setOpen(!isOpen);
 
 	return (
 		<div className={containerClass}>
@@ -60,10 +64,7 @@ function TestHelpers({id, helpers, isOpen, onToggleRequest}) {
 }
 
 TestHelpers.propTypes = {
-	id: PropTypes.string.isRequired,
-	helpers: PropTypes.arrayOf(PropTypes.object).isRequired,
-	isOpen: PropTypes.bool.isRequired,
-	onToggleRequest: PropTypes.func.isRequired
+	id: PropTypes.string.isRequired
 };
 
 export default TestHelpers;

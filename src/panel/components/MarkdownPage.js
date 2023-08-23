@@ -1,21 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
+import frontmatter from 'frontmatter';
+import {marked} from 'marked';
+import {replaceLocalUrls} from '../../common/api/markdown';
 import Page from './Page';
 import RichText from './RichText';
 
 /**
  *
  */
-const MarkdownPage = ({name, title, html}) => (
-	<Page id={name} title={title}>
-		<RichText html={html} />
-	</Page>
-);
+const MarkdownPage = ({name}) => {
+	const [page, setPage] = useState({
+		title: '',
+		html: ''
+	});
+
+	useEffect(() => {
+		const basePath = `data/pages/${name}`;
+		const url = browser.extension.getURL(`${basePath}/index.md`);
+
+		fetch(url)
+			.then((response) => response.text())
+			.then(frontmatter)
+			.then(({data, content}) => {
+				setPage({
+					title: data.title,
+					html: marked(replaceLocalUrls(content, basePath))
+				});
+			});
+	}, []);
+
+	return (
+		<Page id={name} title={page.title}>
+			<RichText html={page.html} />
+		</Page>
+	);
+};
 
 MarkdownPage.propTypes = {
-	name: PropTypes.string.isRequired,
-	title: PropTypes.node.isRequired,
-	html: PropTypes.string.isRequired
+	name: PropTypes.string.isRequired
 };
 
 export default MarkdownPage;

@@ -1,38 +1,48 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
 import PropTypes from 'prop-types';
 import renderIf from 'render-if';
 import classNames from 'classnames';
-import {noop} from 'lodash';
+import {useDispatch, useSelector} from 'react-redux';
 import Icon from './Icon';
 import TestInstructions from './TestInstructions';
-import TestHelpersContainer from './TestHelpersContainer';
+import TestHelpers from './TestHelpers';
+import {isTestDone} from '../../common/selectors/checklist';
+import {testHasHelpers} from '../../common/selectors/helpers';
+import {isEnabled} from '../../common/selectors/tests';
+import {getInstructionsByTest} from '../../common/selectors/instructions';
+import {getOneTestResult} from '../../common/selectors/imports';
+import {disable, enable} from '../../common/actions/tests';
+import {setTestDone} from '../../common/actions/checklist';
 
 /**
  *
  */
-function Test({
-	id,
-	title,
-	instructions,
-	importResult,
-	applicable,
-	applied,
-	areInstructionsOpen,
-	toggleInstructions,
-	done,
-	onApply,
-	onDone
-}) {
+function Test({id, title}) {
+	const done = useSelector((state) => isTestDone(state, id));
+	const applicable = useSelector((state) => testHasHelpers(state, id));
+	const applied = useSelector((state) => isEnabled(state, id));
+	const instructions = useSelector((state) =>
+		getInstructionsByTest(state, id)
+	);
+	const importResult = useSelector((state) => getOneTestResult(state, id));
+	const dispatch = useDispatch();
+
+	const [areInstructionsOpen, setInstructionsOpen] = useState(applied);
 	const intl = useIntl();
+
 	const handleApplyChange = (event) => {
-		onApply(event.target.checked);
-		if (event.target.checked) {
-			toggleInstructions(true);
+		const {checked} = event.target;
+		dispatch(checked ? enable(id) : disable(id));
+
+		if (checked) {
+			setInstructionsOpen(true);
 		}
 	};
 
-	const handleDoneChange = (event) => onDone(event.target.checked);
+	const handleDoneChange = (event) => {
+		dispatch(setTestDone(id, event.target.checked));
+	};
 
 	const applyTranslateKey = applied ? 'uncheck' : 'check';
 	const className = classNames({
@@ -119,12 +129,12 @@ function Test({
 					id={id}
 					instructions={instructions}
 					isOpen={areInstructionsOpen}
-					onToggleRequest={toggleInstructions}
+					onToggleRequest={setInstructionsOpen}
 				/>
 			))}
 
 			{renderIf(applied)(() => (
-				<TestHelpersContainer id={id} />
+				<TestHelpers id={id} />
 			))}
 		</article>
 	);
@@ -132,25 +142,7 @@ function Test({
 
 Test.propTypes = {
 	id: PropTypes.string.isRequired,
-	title: PropTypes.string.isRequired,
-	instructions: PropTypes.string.isRequired,
-	importResult: PropTypes.string,
-	applicable: PropTypes.bool,
-	applied: PropTypes.bool,
-	done: PropTypes.bool,
-	onApply: PropTypes.func,
-	onDone: PropTypes.func,
-	areInstructionsOpen: PropTypes.bool.isRequired,
-	toggleInstructions: PropTypes.func.isRequired
-};
-
-Test.defaultProps = {
-	applicable: false,
-	applied: false,
-	done: false,
-	importResult: '',
-	onApply: noop,
-	onDone: noop
+	title: PropTypes.string.isRequired
 };
 
 export default Test;
