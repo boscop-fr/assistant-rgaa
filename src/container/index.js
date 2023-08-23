@@ -1,19 +1,13 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {Provider} from 'react-redux';
-import {IntlProvider, addLocaleData} from 'react-intl';
-import fr from 'react-intl/locale-data/fr';
+import {IntlProvider} from 'react-intl';
 import {noop} from 'lodash';
 import messages from '../common/messages/fr';
 import {OPEN_PANEL, CLOSE_PANEL} from '../common/actions/runtime';
 import getStore from './getStore';
 import {CONTAINER_ID} from './api/container';
 import AppContainer from './components/AppContainer';
-
-/**
- *
- */
-addLocaleData(fr);
 
 /**
  *	A DOM node containing the application.

@@ -13,7 +13,7 @@ import {apply as applyStyle, revert as revertStyle} from './style';
  *	@param {object} intl - Intl API.
  */
 export const describe = (intl) =>
-	intl.formatHTMLMessage({
+	intl.formatMessage({
 		id: 'Helper.disableAllStyles'
 	});
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage, intlShape, injectIntl} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import renderIf from 'render-if';
 import DockMenuContainer from './DockMenuContainer';
@@ -13,87 +13,90 @@ const Header = ({
 	referenceVersion,
 	inPopup,
 	title,
-	intl,
 	onOptionsClick,
 	onCloseClick,
 	onClosePopupClick,
 	onMinimizeClick
-}) => (
-	<header className="Header">
-		<h1 className="Header-title">
-			{renderIf(inPopup)(() => `${title} | `)}
-			RGAA v{referenceVersion}
-		</h1>
+}) => {
+	const intl = useIntl();
 
-		<div className="Header-actions">
-			<Link className="Header-themes Link" to="/">
-				<FormattedMessage id="Header.themes" />
-			</Link>
+	return (
+		<header className="Header">
+			<h1 className="Header-title">
+				{renderIf(inPopup)(() => `${title} | `)}
+				RGAA v{referenceVersion}
+			</h1>
 
-			<Link className="Header-help Link" to="/help">
-				<FormattedMessage id="Header.help" />
-			</Link>
+			<div className="Header-actions">
+				<Link className="Header-themes Link" to="/">
+					<FormattedMessage id="Header.themes" />
+				</Link>
 
-			<div className="Header-dock">
-				<DockMenuContainer />
-			</div>
+				<Link className="Header-help Link" to="/help">
+					<FormattedMessage id="Header.help" />
+				</Link>
 
-			<button
-				type="button"
-				onClick={onOptionsClick}
-				className="Header-options Link"
-				title={intl.formatMessage({id: 'Header.options'})}
-			>
-				<Icon
-					name="cog"
+				<div className="Header-dock">
+					<DockMenuContainer />
+				</div>
+
+				<button
+					type="button"
+					onClick={onOptionsClick}
+					className="Header-options Link"
 					title={intl.formatMessage({id: 'Header.options'})}
-				/>
-			</button>
-
-			{renderIf(!inPopup)(() => (
-				<button
-					type="button"
-					onClick={onMinimizeClick}
-					className="Header-minimize InvisibleButton"
-					title={intl.formatMessage({id: 'Header.minimize'})}
 				>
 					<Icon
-						name="window-minimize"
+						name="cog"
+						title={intl.formatMessage({id: 'Header.options'})}
+					/>
+				</button>
+
+				{renderIf(!inPopup)(() => (
+					<button
+						type="button"
+						onClick={onMinimizeClick}
+						className="Header-minimize InvisibleButton"
 						title={intl.formatMessage({id: 'Header.minimize'})}
-					/>
-				</button>
-			))}
+					>
+						<Icon
+							name="window-minimize"
+							title={intl.formatMessage({id: 'Header.minimize'})}
+						/>
+					</button>
+				))}
 
-			{renderIf(!inPopup)(() => (
-				<button
-					type="button"
-					onClick={onCloseClick}
-					className="Header-close InvisibleButton"
-					title={intl.formatMessage({id: 'Header.close'})}
-				>
-					<Icon
-						name="close"
+				{renderIf(!inPopup)(() => (
+					<button
+						type="button"
+						onClick={onCloseClick}
+						className="Header-close InvisibleButton"
 						title={intl.formatMessage({id: 'Header.close'})}
-					/>
-				</button>
-			))}
+					>
+						<Icon
+							name="close"
+							title={intl.formatMessage({id: 'Header.close'})}
+						/>
+					</button>
+				))}
 
-			{renderIf(inPopup)(() => (
-				<button
-					type="button"
-					onClick={onClosePopupClick}
-					className="Header-closePopup InvisibleButton"
-					title={intl.formatMessage({id: 'Header.closePopup'})}
-				>
-					<Icon
-						name="sidebar"
+				{renderIf(inPopup)(() => (
+					<button
+						type="button"
+						onClick={onClosePopupClick}
+						className="Header-closePopup InvisibleButton"
 						title={intl.formatMessage({id: 'Header.closePopup'})}
-					/>
-				</button>
-			))}
-		</div>
-	</header>
-);
+					>
+						<Icon
+							name="sidebar"
+							title={intl.formatMessage({id: 'Header.closePopup'})}
+						/>
+					</button>
+				))}
+			</div>
+		</header>
+	);
+};
 
 Header.propTypes = {
 	referenceVersion: PropTypes.string.isRequired,
@@ -102,8 +105,7 @@ Header.propTypes = {
 	onOptionsClick: PropTypes.func.isRequired,
 	onCloseClick: PropTypes.func.isRequired,
 	onClosePopupClick: PropTypes.func.isRequired,
-	onMinimizeClick: PropTypes.func.isRequired,
-	intl: intlShape.isRequired
+	onMinimizeClick: PropTypes.func.isRequired
 };
 
-export default injectIntl(Header);
+export default Header;

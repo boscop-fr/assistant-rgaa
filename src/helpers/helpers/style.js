@@ -16,7 +16,7 @@ export const defaults = {
  *	@param {object} options - Options.
  */
 export const describe = (intl, {description} = defaults) =>
-	intl.formatHTMLMessage(
+	intl.formatMessage(
 		{
 			id: 'Helper.style'
 		},

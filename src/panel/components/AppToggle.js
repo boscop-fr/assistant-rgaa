@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {injectIntl, intlShape} from 'react-intl';
+import {useIntl} from 'react-intl';
 
 /**
  *
  */
-function AppToggle({onClick, intl}) {
+function AppToggle({onClick}) {
+	const intl = useIntl();
+
 	return (
 		<button
 			type="button"
@@ -22,8 +24,7 @@ function AppToggle({onClick, intl}) {
 }
 
 AppToggle.propTypes = {
-	onClick: PropTypes.func.isRequired,
-	intl: intlShape.isRequired
+	onClick: PropTypes.func.isRequired
 };
 
-export default injectIntl(AppToggle);
+export default AppToggle;

@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {injectIntl, intlShape} from 'react-intl';
+import {useIntl} from 'react-intl';
 
-function ExternalReferences({refLinks, intl}) {
+function ExternalReferences({refLinks}) {
+	const intl = useIntl();
+
 	return (
 		<div className="References-container">
 			<div className="Wcag-success">
@@ -36,9 +38,7 @@ function ExternalReferences({refLinks, intl}) {
 }
 
 ExternalReferences.propTypes = {
-	refLinks: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-		.isRequired,
-	intl: intlShape.isRequired
+	refLinks: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired
 };
 
-export default injectIntl(ExternalReferences);
+export default ExternalReferences;

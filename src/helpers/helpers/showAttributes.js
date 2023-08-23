@@ -1,3 +1,4 @@
+import React from 'react';
 import $ from 'jquery';
 import join from '../../common/api/join';
 import serializeAttributes from '../api/serializeAttributes';
@@ -27,7 +28,7 @@ export const describe = (
 	intl,
 	{selector, attributes, showMissing} = defaults
 ) =>
-	intl.formatHTMLMessage(
+	intl.formatMessage(
 		{
 			id: 'Helper.showAttributes'
 		},
@@ -35,7 +36,8 @@ export const describe = (
 			selector: sanitize(selector),
 			attributes: join(attributes),
 			attributeCount: attributes.length,
-			showMissing
+			showMissing,
+			code: (chunks) => <code>{chunks}</code>
 		}
 	);
 

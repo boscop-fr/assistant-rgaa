@@ -28,7 +28,7 @@ export const component = () => HeadingsHierarchyContainer;
  *	Describes the helper.
  */
 export const describe = (intl) =>
-	intl.formatHTMLMessage({
+	intl.formatMessage({
 		id: 'Helper.headingsHierarchy'
 	});
 

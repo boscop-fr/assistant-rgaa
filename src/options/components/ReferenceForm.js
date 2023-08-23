@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage, injectIntl} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 import renderIf from 'render-if';
 
 /**
@@ -71,4 +71,4 @@ ReferenceForm.propTypes = {
 	showSuccessMessage: PropTypes.bool.isRequired
 };
 
-export default injectIntl(ReferenceForm);
+export default ReferenceForm;
