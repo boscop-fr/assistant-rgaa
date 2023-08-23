@@ -1,27 +1,61 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {FormattedMessage} from 'react-intl';
 import {partial} from 'lodash';
+import React from 'react';
+import {FormattedMessage} from 'react-intl';
+import {useDispatch, useSelector} from 'react-redux';
 import renderIf from 'render-if';
+import {
+	getConfig,
+	getHumanReadableErrors,
+	getVersion as getImportVersion,
+	isPending,
+	isValid
+} from '../../common/selectors/imports';
+import {getVersion as getReferenceVersion} from '../../common/selectors/reference';
+import {
+	setErrors,
+	setConfig,
+	setContent,
+	setPending,
+	apply,
+	reset
+} from '../../common/actions/imports';
+import {getCsv} from '../../common/api/imports';
 
 /**
  *
  */
-export default function ImportForm({
-	pending,
-	valid,
-	errors,
-	importVersion,
-	globalVersion,
-	config,
-	onConfigChange,
-	onReset,
-	onFileSelection,
-	onSubmit
-}) {
+export default function ImportForm() {
+	const globalVersion = useSelector(getReferenceVersion);
+
+	if (!globalVersion) {
+		return null;
+	}
+
+	const importVersion = useSelector(getImportVersion);
+	const pending = useSelector(isPending);
+	const valid = useSelector(isValid);
+	const errors = useSelector(getHumanReadableErrors);
+	const config = useSelector(getConfig);
+	const dispatch = useDispatch();
+
+	const handleFileSelection = (content) => {
+		dispatch(setPending(true));
+		getCsv(content, config).then(({data, errors: csvErrors}) => {
+			dispatch(csvErrors.length ? setErrors(csvErrors) : setContent(data));
+			setPending(false);
+		});
+	};
+
 	const onFormSubmit = (event) => {
 		event.preventDefault();
-		onSubmit();
+
+		if (valid) {
+			dispatch(apply());
+		}
+	};
+
+	const onFormReset = () => {
+		dispatch(reset());
 	};
 
 	const onFileChange = (event) => {
@@ -30,13 +64,14 @@ export default function ImportForm({
 		}
 		const reader = new FileReader();
 		reader.onloadend = () => {
-			onFileSelection(reader.result);
+			handleFileSelection(reader.result);
 		};
 		reader.readAsText(event.target.files[0]);
 	};
 
-	const onTextChange = (name, event) =>
-		onConfigChange(name, event.target.value);
+	const onTextChange = (name, event) => {
+		dispatch(setConfig(name, event.target.value));
+	};
 
 	return (
 		<form onSubmit={onFormSubmit}>
@@ -127,7 +162,7 @@ export default function ImportForm({
 
 				<button
 					type="button"
-					onClick={onReset}
+					onClick={onFormReset}
 					className="ImportForm-button"
 				>
 					<FormattedMessage id="Import.reset" />
@@ -136,21 +171,3 @@ export default function ImportForm({
 		</form>
 	);
 }
-
-ImportForm.propTypes = {
-	importVersion: PropTypes.string.isRequired,
-	globalVersion: PropTypes.string.isRequired,
-	onReset: PropTypes.func.isRequired,
-	onFileSelection: PropTypes.func.isRequired,
-	onConfigChange: PropTypes.func.isRequired,
-	config: PropTypes.shape({
-		delimiter: PropTypes.string,
-		quoteChar: PropTypes.string
-	}).isRequired,
-	onSubmit: PropTypes.func.isRequired,
-	errors: PropTypes.arrayOf(PropTypes.string).isRequired,
-	valid: PropTypes.bool.isRequired,
-	pending: PropTypes.bool.isRequired
-};
-
-ImportForm.defaultProps = {};

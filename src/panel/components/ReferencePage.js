@@ -1,73 +1,62 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import {debounce, map} from 'lodash';
+import React, {useCallback} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import renderIf from 'render-if';
-import {map, noop, debounce} from 'lodash';
-import {ThemeShape} from '../../common/types/theme';
-import ThemesListContainer from './ThemesListContainer';
+import {saveScrollPosition} from '../../common/actions/themes';
+import {getAllThemes, isLoaded} from '../../common/selectors/reference';
+import {getScrollPosition} from '../../common/selectors/themes';
 import DevToolsContainer from './DevToolsContainer';
-import ThemeContainer from './ThemeContainer';
 import StylesToggleContainer from './StylesToggleContainer';
+import Theme from './Theme';
+import ThemesListContainer from './ThemesListContainer';
+import deferRendering from './deferRendering';
 
 /**
  *
  */
-export default class ReferencePage extends Component {
-	constructor(props) {
-		super(props);
-		this.bindThemes = this.bindThemes.bind(this);
-		this.onScroll = debounce(this.props.onScroll, 500);
-	}
+const ReferencePage = () => {
+	const isReferenceLoaded = useSelector(isLoaded);
+	const initialScrollPosition = useSelector(getScrollPosition);
+	const themes = useSelector(getAllThemes);
+	const dispatch = useDispatch();
 
-	componentDidMount() {
-		if (!this.themesElement) {
-			return;
+	const handleScroll = debounce((event) => {
+		dispatch(saveScrollPosition(event.target.scrollTop));
+	}, 500);
+
+	const themesRef = useCallback((node) => {
+		if (node !== null && initialScrollPosition) {
+			// eslint-disable-next-line no-param-reassign
+			node.scrollTop = initialScrollPosition;
 		}
+	}, []);
 
-		if (this.props.initialScrollPosition) {
-			this.themesElement.scrollTop = this.props.initialScrollPosition;
-		}
-
-		this.themesElement.addEventListener('scroll', this.onScroll, false);
+	if (!isReferenceLoaded) {
+		return null;
 	}
 
-	componentWillUnmount() {
-		if (!this.themesElement) {
-			return;
-		}
+	return (
+		<div className="ReferencePage">
+			{renderIf(process.env.NODE_ENV !== 'production')(() => (
+				<DevToolsContainer />
+			))}
 
-		this.themesElement.removeEventListener('scroll', this.onScroll, false);
-	}
-
-	bindThemes(domElement) {
-		this.themesElement = domElement;
-	}
-
-	render() {
-		return (
-			<div className="ReferencePage">
-				{renderIf(process.env.NODE_ENV !== 'production')(() => (
-					<DevToolsContainer />
-				))}
-				<div className="ReferencePage-actions">
-					<ThemesListContainer />
-					<StylesToggleContainer />
-				</div>
-				<div ref={this.bindThemes} className="ReferencePage-themes">
-					{map(this.props.themes, (theme, n) => (
-						<ThemeContainer key={n} theme={theme} />
-					))}
-				</div>
+			<div className="ReferencePage-actions">
+				<ThemesListContainer />
+				<StylesToggleContainer />
 			</div>
-		);
-	}
-}
 
-ReferencePage.propTypes = {
-	themes: PropTypes.arrayOf(ThemeShape).isRequired,
-	initialScrollPosition: PropTypes.number.isRequired,
-	onScroll: PropTypes.func
+			<div
+				className="ReferencePage-themes"
+				onScroll={handleScroll}
+				ref={themesRef}
+			>
+				{map(themes, (theme, n) => (
+					<Theme key={n} theme={theme} />
+				))}
+			</div>
+		</div>
+	);
 };
 
-ReferencePage.defaultProps = {
-	onScroll: noop
-};
+export default deferRendering(ReferencePage);

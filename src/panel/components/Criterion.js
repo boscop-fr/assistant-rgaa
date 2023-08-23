@@ -7,7 +7,7 @@ import renderIf from 'render-if';
 import classNames from 'classnames';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import {TestShape} from '../../common/types/test';
-import TestContainer from './TestContainer';
+import Test from './Test';
 import Icon from './Icon';
 import ExternalReferences from './ExternalReferences';
 import SpecialCasesTechnicalNotes from './SpecialCasesTechnicalNotes';
@@ -150,7 +150,7 @@ function Criterion({
 								className="Criterion-test"
 								key={`criterion-${id}-test-${testId}`}
 							>
-								<TestContainer id={testId} title={testTitle} />
+								<Test id={testId} title={testTitle} />
 							</li>
 						))}
 					</ul>,
