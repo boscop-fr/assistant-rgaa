@@ -1,5 +1,4 @@
-import {takeEvery} from 'redux-saga';
-import {put} from 'redux-saga/effects';
+import {put, takeEvery} from 'redux-saga/effects';
 import {sendMessage} from '../api/runtime';
 import {OPEN_POPUP, CLOSE_POPUP} from '../actions/runtime';
 import {applyAllHelpers, revertAllHelpers} from '../actions/helpers';
@@ -37,19 +36,19 @@ export function* closeWorker() {
  *
  */
 export function* watchSetPosition() {
-	yield* takeEvery(SET_POSITION, setPositionWorker);
+	yield takeEvery(SET_POSITION, setPositionWorker);
 }
 
 /**
  *
  */
 export function* watchOpen() {
-	yield* takeEvery(OPEN, openWorker);
+	yield takeEvery(OPEN, openWorker);
 }
 
 /**
  *
  */
 export function* watchClose() {
-	yield* takeEvery(CLOSE, closeWorker);
+	yield takeEvery(CLOSE, closeWorker);
 }

@@ -1,5 +1,4 @@
-import {takeEvery} from 'redux-saga';
-import {call, put, select} from 'redux-saga/effects';
+import {call, put, select, takeEvery} from 'redux-saga/effects';
 import {
 	APPLY,
 	APPLY_ALL,
@@ -56,26 +55,26 @@ function* revertAllSaga() {
  *
  */
 export function* watchApply() {
-	yield* takeEvery(APPLY, applySaga);
+	yield takeEvery(APPLY, applySaga);
 }
 
 /**
  *
  */
 export function* watchRevert() {
-	yield* takeEvery(REVERT, revertSaga);
+	yield takeEvery(REVERT, revertSaga);
 }
 
 /**
  *
  */
 export function* watchApplyAll() {
-	yield* takeEvery(APPLY_ALL, applyAllSaga);
+	yield takeEvery(APPLY_ALL, applyAllSaga);
 }
 
 /**
  *
  */
 export function* watchRevertAll() {
-	yield* takeEvery(REVERT_ALL, revertAllSaga);
+	yield takeEvery(REVERT_ALL, revertAllSaga);
 }
