@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 import {partial} from 'lodash';
 import renderIf from 'render-if';
 
@@ -94,7 +94,7 @@ export default function ImportForm({
 			))}
 			{renderIf(valid && importVersion !== globalVersion)(() => (
 				<p className="ImportForm-warning">
-					<FormattedHTMLMessage
+					<FormattedMessage
 						id="Import.versionDifference"
 						values={{
 							version: importVersion

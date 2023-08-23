@@ -129,7 +129,7 @@ export const component = () => ColorContrastContainer;
  *	Describes the helper.
  */
 export const describe = (intl) =>
-	intl.formatHTMLMessage({
+	intl.formatMessage({
 		id: 'Helper.colorContrast'
 	});
 

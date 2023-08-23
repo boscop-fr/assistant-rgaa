@@ -1,6 +1,6 @@
 import React from 'react';
+import {useIntl} from 'react-intl';
 import PropTypes from 'prop-types';
-import {injectIntl, intlShape} from 'react-intl';
 import renderIf from 'render-if';
 import classNames from 'classnames';
 import {noop} from 'lodash';
@@ -22,9 +22,9 @@ function Test({
 	toggleInstructions,
 	done,
 	onApply,
-	onDone,
-	intl
+	onDone
 }) {
+	const intl = useIntl();
 	const handleApplyChange = (event) => {
 		onApply(event.target.checked);
 		if (event.target.checked) {
@@ -140,7 +140,6 @@ Test.propTypes = {
 	done: PropTypes.bool,
 	onApply: PropTypes.func,
 	onDone: PropTypes.func,
-	intl: intlShape.isRequired,
 	areInstructionsOpen: PropTypes.bool.isRequired,
 	toggleInstructions: PropTypes.func.isRequired
 };
@@ -154,4 +153,4 @@ Test.defaultProps = {
 	onDone: noop
 };
 
-export default injectIntl(Test);
+export default Test;

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {intlShape, injectIntl} from 'react-intl';
 import renderIf from 'render-if';
 import {get} from 'lodash';
 import createColor from 'color';
@@ -12,10 +11,9 @@ import {
 	UPDATE_COLOR,
 	UPDATE_STYLE
 } from '../actions/colorContrast';
-import Icon from '../../panel/components/Icon';
 import ColorContrastResult from './ColorContrastResult';
-import ColorInput from './ColorInput';
 import ToggleButton from './ToggleButton';
+import ColorContrastField from './ColorContrastField';
 
 /**
  *	Shape of a color input configuration.
@@ -116,52 +114,25 @@ class ColorContrastContainer extends Component {
 	}
 
 	renderField(name, {label, pixelPicker, textPicker}) {
-		const id = `ColorField--${name}`;
-		const {intl} = this.props;
 		const {pickRequest, pickedColor} = this.state;
 
 		return (
-			<div className="Form-field" key={name}>
-				<label className="Form-label" htmlFor={id}>
-					{label}
-				</label>
-
-				<ColorInput
-					id={id}
-					color={this.state[name]}
-					onChange={(value) => this.handleChangeColor(name, value)}
-				>
-					{renderIf(pixelPicker)(() => (
-						<ToggleButton
-							pressed={
-								pickedColor === name &&
-								pickRequest === REQUEST_PIXEL_COLOR
-							}
-							onPress={() => this.handlePick(name, REQUEST_PIXEL_COLOR)}
-							title={intl.formatMessage({
-								id: 'ColorInput.pickPixelButton.title'
-							})}
-						>
-							<Icon name="eyedropper" />
-						</ToggleButton>
-					))}
-
-					{renderIf(textPicker)(() => (
-						<ToggleButton
-							pressed={
-								pickedColor === name &&
-								pickRequest === REQUEST_TEXT_COLOR
-							}
-							onClick={() => this.handlePick(name, REQUEST_TEXT_COLOR)}
-							title={intl.formatMessage({
-								id: 'ColorInput.pickTextButton.title'
-							})}
-						>
-							<Icon name="cursor" />
-						</ToggleButton>
-					))}
-				</ColorInput>
-			</div>
+			<ColorContrastField
+				name={name}
+				label={label}
+				color={this.state[name]}
+				hasPixelPicker={pixelPicker}
+				hasTextPicker={textPicker}
+				isPickingPixel={
+					pickedColor === name && pickRequest === REQUEST_PIXEL_COLOR
+				}
+				isPickingText={
+					pickedColor === name && pickRequest === REQUEST_TEXT_COLOR
+				}
+				onPickPixel={() => this.handlePick(name, REQUEST_PIXEL_COLOR)}
+				onPickText={() => this.handlePick(name, REQUEST_TEXT_COLOR)}
+				onChangeColor={(value) => this.handleChangeColor(name, value)}
+			/>
 		);
 	}
 
@@ -199,12 +170,11 @@ ColorContrastContainer.propTypes = {
 	left: colorInputConfigShape.isRequired,
 	right: colorInputConfigShape.isRequired,
 	extractor: extractorConfigShape,
-	minimumRatio: PropTypes.number.isRequired,
-	intl: intlShape.isRequired
+	minimumRatio: PropTypes.number.isRequired
 };
 
 ColorContrastContainer.defaultProps = {
 	extractor: undefined
 };
 
-export default injectIntl(ColorContrastContainer);
+export default ColorContrastContainer;

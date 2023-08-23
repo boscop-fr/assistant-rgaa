@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {Wrapper, Button, Menu, MenuItem} from 'react-aria-menubutton';
 import {Position} from '../../common/api/panel';
 import Icon from './Icon';
@@ -38,7 +38,8 @@ DockMenuItem.propTypes = {
 /**
  *
  */
-function DockMenu({position, onPositionChange, intl}) {
+function DockMenu({position, onPositionChange}) {
+	const intl = useIntl();
 	const onDropdownSelection = (callback) => callback();
 
 	return (
@@ -94,8 +95,7 @@ function DockMenu({position, onPositionChange, intl}) {
 
 DockMenu.propTypes = {
 	position: PropTypes.string.isRequired,
-	onPositionChange: PropTypes.func.isRequired,
-	intl: intlShape.isRequired
+	onPositionChange: PropTypes.func.isRequired
 };
 
-export default injectIntl(DockMenu);
+export default DockMenu;

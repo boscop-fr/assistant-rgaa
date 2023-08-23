@@ -5,7 +5,7 @@ import ViewSourceContainer from '../components/ViewSourceContainer';
  *	Describes the helper.
  */
 export const describe = (intl) =>
-	intl.formatHTMLMessage({
+	intl.formatMessage({
 		id: 'Helper.viewSource'
 	});
 

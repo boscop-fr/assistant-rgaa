@@ -1,11 +1,12 @@
 import React from 'react';
-import {injectIntl, intlShape} from 'react-intl';
+import {useIntl} from 'react-intl';
 import {IFRAME_FILE, CONTAINER_ID} from '../api/container';
 
 /**
  *
  */
-function PanelIframe({intl}) {
+function PanelIframe() {
+	const intl = useIntl();
 	const IFRAME_SRC = browser.runtime.getURL(IFRAME_FILE);
 
 	return (
@@ -22,8 +23,4 @@ function PanelIframe({intl}) {
 	);
 }
 
-PanelIframe.propTypes = {
-	intl: intlShape.isRequired
-};
-
-export default injectIntl(PanelIframe);
+export default PanelIframe;

@@ -1,13 +1,10 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {Provider} from 'react-redux';
-import {IntlProvider, addLocaleData} from 'react-intl';
-import fr from 'react-intl/locale-data/fr';
+import {IntlProvider} from 'react-intl';
 import messages from '../common/messages/fr';
 import getStore from './getStore';
 import App from './components/App';
-
-addLocaleData(fr);
 
 getStore()
 	.then((store) => (

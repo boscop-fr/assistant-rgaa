@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {map, isNull, isEmpty} from 'lodash';
-import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import renderIf from 'render-if';
 import classNames from 'classnames';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
@@ -26,11 +26,11 @@ function Criterion({
 	importResults,
 	onToggle,
 	onDone,
-	intl,
 	refLinks,
 	specialCases,
 	notes
 }) {
+	const intl = useIntl();
 	const className = classNames('Criterion Theme-criterion', {
 		'is-open': isOpen,
 		'Criterion--hasActiveTest': !!activeTest
@@ -212,7 +212,6 @@ Criterion.propTypes = {
 	onToggle: PropTypes.func.isRequired,
 	isDone: PropTypes.bool,
 	onDone: PropTypes.func.isRequired,
-	intl: intlShape.isRequired,
 	refLinks: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 		.isRequired,
 	specialCases: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
@@ -228,4 +227,4 @@ Criterion.defaultProps = {
 	notes: null
 };
 
-export default injectIntl(Criterion);
+export default Criterion;

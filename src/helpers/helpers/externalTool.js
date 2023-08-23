@@ -16,7 +16,7 @@ export const defaults = {
  *	@param {object} intl - Intl API.
  */
 export const describe = (intl, {name} = defaults) =>
-	intl.formatHTMLMessage(
+	intl.formatMessage(
 		{
 			id: 'Helper.externalTool'
 		},

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormattedMessage, injectIntl} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 import classNames from 'classnames';
 
 /**
@@ -49,4 +49,4 @@ TestInstructions.propTypes = {
 	onToggleRequest: PropTypes.func.isRequired
 };
 
-export default injectIntl(TestInstructions);
+export default TestInstructions;

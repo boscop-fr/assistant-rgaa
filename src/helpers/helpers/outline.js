@@ -1,3 +1,4 @@
+import React from 'react';
 import $ from 'jquery';
 import showTagApi from '../api/showTag';
 import hideHelperElement from '../api/hideHelperElement';
@@ -19,13 +20,14 @@ export const defaults = {
  *	@param {object} options - Options.
  */
 export const describe = (intl, {selector, showTag} = defaults) =>
-	intl.formatHTMLMessage(
+	intl.formatMessage(
 		{
 			id: 'Helper.outline'
 		},
 		{
 			showTag,
-			selector: sanitize(selector)
+			selector: sanitize(selector),
+			code: (chunks) => <code>{chunks}</code>
 		}
 	);
 

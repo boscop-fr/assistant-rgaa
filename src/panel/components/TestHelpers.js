@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {FormattedMessage, intlShape, injectIntl} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {describe, info, component} from '../../helpers/api/helpers';
 
 /**
  *
  */
-function TestHelpers({id, helpers, isOpen, onToggleRequest, intl}) {
+function TestHelpers({id, helpers, isOpen, onToggleRequest}) {
+	const intl = useIntl();
 	const containerClass = classNames('TestHelpers', 'TestSection', {
 		'is-open': isOpen
 	});
@@ -34,14 +35,8 @@ function TestHelpers({id, helpers, isOpen, onToggleRequest, intl}) {
 			<div id={`TestHelpers-${id}`} className={contentClass}>
 				<ol>
 					{helpers.map((helper, i) => (
-						<li
-							// eslint-disable-next-line react/no-array-index-key
-							key={i}
-							// eslint-disable-next-line react/no-danger
-							dangerouslySetInnerHTML={{
-								__html: describe(intl, helper)
-							}}
-						/>
+						// eslint-disable-next-line react/no-array-index-key
+						<li key={i}>{describe(intl, helper)}</li>
 					))}
 				</ol>
 			</div>
@@ -68,8 +63,7 @@ TestHelpers.propTypes = {
 	id: PropTypes.string.isRequired,
 	helpers: PropTypes.arrayOf(PropTypes.object).isRequired,
 	isOpen: PropTypes.bool.isRequired,
-	onToggleRequest: PropTypes.func.isRequired,
-	intl: intlShape.isRequired
+	onToggleRequest: PropTypes.func.isRequired
 };
 
-export default injectIntl(TestHelpers);
+export default TestHelpers;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {intlShape, injectIntl} from 'react-intl';
+import {useIntl} from 'react-intl';
 import classNames from 'classnames';
 import createColor from 'color';
 
@@ -19,7 +19,8 @@ const isValidColor = (color) => {
 /**
  *
  */
-const ColorInput = ({id, color, onChange, children, intl}) => {
+const ColorInput = ({id, color, onChange, children}) => {
+	const intl = useIntl();
 	const handleChange = (event) => onChange(event.target.value);
 
 	const isInvalid = !isValidColor(color);
@@ -67,8 +68,7 @@ ColorInput.propTypes = {
 	id: PropTypes.string.isRequired,
 	color: PropTypes.string.isRequired,
 	onChange: PropTypes.func.isRequired,
-	children: PropTypes.node.isRequired,
-	intl: intlShape.isRequired
+	children: PropTypes.node.isRequired
 };
 
-export default injectIntl(ColorInput);
+export default ColorInput;

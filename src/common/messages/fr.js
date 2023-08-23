@@ -57,7 +57,7 @@ const messages = {
 	'Import.submit': 'Importer',
 	'Import.reset': 'Réinitialiser',
 	'Import.singleReset': "Réinitialiser les données d'import actuelles",
-	'Import.versionDifference': `&#9888; La version du référentiel RGAA utilisée par
+	'Import.versionDifference': `⚠ La version du référentiel RGAA utilisée par
 		l'extension (configurable dans les options) va être définie à la version {version}
 		pour faire fonctionner l'import.`,
 	'ImportResults.c.title': `
@@ -209,7 +209,6 @@ const messages = {
 			}
 		</ul>
 	`,
-	'Helper.showTag': 'Affiche les éléments <code>{selector}</code>',
 	'Helper.style': `
 		{hasDescription, select,
 			true {{description}}
