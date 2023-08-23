@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {FormattedMessage, intlShape, injectIntl} from 'react-intl';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import renderIf from 'render-if';
 import DockMenuContainer from './DockMenuContainer';
 import Icon from './Icon';

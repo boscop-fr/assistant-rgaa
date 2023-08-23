@@ -1,21 +1,29 @@
 import React from 'react';
-import {Router, Route, IndexRoute} from 'react-router';
-import memoryHistory from '../common/history';
+import {RouterProvider, createMemoryRouter} from 'react-router';
 import AppContainer from './components/AppContainer';
-import ReferencePageContainer from './components/ReferencePageContainer';
-import ImportPageContainer from './components/ImportPageContainer';
 import HelpPage from './components/HelpPage';
+import ImportPageContainer from './components/ImportPageContainer';
+import ReferencePageContainer from './components/ReferencePageContainer';
 
-/**
- * Application routes.
- */
-export default () => (
-	<Router history={memoryHistory}>
-		<Route path="/" component={AppContainer}>
-			<IndexRoute component={ReferencePageContainer} />
+export const router = createMemoryRouter([
+	{
+		path: '/',
+		element: <AppContainer />,
+		children: [
+			{
+				index: true,
+				element: <ReferencePageContainer />
+			},
+			{
+				path: 'import',
+				element: <ImportPageContainer />
+			},
+			{
+				path: 'help',
+				element: <HelpPage />
+			}
+		]
+	}
+]);
 
-			<Route path="import" component={ImportPageContainer} />
-			<Route path="help" component={HelpPage} />
-		</Route>
-	</Router>
-);
+export default () => <RouterProvider router={router} />;

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Outlet} from 'react-router';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import HeaderContainer from './HeaderContainer';
@@ -7,7 +8,7 @@ import AppToggle from './AppToggle';
 /**
  *
  */
-export default function App({folded, onUnfoldRequest, children}) {
+export default function App({folded, onUnfoldRequest}) {
 	return (
 		<div className="App">
 			<div
@@ -17,7 +18,7 @@ export default function App({folded, onUnfoldRequest, children}) {
 				})}
 			>
 				<HeaderContainer />
-				{children}
+				<Outlet />
 			</div>
 
 			<div
@@ -33,11 +34,6 @@ export default function App({folded, onUnfoldRequest, children}) {
 }
 
 App.propTypes = {
-	children: PropTypes.element,
 	folded: PropTypes.bool.isRequired,
 	onUnfoldRequest: PropTypes.func.isRequired
-};
-
-App.defaultProps = {
-	children: undefined
 };

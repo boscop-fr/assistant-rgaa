@@ -1,6 +1,6 @@
 import {takeEvery} from 'redux-saga';
 import {put, select, call} from 'redux-saga/effects';
-import memoryHistory from '../history';
+import {router} from '../../panel/routes';
 import {
 	getVersion,
 	findTestResults,
@@ -24,7 +24,7 @@ function* applyWorker() {
 	const criteriaResults = yield select(findCriteriaResults);
 	yield put(setTestsResults(testResults));
 	yield put(setCriteriaResults(criteriaResults));
-	yield call(memoryHistory.push, '/');
+	yield call(router.navigate, '/');
 }
 
 /**
