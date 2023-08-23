@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import renderIf from 'render-if';
 import {map, noop, debounce} from 'lodash';
 import {ThemeShape} from '../../common/types/theme';

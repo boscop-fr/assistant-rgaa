@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {sendMessage} from '../../common/api/runtime';
 import {GET_CURRENT_TAB, CREATE_TAB} from '../../common/actions/runtime';
 import HelperButton from './HelperButton';

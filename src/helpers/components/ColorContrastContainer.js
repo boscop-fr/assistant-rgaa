@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {intlShape, injectIntl} from 'react-intl';
 import renderIf from 'render-if';
 import {get} from 'lodash';

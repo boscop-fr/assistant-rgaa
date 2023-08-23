@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {map, isNull, isEmpty} from 'lodash';
 import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
 import renderIf from 'render-if';

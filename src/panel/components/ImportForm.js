@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 import {partial} from 'lodash';
 import renderIf from 'render-if';
