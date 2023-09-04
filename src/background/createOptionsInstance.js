@@ -4,8 +4,8 @@ import createStore from './createStore';
 /**
  *
  */
-export default function createOptionsInstance(sharedStore) {
-	const store = createStore('background-options', sharedStore, sendMessage);
+export default function createOptionsInstance() {
+	const store = createStore('background-options', sendMessage);
 
 	return {
 		sendMessage,

@@ -10,19 +10,10 @@ import checklist from './checklist';
 import imports from './imports';
 import styles from './styles';
 
-/**
- *	Reducers shared by each instance in the background.
- */
-export const sharedReducers = {
+export const reducers = {
 	reference,
 	instructions,
-	helpers
-};
-
-/**
- *	Reducers that are instance-specific in the background.
- */
-export const appReducers = {
+	helpers,
 	panel,
 	themes,
 	criteria,
@@ -30,11 +21,6 @@ export const appReducers = {
 	checklist,
 	imports,
 	styles
-};
-
-export const reducers = {
-	...sharedReducers,
-	...appReducers
 };
 
 export default combineReducers(reducers);
