@@ -1,6 +1,4 @@
-import {createStore, combineReducers} from 'redux';
 import {has, get, unset, forEach, method} from 'lodash';
-import {sharedReducers} from '../common/reducers';
 import createAppInstance from './createAppInstance';
 import createOptionsInstance from './createOptionsInstance';
 
@@ -8,13 +6,12 @@ import createOptionsInstance from './createOptionsInstance';
  *
  */
 export default function createInstancePool() {
-	const sharedStore = createStore(combineReducers(sharedReducers));
 	const instances = {};
 	let optionsInstance;
 
 	//
 	const create = (id) => {
-		const instance = createAppInstance(id, sharedStore);
+		const instance = createAppInstance(id);
 		instances[id] = instance;
 		return instance;
 	};
@@ -38,7 +35,7 @@ export default function createInstancePool() {
 	// Registers the popup id on which the instance runs.
 	const getOptionsInstance = () => {
 		if (!optionsInstance) {
-			optionsInstance = createOptionsInstance(sharedStore);
+			optionsInstance = createOptionsInstance();
 		}
 
 		return optionsInstance;
