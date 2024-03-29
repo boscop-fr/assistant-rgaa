@@ -1,5 +1,4 @@
 import {includes, map} from 'lodash';
-import {getOption} from './options';
 
 export const DEFAULT_VERSION = '4-2023';
 
@@ -19,14 +18,6 @@ export const getReferencesList = () => [
  */
 export const isVersionValid = (version) =>
 	includes(map(getReferencesList(), 'version'), version);
-
-/**
- *
- */
-export const getReferenceOption = () =>
-	getOption('reference').then((version) =>
-		isVersionValid(version) ? version : DEFAULT_VERSION
-	);
 
 /*
  * retrieve the reference full json object from a given reference version property

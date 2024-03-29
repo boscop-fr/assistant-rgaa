@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import renderIf from 'render-if';
-import DockMenuContainer from './DockMenuContainer';
 import Icon from './Icon';
 
 /**
@@ -13,10 +12,8 @@ const Header = ({
 	referenceVersion,
 	inPopup,
 	title,
-	onOptionsClick,
-	onCloseClick,
-	onClosePopupClick,
-	onMinimizeClick
+	onOpenOptions,
+	onTogglePopup
 }) => {
 	const intl = useIntl();
 
@@ -36,13 +33,11 @@ const Header = ({
 					<FormattedMessage id="Header.help" />
 				</Link>
 
-				<div className="Header-dock">
-					<DockMenuContainer />
-				</div>
+				<div className="Header-dock" />
 
 				<button
 					type="button"
-					onClick={onOptionsClick}
+					onClick={onOpenOptions}
 					className="Header-options Link"
 					title={intl.formatMessage({id: 'Header.options'})}
 				>
@@ -55,41 +50,13 @@ const Header = ({
 				{renderIf(!inPopup)(() => (
 					<button
 						type="button"
-						onClick={onMinimizeClick}
-						className="Header-minimize InvisibleButton"
-						title={intl.formatMessage({id: 'Header.minimize'})}
+						onClick={onTogglePopup}
+						className="Header-openPopup InvisibleButton"
+						title={intl.formatMessage({id: 'Header.openPopup'})}
 					>
 						<Icon
-							name="window-minimize"
-							title={intl.formatMessage({id: 'Header.minimize'})}
-						/>
-					</button>
-				))}
-
-				{renderIf(!inPopup)(() => (
-					<button
-						type="button"
-						onClick={onCloseClick}
-						className="Header-close InvisibleButton"
-						title={intl.formatMessage({id: 'Header.close'})}
-					>
-						<Icon
-							name="close"
-							title={intl.formatMessage({id: 'Header.close'})}
-						/>
-					</button>
-				))}
-
-				{renderIf(inPopup)(() => (
-					<button
-						type="button"
-						onClick={onClosePopupClick}
-						className="Header-closePopup InvisibleButton"
-						title={intl.formatMessage({id: 'Header.closePopup'})}
-					>
-						<Icon
-							name="sidebar"
-							title={intl.formatMessage({id: 'Header.closePopup'})}
+							name="popup"
+							title={intl.formatMessage({id: 'Header.openPopup'})}
 						/>
 					</button>
 				))}
@@ -102,10 +69,8 @@ Header.propTypes = {
 	referenceVersion: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
 	inPopup: PropTypes.bool.isRequired,
-	onOptionsClick: PropTypes.func.isRequired,
-	onCloseClick: PropTypes.func.isRequired,
-	onClosePopupClick: PropTypes.func.isRequired,
-	onMinimizeClick: PropTypes.func.isRequired
+	onOpenOptions: PropTypes.func.isRequired,
+	onTogglePopup: PropTypes.func.isRequired
 };
 
 export default Header;

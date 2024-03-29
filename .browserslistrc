@@ -1,5 +1,7 @@
-chrome >= 40
-edge >= 79
-ff >= 57
-opera >= 23
-safari >= 14
+# We need at least version 121 on Chrome and FF to be able
+# to use a common manifest.
+# https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/background#browser_support
+chrome >= 121
+edge >= 121
+ff >= 121
+safari >= 15.4

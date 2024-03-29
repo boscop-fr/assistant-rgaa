@@ -15,21 +15,18 @@
 	margin-left: vr(0.25);
 }
 
-.Header-actions > .Link,
-.Header-actions .Dropdown-toggle {
+.Header-actions > .Link {
 	color: $color-black;
 }
 
 .Header-dock,
-.Header-minimize,
 .Header-closePopup {
 	margin-left: vr(1);
 }
 
 .Header-options,
 .Header-closePopup,
-.Header-help,
-.Header-dock .Dropdown-toggle {
+.Header-help {
 	padding: 0 vr(0.125);
 
 	.Icon {

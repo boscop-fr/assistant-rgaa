@@ -7,22 +7,25 @@ import {
 	applyHelpers,
 	revertHelpers
 } from '../actions/helpers';
-import * as helpersApi from '../../helpers/api/helpers';
-import {getEnabled} from '../selectors/tests';
 import {getHelpersByTest} from '../selectors/helpers';
+import {getPageTabId} from '../selectors/panel';
+import {getEnabled} from '../selectors/tests';
+import {sendMessage} from '../api/tabs';
 
 /**
  *
  */
-function* applySaga({payload: {id, helpers}}) {
-	yield call(helpersApi.applyHelpers, id, helpers);
+function* applySaga(action) {
+	const tabId = yield select(getPageTabId);
+	yield call(sendMessage, tabId, action);
 }
 
 /**
  *
  */
-function* revertSaga({payload: {id, helpers}}) {
-	yield call(helpersApi.revertHelpers, id, helpers);
+function* revertSaga(action) {
+	const tabId = yield select(getPageTabId);
+	yield call(sendMessage, tabId, action);
 }
 
 /**

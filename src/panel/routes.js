@@ -1,6 +1,6 @@
 import React from 'react';
 import {RouterProvider, createMemoryRouter} from 'react-router';
-import AppContainer from './components/AppContainer';
+import App from './components/App';
 import MarkdownPage from './components/MarkdownPage';
 import ImportPageContainer from './components/ImportPageContainer';
 import ReferencePage from './components/ReferencePage';
@@ -8,7 +8,7 @@ import ReferencePage from './components/ReferencePage';
 export const router = createMemoryRouter([
 	{
 		path: '/',
-		element: <AppContainer />,
+		element: <App />,
 		children: [
 			{
 				index: true,

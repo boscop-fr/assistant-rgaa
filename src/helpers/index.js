@@ -1,17 +1,17 @@
-import getInitialState from '../common/store/getInitialState';
-import {applyAllHelpers} from '../common/actions/helpers';
-import {isOpen} from '../common/selectors/panel';
-import createStore from '../common/createStore';
-import reducer from '../common/reducers';
-import sagas from './sagas';
+import {APPLY, REVERT} from '../common/actions/helpers';
+import {applyHelpers, revertHelpers} from './api/helpers';
 
-/**
- *
- */
-getInitialState().then((state) => {
-	const store = createStore('helpers', reducer, sagas, state);
-	if (isOpen(state)) {
-		store.dispatch(applyAllHelpers());
+browser.runtime.onMessage.addListener(({type, payload}) => {
+	switch (type) {
+		case APPLY:
+			applyHelpers(payload.id, payload.helpers);
+			break;
+
+		case REVERT:
+			revertHelpers(payload.id, payload.helpers);
+			break;
+
+		default:
+			break;
 	}
-	return store;
 });

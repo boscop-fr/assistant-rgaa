@@ -1,12 +1,11 @@
 import {all, call, put, takeEvery} from 'redux-saga/effects';
-import {setOption} from '../api/options';
-import {getReference, flattenReference} from '../api/reference';
-import {getHelpers} from '../api/helpers';
-import {fetchInstructions} from '../api/instructions';
-import {setData, SET_REFERENCE_VERSION} from '../actions/reference';
+import {reset as resetChecklist} from '../actions/checklist';
 import {setHelpers} from '../actions/helpers';
 import {set as setInstructions} from '../actions/instructions';
-import {reset as resetChecklist} from '../actions/checklist';
+import {SET_REFERENCE_VERSION, setData} from '../actions/reference';
+import {getHelpers} from '../api/helpers';
+import {fetchInstructions} from '../api/instructions';
+import {flattenReference, getReference} from '../api/reference';
 
 /**
  *
@@ -24,8 +23,6 @@ function* setReferenceVersionWorker({payload: {version}}) {
 	yield put(setData(flattened));
 	yield put(setHelpers(helpers));
 	yield put(setInstructions(instructions));
-
-	yield call(setOption, 'reference', version);
 }
 
 /**
