@@ -5,7 +5,7 @@ import {INVALID_RESPONSE} from '../actions/runtime';
  *
  */
 export const sendMessage = async (message, options = {}) => {
-	const response = browser.runtime.sendMessage(message, options);
+	const response = await browser.runtime.sendMessage(message, options);
 
 	if (response === INVALID_RESPONSE) {
 		throw new Error(response);

@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const ESLintPlugin = require('eslint-webpack-plugin');
@@ -44,7 +42,7 @@ const recursiveIssuer = (m, c) => {
 };
 
 const styleCacheGroup = (name) => ({
-	name: name,
+	name,
 	chunks: 'all',
 	enforce: true,
 	test: (m, c, entry = name) =>
@@ -57,13 +55,13 @@ module.exports = {
 		? 'development'
 		: 'production',
 	entry: {
+		'default-panel': [
+			'./src/default-panel/index',
+			'./css/default-panel/index.scss'
+		],
 		panel: [
 			'./src/panel/index',
 			'./css/panel/index.scss'
-		],
-		container: [
-			'./src/container/index',
-			'./css/container/index.scss'
 		],
 		helpers: [
 			'./src/helpers/index',
@@ -75,9 +73,6 @@ module.exports = {
 		],
 		background: [
 			'./src/background/index'
-		],
-		devtools: [
-			'./src/devtools/index'
 		]
 	},
 	output: {
@@ -101,6 +96,7 @@ module.exports = {
 				containerStyles: styleCacheGroup('container'),
 				helpersStyles: styleCacheGroup('helpers'),
 				optionsStyles: styleCacheGroup('options'),
+				defaultPanelStyles: styleCacheGroup('default-panel'),
 				panelStyles: styleCacheGroup('panel')
 			}
 		}

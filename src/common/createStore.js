@@ -1,29 +1,15 @@
-import {createStore as createReduxStore, applyMiddleware} from 'redux';
+import {applyMiddleware, createStore as createReduxStore} from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import {
-	createGatherMiddleware,
-	createBroadcastMiddleware
-} from './middlewares/sync';
 
 /**
  *
  */
-export default function createStore(
-	name,
-	reducer,
-	saga,
-	initialState = {},
-	sendMessage = undefined
-) {
+export default function createStore(reducer, saga, initialState = {}) {
 	const sagaMiddleware = createSagaMiddleware();
 	const store = createReduxStore(
 		reducer,
 		initialState,
-		applyMiddleware(
-			createGatherMiddleware(name),
-			sagaMiddleware,
-			createBroadcastMiddleware(name, sendMessage)
-		)
+		applyMiddleware(sagaMiddleware)
 	);
 
 	if (saga) {

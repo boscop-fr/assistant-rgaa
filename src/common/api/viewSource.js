@@ -1,6 +1,7 @@
 import {getSource} from './source';
-import {onUpdate, fetchCurrentTab} from '../../background/api/tabs';
+import {onUpdate} from '../../background/api/tabs';
 import {getWindowObject} from '../../background/api/windows';
+import {fetchCurrentTab} from './tabs';
 
 /**
  *

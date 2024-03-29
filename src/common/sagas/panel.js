@@ -1,54 +1,35 @@
-import {put, takeEvery} from 'redux-saga/effects';
+import {call, throttle, select, takeEvery} from 'redux-saga/effects';
+import {TOGGLE_POPUP} from '../actions/panel';
+import {CLOSE_POPUP, OPEN_POPUP} from '../actions/runtime';
 import {sendMessage} from '../api/runtime';
-import {OPEN_POPUP, CLOSE_POPUP} from '../actions/runtime';
-import {applyAllHelpers, revertAllHelpers} from '../actions/helpers';
-import {SET_POSITION, OPEN, CLOSE} from '../actions/panel';
-import {Position} from '../api/panel';
-import {applyStyles, revertStyles} from '../actions/styles';
+import {setTabState} from '../api/tabs';
+import {getPageTabId, getPopupTabId} from '../selectors/panel';
 
-/**
- *	Opens or closes a popup window depending on the dock position.
- */
-// eslint-disable-next-line require-yield
-export function* setPositionWorker({payload: position}) {
-	sendMessage({
-		type: position === Position.popup ? OPEN_POPUP : CLOSE_POPUP
+function* togglePopupWorker() {
+	const state = yield select();
+	const tabId = yield select(getPageTabId);
+	const popupTabId = yield select(getPopupTabId);
+
+	yield call(setTabState, tabId, state);
+	yield call(sendMessage, {
+		type: popupTabId ? CLOSE_POPUP : OPEN_POPUP,
+		tabId,
+		popupTabId
 	});
 }
 
-/**
- *
- */
-export function* openWorker() {
-	yield put(applyAllHelpers());
-	yield put(applyStyles());
+function* saveStateSaga() {
+	const tabId = yield select(getPageTabId);
+	const state = yield select();
+
+	setTabState(tabId, state);
 }
 
-/**
- *
- */
-export function* closeWorker() {
-	yield put(revertAllHelpers());
-	yield put(revertStyles());
+export function* watchTogglePopup() {
+	yield takeEvery(TOGGLE_POPUP, togglePopupWorker);
 }
 
-/**
- *
- */
-export function* watchSetPosition() {
-	yield takeEvery(SET_POSITION, setPositionWorker);
-}
-
-/**
- *
- */
-export function* watchOpen() {
-	yield takeEvery(OPEN, openWorker);
-}
-
-/**
- *
- */
-export function* watchClose() {
-	yield takeEvery(CLOSE, closeWorker);
+export function* watchAll() {
+	// saves the whole state each time something changes
+	yield throttle(300, '*', saveStateSaga);
 }

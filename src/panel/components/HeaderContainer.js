@@ -1,11 +1,12 @@
-import {connect} from 'react-redux';
 import {truncate} from 'lodash';
+import {connect} from 'react-redux';
+import {togglePopup as togglePopupAction} from '../../common/actions/panel';
 import {open} from '../../common/actions/options';
-import {toggleFold, setPosition} from '../../common/actions/panel';
-import {Position} from '../../common/api/panel';
-import {getPosition, getPageTitle} from '../../common/selectors/panel';
-import {CLOSE_PANEL} from '../../common/actions/runtime';
-import {sendMessage} from '../../common/api/runtime';
+import {
+	getPageTabId,
+	getPageTitle,
+	getPopupTabId
+} from '../../common/selectors/panel';
 import {getVersion} from '../../common/selectors/reference';
 import Header from './Header';
 
@@ -14,31 +15,26 @@ import Header from './Header';
  */
 const mapStateToProps = (state) => ({
 	referenceVersion: getVersion(state),
-	inPopup: getPosition(state) === 'popup',
-	title: truncate(getPageTitle(state), {omission: '…'})
+	inPopup: !!getPopupTabId(state),
+	title: truncate(getPageTitle(state), {omission: '…'}),
+	tabId: getPageTabId(state)
 });
 
-/**
- *
- */
 const mapDispatchToProps = (dispatch) => ({
-	onOptionsClick() {
+	onOpenOptions() {
 		dispatch(open());
 	},
-
-	onCloseClick() {
-		sendMessage({
-			type: CLOSE_PANEL
-		});
-	},
-
-	onClosePopupClick() {
-		dispatch(setPosition(Position.right));
-	},
-
-	onMinimizeClick() {
-		dispatch(toggleFold(true));
+	togglePopup(tabId) {
+		dispatch(togglePopupAction(tabId));
 	}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+const mergeProps = (props, {togglePopup, ...actions}) => ({
+	...props,
+	...actions,
+	onTogglePopup() {
+		togglePopup(props.tabId);
+	}
+});
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Header);

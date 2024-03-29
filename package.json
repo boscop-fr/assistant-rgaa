@@ -93,7 +93,6 @@
     "react-addons-update": "^15.0.2",
     "react-aria-menubutton": "^4.3.0",
     "react-dom": "^18.2.0",
-    "react-draggable": "^2.2.0",
     "react-intl": "^6.4.4",
     "react-redux": "^8.1.2",
     "react-router": "^6.15.0",

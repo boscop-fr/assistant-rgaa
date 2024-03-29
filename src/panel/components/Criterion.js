@@ -90,9 +90,9 @@ function Criterion({
 
 					{renderIf(!isOpen && importResults)(() => (
 						<div className="Criterion-importResults">
-							{map(importResults, (count, status) => (
+							{map(importResults, (count, status, i) => (
 								<span
-									key={status}
+									key={i}
 									className="Label ImportResult"
 									data-import-result={status}
 									title={intl.formatMessage(

@@ -1,26 +1,6 @@
-import {property, get} from 'lodash';
+import {get} from 'lodash';
 
-/**
- *
- */
-export const getPosition = property('panel.position');
-
-/**
- *
- */
+export const getPageTabId = (state) => get(state, 'panel.pageInfo.tabId', null);
 export const getPageTitle = (state) => get(state, 'panel.pageInfo.title', null);
-
-/**
- *
- */
 export const getPageUrl = (state) => get(state, 'panel.pageInfo.url', null);
-
-/**
- *
- */
-export const isFolded = (state) => get(state, 'panel.folded', null);
-
-/**
- *
- */
-export const isOpen = (state) => get(state, 'panel.opened', null);
+export const getPopupTabId = (state) => get(state, 'panel.pageInfo.popupTabId');

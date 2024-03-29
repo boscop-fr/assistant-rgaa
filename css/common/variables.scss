@@ -34,8 +34,6 @@ $base-line-height: $base-font-size * $line-height;
 
 $app-gutter: vr(0.5);
 
-$indent: 10px;
-
 /**
  *
  */
@@ -67,24 +65,18 @@ $color-gray: #888;
 $color-gray-light: #eee;
 $color-gray-dark: #555;
 $color-blue: #2868c9;
-$color-blue-text: $color-white;
 $color-blue-light: #4c93ff;
-$color-blue-light-text: #000;
 $color-blue-lighter: #e9f2ff;
 $color-blue-dark: #0c397c;
 $color-blue-dark-text: $color-white;
 $color-orange: #e6a420;
 $color-orange-text: #222;
-$color-orange-text-dark: #000;
 $color-red: firebrick;
 $color-green: green;
 $color-highlight: rgba(yellow, 0.3);
-$color-highlight-no-opacity: #ffffe4;
 
 $color-theme: $color-blue;
 $color-theme-text: $color-white;
-$color-theme-light: $color-blue-light;
-$color-theme-light-text: $color-blue-light-text;
 $color-theme-dark: $color-blue-dark;
 $color-theme-dark-text: $color-blue-dark-text;
 

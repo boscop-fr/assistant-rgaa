@@ -14,15 +14,8 @@ Pour chacun de ces tests, l'extension permet d'appliquer des modifications à la
 * *version du référentiel utilisée* : à l'heure actuelle, seule les versions 3-2016, 3-2017, 4.0 (2019) et 4.1 (2021) sont supportées, mais l'extension est conçue pour supporter d'autres référentiels.
 * *référentiel* : la page principale de l'extension, qui liste tous les tests du référentiel.
 * *aide* : vous y êtes !
-* icône *position* : grâce à ce menu, l'extension peut-être positionnée à différents endroits de la page, ou ouverte dans une fenêtre séparée.
 * icône *options* : options globales de l'extension, permettant notamment de configurer la version du référentiel à utiliser.
-* icône *minimiser* : cache l'extension. Si un test est actif, il n'est pas désactivé.
-* icône *fermer* : cache l'extension. Si un test est actif, il est désactivé.
-
-Quand vous cachez l'icône via le bouton *minimiser*, un bouton apparaît en haut à droite de la page pour ouvrir de nouveau l'extension :
-
-![Extension minimisée](page://minimized.png)
-
+* icône *popup* : grâce à ce menu, l'extension peut-être ouverte dans une fenêtre séparée.
 
 ## Navigation
 

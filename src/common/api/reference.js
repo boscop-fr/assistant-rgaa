@@ -1,6 +1,3 @@
-import {includes, map} from 'lodash';
-import {getOption} from './options';
-
 export const DEFAULT_VERSION = '4-2023';
 
 /*
@@ -13,20 +10,6 @@ export const getReferencesList = () => [
 	{name: 'RGAA 4.1 (2021)', version: '4-2021'},
 	{name: 'RGAA 4.1.2 (2023)', version: '4-2023'}
 ];
-
-/**
- *
- */
-export const isVersionValid = (version) =>
-	includes(map(getReferencesList(), 'version'), version);
-
-/**
- *
- */
-export const getReferenceOption = () =>
-	getOption('reference').then((version) =>
-		isVersionValid(version) ? version : DEFAULT_VERSION
-	);
 
 /*
  * retrieve the reference full json object from a given reference version property

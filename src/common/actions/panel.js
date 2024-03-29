@@ -1,27 +1,8 @@
 /**
  *
  */
-export const SET_POSITION = 'common/panel/SET_POSITION';
-export const TOGGLE_FOLD = 'common/panel/TOGGLE_FOLD';
 export const SET_PAGE_INFO = 'common/panel/SET_PAGE_INFO';
-export const OPEN = 'common/panel/OPEN';
-export const CLOSE = 'common/panel/CLOSE';
-
-/**
- *
- */
-export const setPosition = (position) => ({
-	type: SET_POSITION,
-	payload: position
-});
-
-/**
- *
- */
-export const toggleFold = (toggle) => ({
-	type: TOGGLE_FOLD,
-	payload: toggle
-});
+export const TOGGLE_POPUP = 'common/panel/TOGGLE_POPUP';
 
 /**
  *
@@ -31,18 +12,6 @@ export const setPageInfo = (data) => ({
 	payload: data
 });
 
-/**
- *
- */
-export const open = () => ({
-	type: OPEN,
-	payload: {}
-});
-
-/**
- *
- */
-export const close = () => ({
-	type: CLOSE,
-	payload: {}
+export const togglePopup = () => ({
+	type: TOGGLE_POPUP
 });
