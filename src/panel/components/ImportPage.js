@@ -1,23 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
 import renderIf from 'render-if';
-import Page from './Page';
+import {resetImports, selectIsActive} from '../../common/slices/imports';
 import ImportForm from './ImportForm';
+import Page from './Page';
 
-/**
- *
- */
-function ImportPage({isImportActive, onReset}) {
+const ImportPage = () => {
+	const isImportActive = useSelector(selectIsActive);
+	const dispatch = useDispatch();
+
 	return (
 		<Page title={<FormattedMessage id="Import.title" />}>
 			{renderIf(!isImportActive)(() => (
 				<ImportForm />
 			))}
+
 			{renderIf(isImportActive)(() => (
 				<button
 					type="button"
-					onClick={onReset}
+					onClick={() => {
+						dispatch(resetImports);
+					}}
 					className="ImportPage-singleResetButton"
 				>
 					<FormattedMessage id="Import.singleReset" />
@@ -25,11 +29,6 @@ function ImportPage({isImportActive, onReset}) {
 			))}
 		</Page>
 	);
-}
-
-ImportPage.propTypes = {
-	isImportActive: PropTypes.bool.isRequired,
-	onReset: PropTypes.func.isRequired
 };
 
 export default ImportPage;

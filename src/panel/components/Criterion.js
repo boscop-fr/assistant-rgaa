@@ -1,54 +1,90 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import {map, isNull, isEmpty} from 'lodash';
 import {FormattedMessage, useIntl} from 'react-intl';
 import renderIf from 'render-if';
 import classNames from 'classnames';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
-import {TestShape} from '../../common/types/test';
 import Test from './Test';
 import Icon from './Icon';
 import ExternalReferences from './ExternalReferences';
 import SpecialCasesTechnicalNotes from './SpecialCasesTechnicalNotes';
+import {
+	selectReferenceLinksByCriterion,
+	selectSpecialCasesByCriterion,
+	selectTechnicalNotesByCriterion,
+	selectTestsByCriterion
+} from '../../common/slices/reference';
+import {
+	selectIsCriterionOpen,
+	toggleCriterion
+} from '../../common/slices/criteria';
+import {
+	markTestDone,
+	selectAreAllTestsDone
+} from '../../common/slices/checklist';
+import {selectEnabledTestsByCriterion} from '../../common/slices/tests';
+import {selectCriterionResults} from '../../common/slices/imports';
 
-/**
- *
- */
-function Criterion({
-	id,
-	level,
-	title,
-	tests,
-	activeTest,
-	isDone,
-	isOpen,
-	importResults,
-	onToggle,
-	onDone,
-	refLinks,
-	specialCases,
-	notes
-}) {
+const Criterion = ({id, level, title}) => {
 	const intl = useIntl();
+	const isOpen = useSelector((state) => selectIsCriterionOpen(state, id));
+	const tests = useSelector((state) => selectTestsByCriterion(state, id));
+	const isDone = useSelector((state) => selectAreAllTestsDone(state, tests));
+	const refLinks = useSelector((state) =>
+		selectReferenceLinksByCriterion(state, id)
+	);
+	const specialCases = useSelector((state) =>
+		selectSpecialCasesByCriterion(state, id)
+	);
+	const notes = useSelector((state) =>
+		selectTechnicalNotesByCriterion(state, id)
+	);
+	const enabledTests = useSelector((state) =>
+		selectEnabledTestsByCriterion(state, id)
+	);
+	const activeTest = isOpen ? enabledTests?.[0] : null;
+	const importResults = useSelector((state) =>
+		selectCriterionResults(state, id)
+	);
+	const dispatch = useDispatch();
+
 	const className = classNames('Criterion Theme-criterion', {
 		'is-open': isOpen,
 		'Criterion--hasActiveTest': !!activeTest
 	});
+
 	const headerClassName = classNames('Criterion-header', {
 		'Title Title--sub': isOpen
 	});
-	const handleDoneChange = (event) => onDone(event.target.checked);
+
+	const handleDoneChange = (event) => {
+		tests.forEach((test) =>
+			dispatch(
+				markTestDone({
+					id: test.id,
+					done: event.target.checked
+				})
+			)
+		);
+	};
+
+	const handleToggle = (event) => {
+		event.stopPropagation();
+		dispatch(toggleCriterion(id));
+	};
 
 	return (
 		<li id={`Criterion-${id}`} className={className} data-id={id}>
 			<header className={headerClassName}>
-				<div className="Criterion-title" onClick={onToggle}>
+				<div className="Criterion-title" onClick={handleToggle}>
 					<div className="Criterion-titleText">
 						<button
 							className="InvisibleButton Criterion-toggle"
 							type="button"
-							onClick={onToggle}
+							onClick={handleToggle}
 							aria-expanded={isOpen}
 							aria-controls={`Criterion-${id}-content`}
 						>
@@ -199,32 +235,16 @@ function Criterion({
 			</div>
 		</li>
 	);
-}
+};
 
 Criterion.propTypes = {
 	id: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
-	level: PropTypes.string,
-	tests: PropTypes.arrayOf(TestShape).isRequired,
-	activeTest: TestShape,
-	isOpen: PropTypes.bool.isRequired,
-	importResults: PropTypes.objectOf(PropTypes.number),
-	onToggle: PropTypes.func.isRequired,
-	isDone: PropTypes.bool,
-	onDone: PropTypes.func.isRequired,
-	refLinks: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-		.isRequired,
-	specialCases: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-	notes: PropTypes.arrayOf(PropTypes.string)
+	level: PropTypes.string
 };
 
 Criterion.defaultProps = {
-	level: undefined,
-	activeTest: undefined,
-	importResults: {},
-	isDone: false,
-	specialCases: null,
-	notes: null
+	level: undefined
 };
 
 export default Criterion;

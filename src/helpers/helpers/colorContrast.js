@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import {forEach} from 'lodash';
 import {createMessageHandler, sendMessage} from '../../common/api/runtime';
-import {GET_PIXEL} from '../../common/actions/runtime';
+import {getPixel} from '../../common/slices/runtime';
 import {
 	mutedAttributeSelector,
 	muteAttribute,
@@ -10,13 +10,13 @@ import {
 import waitForEvent from '../api/waitForEvent';
 import getSelectionStyle from '../api/getSelectionStyle';
 import {
-	REQUEST_PIXEL_COLOR,
-	REQUEST_TEXT_COLOR,
-	REQUEST_STYLE,
-	UPDATE_COLOR,
-	UPDATE_STYLE
+	requestPixelColor,
+	requestTextColor,
+	requestStyle,
+	updateColor,
+	updateStyle
 } from '../actions/colorContrast';
-import ColorContrastContainer from '../components/ColorContrastContainer';
+import ColorContrast from '../components/ColorContrast';
 
 /**
  *
@@ -56,74 +56,50 @@ const stopPicking = () => {
 /**
  *
  */
-const handleMessage = createMessageHandler(({type}) => {
-	// eslint-disable-next-line default-case
-	switch (type) {
-		case REQUEST_PIXEL_COLOR:
+const handleMessage = createMessageHandler(async (action) => {
+	if (requestPixelColor.match(action)) {
+		try {
 			startPicking(PickingStates.pickingPixel);
-
-			waitForEvent('click')
-				.then(({clientX, clientY}) => {
-					setPickingState(PickingStates.processing);
-
-					return sendMessage({
-						type: GET_PIXEL,
-						x: clientX,
-						y: clientY
-					});
+			const {clientX, clientY} = await waitForEvent('click');
+			setPickingState(PickingStates.processing);
+			const color = await sendMessage(
+				getPixel({
+					x: clientX,
+					y: clientY
 				})
-				.then((color) =>
-					sendMessage({
-						type: UPDATE_COLOR,
-						payload: color
-					})
-				)
-				.then(stopPicking)
-				.catch(stopPicking);
-			break;
+			);
 
-		case REQUEST_TEXT_COLOR:
+			await sendMessage(updateColor(color));
+		} finally {
+			stopPicking();
+		}
+	} else if (requestTextColor.match(action)) {
+		try {
 			startPicking(PickingStates.pickingText);
-
-			waitForEvent('mouseup')
-				.then(() => {
-					setPickingState(PickingStates.processing);
-					return getSelectionStyle();
-				})
-				.then(({color}) =>
-					sendMessage({
-						type: UPDATE_COLOR,
-						payload: color
-					})
-				)
-				.then(stopPicking)
-				.catch(stopPicking);
-			break;
-
-		case REQUEST_STYLE:
+			await waitForEvent('mouseup');
+			setPickingState(PickingStates.processing);
+			const {color} = await getSelectionStyle();
+			await sendMessage(updateColor(color));
+		} finally {
+			stopPicking();
+		}
+	} else if (requestStyle.match(action)) {
+		try {
 			startPicking(PickingStates.pickingText);
-
-			waitForEvent('mouseup')
-				.then(() => {
-					setPickingState(PickingStates.processing);
-					return getSelectionStyle();
-				})
-				.then((style) =>
-					sendMessage({
-						type: UPDATE_STYLE,
-						payload: style
-					})
-				)
-				.then(stopPicking)
-				.catch(stopPicking);
-			break;
+			await waitForEvent('mouseup');
+			setPickingState(PickingStates.processing);
+			const style = await getSelectionStyle();
+			await sendMessage(updateStyle(style));
+		} finally {
+			stopPicking();
+		}
 	}
 });
 
 /**
  *
  */
-export const component = () => ColorContrastContainer;
+export const component = () => ColorContrast;
 
 /**
  *	Describes the helper.

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Outlet} from 'react-router';
-import HeaderContainer from './HeaderContainer';
+import Header from './Header';
 
 /**
  *
@@ -9,7 +9,7 @@ export default function App() {
 	return (
 		<div className="App">
 			<div className="App-content">
-				<HeaderContainer />
+				<Header />
 				<Outlet />
 			</div>
 		</div>

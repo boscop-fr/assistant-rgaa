@@ -1,16 +1,13 @@
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useSelector} from 'react-redux';
-import {getAllCriteriaByTheme} from '../../common/selectors/reference';
-import {ThemeShape} from '../../common/types/theme';
-import CriterionContainer from './CriterionContainer';
+import PropTypes from 'prop-types';
+import {selectCriteriaByTheme} from '../../common/slices/reference';
+import Criterion from './Criterion';
 
-/**
- *
- */
-function Theme({theme}) {
+const Theme = ({theme}) => {
 	const criteria = useSelector((state) =>
-		getAllCriteriaByTheme(state, theme.id)
+		selectCriteriaByTheme(state, theme.id)
 	);
 
 	if (!criteria.length) {
@@ -28,15 +25,18 @@ function Theme({theme}) {
 
 			<ul className="Theme-criteria">
 				{criteria.map((criterion) => (
-					<CriterionContainer key={criterion.id} {...criterion} />
+					<Criterion key={criterion.id} {...criterion} />
 				))}
 			</ul>
 		</div>
 	);
-}
+};
 
 Theme.propTypes = {
-	theme: ThemeShape.isRequired
+	theme: PropTypes.shape({
+		id: PropTypes.string.isRequired,
+		title: PropTypes.string.isRequired
+	}).isRequired
 };
 
 export default Theme;

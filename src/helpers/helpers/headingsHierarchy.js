@@ -3,8 +3,8 @@ import {sendMessage} from '../../common/api/runtime';
 import getHeadingsHierarchy, {
 	withMissingHeadings
 } from '../api/getHeadingsHierarchy';
-import {GET} from '../actions/headingsHierarchy';
-import HeadingsHierarchyContainer from '../components/HeadingsHierarchyContainer';
+import {getHierarchy} from '../actions/headingsHierarchy';
+import HeadingsHierarchy from '../components/HeadingsHierarchy';
 
 /**
  *	@var {boolean} showMissing - Whether or not to report
@@ -22,7 +22,7 @@ const observers = new Map();
 /**
  *
  */
-export const component = () => HeadingsHierarchyContainer;
+export const component = () => HeadingsHierarchy;
 
 /**
  *	Describes the helper.
@@ -39,12 +39,13 @@ export const apply = (id, {showMissing} = defaults) => {
 	const sendHierarchy = () => {
 		const hierarchy = getHeadingsHierarchy();
 
-		sendMessage({
-			type: GET,
-			payload: showMissing
-				? withMissingHeadings(hierarchy, 'Titre manquant')
-				: hierarchy
-		});
+		sendMessage(
+			getHierarchy(
+				showMissing
+					? withMissingHeadings(hierarchy, 'Titre manquant')
+					: hierarchy
+			)
+		);
 	};
 
 	const observer = new MutationObserver(debounce(sendHierarchy, 300));

@@ -1,13 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import renderIf from 'render-if';
 import {map} from 'lodash';
+import React from 'react';
+import {Button, Menu, Wrapper} from 'react-aria-menubutton';
 import {FormattedMessage} from 'react-intl';
-import {Wrapper, Button, Menu} from 'react-aria-menubutton';
-import {ThemeShape} from '../../common/types/theme';
-import ThemesListItem from './ThemesListItem';
+import {useDispatch, useSelector} from 'react-redux';
+import renderIf from 'render-if';
+import {selectAllThemes} from '../../common/slices/reference';
+import {selectIsMenuOpen, toggleMenu} from '../../common/slices/themes';
 import Icon from './Icon';
+import ThemesListItem from './ThemesListItem';
 
 const icons = {
 	1: 'image',
@@ -25,27 +26,31 @@ const icons = {
 	13: 'desktop'
 };
 
-/**
- *
- */
-function ThemesList({themes, isOpen, setOpen}) {
+const ThemesList = () => {
+	const isMenuOpen = useSelector(selectIsMenuOpen);
+	const themes = useSelector(selectAllThemes);
+	const dispatch = useDispatch();
+
 	return (
 		<Wrapper
-			className={classNames('ThemesList', {'is-open': isOpen})}
+			className={classNames('ThemesList', {'is-open': isMenuOpen})}
 			onSelection={(href) => {
 				document.location.href = href;
 			}}
-			onMenuToggle={(menu) => setOpen(menu.isOpen)}
+			onMenuToggle={(menu) => {
+				dispatch(toggleMenu(menu.isOpen));
+			}}
 			id="ThemesList-wrapper"
 		>
 			<h2 className="ThemesList-title">
 				<Button className="ThemesList-toggle ActionButton" id="themesMenu">
-					{renderIf(isOpen)(() => (
+					{renderIf(isMenuOpen)(() => (
 						<span aria-hidden="true" className="ThemesList-toggleIcon">
 							▼
 						</span>
 					))}
-					{renderIf(!isOpen)(() => (
+
+					{renderIf(!isMenuOpen)(() => (
 						<Icon name="list-ul" className="ThemesList-toggleIcon" />
 					))}
 					<FormattedMessage id="ThemesList.title" />
@@ -63,12 +68,6 @@ function ThemesList({themes, isOpen, setOpen}) {
 			</Menu>
 		</Wrapper>
 	);
-}
-
-ThemesList.propTypes = {
-	themes: PropTypes.arrayOf(ThemeShape).isRequired,
-	isOpen: PropTypes.bool.isRequired,
-	setOpen: PropTypes.func.isRequired
 };
 
 export default ThemesList;

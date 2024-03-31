@@ -7,41 +7,48 @@ import {useDispatch, useSelector} from 'react-redux';
 import Icon from './Icon';
 import TestInstructions from './TestInstructions';
 import TestHelpers from './TestHelpers';
-import {isTestDone} from '../../common/selectors/checklist';
-import {testHasHelpers} from '../../common/selectors/helpers';
-import {isEnabled} from '../../common/selectors/tests';
-import {getInstructionsByTest} from '../../common/selectors/instructions';
-import {getOneTestResult} from '../../common/selectors/imports';
-import {disable, enable} from '../../common/actions/tests';
-import {setTestDone} from '../../common/actions/checklist';
+import {
+	disableTest,
+	enableTest,
+	selectIsTestEnabled
+} from '../../common/slices/tests';
+import {selectTestHasHelpers} from '../../common/slices/helpers';
+import {markTestDone, selectIsTestDone} from '../../common/slices/checklist';
+import {selectInstructionsByTest} from '../../common/slices/instructions';
+import {selectTestResult} from '../../common/slices/imports';
 
 /**
  *
  */
 function Test({id, title}) {
-	const done = useSelector((state) => isTestDone(state, id));
-	const applicable = useSelector((state) => testHasHelpers(state, id));
-	const applied = useSelector((state) => isEnabled(state, id));
+	const intl = useIntl();
+	const done = useSelector((state) => selectIsTestDone(state, id));
+	const applicable = useSelector((state) => selectTestHasHelpers(state, id));
+	const applied = useSelector((state) => selectIsTestEnabled(state, id));
 	const instructions = useSelector((state) =>
-		getInstructionsByTest(state, id)
+		selectInstructionsByTest(state, id)
 	);
-	const importResult = useSelector((state) => getOneTestResult(state, id));
-	const dispatch = useDispatch();
 
 	const [areInstructionsOpen, setInstructionsOpen] = useState(applied);
-	const intl = useIntl();
+	const importResult = useSelector((state) => selectTestResult(state, id));
+	const dispatch = useDispatch();
 
-	const handleApplyChange = (event) => {
-		const {checked} = event.target;
-		dispatch(checked ? enable(id) : disable(id));
-
-		if (checked) {
+	const handleToggle = () => {
+		if (applied) {
+			dispatch(disableTest(id));
+		} else {
+			dispatch(enableTest(id));
 			setInstructionsOpen(true);
 		}
 	};
 
 	const handleDoneChange = (event) => {
-		dispatch(setTestDone(id, event.target.checked));
+		dispatch(
+			markTestDone({
+				id,
+				done: event.target.checked
+			})
+		);
 	};
 
 	const applyTranslateKey = applied ? 'uncheck' : 'check';
@@ -94,7 +101,7 @@ function Test({id, title}) {
 								type="checkbox"
 								id={`test-${id}-apply-input`}
 								checked={applied}
-								onChange={handleApplyChange}
+								onChange={handleToggle}
 							/>
 						</div>
 					))}

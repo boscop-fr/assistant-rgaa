@@ -1,5 +1,5 @@
 import {noop} from 'lodash';
-import LocalPageValidatorContainer from '../components/LocalPageValidatorContainer';
+import LocalPageValidator from '../components/LocalPageValidator';
 
 /**
  *	Describes the helper.
@@ -12,7 +12,7 @@ export const describe = (intl) =>
 /**
  *
  */
-export const component = () => LocalPageValidatorContainer;
+export const component = () => LocalPageValidator;
 
 /**
  *

@@ -1,8 +1,13 @@
-/**
- *
- */
-export const REQUEST_PIXEL_COLOR = 'helpers/colorContrast/REQUEST_PIXEL_COLOR';
-export const REQUEST_TEXT_COLOR = 'helpers/colorContrast/REQUEST_TEXT_COLOR';
-export const REQUEST_STYLE = 'helpers/colorContrast/REQUEST_STYLE';
-export const UPDATE_COLOR = 'helpers/colorContrast/UPDATE_COLOR';
-export const UPDATE_STYLE = 'helpers/colorContrast/UPDATE_STYLE';
+import {createAction} from '@reduxjs/toolkit';
+
+export const requestPixelColor = createAction(
+	'helpers/colorContrast/requestPixelColor'
+);
+
+export const requestTextColor = createAction(
+	'helpers/colorContrast/requestTextColor'
+);
+
+export const requestStyle = createAction('helpers/colorContrast/requestStyle');
+export const updateColor = createAction('helpers/colorContrast/updateColor');
+export const updateStyle = createAction('helpers/colorContrast/updateStyle');

@@ -77,6 +77,7 @@
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.2",
     "babel-polyfill": "^6.8.0",
     "buffer": "^6.0.3",
     "classnames": "^2.2.5",
@@ -95,11 +96,11 @@
     "react-dom": "^18.2.0",
     "react-draggable": "^2.2.0",
     "react-intl": "^6.4.4",
-    "react-redux": "^8.1.2",
+    "react-redux": "^9.1.0",
     "react-router": "^6.15.0",
     "react-router-dom": "^6.15.0",
     "react-tabs": "^2.2.1",
-    "redux": "^4.2.1",
+    "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.2.3",
     "render-if": "^0.1.1",

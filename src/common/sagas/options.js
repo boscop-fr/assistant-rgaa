@@ -1,9 +1,9 @@
 import {eventChannel} from 'redux-saga';
 import {call, put, take, takeEvery} from 'redux-saga/effects';
 import {onOptionChange, OPTIONS} from '../api/options';
-import {setReferenceVersion} from '../actions/reference';
-import {reset as resetImport} from '../actions/imports';
-import {OPEN} from '../actions/options';
+import {setVersion} from '../slices/reference';
+import {resetImports} from '../slices/imports';
+import {openOptionsPage} from '../slices/options';
 
 export const optionChannel = (key) =>
 	eventChannel((emit) => onOptionChange(key, emit));
@@ -13,7 +13,7 @@ function* openWorker() {
 }
 
 export function* watchOpen() {
-	yield takeEvery(OPEN, openWorker);
+	yield takeEvery(openOptionsPage.type, openWorker);
 }
 
 export function* watchVersionChange() {
@@ -22,7 +22,7 @@ export function* watchVersionChange() {
 	while (true) {
 		const version = yield take(versionChannel);
 
-		yield put(resetImport());
-		yield put(setReferenceVersion(version));
+		yield put(resetImports());
+		yield put(setVersion(version));
 	}
 }

@@ -2,22 +2,24 @@ import {debounce, map} from 'lodash';
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import renderIf from 'render-if';
-import {saveScrollPosition} from '../../common/actions/themes';
-import {getAllThemes, isLoaded} from '../../common/selectors/reference';
-import {getScrollPosition} from '../../common/selectors/themes';
-import DevToolsContainer from './DevToolsContainer';
-import StylesToggleContainer from './StylesToggleContainer';
+import DevTools from './DevTools';
+import StylesToggle from './StylesToggle';
 import Theme from './Theme';
-import ThemesListContainer from './ThemesListContainer';
+import ThemesList from './ThemesList';
 import deferRendering from './deferRendering';
+import {selectAllThemes, selectIsLoaded} from '../../common/slices/reference';
+import {
+	saveScrollPosition,
+	selectScrollPosition
+} from '../../common/slices/themes';
 
 /**
  *
  */
 const ReferencePage = () => {
-	const isReferenceLoaded = useSelector(isLoaded);
-	const initialScrollPosition = useSelector(getScrollPosition);
-	const themes = useSelector(getAllThemes);
+	const isReferenceLoaded = useSelector(selectIsLoaded);
+	const initialScrollPosition = useSelector(selectScrollPosition);
+	const themes = useSelector(selectAllThemes);
 	const dispatch = useDispatch();
 
 	const handleScroll = debounce((event) => {
@@ -38,12 +40,12 @@ const ReferencePage = () => {
 	return (
 		<div className="ReferencePage">
 			{renderIf(process.env.NODE_ENV !== 'production')(() => (
-				<DevToolsContainer />
+				<DevTools />
 			))}
 
 			<div className="ReferencePage-actions">
-				<ThemesListContainer />
-				<StylesToggleContainer />
+				<ThemesList />
+				<StylesToggle />
 			</div>
 
 			<div

@@ -1,55 +1,43 @@
 import {call, put, select, takeEvery} from 'redux-saga/effects';
-import {applyHelpers, revertHelpers} from '../actions/helpers';
-import {APPLY, REVERT, TOGGLE} from '../actions/styles';
-import {areStylesEnabled} from '../selectors/styles';
+import {applyHelpers, revertHelpers} from '../slices/helpers';
+import {
+	selectAreStylesEnabled,
+	applyStyles,
+	revertStyles,
+	toggleStyles
+} from '../slices/styles';
 
-/**
- *
- */
 function* applyHelpersSaga(enabled) {
 	const effect = enabled ? revertHelpers : applyHelpers;
-	yield put(effect('styles', [{helper: 'disableAllStyles'}]));
+	yield put(
+		effect({
+			id: 'styles',
+			helpers: [{helper: 'disableAllStyles'}]
+		})
+	);
 }
 
-/**
- *
- */
 function* toggleStylesSaga({payload: enabled}) {
 	yield call(applyHelpersSaga, enabled);
 }
 
-/**
- *
- */
 function* applyStylesSaga() {
-	const enabled = yield select(areStylesEnabled);
+	const enabled = yield select(selectAreStylesEnabled);
 	yield call(applyHelpersSaga, enabled);
 }
 
-/**
- *
- */
 function* revertStylesSaga() {
 	yield call(applyHelpersSaga, true);
 }
 
-/**
- *
- */
 export function* watchToggleStyles() {
-	yield takeEvery(TOGGLE, toggleStylesSaga);
+	yield takeEvery(toggleStyles.type, toggleStylesSaga);
 }
 
-/**
- *
- */
 export function* watchApplyStyles() {
-	yield takeEvery(APPLY, applyStylesSaga);
+	yield takeEvery(applyStyles.type, applyStylesSaga);
 }
 
-/**
- *
- */
 export function* watchRevertStyles() {
-	yield takeEvery(REVERT, revertStylesSaga);
+	yield takeEvery(revertStyles.type, revertStylesSaga);
 }

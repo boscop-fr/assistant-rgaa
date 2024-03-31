@@ -1,5 +1,5 @@
 import {isEmpty} from 'lodash';
-import {INVALID_RESPONSE} from '../actions/runtime';
+import {INVALID_RESPONSE} from '../slices/runtime';
 
 /**
  *
