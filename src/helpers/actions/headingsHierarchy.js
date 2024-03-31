@@ -1,4 +1,3 @@
-/**
- *
- */
-export const GET = 'helpers/headingsHierarchy/GET';
+import {createAction} from '@reduxjs/toolkit';
+
+export const getHierarchy = createAction('helpers/headingsHierarchy/get');

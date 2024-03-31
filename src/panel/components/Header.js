@@ -1,27 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import renderIf from 'render-if';
+import {truncate} from 'lodash';
+import {openOptionsPage} from '../../common/slices/options';
+import {
+	selectPageTitle,
+	selectPopupTabId,
+	togglePopup
+} from '../../common/slices/panel';
+import {selectVersion} from '../../common/slices/reference';
 import Icon from './Icon';
 
-/**
- *
- */
-const Header = ({
-	referenceVersion,
-	inPopup,
-	title,
-	onOpenOptions,
-	onTogglePopup
-}) => {
+const Header = () => {
 	const intl = useIntl();
+	const version = useSelector(selectVersion);
+	const isPopup = !!useSelector(selectPopupTabId);
+	const title = truncate(useSelector(selectPageTitle), {omission: '…'});
+	const dispatch = useDispatch();
 
 	return (
 		<header className="Header">
 			<h1 className="Header-title">
-				{renderIf(inPopup)(() => `${title} | `)}
-				RGAA v{referenceVersion}
+				{renderIf(isPopup)(() => `${title} | `)}
+				RGAA v{version}
 			</h1>
 
 			<div className="Header-actions">
@@ -37,7 +40,9 @@ const Header = ({
 
 				<button
 					type="button"
-					onClick={onOpenOptions}
+					onClick={() => {
+						dispatch(openOptionsPage());
+					}}
 					className="Header-options Link"
 					title={intl.formatMessage({id: 'Header.options'})}
 				>
@@ -47,10 +52,12 @@ const Header = ({
 					/>
 				</button>
 
-				{renderIf(!inPopup)(() => (
+				{renderIf(!isPopup)(() => (
 					<button
 						type="button"
-						onClick={onTogglePopup}
+						onClick={() => {
+							dispatch(togglePopup());
+						}}
 						className="Header-openPopup InvisibleButton"
 						title={intl.formatMessage({id: 'Header.openPopup'})}
 					>
@@ -63,14 +70,6 @@ const Header = ({
 			</div>
 		</header>
 	);
-};
-
-Header.propTypes = {
-	referenceVersion: PropTypes.string.isRequired,
-	title: PropTypes.string.isRequired,
-	inPopup: PropTypes.bool.isRequired,
-	onOpenOptions: PropTypes.func.isRequired,
-	onTogglePopup: PropTypes.func.isRequired
 };
 
 export default Header;

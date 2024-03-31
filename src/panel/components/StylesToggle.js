@@ -1,16 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {FormattedMessage, useIntl} from 'react-intl';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectAreStylesEnabled, toggleStyles} from '../../common/slices/styles';
 import Icon from './Icon';
 
-const StylesToggle = ({areStylesEnabled, toggleStyles}) => {
+const StylesToggle = () => {
 	const intl = useIntl();
+	const areStylesEnabled = useSelector(selectAreStylesEnabled);
+	const dispatch = useDispatch();
 
 	return (
 		<button
 			className="ActionButton"
 			type="button"
-			onClick={() => toggleStyles(!areStylesEnabled)}
+			onClick={() => {
+				dispatch(toggleStyles(!areStylesEnabled));
+			}}
 			title={intl.formatMessage({
 				id: `ReferencePage.styles.toggle.disabled.${
 					areStylesEnabled ? 'false' : 'true'
@@ -21,11 +26,6 @@ const StylesToggle = ({areStylesEnabled, toggleStyles}) => {
 			<FormattedMessage id="ReferencePage.styles.toggle.label" />
 		</button>
 	);
-};
-
-StylesToggle.propTypes = {
-	areStylesEnabled: PropTypes.bool.isRequired,
-	toggleStyles: PropTypes.func.isRequired
 };
 
 export default StylesToggle;

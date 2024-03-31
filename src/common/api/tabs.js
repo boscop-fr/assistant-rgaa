@@ -1,4 +1,4 @@
-import {INVALID_RESPONSE} from '../actions/runtime';
+import {INVALID_RESPONSE} from '../slices/runtime';
 import {clearData, getData, setData} from './storage';
 
 /**
@@ -22,8 +22,8 @@ export const fetchCurrentTab = async () => {
 /**
  *
  */
-export const sendMessage = async (message, tabId, data) => {
-	const response = browser.tabs.sendMessage(message, tabId, data);
+export const sendMessage = async (tabId, message, options) => {
+	const response = browser.tabs.sendMessage(tabId, message, options);
 
 	if (response === INVALID_RESPONSE) {
 		throw new Error(response);
@@ -32,6 +32,6 @@ export const sendMessage = async (message, tabId, data) => {
 	return response;
 };
 
-export const getTabState = (tabId) => getData(`${tabId}.state`, {});
+export const getTabState = (tabId) => getData(`${tabId}.state`, undefined);
 export const setTabState = (tabId, state) => setData(`${tabId}.state`, state);
 export const clearTabState = (tabId) => clearData(`${tabId}.state`);

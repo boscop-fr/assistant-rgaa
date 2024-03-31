@@ -1,22 +1,21 @@
 import {
-	CLOSE_POPUP,
-	CREATE_TAB,
-	GET_CURRENT_TAB,
-	GET_PIXEL,
+	closePopup,
+	createTab,
+	getPixel,
 	INVALID_RESPONSE,
-	OPEN_POPUP,
-	OPEN_SIDEBAR,
-	VALIDATE_PAGE,
-	VIEW_PAGE_SOURCE
-} from '../common/actions/runtime';
+	openPopup,
+	openSidebar as openSidebarAction,
+	validatePage,
+	viewPageSource
+} from '../common/slices/runtime';
 import {getPixelAt} from '../common/api/image';
 import {createMessageHandler} from '../common/api/runtime';
 import {clearTabState, fetchCurrentTab} from '../common/api/tabs';
 import {validateLocalPage} from '../common/api/validateLocalPage';
 import {viewSource} from '../common/api/viewSource';
 import {injectHelpersScripts, removeHelpersScripts} from '../helpers/api/tabs';
-import {openSidebar, closeSidebar} from './api/sidebar';
-import {PanelPage, captureVisibleTab} from './api/tabs';
+import {closeSidebar, openSidebar} from './api/sidebar';
+import {captureVisibleTab, PanelPage} from './api/tabs';
 
 // We're avoiding promises (and thus async/await) here,
 // because of a sneaky chrome bug.
@@ -46,58 +45,51 @@ browser.tabs.onRemoved.addListener(async (tabId) => {
 
 browser.runtime.onMessage.addListener(
 	createMessageHandler(async (message) => {
-		switch (message.type) {
-			case OPEN_SIDEBAR: {
-				openSidebar(message.tabId);
-				return true;
-			}
-
-			case OPEN_POPUP: {
-				await browser.windows.create({
-					url: `${browser.runtime.getURL(PanelPage)}?tabId=${
-						message.tabId
-					}`,
-					type: 'popup'
-				});
-
-				await closeSidebar(message.tabId);
-				return true;
-			}
-
-			// if the instance runs in a popup, desindexes it and
-			// closes it.
-			case CLOSE_POPUP:
-				await browser.tabs.remove(message.popupTabId);
-				await openSidebar(message.tabId);
-				return true;
-
-			// sends the store's state to the instance.
-			case GET_PIXEL:
-				return captureVisibleTab().then((image) =>
-					getPixelAt(image, message.x, message.y)
-				);
-
-			// sends current tab's info to the instance.
-			case GET_CURRENT_TAB:
-				return fetchCurrentTab();
-
-			case VALIDATE_PAGE:
-				return validateLocalPage(message.url);
-
-			case VIEW_PAGE_SOURCE:
-				return viewSource(message.url);
-
-			// create a tab with the given url, next to the current tab
-			case CREATE_TAB:
-				return fetchCurrentTab().then((currentTab) =>
-					browser.tabs.create({
-						url: message.url,
-						index: currentTab.index + 1
-					})
-				);
-
-			default:
-				return INVALID_RESPONSE;
+		if (openSidebarAction.match(message)) {
+			openSidebar(message.payload.tabId);
+			return true;
 		}
+
+		if (openPopup.match(message)) {
+			const {tabId} = message.payload;
+			await browser.windows.create({
+				url: `${browser.runtime.getURL(PanelPage)}?tabId=${tabId}`,
+				type: 'popup'
+			});
+
+			await closeSidebar(tabId);
+			return true;
+		}
+
+		if (closePopup.match(message)) {
+			const {tabId, popupTabId} = message.payload;
+			await browser.tabs.remove(popupTabId);
+			await openSidebar(tabId);
+			return true;
+		}
+
+		if (getPixel.match(message)) {
+			const {x, y} = message.payload;
+			const capture = await captureVisibleTab();
+			return getPixelAt(capture, x, y);
+		}
+
+		if (validatePage.match(message)) {
+			return validateLocalPage(message.payload.url);
+		}
+
+		if (viewPageSource.match(message)) {
+			return viewSource(message.payload.url);
+		}
+
+		if (createTab.match(message)) {
+			const {index} = await fetchCurrentTab();
+			return browser.tabs.create({
+				url: message.payload.url,
+				index: index + 1
+			});
+		}
+
+		return INVALID_RESPONSE;
 	})
 );

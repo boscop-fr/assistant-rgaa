@@ -1,5 +1,6 @@
 import {isEmpty} from 'lodash';
-import {INVALID_RESPONSE} from '../actions/runtime';
+import {useEffect} from 'react';
+import {INVALID_RESPONSE} from '../slices/runtime';
 
 /**
  *
@@ -32,3 +33,14 @@ export const createMessageHandler =
 			sendResponse(response);
 		}
 	};
+
+export const useRuntimeMessage = (callback) => {
+	useEffect(() => {
+		const handler = createMessageHandler(callback);
+		browser.runtime.onMessage.addListener(handler);
+
+		return () => {
+			browser.runtime.onMessage.removeListener(handler);
+		};
+	}, []);
+};

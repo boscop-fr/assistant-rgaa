@@ -1,41 +1,31 @@
-import {reject, map} from 'lodash';
+import {map, without} from 'lodash';
 import {all, put, select, takeEvery} from 'redux-saga/effects';
-import {ENABLE, DISABLE, disable} from '../actions/tests';
-import {applyHelpers, revertHelpers} from '../actions/helpers';
-import {getEnabled} from '../selectors/tests';
-import {getHelpersByTest} from '../selectors/helpers';
+import {disableTest, enableTest, selectEnabledTestIds} from '../slices/tests';
+import {
+	applyHelpers,
+	revertHelpers,
+	selectHelpersByTest
+} from '../slices/helpers';
 
-/**
- *
- */
 function* enableSaga({payload: id}) {
 	// disables previously enabled tests
-	const enabled = yield select(getEnabled);
-	const otherEnabled = reject(enabled, ['id', id]);
-	yield all(map(otherEnabled, (test) => put(disable(test.id))));
+	const enabledIds = yield select(selectEnabledTestIds);
+	const otherEnabled = without(enabledIds, id);
+	yield all(map(otherEnabled, (otherId) => put(disableTest(otherId))));
 
-	const helpers = yield select(getHelpersByTest, id);
-	yield put(applyHelpers(id, helpers));
+	const helpers = yield select(selectHelpersByTest, id);
+	yield put(applyHelpers({id, helpers}));
 }
 
-/**
- *
- */
 function* disableSaga({payload: id}) {
-	const helpers = yield select(getHelpersByTest, id);
-	yield put(revertHelpers(id, helpers));
+	const helpers = yield select(selectHelpersByTest, id);
+	yield put(revertHelpers({id, helpers}));
 }
 
-/**
- *
- */
 export function* watchEnable() {
-	yield takeEvery(ENABLE, enableSaga);
+	yield takeEvery(enableTest.type, enableSaga);
 }
 
-/**
- *
- */
 export function* watchDisable() {
-	yield takeEvery(DISABLE, disableSaga);
+	yield takeEvery(disableTest.type, disableSaga);
 }

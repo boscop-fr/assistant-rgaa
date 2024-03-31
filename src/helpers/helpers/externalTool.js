@@ -1,5 +1,5 @@
 import {noop} from 'lodash';
-import ExternalToolContainer from '../components/ExternalToolContainer';
+import ExternalTool from '../components/ExternalTool';
 
 /**
  *	@param {string} name - Tool name.
@@ -29,7 +29,7 @@ export const describe = (intl, {name} = defaults) =>
 /**
  *
  */
-export const component = () => ExternalToolContainer;
+export const component = () => ExternalTool;
 
 /**
  *

@@ -1,7 +1,7 @@
 import createColor from 'color';
 import wait from '../../common/api/wait';
 import {sendMessage} from '../../common/api/runtime';
-import {GET_PIXEL} from '../../common/actions/runtime';
+import {getPixel} from '../../common/slices/runtime';
 
 /**
  *
@@ -22,11 +22,12 @@ export default function getSelectionStyle() {
 	// the real background one.
 	return wait(100)
 		.then(() =>
-			sendMessage({
-				type: GET_PIXEL,
-				x: rect.left,
-				y: rect.top
-			})
+			sendMessage(
+				getPixel({
+					x: rect.left,
+					y: rect.top
+				})
+			)
 		)
 		.then((backgroundColor) => ({
 			backgroundColor,

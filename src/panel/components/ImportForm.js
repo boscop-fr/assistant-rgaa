@@ -3,39 +3,37 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 import renderIf from 'render-if';
-import {
-	getConfig,
-	getHumanReadableErrors,
-	getVersion as getImportVersion,
-	isPending,
-	isValid
-} from '../../common/selectors/imports';
-import {getVersion as getReferenceVersion} from '../../common/selectors/reference';
-import {
-	setErrors,
-	setConfig,
-	setContent,
-	setPending,
-	apply,
-	reset
-} from '../../common/actions/imports';
 import {getCsv} from '../../common/api/imports';
+import {selectVersion} from '../../common/slices/reference';
+import {
+	applyImports,
+	resetImports,
+	selectConfig,
+	selectHumanReadableErrors,
+	selectIsPending,
+	selectIsValid,
+	selectVersion as selectImportVersion,
+	setContent,
+	setErrors,
+	setPending,
+	setConfig
+} from '../../common/slices/imports';
 
 /**
  *
  */
 export default function ImportForm() {
-	const globalVersion = useSelector(getReferenceVersion);
+	const globalVersion = useSelector(selectVersion);
 
 	if (!globalVersion) {
 		return null;
 	}
 
-	const importVersion = useSelector(getImportVersion);
-	const pending = useSelector(isPending);
-	const valid = useSelector(isValid);
-	const errors = useSelector(getHumanReadableErrors);
-	const config = useSelector(getConfig);
+	const importVersion = useSelector(selectImportVersion);
+	const pending = useSelector(selectIsPending);
+	const valid = useSelector(selectIsValid);
+	const errors = useSelector(selectHumanReadableErrors);
+	const config = useSelector(selectConfig);
 	const dispatch = useDispatch();
 
 	const handleFileSelection = (content) => {
@@ -50,12 +48,12 @@ export default function ImportForm() {
 		event.preventDefault();
 
 		if (valid) {
-			dispatch(apply());
+			dispatch(applyImports());
 		}
 	};
 
 	const onFormReset = () => {
-		dispatch(reset());
+		dispatch(resetImports());
 	};
 
 	const onFileChange = (event) => {

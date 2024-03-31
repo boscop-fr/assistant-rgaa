@@ -1,26 +1,21 @@
 import {put, select, takeEvery} from 'redux-saga/effects';
 import {
-	TOGGLE_CRITERION,
+	closeCriterion,
 	openCriterion,
-	closeCriterion
-} from '../actions/criteria';
-import {isOpen as isCriterionOpen} from '../selectors/criteria';
+	selectIsCriterionOpen,
+	toggleCriterion
+} from '../slices/criteria';
 
-/**
- *
- */
-function* toggleCriterionWorker({payload}) {
-	const isOpen = yield select(isCriterionOpen, payload);
+function* toggleCriterionWorker({payload: id}) {
+	const isOpen = yield select(selectIsCriterionOpen, id);
+
 	if (isOpen) {
-		yield put(closeCriterion(payload));
+		yield put(closeCriterion(id));
 	} else {
-		yield put(openCriterion(payload));
+		yield put(openCriterion(id));
 	}
 }
 
-/**
- *
- */
 export function* watchToggleCriterion() {
-	yield takeEvery(TOGGLE_CRITERION, toggleCriterionWorker);
+	yield takeEvery(toggleCriterion.type, toggleCriterionWorker);
 }

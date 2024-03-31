@@ -2,16 +2,14 @@ import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 import {Provider} from 'react-redux';
-import {setPageInfo} from '../common/actions/panel';
-import {setReferenceVersion} from '../common/actions/reference';
 import {getOption, OPTIONS} from '../common/api/options';
 import {DEFAULT_VERSION} from '../common/api/reference';
 import {fetchCurrentTab, getTabState} from '../common/api/tabs';
 import createStore from '../common/createStore';
 import messages from '../common/messages/fr';
-import reducer from '../common/reducers';
-import sagas from '../common/sagas';
 import routes from './routes';
+import {setPageInfo} from '../common/slices/panel';
+import {setVersion} from '../common/slices/reference';
 
 const init = async () => {
 	const query = new URLSearchParams(window.location.search);
@@ -32,12 +30,10 @@ const init = async () => {
 	});
 
 	const state = await getTabState(targetTab.id);
-	const store = createStore(reducer, sagas, state);
+	const store = createStore(state);
 
 	store.dispatch(
-		setReferenceVersion(
-			await getOption(OPTIONS.referenceVersion, DEFAULT_VERSION)
-		)
+		setVersion(await getOption(OPTIONS.referenceVersion, DEFAULT_VERSION))
 	);
 
 	store.dispatch(

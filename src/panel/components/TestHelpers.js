@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import {useSelector} from 'react-redux';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {describe, info, component} from '../../helpers/api/helpers';
-import {getHelpersByTest} from '../../common/selectors/helpers';
+import {selectHelpersByTest} from '../../common/slices/helpers';
 
 /**
  *
@@ -12,7 +12,7 @@ import {getHelpersByTest} from '../../common/selectors/helpers';
 function TestHelpers({id}) {
 	const intl = useIntl();
 	const [isOpen, setOpen] = useState(false);
-	const helpers = useSelector((state) => getHelpersByTest(state, id));
+	const helpers = useSelector((state) => selectHelpersByTest(state, id));
 	const containerClass = classNames('TestHelpers', 'TestSection', {
 		'is-open': isOpen
 	});
