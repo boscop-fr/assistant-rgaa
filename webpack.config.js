@@ -67,6 +67,9 @@ module.exports = {
 			'./src/helpers/index',
 			'./css/helpers/index.scss'
 		],
+		minimap: [
+			'./src/minimap/index'
+		],
 		options: [
 			'./src/options/index',
 			'./css/options/index.scss'
@@ -122,8 +125,43 @@ module.exports = {
 				]
 			},
 			{
+				// Custom CSS build for the minimap styles, as
+				// they are injected as a string into a shadow
+				// DOM.
+				test: /\.scss$/,
+				include: fullPath('css/minimap'),
+				use: [
+					{
+						loader: 'css-loader',
+						options: {
+							url: false,
+							exportType: 'string'
+						}
+					},
+					{
+						loader: 'postcss-loader',
+						options: {
+							postcssOptions: {
+								plugins: [
+									autoprefixer()
+								]
+							}
+						}
+					},
+					{
+						loader: 'sass-loader',
+						options: {
+							sassOptions: {
+								quietDeps: true
+							}
+						}
+					}
+				]
+			},
+			{
 				test: /\.scss$/,
 				include: fullPath('css'),
+				exclude: fullPath('css/minimap'),
 				use: [
 					MiniCssExtractPlugin.loader,
 					{

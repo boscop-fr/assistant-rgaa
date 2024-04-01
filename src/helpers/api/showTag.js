@@ -12,7 +12,7 @@ export default function showTag(id, element) {
 	showCodeNearElement(
 		element,
 		$('<code />', {
-			class: `${id} rgaaExt-Helper rgaaExt-ShowTagHelper`,
+			class: `${id} rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowTagHelper`,
 			html: `${lowerCase(element.get(0).tagName)}`
 		})
 	);

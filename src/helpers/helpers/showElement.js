@@ -77,7 +77,7 @@ export const apply = (id, {selector, ...options} = defaults) =>
 			showCodeNearElement(
 				$element,
 				$('<code />', {
-					class: `${id} rgaaExt-Helper rgaaExt-ShowElementHelper`,
+					class: `${id} rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowElementHelper`,
 					html
 				})
 			);

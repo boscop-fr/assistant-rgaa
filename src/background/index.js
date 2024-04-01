@@ -13,7 +13,7 @@ import {createMessageHandler} from '../common/api/runtime';
 import {clearTabState, fetchCurrentTab} from '../common/api/tabs';
 import {validateLocalPage} from '../common/api/validateLocalPage';
 import {viewSource} from '../common/api/viewSource';
-import {injectHelpersScripts, removeHelpersScripts} from '../helpers/api/tabs';
+import {injectContentScripts, removeContentScripts} from './api/content';
 import {closeSidebar, openSidebar} from './api/sidebar';
 import {captureVisibleTab, PanelPage} from './api/tabs';
 
@@ -29,13 +29,13 @@ browser.action.onClicked.addListener((tab) => {
 
 browser.runtime.onConnect.addListener(async (port) => {
 	const tabId = parseInt(port.name, 10);
-	await injectHelpersScripts(tabId);
+	await injectContentScripts(tabId);
 
 	// We're using the disconnection callback to detect when
 	// the sidebar is closed.
 	// @see https://stackoverflow.com/a/77106777/2391359
 	port.onDisconnect.addListener(async () => {
-		await removeHelpersScripts(tabId);
+		await removeContentScripts(tabId);
 	});
 });
 

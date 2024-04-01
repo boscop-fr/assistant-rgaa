@@ -38,7 +38,7 @@ export const describe = (intl, {selector, showTag} = defaults) =>
  *	@param {object} options - Options.
  */
 export const apply = (id, {selector, showTag} = defaults) => {
-	$(selector).addClass('rgaaExt-OutlineHelper');
+	$(selector).addClass('rgaaExt-Helper--mappable rgaaExt-OutlineHelper');
 
 	if (showTag) {
 		$(selector).each((i, element) => {
@@ -54,6 +54,6 @@ export const apply = (id, {selector, showTag} = defaults) => {
  *	@param {object} options - Options.
  */
 export const revert = (id, {selector} = defaults) => {
-	$(selector).removeClass('rgaaExt-OutlineHelper');
+	$(selector).removeClass('rgaaExt-Helper--mappable rgaaExt-OutlineHelper');
 	hideHelperElement(`.${id}`);
 };

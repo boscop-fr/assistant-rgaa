@@ -1,0 +1,59 @@
+.Minimap {
+	width: clamp(10px, 2vw, 40px);
+	height: 100%;
+	background: rgba($color-blue-dark, 0.1);
+	transition: background ease-out 150ms;
+	z-index: 999999;
+
+	&:hover {
+		background: rgba($color-blue-dark, 0.15);
+	}
+
+	// A layer under the minimap that inverts its background
+	// to ensure the upper layer has enough contrast.
+	&:before {
+		content: '';
+		position: absolute;
+		inset: 0 0 0 0;
+		backdrop-filter: invert(1);
+		opacity: 0.05;
+		z-index: -1;
+	}
+
+	// A border made with the same technique as above.
+	&:after {
+		content: '';
+		width: 1px;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: -1px;
+		backdrop-filter: invert(1);
+		opacity: 0.1;
+		z-index: -1;
+	}
+
+	&[data-helper-count='0'] {
+		display: none;
+	}
+}
+
+.Minimap-window {
+	--window-offset-ratio: 0;
+	--window-size-ratio: 0;
+	position: absolute;
+	top: calc(100% * var(--window-offset-ratio));
+	width: 100%;
+	height: calc(100% * var(--window-size-ratio));
+	backdrop-filter: invert(1);
+	opacity: 0.1;
+	z-index: -1;
+	transition: top linear 50ms;
+}
+
+.Minimap-pins {
+	--pin-color: #{$color-accent};
+	width: 100%;
+	height: 100%;
+	opacity: 0.8;
+}
