@@ -14,9 +14,3 @@ export const captureVisibleTab = async (
 
 	return image;
 };
-
-/**
- *
- */
-export const onUpdate = (callback) =>
-	browser.tabs.onUpdated.addListener(callback);

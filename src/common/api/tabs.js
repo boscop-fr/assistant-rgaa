@@ -32,6 +32,30 @@ export const sendMessage = async (tabId, message, options) => {
 	return response;
 };
 
+/**
+ *
+ */
+const onUpdate = (callback) => {
+	browser.tabs.onUpdated.addListener(callback);
+
+	return () => {
+		browser.tabs.onUpdated.removeListener(callback);
+	};
+};
+
+/**
+ *
+ */
+export const onTabLoaded = (id, callback) => {
+	const cleanup = onUpdate((tabId, {status}) => {
+		if (tabId === id && status === 'complete') {
+			callback();
+			cleanup();
+		}
+	});
+};
+
+
 export const getTabState = (tabId) => getData(`${tabId}.state`, undefined);
 export const setTabState = (tabId, state) => setData(`${tabId}.state`, state);
 export const clearTabState = (tabId) => clearData(`${tabId}.state`);
