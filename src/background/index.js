@@ -2,14 +2,16 @@ import {
 	closePopup,
 	createTab,
 	getPixel,
+	tabReloaded,
 	INVALID_RESPONSE,
 	openPopup,
 	openSidebar as openSidebarAction,
 	validatePage,
-	viewPageSource
+	viewPageSource,
+	helpersReady
 } from '../common/slices/runtime';
 import {getPixelAt} from '../common/api/image';
-import {createMessageHandler} from '../common/api/runtime';
+import {createMessageHandler, sendMessage} from '../common/api/runtime';
 import {clearTabState, fetchCurrentTab} from '../common/api/tabs';
 import {validateLocalPage} from '../common/api/validateLocalPage';
 import {viewSource} from '../common/api/viewSource';
@@ -30,6 +32,12 @@ browser.action.onClicked.addListener((tab) => {
 browser.runtime.onConnect.addListener(async (port) => {
 	const tabId = parseInt(port.name, 10);
 	await injectContentScripts(tabId);
+
+	port.onMessage.addListener(async (message) => {
+		if (tabReloaded.match(message)) {
+			await injectContentScripts(tabId);
+		}
+	});
 
 	// We're using the disconnection callback to detect when
 	// the sidebar is closed.
@@ -88,6 +96,13 @@ browser.runtime.onMessage.addListener(
 				url: message.payload.url,
 				index: index + 1
 			});
+		}
+
+		// Proxies the action from content scripts to the
+		// sidebar, as they can't communicate directly.
+		if (helpersReady.match(message)) {
+			sendMessage(message);
+			return true;
 		}
 
 		return INVALID_RESPONSE;

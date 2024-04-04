@@ -17,6 +17,7 @@ export default function* sagas() {
 		helpers.watchApplyAll(),
 		helpers.watchRevert(),
 		helpers.watchRevertAll(),
+		helpers.watchHelpersReady(),
 		imports.watchApply(),
 		tests.watchEnable(),
 		tests.watchDisable(),

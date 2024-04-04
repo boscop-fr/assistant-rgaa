@@ -4,12 +4,13 @@ import {IntlProvider} from 'react-intl';
 import {Provider} from 'react-redux';
 import {getOption, OPTIONS} from '../common/api/options';
 import {DEFAULT_VERSION} from '../common/api/reference';
-import {fetchCurrentTab, getTabState} from '../common/api/tabs';
+import {fetchCurrentTab, getTabState, onTabReloaded} from '../common/api/tabs';
 import createStore from '../common/createStore';
 import messages from '../common/messages/fr';
 import routes from './routes';
 import {setPageInfo} from '../common/slices/panel';
 import {setVersion} from '../common/slices/reference';
+import {tabReloaded} from '../common/slices/runtime';
 
 const init = async () => {
 	const query = new URLSearchParams(window.location.search);
@@ -25,8 +26,12 @@ const init = async () => {
 
 	// Used to observe the panel's lifecycle.
 	// @see https://stackoverflow.com/a/77106777/2391359
-	browser.runtime.connect({
+	const port = browser.runtime.connect({
 		name: `${targetTab.id}`
+	});
+
+	onTabReloaded(targetTab.id, () => {
+		port.postMessage(tabReloaded());
 	});
 
 	const state = await getTabState(targetTab.id);
