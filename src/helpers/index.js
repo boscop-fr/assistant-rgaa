@@ -1,17 +1,15 @@
 import $ from 'jquery';
 import {sendMessage} from '../common/api/runtime';
-import {
-	applyHelpers as applyHelpersAction,
-	revertHelpers as revertHelpersAction
-} from '../common/slices/helpers';
-import {helpersReady} from '../common/slices/runtime';
-import {applyHelpers, revertHelpers} from './api/helpers';
+import {toggleHelpers as toggleHelpersAction} from '../common/slices/helpers';
+import {helpersReady, tabUnloaded} from '../common/slices/runtime';
+import {revertActiveHelpers, toggleHelpers} from './api/helpers';
 
 browser.runtime.onMessage.addListener((action) => {
-	if (applyHelpersAction.match(action)) {
-		applyHelpers(action.payload.id, action.payload.helpers);
-	} else if (revertHelpersAction.match(action)) {
-		revertHelpers(action.payload.id, action.payload.helpers);
+	if (toggleHelpersAction.match(action)) {
+		const {id, helpers, enabled} = action.payload;
+		toggleHelpers(id, helpers, enabled);
+	} else if (tabUnloaded.match(action)) {
+		revertActiveHelpers();
 	}
 });
 

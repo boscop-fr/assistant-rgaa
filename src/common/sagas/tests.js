@@ -1,11 +1,7 @@
 import {map, without} from 'lodash';
 import {all, put, select, takeEvery} from 'redux-saga/effects';
 import {disableTest, enableTest, selectEnabledTestIds} from '../slices/tests';
-import {
-	applyHelpers,
-	revertHelpers,
-	selectHelpersByTest
-} from '../slices/helpers';
+import {selectHelpersByTest, toggleHelpers} from '../slices/helpers';
 
 function* enableSaga({payload: id}) {
 	// disables previously enabled tests
@@ -14,12 +10,12 @@ function* enableSaga({payload: id}) {
 	yield all(map(otherEnabled, (otherId) => put(disableTest(otherId))));
 
 	const helpers = yield select(selectHelpersByTest, id);
-	yield put(applyHelpers({id, helpers}));
+	yield put(toggleHelpers({id, helpers, enabled: true}));
 }
 
 function* disableSaga({payload: id}) {
 	const helpers = yield select(selectHelpersByTest, id);
-	yield put(revertHelpers({id, helpers}));
+	yield put(toggleHelpers({id, helpers, enabled: false}));
 }
 
 export function* watchEnable() {

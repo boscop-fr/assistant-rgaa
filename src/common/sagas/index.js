@@ -13,10 +13,7 @@ import * as options from './options';
  */
 export default function* sagas() {
 	yield all([
-		helpers.watchApply(),
-		helpers.watchApplyAll(),
-		helpers.watchRevert(),
-		helpers.watchRevertAll(),
+		helpers.watchToggle(),
 		helpers.watchHelpersReady(),
 		imports.watchApply(),
 		tests.watchEnable(),
@@ -26,8 +23,7 @@ export default function* sagas() {
 		panel.watchAll(),
 		reference.watchSetReferenceVersion(),
 		styles.watchToggleStyles(),
-		styles.watchApplyStyles(),
-		styles.watchRevertStyles(),
+		styles.watchHelpersReady(),
 		options.watchOpen(),
 		options.watchVersionChange()
 	]);

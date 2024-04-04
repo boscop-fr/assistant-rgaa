@@ -1,18 +1,19 @@
-import {call, put, select, takeEvery} from 'redux-saga/effects';
-import {applyHelpers, revertHelpers} from '../slices/helpers';
-import {
-	selectAreStylesEnabled,
-	applyStyles,
-	revertStyles,
-	toggleStyles
-} from '../slices/styles';
+import {call, put, select, take, takeEvery} from 'redux-saga/effects';
+import {messageChannel} from '../api/runtime';
+import {toggleHelpers} from '../slices/helpers';
+import {selectAreStylesEnabled, toggleStyles} from '../slices/styles';
+import {helpersReady} from '../slices/runtime';
 
 function* applyHelpersSaga(enabled) {
-	const effect = enabled ? revertHelpers : applyHelpers;
 	yield put(
-		effect({
+		toggleHelpers({
 			id: 'styles',
-			helpers: [{helper: 'disableAllStyles'}]
+			helpers: [{helper: 'disableAllStyles'}],
+			// This can be quite confusing…
+			// We're using the **disableAllStyles** helper, so
+			// we want it to do the opposite of what we ask for
+			// (i.e. enabled styles = !disableAllStyles)
+			enabled: !enabled
 		})
 	);
 }
@@ -26,18 +27,15 @@ function* applyStylesSaga() {
 	yield call(applyHelpersSaga, enabled);
 }
 
-function* revertStylesSaga() {
-	yield call(applyHelpersSaga, true);
-}
-
 export function* watchToggleStyles() {
 	yield takeEvery(toggleStyles.type, toggleStylesSaga);
 }
 
-export function* watchApplyStyles() {
-	yield takeEvery(applyStyles.type, applyStylesSaga);
-}
+export function* watchHelpersReady() {
+	const readyChannel = yield call(messageChannel, helpersReady);
 
-export function* watchRevertStyles() {
-	yield takeEvery(revertStyles.type, revertStylesSaga);
+	while (true) {
+		yield take(readyChannel);
+		yield call(applyStylesSaga);
+	}
 }
