@@ -1,6 +1,5 @@
 import React from 'react';
 import $ from 'jquery';
-import join from '../../common/api/join';
 import serializeAttributes from '../api/serializeAttributes';
 import showCodeNearElement from '../api/showCodeNearElement';
 import hideHelperElement from '../api/hideHelperElement';
@@ -26,7 +25,7 @@ export const defaults = {
  */
 export const describe = (
 	intl,
-	{selector, attributes, showMissing} = defaults
+	{selector, attributes = [], showMissing} = defaults
 ) =>
 	intl.formatMessage(
 		{
@@ -34,7 +33,7 @@ export const describe = (
 		},
 		{
 			selector: sanitize(selector),
-			attributes: join(attributes),
+			attributes: intl.formatList(attributes),
 			attributeCount: attributes.length,
 			showMissing,
 			code: (chunks) => <code>{chunks}</code>

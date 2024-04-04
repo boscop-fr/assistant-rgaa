@@ -1,6 +1,5 @@
 import React from 'react';
 import $ from 'jquery';
-import join from '../../common/api/join';
 import serializeElement from '../api/serializeElement';
 import showCodeNearElement from '../api/showCodeNearElement';
 import hideHelperElement from '../api/hideHelperElement';
@@ -40,7 +39,7 @@ export const describe = (
 	{
 		selector,
 		childrenSelector,
-		attributes,
+		attributes = [],
 		showEmpty,
 		showName,
 		showMissingAttributes,
@@ -54,7 +53,7 @@ export const describe = (
 		{
 			selector: sanitize(selector),
 			childrenSelector: sanitize(childrenSelector),
-			attributes: join(attributes),
+			attributes: intl.formatList(attributes),
 			attributeCount: attributes.length,
 			showEmpty,
 			showName,
