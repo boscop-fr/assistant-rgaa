@@ -12,6 +12,7 @@ export const validatePage = createAction('runtime/validatePage');
 export const viewPageSource = createAction('runtime/viewPageSource');
 export const createTab = createAction('runtime/createTab');
 export const tabReloaded = createAction('runtime/tabReloaded');
+export const tabUnloaded = createAction('runtime/tabUnloaded');
 export const helpersReady = createAction('runtime/helpersReady');
 
 export const INVALID_RESPONSE = 'runtime/INVALID_RESPONSE';

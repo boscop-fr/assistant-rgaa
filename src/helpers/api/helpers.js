@@ -1,5 +1,11 @@
 import * as modules from '../helpers';
 
+// Helper sets are indexed by test id.
+// Given how the app works, we're assuming that a test is
+// always associated with the same set of helpers, so it
+// simplifies the storage of active helpers.
+const activeHelpers = new Map();
+
 /**
  *
  */
@@ -44,6 +50,16 @@ export const component = (helper) => {
 const createId = (id, index) =>
 	`rgaaExt-Helper--${id}-${index}`.replace(/\./g, '-');
 
+const toggleBodyClasses = () => {
+	const areAnyHelperActive = activeHelpers.size > 0;
+
+	document.body.classList.toggle('rgaaExt-Body', areAnyHelperActive);
+	document.body.classList.toggle(
+		'rgaaExt-Body--withHelpers',
+		areAnyHelperActive
+	);
+};
+
 /**
  *	Calls a specific function on each of the given helpers.
  *
@@ -52,42 +68,35 @@ const createId = (id, index) =>
  *	@param {string} func - Name of the module's function to call,
  *		either 'apply' or 'revert'.
  */
-const toggleHelpers = (id, helpers, toggle) => {
+export const toggleHelpers = (id, helpers, toggle) => {
+	if (activeHelpers.has(id) === toggle) {
+		return;
+	}
+
 	const method = toggle ? 'apply' : 'revert';
 
-	document.body.classList.toggle('rgaaExt-Body', toggle);
-	document.body.classList.toggle('rgaaExt-Body--withHelpers', toggle);
-	document.body.classList.toggle(`rgaaExt-Body--withHelper-${id}`, toggle);
-
-	try {
-		helpers.forEach((helper, i) => {
+	helpers.forEach((helper, i) => {
+		try {
 			const {name, module, args} = info(helper);
 			module[method](createId(id, i), args);
 			document.body.classList.toggle(`rgaaExt-Body--${name}Helper`, toggle);
-		});
-	} catch (e) {
-		// eslint-disable-next-line no-console
-		console.error(e);
+		} catch (e) {
+			// eslint-disable-next-line no-console
+			console.error(e);
+		}
+	});
+
+	if (toggle) {
+		activeHelpers.set(id, helpers);
+	} else {
+		activeHelpers.delete(id);
 	}
+
+	toggleBodyClasses();
 };
 
-/**
- *
- */
-const isApplied = (id) =>
-	document.body.classList.contains(`rgaaExt-Body--withHelper-${id}`);
-
-/**
- *
- */
-export const applyHelpers = (id, helpers) => {
-	if (!isApplied(id)) {
-		return toggleHelpers(id, helpers, true);
-	}
-	return false;
+export const revertActiveHelpers = () => {
+	activeHelpers.forEach((helpers, id) => {
+		toggleHelpers(id, helpers, false);
+	});
 };
-
-/**
- *
- */
-export const revertHelpers = (id, helpers) => toggleHelpers(id, helpers, false);

@@ -8,7 +8,8 @@ import {
 	openSidebar as openSidebarAction,
 	validatePage,
 	viewPageSource,
-	helpersReady
+	helpersReady,
+	tabUnloaded
 } from '../common/slices/runtime';
 import {getPixelAt} from '../common/api/image';
 import {createMessageHandler, sendMessage} from '../common/api/runtime';
@@ -43,6 +44,7 @@ browser.runtime.onConnect.addListener(async (port) => {
 	// the sidebar is closed.
 	// @see https://stackoverflow.com/a/77106777/2391359
 	port.onDisconnect.addListener(async () => {
+		await browser.tabs.sendMessage(tabId, tabUnloaded());
 		await removeContentScripts(tabId);
 	});
 });

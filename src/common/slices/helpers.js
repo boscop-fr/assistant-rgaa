@@ -9,10 +9,7 @@ const helpersSlice = createSlice({
 		setHelpers(state, {payload: helpers}) {
 			state.helpers = helpers; // eslint-disable-line no-param-reassign
 		},
-		applyHelpers() {},
-		applyAllHelpers() {},
-		revertHelpers() {},
-		revertAllHelpers() {}
+		toggleHelpers() {}
 	},
 	selectors: {
 		selectTestHasHelpers(state, id) {
@@ -25,12 +22,6 @@ const helpersSlice = createSlice({
 });
 
 const {actions, reducer, selectors} = helpersSlice;
-export const {
-	setHelpers,
-	applyHelpers,
-	applyAllHelpers,
-	revertHelpers,
-	revertAllHelpers
-} = actions;
+export const {setHelpers, toggleHelpers} = actions;
 export const {selectTestHasHelpers, selectHelpersByTest} = selectors;
 export default reducer;
