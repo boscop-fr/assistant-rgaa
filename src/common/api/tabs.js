@@ -55,6 +55,22 @@ export const onTabLoaded = (id, callback) => {
 	});
 };
 
+export const onTabReloaded = (id, callback) => {
+	let isLoading = false;
+
+	return onUpdate((tabId, {status}) => {
+		if (tabId !== id) {
+			return;
+		}
+
+		if (status === 'loading') {
+			isLoading = true;
+		} else if (status === 'complete' && isLoading) {
+			isLoading = false;
+			callback();
+		}
+	});
+};
 
 export const getTabState = (tabId) => getData(`${tabId}.state`, undefined);
 export const setTabState = (tabId, state) => setData(`${tabId}.state`, state);

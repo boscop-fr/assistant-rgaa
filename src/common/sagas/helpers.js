@@ -1,5 +1,6 @@
-import {call, put, select, takeEvery} from 'redux-saga/effects';
+import {call, put, select, take, takeEvery} from 'redux-saga/effects';
 import {sendMessage} from '../api/tabs';
+import {messageChannel} from '../api/runtime';
 import {
 	applyAllHelpers,
 	applyHelpers,
@@ -9,6 +10,7 @@ import {
 } from '../slices/helpers';
 import {selectPageTabId} from '../slices/panel';
 import {selectEnabledTests} from '../slices/tests';
+import {helpersReady} from '../slices/runtime';
 
 function* applySaga(action) {
 	const tabId = yield select(selectPageTabId);
@@ -64,4 +66,13 @@ export function* watchApplyAll() {
 
 export function* watchRevertAll() {
 	yield takeEvery(revertAllHelpers.type, revertAllSaga);
+}
+
+export function* watchHelpersReady() {
+	const readyChannel = yield call(messageChannel, helpersReady);
+
+	while (true) {
+		yield take(readyChannel);
+		yield put(applyAllHelpers());
+	}
 }

@@ -7,10 +7,11 @@ import {createAction} from '@reduxjs/toolkit';
 export const openSidebar = createAction('runtime/openSidebar');
 export const openPopup = createAction('runtime/openPopup');
 export const closePopup = createAction('runtime/closePopup');
-export const injectScripts = createAction('runtime/injectScripts');
 export const getPixel = createAction('runtime/getPixel');
 export const validatePage = createAction('runtime/validatePage');
 export const viewPageSource = createAction('runtime/viewPageSource');
 export const createTab = createAction('runtime/createTab');
+export const tabReloaded = createAction('runtime/tabReloaded');
+export const helpersReady = createAction('runtime/helpersReady');
 
 export const INVALID_RESPONSE = 'runtime/INVALID_RESPONSE';
