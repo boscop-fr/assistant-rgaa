@@ -2,7 +2,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
-import {map, isNull, isEmpty} from 'lodash';
+import {isNull, isEmpty} from 'lodash';
 import {FormattedMessage, useIntl} from 'react-intl';
 import renderIf from 'render-if';
 import classNames from 'classnames';
@@ -26,7 +26,6 @@ import {
 	selectAreAllTestsDone
 } from '../../common/slices/checklist';
 import {selectEnabledTestsByCriterion} from '../../common/slices/tests';
-import {selectCriterionResults} from '../../common/slices/imports';
 
 const Criterion = ({id, level, title}) => {
 	const intl = useIntl();
@@ -46,9 +45,6 @@ const Criterion = ({id, level, title}) => {
 		selectEnabledTestsByCriterion(state, id)
 	);
 	const activeTest = isOpen ? enabledTests?.[0] : null;
-	const importResults = useSelector((state) =>
-		selectCriterionResults(state, id)
-	);
 	const dispatch = useDispatch();
 
 	const className = classNames('Criterion Theme-criterion', {
@@ -123,28 +119,6 @@ const Criterion = ({id, level, title}) => {
 							dangerouslySetInnerHTML={{__html: title}}
 						/>
 					</div>
-
-					{renderIf(!isOpen && importResults)(() => (
-						<div className="Criterion-importResults">
-							{map(importResults, (count, status, i) => (
-								<span
-									key={i}
-									className="Label ImportResult"
-									data-import-result={status}
-									title={intl.formatMessage(
-										{
-											id: `ImportResults.${status}.title`
-										},
-										{
-											count
-										}
-									)}
-								>
-									{count} × {status}
-								</span>
-							))}
-						</div>
-					))}
 				</div>
 
 				<div className="Criterion-actions">

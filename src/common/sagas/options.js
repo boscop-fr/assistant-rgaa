@@ -2,7 +2,6 @@ import {eventChannel} from 'redux-saga';
 import {call, put, take, takeEvery} from 'redux-saga/effects';
 import {onOptionChange, OPTIONS} from '../api/options';
 import {setVersion} from '../slices/reference';
-import {resetImports} from '../slices/imports';
 import {openOptionsPage} from '../slices/options';
 
 const optionChannel = (key) =>
@@ -21,8 +20,6 @@ export function* watchVersionChange() {
 
 	while (true) {
 		const version = yield take(versionChannel);
-
-		yield put(resetImports());
 		yield put(setVersion(version));
 	}
 }
