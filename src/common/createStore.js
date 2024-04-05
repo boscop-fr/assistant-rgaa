@@ -10,7 +10,6 @@ import reference from './slices/reference';
 import styles from './slices/styles';
 import tests from './slices/tests';
 import themes from './slices/themes';
-import imports from './slices/imports';
 
 /**
  *
@@ -25,7 +24,6 @@ export default function createStore(preloadedState) {
 			checklist,
 			criteria,
 			helpers,
-			imports,
 			instructions,
 			panel,
 			reference,

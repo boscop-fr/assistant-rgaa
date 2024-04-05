@@ -2,7 +2,6 @@ import React from 'react';
 import {RouterProvider, createMemoryRouter} from 'react-router';
 import App from './components/App';
 import MarkdownPage from './components/MarkdownPage';
-import ImportPage from './components/ImportPage';
 import ReferencePage from './components/ReferencePage';
 
 export const router = createMemoryRouter([
@@ -13,10 +12,6 @@ export const router = createMemoryRouter([
 			{
 				index: true,
 				element: <ReferencePage />
-			},
-			{
-				path: 'import',
-				element: <ImportPage />
 			},
 			{
 				path: 'help',

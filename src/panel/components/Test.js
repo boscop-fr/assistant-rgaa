@@ -15,7 +15,6 @@ import {
 import {selectTestHasHelpers} from '../../common/slices/helpers';
 import {markTestDone, selectIsTestDone} from '../../common/slices/checklist';
 import {selectInstructionsByTest} from '../../common/slices/instructions';
-import {selectTestResult} from '../../common/slices/imports';
 
 /**
  *
@@ -30,7 +29,6 @@ function Test({id, title}) {
 	);
 
 	const [areInstructionsOpen, setInstructionsOpen] = useState(applied);
-	const importResult = useSelector((state) => selectTestResult(state, id));
 	const dispatch = useDispatch();
 
 	const handleToggle = () => {
@@ -74,20 +72,6 @@ function Test({id, title}) {
 				</div>
 
 				<div className="Test-actions">
-					{renderIf(importResult)(() => (
-						<div className="Test-action Test-action---import">
-							<span
-								className="Label ImportResult"
-								data-import-result={importResult}
-								title={intl.formatMessage({
-									id: `ImportResult.${importResult}.title`
-								})}
-							>
-								{importResult}
-							</span>
-						</div>
-					))}
-
 					{renderIf(applicable)(() => (
 						<div className="Test-action Test-action---apply">
 							<input
