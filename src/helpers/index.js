@@ -1,8 +1,8 @@
 import $ from 'jquery';
-import {sendMessage} from '../common/api/runtime';
-import {toggleHelpers as toggleHelpersAction} from '../common/slices/helpers';
-import {helpersReady, tabUnloaded} from '../common/slices/runtime';
-import {revertActiveHelpers, toggleHelpers} from './api/helpers';
+import {sendMessage} from '../common/utils/runtime';
+import {toggleHelpers as toggleHelpersAction} from '../panel/slices/helpers';
+import {helpersReady, tabUnloaded} from '../background/slices/runtime';
+import {revertActiveHelpers, toggleHelpers} from './utils/helpers';
 
 browser.runtime.onMessage.addListener((action) => {
 	if (toggleHelpersAction.match(action)) {

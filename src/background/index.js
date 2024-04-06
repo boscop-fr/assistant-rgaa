@@ -10,15 +10,15 @@ import {
 	viewPageSource,
 	helpersReady,
 	tabUnloaded
-} from '../common/slices/runtime';
-import {getPixelAt} from '../common/api/image';
-import {createMessageHandler, sendMessage} from '../common/api/runtime';
-import {clearTabState, fetchCurrentTab} from '../common/api/tabs';
-import {validateLocalPage} from '../common/api/validateLocalPage';
-import {viewSource} from '../common/api/viewSource';
-import {injectContentScripts, removeContentScripts} from './api/content';
-import {closeSidebar, openSidebar} from './api/sidebar';
-import {captureVisibleTab, PanelPage} from './api/tabs';
+} from './slices/runtime';
+import {getPixelAt} from './utils/image';
+import {createMessageHandler, sendMessage} from '../common/utils/runtime';
+import {clearTabState, fetchCurrentTab} from '../common/utils/tabs';
+import {validateLocalPage} from './utils/validateLocalPage';
+import {viewSource} from './utils/viewSource';
+import {injectContentScripts, removeContentScripts} from './utils/content';
+import {closeSidebar, openSidebar} from './utils/sidebar';
+import {captureVisibleTab, PanelPage} from './utils/tabs';
 
 // We're avoiding promises (and thus async/await) here,
 // because of a sneaky chrome bug.

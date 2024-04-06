@@ -4,9 +4,6 @@ import {FormattedMessage} from 'react-intl';
 import renderIf from 'render-if';
 import classNames from 'classnames';
 
-/**
- *
- */
 const ColorContrastResult = ({ratio, minimumRatio}) => (
 	<p className="ColorContrastResult">
 		<FormattedMessage id="ColorContrastResult.ratio" />

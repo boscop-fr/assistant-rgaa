@@ -2,15 +2,19 @@ import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 import {Provider} from 'react-redux';
-import {getOption, OPTIONS} from '../common/api/options';
-import {DEFAULT_VERSION} from '../common/api/reference';
-import {fetchCurrentTab, getTabState, onTabReloaded} from '../common/api/tabs';
-import createStore from '../common/createStore';
-import messages from '../common/messages/fr';
+import {getOption, OPTIONS} from '../options/utils/storage';
+import {DEFAULT_VERSION} from './utils/reference';
+import {
+	fetchCurrentTab,
+	getTabState,
+	onTabReloaded
+} from '../common/utils/tabs';
+import createStore from './createStore';
+import messages from './messages/fr';
 import routes from './routes';
-import {setPageInfo} from '../common/slices/panel';
-import {setVersion} from '../common/slices/reference';
-import {tabReloaded} from '../common/slices/runtime';
+import {setPageInfo} from './slices/panel';
+import {setVersion} from './slices/reference';
+import {tabReloaded} from '../background/slices/runtime';
 
 const init = async () => {
 	const query = new URLSearchParams(window.location.search);

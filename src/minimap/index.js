@@ -1,6 +1,6 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import {tabUnloaded} from '../common/slices/runtime';
+import {tabUnloaded} from '../background/slices/runtime';
 import MinimapContainer from './components/MinimapContainer';
 
 const container = document.createElement('div');

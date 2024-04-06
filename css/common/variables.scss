@@ -1,9 +1,5 @@
 @use 'sass:math';
 
-/**
- *
- */
-
 $base-font-size: 13px;
 $line-height: 1.5;
 
@@ -28,15 +24,7 @@ $typi-small: (
 
 $base-line-height: $base-font-size * $line-height;
 
-/**
- *
- */
-
 $app-gutter: vr(0.5);
-
-/**
- *
- */
 
 $font-title:
 	'Avenir',
@@ -53,10 +41,6 @@ $font-body:
 	sans-serif;
 
 $font-mono: monospace;
-
-/**
- *
- */
 
 $color-black: #111;
 $color-white: #fff;

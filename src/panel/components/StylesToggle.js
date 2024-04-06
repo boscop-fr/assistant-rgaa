@@ -1,7 +1,7 @@
 import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectAreStylesEnabled, toggleStyles} from '../../common/slices/styles';
+import {selectAreStylesEnabled, toggleStyles} from '../slices/styles';
 import Icon from './Icon';
 
 const StylesToggle = () => {

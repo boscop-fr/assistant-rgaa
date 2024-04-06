@@ -1,10 +1,10 @@
 import $ from 'jquery';
-import toggleStyleSheets from '../api/toggleStyleSheets';
+import toggleStyleSheets from '../utils/toggleStyleSheets';
 import {
 	mutedAttributeSelector,
 	muteAttribute,
 	restoreAttribute
-} from '../api/muteAttributes';
+} from '../utils/muteAttributes';
 import {apply as applyStyle, revert as revertStyle} from './style';
 
 /**

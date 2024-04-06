@@ -26,17 +26,8 @@ export const describe = (intl, {name} = defaults) =>
 		}
 	);
 
-/**
- *
- */
 export const component = () => ExternalTool;
 
-/**
- *
- */
 export const apply = noop;
 
-/**
- *
- */
 export const revert = noop;

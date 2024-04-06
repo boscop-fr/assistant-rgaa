@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import renderIf from 'render-if';
 import classNames from 'classnames';
 
-/**
- *
- */
 export default function Icon({name, title, className, spritePath, ...props}) {
 	const svgProps = {...props};
 	if (title) {

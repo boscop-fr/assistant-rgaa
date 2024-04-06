@@ -9,17 +9,8 @@ export const describe = (intl) =>
 		id: 'Helper.validateLocalPage'
 	});
 
-/**
- *
- */
 export const component = () => LocalPageValidator;
 
-/**
- *
- */
 export const apply = noop;
 
-/**
- *
- */
 export const revert = noop;

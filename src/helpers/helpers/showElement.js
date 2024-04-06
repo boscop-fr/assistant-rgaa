@@ -1,9 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
-import serializeElement from '../api/serializeElement';
-import showCodeNearElement from '../api/showCodeNearElement';
-import hideHelperElement from '../api/hideHelperElement';
-import {sanitize} from '../api/selectors';
+import serializeElement from '../utils/serializeElement';
+import showCodeNearElement from '../utils/showCodeNearElement';
+import hideHelperElement from '../utils/hideHelperElement';
+import {sanitize} from '../utils/selectors';
 
 /**
  *	@var {string} description - Tool description.

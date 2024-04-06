@@ -12,5 +12,7 @@
 	"singleQuote": true,
 	"tabWidth": 3,
 	"trailingComma": "none",
-	"useTabs": true
+	"useTabs": true,
+	"importOrder": ["^[./]"],
+	"importOrderSortSpecifiers": true
 }

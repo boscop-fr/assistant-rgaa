@@ -1,9 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
-import serializeAttributes from '../api/serializeAttributes';
-import showCodeNearElement from '../api/showCodeNearElement';
-import hideHelperElement from '../api/hideHelperElement';
-import {sanitize} from '../api/selectors';
+import serializeAttributes from '../utils/serializeAttributes';
+import showCodeNearElement from '../utils/showCodeNearElement';
+import hideHelperElement from '../utils/hideHelperElement';
+import {sanitize} from '../utils/selectors';
 
 /**
  *	@var {string} selector - Selector.

@@ -1,51 +1,39 @@
 import $ from 'jquery';
 import {forEach} from 'lodash';
-import {createMessageHandler, sendMessage} from '../../common/api/runtime';
-import {getPixel} from '../../common/slices/runtime';
+import {createMessageHandler, sendMessage} from '../../common/utils/runtime';
+import {getPixel} from '../../background/slices/runtime';
 import {
 	mutedAttributeSelector,
 	muteAttribute,
 	restoreAttribute
-} from '../api/muteAttributes';
-import waitForEvent from '../api/waitForEvent';
-import getSelectionStyle from '../api/getSelectionStyle';
+} from '../utils/muteAttributes';
+import waitForEvent from '../utils/waitForEvent';
+import getSelectionStyle from '../utils/getSelectionStyle';
 import {
 	requestPixelColor,
 	requestTextColor,
 	requestStyle,
 	updateColor,
 	updateStyle
-} from '../actions/colorContrast';
+} from '../slices/colorContrast';
 import ColorContrast from '../components/ColorContrast';
 
-/**
- *
- */
 const PickingStates = {
 	pickingPixel: 'rgaaExt-ColorContrastHelper--pickingPixel',
 	pickingText: 'rgaaExt-ColorContrastHelper--pickingText',
 	processing: 'rgaaExt-ColorContrastHelper--processing'
 };
 
-/**
- *
- */
 const setPickingState = (className) =>
 	forEach(PickingStates, (c) => {
 		document.body.classList.toggle(c, c === className);
 	});
 
-/**
- *
- */
 const startPicking = (state) => {
 	setPickingState(state);
 	muteAttribute($('a'), 'href');
 };
 
-/**
- *
- */
 const stopPicking = () => {
 	const selector = mutedAttributeSelector('href', 'a');
 
@@ -53,9 +41,6 @@ const stopPicking = () => {
 	restoreAttribute($(selector), 'href');
 };
 
-/**
- *
- */
 const handleMessage = createMessageHandler(async (action) => {
 	if (requestPixelColor.match(action)) {
 		try {
@@ -96,9 +81,6 @@ const handleMessage = createMessageHandler(async (action) => {
 	}
 });
 
-/**
- *
- */
 export const component = () => ColorContrast;
 
 /**
@@ -109,16 +91,10 @@ export const describe = (intl) =>
 		id: 'Helper.colorContrast'
 	});
 
-/**
- *
- */
 export const apply = () => {
 	browser.runtime.onMessage.addListener(handleMessage);
 };
 
-/**
- *
- */
 export const revert = () => {
 	browser.runtime.onMessage.removeListener(handleMessage);
 };

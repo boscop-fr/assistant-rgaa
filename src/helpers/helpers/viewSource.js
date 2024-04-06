@@ -9,17 +9,8 @@ export const describe = (intl) =>
 		id: 'Helper.viewSource'
 	});
 
-/**
- *
- */
 export const component = () => ViewSource;
 
-/**
- *
- */
 export const apply = noop;
 
-/**
- *
- */
 export const revert = noop;

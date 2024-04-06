@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
 import classNames from 'classnames';
 
-/**
- *
- */
 function TestInstructions({id, isOpen, onToggleRequest, instructions}) {
 	const containerClass = classNames('TestInstructions', 'TestSection', {
 		'is-open': isOpen

@@ -1,9 +1,9 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {createTab, viewPageSource} from '../../common/slices/runtime';
-import {sendMessage} from '../../common/api/runtime';
-import {isFirefox} from '../../common/api/uasniffer';
-import {selectPageUrl} from '../../common/slices/panel';
+import {createTab, viewPageSource} from '../../background/slices/runtime';
+import {sendMessage} from '../../common/utils/runtime';
+import {isFirefox} from '../../common/utils/browser';
+import {selectPageUrl} from '../../panel/slices/panel';
 import HelperButton from './HelperButton';
 
 const ViewSource = () => {

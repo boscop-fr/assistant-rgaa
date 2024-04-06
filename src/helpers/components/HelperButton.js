@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-/**
- *
- */
 const HelperButton = ({name, title, disabled, onClick}) => (
 	<div className="Widget HelperButton">
 		<button

@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import renderIf from 'render-if';
 import {get} from 'lodash';
 import createColor from 'color';
-import {sendMessage, useRuntimeMessage} from '../../common/api/runtime';
+import {sendMessage, useRuntimeMessage} from '../../common/utils/runtime';
 import {
 	updateColor,
 	updateStyle,
 	requestPixelColor,
 	requestTextColor,
 	requestStyle
-} from '../actions/colorContrast';
+} from '../slices/colorContrast';
 import ColorContrastResult from './ColorContrastResult';
 import ToggleButton from './ToggleButton';
 import ColorContrastField from './ColorContrastField';

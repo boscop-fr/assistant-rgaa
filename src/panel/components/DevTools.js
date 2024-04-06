@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectVersion, setVersion} from '../../common/slices/reference';
+import {selectVersion, setVersion} from '../slices/reference';
 
 const DevTools = () => {
 	const version = useSelector(selectVersion);
