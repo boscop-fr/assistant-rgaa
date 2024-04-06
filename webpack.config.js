@@ -1,5 +1,4 @@
 const path = require('path');
-const autoprefixer = require('autoprefixer');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
@@ -21,34 +20,10 @@ if (devMode) {
 		new ESLintPlugin(),
 		new StyleLintPlugin({
 			failOnError: false,
-			context: 'css',
-			syntax: 'scss'
+			context: 'css'
 		})
 	);
 }
-
-// @see https://webpack.js.org/plugins/mini-css-extract-plugin/#extracting-css-based-on-entry
-const recursiveIssuer = (m, c) => {
-	const issuer = c.moduleGraph.getIssuer(m);
-
-	if (issuer) {
-		return recursiveIssuer(issuer, c);
-	}
-
-	const chunks = c.chunkGraph.getModuleChunks(m);
-	return chunks.length
-		? chunks[0].name
-		: false;
-};
-
-const styleCacheGroup = (name) => ({
-	name,
-	chunks: 'all',
-	enforce: true,
-	test: (m, c, entry = name) =>
-		m.constructor.name === 'CssModule'
-		&& recursiveIssuer(m, c) === entry
-});
 
 module.exports = {
 	mode: devMode
@@ -57,22 +32,22 @@ module.exports = {
 	entry: {
 		'default-panel': [
 			'./src/default-panel/index',
-			'./css/default-panel/index.scss'
+			'./css/default-panel/index.css'
 		],
 		panel: [
 			'./src/panel/index',
-			'./css/panel/index.scss'
+			'./css/panel/index.css'
 		],
 		helpers: [
 			'./src/helpers/index',
-			'./css/helpers/index.scss'
+			'./css/helpers/index.css'
 		],
 		minimap: [
 			'./src/minimap/index'
 		],
 		options: [
 			'./src/options/index',
-			'./css/options/index.scss'
+			'./css/options/index.css'
 		],
 		background: [
 			'./src/background/index'
@@ -91,17 +66,6 @@ module.exports = {
 	resolve: {
 		fallback: {
 			buffer: require.resolve('buffer')
-		}
-	},
-	optimization: {
-		splitChunks: {
-			cacheGroups: {
-				containerStyles: styleCacheGroup('container'),
-				helpersStyles: styleCacheGroup('helpers'),
-				optionsStyles: styleCacheGroup('options'),
-				defaultPanelStyles: styleCacheGroup('default-panel'),
-				panelStyles: styleCacheGroup('panel')
-			}
 		}
 	},
 	module: {
@@ -128,7 +92,7 @@ module.exports = {
 				// Custom CSS build for the minimap styles, as
 				// they are injected as a string into a shadow
 				// DOM.
-				test: /\.scss$/,
+				test: /\.css$/,
 				include: fullPath('css/minimap'),
 				use: [
 					{
@@ -137,29 +101,11 @@ module.exports = {
 							url: false,
 							exportType: 'string'
 						}
-					},
-					{
-						loader: 'postcss-loader',
-						options: {
-							postcssOptions: {
-								plugins: [
-									autoprefixer()
-								]
-							}
-						}
-					},
-					{
-						loader: 'sass-loader',
-						options: {
-							sassOptions: {
-								quietDeps: true
-							}
-						}
 					}
 				]
 			},
 			{
-				test: /\.scss$/,
+				test: /\.css$/,
 				include: fullPath('css'),
 				exclude: fullPath('css/minimap'),
 				use: [
@@ -168,24 +114,6 @@ module.exports = {
 						loader: 'css-loader',
 						options: {
 							url: false
-						}
-					},
-					{
-						loader: 'postcss-loader',
-						options: {
-							postcssOptions: {
-								plugins: [
-									autoprefixer()
-								]
-							}
-						}
-					},
-					{
-						loader: 'sass-loader',
-						options: {
-							sassOptions: {
-								quietDeps: true
-							}
 						}
 					}
 				]

@@ -1,0 +1,34 @@
+html {
+	height: 100vh;
+	background:
+		linear-gradient(
+			135deg,
+			#453796 0%,
+			#1560a0 50%,
+			#3fb9b1 100%
+		);
+	color: var(--color-white);
+	font-size: 100%;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: transparent;
+}
+
+h1 {
+	margin: 50vw 0 25vw 0;
+	line-height: 1;
+	font-weight: bolder;
+}
+
+span {
+	display: block;
+	font-size: 2.5rem;
+}
+
+span + span {
+	font-size: 4rem;
+}

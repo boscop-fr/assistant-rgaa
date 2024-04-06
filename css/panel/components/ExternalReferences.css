@@ -1,0 +1,41 @@
+.References-container {
+	ul {
+		display: flex;
+		justify-content: start;
+		flex-wrap: wrap;
+		margin-bottom: 0.5lh;
+		color: var(--color-white);
+		gap: 0.5ch;
+
+		a {
+			width: 100%;
+			text-decoration: none;
+			padding: 0.2lh 0.5lh;
+			color: inherit;
+			border-radius: 0.5lh;
+			background-color: var(--color-blue-dark);
+			line-height: var(--line-height-regular);
+			font-size: var(--font-size-regular);
+
+			&:hover,
+			&:focus {
+				background: var(--color-blue);
+			}
+		}
+	}
+
+	.Wcag-success {
+		&--header {
+			line-height: var(--line-height-large);
+			font-size: var(--font-size-large);
+			font-weight: bold;
+			font-family: var(--font-title);
+		}
+
+		p {
+			margin-bottom: 5px;
+			line-height: var(--line-height-regular);
+			font-size: var(--font-size-regular);
+		}
+	}
+}

@@ -1,0 +1,31 @@
+.ColorInput {
+	display: flex;
+
+	.Form-input {
+		flex-grow: 1;
+		font-family: monospace;
+	}
+
+	.Button {
+		border: 1px solid var(--color-gray-dark);
+		border-left-color: var(--color-blue-light);
+		border-radius: 0;
+	}
+}
+
+.ColorInput-sample {
+	flex-shrink: 0;
+	border: 1px solid var(--color-black);
+	border-left: 0;
+	width: 1.5lh;
+}
+
+.ColorInput-pickButton {
+	border: 1px solid var(--color-gray-dark);
+	border-left: 0;
+	width: 1.5lh;
+
+	svg {
+		fill: var(--color-theme-text);
+	}
+}

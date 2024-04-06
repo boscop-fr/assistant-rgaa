@@ -1,0 +1,21 @@
+.ReferencePage {
+	position: relative;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.ReferencePage-actions {
+	display: flex;
+	gap: 0.5lh;
+	padding: 0.5lh;
+	background: var(--color-blue-dark);
+	border-bottom: 3px solid var(--color-accent);
+}
+
+.ReferencePage-themes {
+	flex: 1;
+	overflow: auto;
+}

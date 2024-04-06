@@ -1,0 +1,37 @@
+/* stylelint-disable declaration-no-important */
+
+.rgaaExt-Helper {
+	all: initial;
+	position: relative;
+	display: inline-block !important;
+	margin: 0 calc(var(--rgaa-ext-line-height-base) / 4) 0 0 !important;
+	padding: 0 calc(var(--rgaa-ext-line-height-base) / 4) !important;
+	color: var(--rgaa-ext-color-white) !important;
+	line-height: var(--rgaa-ext-line-height-base) !important;
+	font-family: var(--rgaa-ext-font-mono) !important;
+	font-size: var(--rgaa-ext-font-size-base) !important;
+	z-index: calc(var(--rgaa-ext-max-z-index) - 5) !important;
+	background: var(--rgaa-ext-color-red) !important;
+
+	a {
+		color: var(--rgaa-ext-color-orange-text) !important;
+	}
+}
+
+.rgaaExt-ShowTagHelper,
+.rgaaExt-Element-name {
+	color: var(--rgaa-ext-color-white) !important;
+	background: var(--rgaa-ext-color-red) !important;
+
+	a {
+		color: var(--rgaa-ext-color-white) !important;
+	}
+}
+
+.rgaaExt-Element-content {
+	margin: 0 !important;
+	color: var(--rgaa-ext-color-orange-text) !important;
+	padding: 0 0.2em !important;
+	background: var(--rgaa-ext-color-white) !important;
+	white-space: normal !important;
+}
