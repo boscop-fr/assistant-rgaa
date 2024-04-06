@@ -1,7 +1,7 @@
 import $ from 'jquery';
+import {helpersReady, tabUnloaded} from '../background/slices/runtime';
 import {sendMessage} from '../common/utils/runtime';
 import {toggleHelpers as toggleHelpersAction} from '../panel/slices/helpers';
-import {helpersReady, tabUnloaded} from '../background/slices/runtime';
 import {revertActiveHelpers, toggleHelpers} from './utils/helpers';
 
 browser.runtime.onMessage.addListener((action) => {

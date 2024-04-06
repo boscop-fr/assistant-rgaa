@@ -1,8 +1,8 @@
 import {call, select, takeEvery, throttle} from 'redux-saga/effects';
+import {closePopup, openPopup} from '../../background/slices/runtime';
 import {sendMessage} from '../../common/utils/runtime';
 import {setTabState} from '../../common/utils/tabs';
 import {selectPageTabId, selectPopupTabId, togglePopup} from '../slices/panel';
-import {closePopup, openPopup} from '../../background/slices/runtime';
 
 function* togglePopupWorker() {
 	const state = yield select();

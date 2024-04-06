@@ -1,8 +1,8 @@
 import {call, put, select, take, takeEvery} from 'redux-saga/effects';
-import {toggleHelpers} from '../slices/helpers';
-import {selectAreStylesEnabled, toggleStyles} from '../slices/styles';
 import {helpersReady} from '../../background/slices/runtime';
 import {messageChannel} from '../../common/utils/runtime';
+import {toggleHelpers} from '../slices/helpers';
+import {selectAreStylesEnabled, toggleStyles} from '../slices/styles';
 
 function* applyHelpersSaga(enabled) {
 	yield put(

@@ -1,22 +1,22 @@
 import $ from 'jquery';
 import {forEach} from 'lodash';
-import {createMessageHandler, sendMessage} from '../../common/utils/runtime';
 import {getPixel} from '../../background/slices/runtime';
-import {
-	mutedAttributeSelector,
-	muteAttribute,
-	restoreAttribute
-} from '../utils/muteAttributes';
-import waitForEvent from '../utils/waitForEvent';
-import getSelectionStyle from '../utils/getSelectionStyle';
+import {createMessageHandler, sendMessage} from '../../common/utils/runtime';
+import ColorContrast from '../components/ColorContrast';
 import {
 	requestPixelColor,
-	requestTextColor,
 	requestStyle,
+	requestTextColor,
 	updateColor,
 	updateStyle
 } from '../slices/colorContrast';
-import ColorContrast from '../components/ColorContrast';
+import getSelectionStyle from '../utils/getSelectionStyle';
+import {
+	muteAttribute,
+	mutedAttributeSelector,
+	restoreAttribute
+} from '../utils/muteAttributes';
+import waitForEvent from '../utils/waitForEvent';
 
 const PickingStates = {
 	pickingPixel: 'rgaaExt-ColorContrastHelper--pickingPixel',

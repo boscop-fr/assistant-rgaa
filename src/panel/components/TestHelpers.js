@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {useSelector} from 'react-redux';
+import PropTypes from 'prop-types';
+import React, {useState} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {describe, info, component} from '../../helpers/utils/helpers';
+import {useSelector} from 'react-redux';
+import {component, describe, info} from '../../helpers/utils/helpers';
 import {selectHelpersByTest} from '../slices/helpers';
 
 function TestHelpers({id}) {

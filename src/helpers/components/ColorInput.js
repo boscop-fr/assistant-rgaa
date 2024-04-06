@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {useIntl} from 'react-intl';
 import classNames from 'classnames';
 import createColor from 'color';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {useIntl} from 'react-intl';
 
 const isValidColor = (color) => {
 	try {

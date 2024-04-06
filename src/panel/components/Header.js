@@ -1,9 +1,9 @@
+import {truncate} from 'lodash';
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import {FormattedMessage, useIntl} from 'react-intl';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import renderIf from 'render-if';
-import {truncate} from 'lodash';
 import {openOptionsPage} from '../slices/options';
 import {selectPageTitle, selectPopupTabId, togglePopup} from '../slices/panel';
 import {selectVersion} from '../slices/reference';

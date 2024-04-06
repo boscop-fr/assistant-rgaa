@@ -1,16 +1,16 @@
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
-import PropTypes from 'prop-types';
-import renderIf from 'render-if';
-import classNames from 'classnames';
 import {useDispatch, useSelector} from 'react-redux';
-import Icon from './Icon';
-import TestInstructions from './TestInstructions';
-import TestHelpers from './TestHelpers';
-import {disableTest, enableTest, selectIsTestEnabled} from '../slices/tests';
-import {selectTestHasHelpers} from '../slices/helpers';
+import renderIf from 'render-if';
 import {markTestDone, selectIsTestDone} from '../slices/checklist';
+import {selectTestHasHelpers} from '../slices/helpers';
 import {selectInstructionsByTest} from '../slices/instructions';
+import {disableTest, enableTest, selectIsTestEnabled} from '../slices/tests';
+import Icon from './Icon';
+import TestHelpers from './TestHelpers';
+import TestInstructions from './TestInstructions';
 
 function Test({id, title}) {
 	const intl = useIntl();

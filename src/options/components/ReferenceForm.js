@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import renderIf from 'render-if';
-import {getOption, OPTIONS, setOption} from '../utils/storage';
-import {DEFAULT_VERSION} from '../../panel/utils/reference';
 import versions from '../../../data/versions.json';
+import {DEFAULT_VERSION} from '../../panel/utils/reference';
+import {OPTIONS, getOption, setOption} from '../utils/storage';
 
 function ReferenceForm() {
 	const [isSuccess, setSuccess] = useState(false);

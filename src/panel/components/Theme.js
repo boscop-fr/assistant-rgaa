@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useSelector} from 'react-redux';
-import PropTypes from 'prop-types';
 import {selectCriteriaByTheme} from '../slices/reference';
 import Criterion from './Criterion';
 

@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
-import renderIf from 'render-if';
-import {get} from 'lodash';
 import createColor from 'color';
+import {get} from 'lodash';
+import PropTypes from 'prop-types';
+import React, {useEffect, useState} from 'react';
+import renderIf from 'render-if';
 import {sendMessage, useRuntimeMessage} from '../../common/utils/runtime';
 import {
-	updateColor,
-	updateStyle,
 	requestPixelColor,
+	requestStyle,
 	requestTextColor,
-	requestStyle
+	updateColor,
+	updateStyle
 } from '../slices/colorContrast';
+import ColorContrastField from './ColorContrastField';
 import ColorContrastResult from './ColorContrastResult';
 import ToggleButton from './ToggleButton';
-import ColorContrastField from './ColorContrastField';
 
 const colorInputConfigShape = PropTypes.shape({
 	label: PropTypes.string,

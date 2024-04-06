@@ -1,5 +1,5 @@
-import {filter} from 'lodash';
 import {createSelector, createSlice} from '@reduxjs/toolkit';
+import {filter} from 'lodash';
 import {selectAllTests, selectTestsByCriterion} from './reference';
 
 const testsSlice = createSlice({

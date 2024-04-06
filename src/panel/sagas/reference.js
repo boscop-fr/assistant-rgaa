@@ -1,11 +1,11 @@
 import {all, call, put, takeEvery} from 'redux-saga/effects';
-import {fetchHelpers} from '../utils/helpers';
-import {fetchInstructions} from '../utils/instructions';
-import {flattenReference, fetchReference} from '../utils/reference';
 import {resetChecklist} from '../slices/checklist';
-import {setReferenceData, setVersion} from '../slices/reference';
 import {setHelpers} from '../slices/helpers';
 import {setInstructions} from '../slices/instructions';
+import {setReferenceData, setVersion} from '../slices/reference';
+import {fetchHelpers} from '../utils/helpers';
+import {fetchInstructions} from '../utils/instructions';
+import {fetchReference, flattenReference} from '../utils/reference';
 
 function* setReferenceVersionWorker({payload: version}) {
 	const [reference, helpers, instructions] = yield all([

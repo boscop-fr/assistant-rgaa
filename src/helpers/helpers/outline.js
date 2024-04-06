@@ -1,8 +1,8 @@
-import React from 'react';
 import $ from 'jquery';
-import showTagApi from '../utils/showTag';
+import React from 'react';
 import hideHelperElement from '../utils/hideHelperElement';
 import {sanitize} from '../utils/selectors';
+import showTagApi from '../utils/showTag';
 
 /**
  *	@var {string} selector - Selector.

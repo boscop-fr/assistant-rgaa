@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
 import frontmatter from 'frontmatter';
 import {marked} from 'marked';
+import PropTypes from 'prop-types';
+import React, {useEffect, useState} from 'react';
 import {replaceLocalUrls} from '../utils/markdown';
 import Page from './Page';
 import RichText from './RichText';

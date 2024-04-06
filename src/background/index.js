@@ -1,24 +1,24 @@
+import {createMessageHandler, sendMessage} from '../common/utils/runtime';
+import {clearTabState, fetchCurrentTab} from '../common/utils/tabs';
 import {
+	INVALID_RESPONSE,
 	closePopup,
 	createTab,
 	getPixel,
-	tabReloaded,
-	INVALID_RESPONSE,
+	helpersReady,
 	openPopup,
 	openSidebar as openSidebarAction,
+	tabReloaded,
+	tabUnloaded,
 	validatePage,
-	viewPageSource,
-	helpersReady,
-	tabUnloaded
+	viewPageSource
 } from './slices/runtime';
+import {injectContentScripts, removeContentScripts} from './utils/content';
 import {getPixelAt} from './utils/image';
-import {createMessageHandler, sendMessage} from '../common/utils/runtime';
-import {clearTabState, fetchCurrentTab} from '../common/utils/tabs';
+import {closeSidebar, openSidebar} from './utils/sidebar';
+import {PanelPage, captureVisibleTab} from './utils/tabs';
 import {validateLocalPage} from './utils/validateLocalPage';
 import {viewSource} from './utils/viewSource';
-import {injectContentScripts, removeContentScripts} from './utils/content';
-import {closeSidebar, openSidebar} from './utils/sidebar';
-import {captureVisibleTab, PanelPage} from './utils/tabs';
 
 // We're avoiding promises (and thus async/await) here,
 // because of a sneaky chrome bug.

@@ -1,25 +1,25 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
-import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import PropTypes from 'prop-types';
-import {isNull, isEmpty} from 'lodash';
-import {FormattedMessage, useIntl} from 'react-intl';
-import renderIf from 'render-if';
 import classNames from 'classnames';
-import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
-import Test from './Test';
-import Icon from './Icon';
-import ExternalReferences from './ExternalReferences';
-import SpecialCasesTechnicalNotes from './SpecialCasesTechnicalNotes';
+import {isEmpty, isNull} from 'lodash';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {FormattedMessage, useIntl} from 'react-intl';
+import {useDispatch, useSelector} from 'react-redux';
+import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
+import renderIf from 'render-if';
+import {markTestDone, selectAreAllTestsDone} from '../slices/checklist';
+import {selectIsCriterionOpen, toggleCriterion} from '../slices/criteria';
 import {
 	selectReferenceLinksByCriterion,
 	selectSpecialCasesByCriterion,
 	selectTechnicalNotesByCriterion,
 	selectTestsByCriterion
 } from '../slices/reference';
-import {selectIsCriterionOpen, toggleCriterion} from '../slices/criteria';
-import {markTestDone, selectAreAllTestsDone} from '../slices/checklist';
 import {selectEnabledTestsByCriterion} from '../slices/tests';
+import ExternalReferences from './ExternalReferences';
+import Icon from './Icon';
+import SpecialCasesTechnicalNotes from './SpecialCasesTechnicalNotes';
+import Test from './Test';
 
 const Criterion = ({id, level, title}) => {
 	const intl = useIntl();

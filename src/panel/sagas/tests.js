@@ -1,7 +1,7 @@
 import {map, without} from 'lodash';
 import {all, put, select, takeEvery} from 'redux-saga/effects';
-import {disableTest, enableTest, selectEnabledTestIds} from '../slices/tests';
 import {selectHelpersByTest, toggleHelpers} from '../slices/helpers';
+import {disableTest, enableTest, selectEnabledTestIds} from '../slices/tests';
 
 function* enableSaga({payload: id}) {
 	// disables previously enabled tests

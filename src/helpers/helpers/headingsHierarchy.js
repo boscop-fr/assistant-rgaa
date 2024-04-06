@@ -1,10 +1,10 @@
 import {debounce} from 'lodash';
 import {sendMessage} from '../../common/utils/runtime';
+import HeadingsHierarchy from '../components/HeadingsHierarchy';
+import {getHierarchy} from '../slices/headingsHierarchy';
 import getHeadingsHierarchy, {
 	withMissingHeadings
 } from '../utils/getHeadingsHierarchy';
-import {getHierarchy} from '../slices/headingsHierarchy';
-import HeadingsHierarchy from '../components/HeadingsHierarchy';
 
 /**
  *	@var {boolean} showMissing - Whether or not to report
