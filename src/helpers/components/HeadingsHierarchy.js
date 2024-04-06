@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import React, {useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import renderIf from 'render-if';
-import {getHierarchy} from '../slices/headingsHierarchy';
 import {useRuntimeMessage} from '../../common/utils/runtime';
+import {getHierarchy} from '../slices/headingsHierarchy';
 
 const HeadingsHierarchy = () => {
 	const [items, setItems] = useState([]);

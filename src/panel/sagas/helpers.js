@@ -1,10 +1,10 @@
 import {call, put, select, take, takeEvery} from 'redux-saga/effects';
+import {helpersReady} from '../../background/slices/runtime';
+import {messageChannel} from '../../common/utils/runtime';
 import {sendMessage} from '../../common/utils/tabs';
 import {selectHelpersByTest, toggleHelpers} from '../slices/helpers';
 import {selectPageTabId} from '../slices/panel';
 import {selectEnabledTests} from '../slices/tests';
-import {helpersReady} from '../../background/slices/runtime';
-import {messageChannel} from '../../common/utils/runtime';
 
 function* toggleSaga(action) {
 	const tabId = yield select(selectPageTabId);

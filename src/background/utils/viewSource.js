@@ -1,9 +1,9 @@
-import {getSource} from './source';
 import {
 	fetchCurrentTab,
 	onTabLoaded,
 	sendMessage
 } from '../../common/utils/tabs';
+import {getSource} from './source';
 
 export const viewSource = async (url) => {
 	const source = await getSource(url);

@@ -2,13 +2,13 @@ import {debounce, map} from 'lodash';
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import renderIf from 'render-if';
+import {selectAllThemes, selectIsLoaded} from '../slices/reference';
+import {saveScrollPosition, selectScrollPosition} from '../slices/themes';
 import DevTools from './DevTools';
 import StylesToggle from './StylesToggle';
 import Theme from './Theme';
 import ThemesList from './ThemesList';
 import deferRendering from './deferRendering';
-import {selectAllThemes, selectIsLoaded} from '../slices/reference';
-import {saveScrollPosition, selectScrollPosition} from '../slices/themes';
 
 const ReferencePage = () => {
 	const isReferenceLoaded = useSelector(selectIsLoaded);

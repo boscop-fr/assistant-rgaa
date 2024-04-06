@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {FormattedMessage} from 'react-intl';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {FormattedMessage} from 'react-intl';
 
 function TestInstructions({id, isOpen, onToggleRequest, instructions}) {
 	const containerClass = classNames('TestInstructions', 'TestSection', {

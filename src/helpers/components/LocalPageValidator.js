@@ -1,9 +1,9 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import {validatePage} from '../../background/slices/runtime';
 import {isFirefox} from '../../common/utils/browser';
 import {sendMessage} from '../../common/utils/runtime';
 import {selectPageUrl} from '../../panel/slices/panel';
-import {validatePage} from '../../background/slices/runtime';
 import HelperButton from './HelperButton';
 
 const LocalPageValidator = () => {

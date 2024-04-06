@@ -1,8 +1,8 @@
 import {eventChannel} from 'redux-saga';
 import {call, put, take, takeEvery} from 'redux-saga/effects';
-import {onOptionChange, OPTIONS} from '../../options/utils/storage';
-import {setVersion} from '../slices/reference';
+import {OPTIONS, onOptionChange} from '../../options/utils/storage';
 import {openOptionsPage} from '../slices/options';
+import {setVersion} from '../slices/reference';
 
 const optionChannel = (key) =>
 	eventChannel((emit) => onOptionChange(key, emit));

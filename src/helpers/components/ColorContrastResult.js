@@ -1,8 +1,8 @@
-import React from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import renderIf from 'render-if';
-import classNames from 'classnames';
 
 const ColorContrastResult = ({ratio, minimumRatio}) => (
 	<p className="ColorContrastResult">

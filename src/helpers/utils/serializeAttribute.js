@@ -1,5 +1,5 @@
 import {isString} from 'lodash';
-import {flow, split, flatMap, join} from 'lodash/fp';
+import {flatMap, flow, join, split} from 'lodash/fp';
 
 /**
  *	Attributes that contain a list of ids.

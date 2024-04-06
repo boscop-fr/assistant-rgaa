@@ -1,8 +1,8 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {createTab, viewPageSource} from '../../background/slices/runtime';
-import {sendMessage} from '../../common/utils/runtime';
 import {isFirefox} from '../../common/utils/browser';
+import {sendMessage} from '../../common/utils/runtime';
 import {selectPageUrl} from '../../panel/slices/panel';
 import HelperButton from './HelperButton';
 

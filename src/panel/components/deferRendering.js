@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
 import hoistStatics from 'hoist-non-react-statics';
+import React, {Component} from 'react';
 
 /**
  * Allows two animation frames to complete to allow other components to update

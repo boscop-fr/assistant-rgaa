@@ -1,7 +1,7 @@
 import createColor from 'color';
-import wait from '../../common/utils/wait';
-import {sendMessage} from '../../common/utils/runtime';
 import {getPixel} from '../../background/slices/runtime';
+import {sendMessage} from '../../common/utils/runtime';
+import wait from '../../common/utils/wait';
 
 export default function getSelectionStyle() {
 	const selection = window.getSelection();

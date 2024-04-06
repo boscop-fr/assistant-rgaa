@@ -1,8 +1,8 @@
-import serializeAttributes from './serializeAttributes';
 import {
 	anyMutedAttributeSelector,
 	restoreAllAttributes
 } from './muteAttributes';
+import serializeAttributes from './serializeAttributes';
 
 /**
  *	@see http://stackoverflow.com/a/30930653
