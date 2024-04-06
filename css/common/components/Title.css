@@ -1,0 +1,18 @@
+.Title {
+	line-height: var(--line-height-xlarge);
+	font-size: var(--font-size-xlarge);
+	font-family: var(--font-title);
+	background-color: var(--color-theme-dark);
+	color: var(--color-theme-dark-text);
+	padding: 0.25lh var(--app-gutter);
+}
+
+.Title--accent {
+	background-color: var(--color-accent);
+	color: var(--color-accent-text);
+}
+
+.Title--sub {
+	background-color: var(--color-theme);
+	color: var(--color-theme-text);
+}

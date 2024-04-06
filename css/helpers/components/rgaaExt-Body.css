@@ -1,0 +1,33 @@
+/* stylelint-disable declaration-no-important */
+
+.rgaaExt-Body--withHelpers :target {
+	outline: 1px var(--rgaa-ext-color-green) solid !important;
+	box-shadow: 0 0 10px var(--rgaa-ext-color-green) !important;
+}
+
+.rgaaExt-Body--disableAllStylesHelper {
+	legend {
+		/* prevents background content to be seen under the legend */
+		background: #fff !important;
+	}
+
+	label,
+	input,
+	textarea,
+	select,
+	object {
+		display: block !important;
+	}
+
+	a {
+		display: inline-block !important;
+	}
+
+	.rgaaExt-Helper {
+		margin-bottom: calc(var(--rgaa-ext-line-height-base) / 2) !important;
+	}
+
+	[hidden] {
+		display: inline-block !important;
+	}
+}

@@ -1,0 +1,11 @@
+.SpecialCases {
+	p,
+	ul {
+		margin-bottom: 0.5lh;
+	}
+
+	ul {
+		list-style-type: disc;
+		padding-left: 1lh;
+	}
+}

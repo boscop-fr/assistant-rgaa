@@ -1,0 +1,82 @@
+.Test {
+	border-bottom: 1px solid color-mix(in srgb, var(--color-black), white 60%);
+
+	&.is-applied {
+		background: var(--color-blue-lighter);
+	}
+}
+
+.Test-header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.Test-title {
+	padding: 0.25lh var(--app-gutter);
+}
+
+.Test-id,
+.Test-description,
+.Test-description p {
+	display: inline;
+}
+
+.Test-id {
+	font-weight: bold;
+
+	&:after {
+		content: ' - ';
+		display: inline;
+		font-weight: normal;
+	}
+}
+
+.Test-title ul {
+	list-style-type: disc;
+	padding-left: 1lh;
+}
+
+.Test-actions {
+	flex-shrink: 0;
+}
+
+.Test-action {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0.125lh;
+	border-left: 1px solid color-mix(in srgb, var(--color-black), white 80%);
+	height: 100%;
+}
+
+.Test-actionLabel {
+	display: block;
+	cursor: pointer;
+}
+
+.Test-header a {
+	text-decoration: underline;
+
+	&:hover,
+	&:focus {
+		text-decoration: none;
+	}
+
+	&:active {
+		text-decoration: underline;
+	}
+}
+
+.Test-action--done {
+	color: var(--color-gray-dark);
+	font-size: 0;
+}
+
+.Test-action--done .Icon {
+	line-height: 1;
+	font-size: var(--font-size-xxlarge);
+	transition: transform 0.2s ease-out;
+}
+
+.Test-action--done.Test-action--checked .Icon {
+	transform: rotate(60deg);
+}

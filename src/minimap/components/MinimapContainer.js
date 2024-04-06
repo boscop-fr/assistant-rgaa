@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import root from 'react-shadow';
-import styles from '../../../css/minimap/index.scss';
+import styles from '../../../css/minimap/index.css';
 import Minimap from './Minimap';
 
 // We're using a simple set of inline styles here to avoid

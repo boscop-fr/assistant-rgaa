@@ -1,0 +1,43 @@
+.RichText {
+	margin: 0 auto;
+	max-width: 80ch;
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin-bottom: 0.5lh;
+		font-weight: bold;
+	}
+
+	h1 {
+		line-height: var(--line-height-xxlarge);
+		font-size: var(--font-size-xxlarge);
+	}
+
+	h2 {
+		line-height: var(--line-height-xlarge);
+		font-size: var(--font-size-xlarge);
+	}
+
+	h3 {
+		line-height: var(--line-height-large);
+		font-size: var(--font-size-large);
+	}
+
+	ul {
+		margin-bottom: 1lh;
+		padding-left: 1lh;
+		list-style: disc;
+	}
+
+	p {
+		margin-bottom: 1lh;
+	}
+
+	img {
+		max-width: 100%;
+	}
+}

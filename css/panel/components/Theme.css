@@ -1,0 +1,18 @@
+.Theme {
+	background: var(--color-white);
+
+	code {
+		padding: 0 2px;
+		border-radius: 2px;
+		background: #ffeaea;
+		word-wrap: break-word;
+	}
+}
+
+.Theme-header {
+	display: flex;
+}
+
+.Theme-title {
+	flex: 1 1 auto;
+}
