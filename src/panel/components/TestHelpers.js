@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {useSelector} from 'react-redux';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {describe, info, component} from '../../helpers/api/helpers';
-import {selectHelpersByTest} from '../../common/slices/helpers';
+import {describe, info, component} from '../../helpers/utils/helpers';
+import {selectHelpersByTest} from '../slices/helpers';
 
-/**
- *
- */
 function TestHelpers({id}) {
 	const intl = useIntl();
 	const [isOpen, setOpen] = useState(false);

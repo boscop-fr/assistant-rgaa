@@ -16,16 +16,10 @@ import {
 	selectSpecialCasesByCriterion,
 	selectTechnicalNotesByCriterion,
 	selectTestsByCriterion
-} from '../../common/slices/reference';
-import {
-	selectIsCriterionOpen,
-	toggleCriterion
-} from '../../common/slices/criteria';
-import {
-	markTestDone,
-	selectAreAllTestsDone
-} from '../../common/slices/checklist';
-import {selectEnabledTestsByCriterion} from '../../common/slices/tests';
+} from '../slices/reference';
+import {selectIsCriterionOpen, toggleCriterion} from '../slices/criteria';
+import {markTestDone, selectAreAllTestsDone} from '../slices/checklist';
+import {selectEnabledTestsByCriterion} from '../slices/tests';
 
 const Criterion = ({id, level, title}) => {
 	const intl = useIntl();

@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {noop} from 'lodash';
 
-/**
- *
- */
 const ToggleButton = ({pressed, onPress, onRelease, children, ...props}) => (
 	<button
 		className="Button"

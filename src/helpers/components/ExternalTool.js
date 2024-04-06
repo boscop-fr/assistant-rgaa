@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {createTab} from '../../common/slices/runtime';
-import {sendMessage} from '../../common/api/runtime';
-import {selectPageUrl} from '../../common/slices/panel';
+import {createTab} from '../../background/slices/runtime';
+import {sendMessage} from '../../common/utils/runtime';
+import {selectPageUrl} from '../../panel/slices/panel';
 import HelperButton from './HelperButton';
 
 const ExternalTool = ({name, url}) => {

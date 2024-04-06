@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import renderIf from 'render-if';
-import {getOption, OPTIONS, setOption} from '../../common/api/options';
-import {DEFAULT_VERSION, getReferencesList} from '../../common/api/reference';
+import {getOption, OPTIONS, setOption} from '../utils/storage';
+import {DEFAULT_VERSION} from '../../panel/utils/reference';
+import versions from '../../../data/versions.json';
 
-/**
- *
- */
 function ReferenceForm() {
 	const [isSuccess, setSuccess] = useState(false);
 	const [selectedVersion, setSelectedVersion] = useState(
@@ -40,7 +38,7 @@ function ReferenceForm() {
 					value={selectedVersion}
 					onChange={onSelectChange}
 				>
-					{getReferencesList().map((ref) => (
+					{versions.map((ref) => (
 						<option key={`ref-${ref.version}`} value={ref.version}>
 							{ref.name}
 						</option>

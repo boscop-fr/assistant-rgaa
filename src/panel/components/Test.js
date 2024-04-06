@@ -7,18 +7,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import Icon from './Icon';
 import TestInstructions from './TestInstructions';
 import TestHelpers from './TestHelpers';
-import {
-	disableTest,
-	enableTest,
-	selectIsTestEnabled
-} from '../../common/slices/tests';
-import {selectTestHasHelpers} from '../../common/slices/helpers';
-import {markTestDone, selectIsTestDone} from '../../common/slices/checklist';
-import {selectInstructionsByTest} from '../../common/slices/instructions';
+import {disableTest, enableTest, selectIsTestEnabled} from '../slices/tests';
+import {selectTestHasHelpers} from '../slices/helpers';
+import {markTestDone, selectIsTestDone} from '../slices/checklist';
+import {selectInstructionsByTest} from '../slices/instructions';
 
-/**
- *
- */
 function Test({id, title}) {
 	const intl = useIntl();
 	const done = useSelector((state) => selectIsTestDone(state, id));

@@ -1,7 +1,7 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
-import messages from '../common/messages/fr';
+import messages from '../panel/messages/fr';
 import ReferenceForm from './components/ReferenceForm';
 
 const init = () => {

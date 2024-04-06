@@ -189,10 +189,6 @@ module.exports = {
 						}
 					}
 				]
-			},
-			{
-				test: /\.json$/,
-				use: 'json'
 			}
 		]
 	},

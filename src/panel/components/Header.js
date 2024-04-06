@@ -4,13 +4,9 @@ import {FormattedMessage, useIntl} from 'react-intl';
 import {Link} from 'react-router-dom';
 import renderIf from 'render-if';
 import {truncate} from 'lodash';
-import {openOptionsPage} from '../../common/slices/options';
-import {
-	selectPageTitle,
-	selectPopupTabId,
-	togglePopup
-} from '../../common/slices/panel';
-import {selectVersion} from '../../common/slices/reference';
+import {openOptionsPage} from '../slices/options';
+import {selectPageTitle, selectPopupTabId, togglePopup} from '../slices/panel';
+import {selectVersion} from '../slices/reference';
 import Icon from './Icon';
 
 const Header = () => {

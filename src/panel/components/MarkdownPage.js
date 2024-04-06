@@ -2,13 +2,10 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import frontmatter from 'frontmatter';
 import {marked} from 'marked';
-import {replaceLocalUrls} from '../../common/api/markdown';
+import {replaceLocalUrls} from '../utils/markdown';
 import Page from './Page';
 import RichText from './RichText';
 
-/**
- *
- */
 const MarkdownPage = ({name}) => {
 	const [page, setPage] = useState({
 		title: '',

@@ -4,9 +4,6 @@ import {useIntl} from 'react-intl';
 import classNames from 'classnames';
 import createColor from 'color';
 
-/**
- *
- */
 const isValidColor = (color) => {
 	try {
 		createColor(color);
@@ -16,9 +13,6 @@ const isValidColor = (color) => {
 	}
 };
 
-/**
- *
- */
 const ColorInput = ({id, color, onChange, children}) => {
 	const intl = useIntl();
 	const handleChange = (event) => onChange(event.target.value);

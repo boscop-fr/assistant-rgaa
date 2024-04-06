@@ -5,8 +5,8 @@ import {Button, Menu, Wrapper} from 'react-aria-menubutton';
 import {FormattedMessage} from 'react-intl';
 import {useDispatch, useSelector} from 'react-redux';
 import renderIf from 'render-if';
-import {selectAllThemes} from '../../common/slices/reference';
-import {selectIsMenuOpen, toggleMenu} from '../../common/slices/themes';
+import {selectAllThemes} from '../slices/reference';
+import {selectIsMenuOpen, toggleMenu} from '../slices/themes';
 import Icon from './Icon';
 import ThemesListItem from './ThemesListItem';
 

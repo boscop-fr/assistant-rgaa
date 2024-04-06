@@ -1,9 +1,9 @@
 import {debounce} from 'lodash';
-import {sendMessage} from '../../common/api/runtime';
+import {sendMessage} from '../../common/utils/runtime';
 import getHeadingsHierarchy, {
 	withMissingHeadings
-} from '../api/getHeadingsHierarchy';
-import {getHierarchy} from '../actions/headingsHierarchy';
+} from '../utils/getHeadingsHierarchy';
+import {getHierarchy} from '../slices/headingsHierarchy';
 import HeadingsHierarchy from '../components/HeadingsHierarchy';
 
 /**
@@ -14,14 +14,8 @@ export const defaults = {
 	showMissing: true
 };
 
-/**
- *
- */
 const observers = new Map();
 
-/**
- *
- */
 export const component = () => HeadingsHierarchy;
 
 /**
@@ -32,9 +26,6 @@ export const describe = (intl) =>
 		id: 'Helper.headingsHierarchy'
 	});
 
-/**
- *
- */
 export const apply = (id, {showMissing} = defaults) => {
 	const sendHierarchy = () => {
 		const hierarchy = getHeadingsHierarchy();
@@ -57,9 +48,6 @@ export const apply = (id, {showMissing} = defaults) => {
 	sendHierarchy();
 };
 
-/**
- *
- */
 export const revert = (id) => {
 	const observer = observers.get(id);
 

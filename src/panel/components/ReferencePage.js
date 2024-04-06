@@ -7,15 +7,9 @@ import StylesToggle from './StylesToggle';
 import Theme from './Theme';
 import ThemesList from './ThemesList';
 import deferRendering from './deferRendering';
-import {selectAllThemes, selectIsLoaded} from '../../common/slices/reference';
-import {
-	saveScrollPosition,
-	selectScrollPosition
-} from '../../common/slices/themes';
+import {selectAllThemes, selectIsLoaded} from '../slices/reference';
+import {saveScrollPosition, selectScrollPosition} from '../slices/themes';
 
-/**
- *
- */
 const ReferencePage = () => {
 	const isReferenceLoaded = useSelector(selectIsLoaded);
 	const initialScrollPosition = useSelector(selectScrollPosition);
