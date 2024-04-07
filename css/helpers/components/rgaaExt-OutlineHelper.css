@@ -4,7 +4,9 @@
 	outline: 2px var(--rgaa-ext-color-red) solid !important;
 	box-shadow: 0 0 10px var(--rgaa-ext-color-red) !important;
 	margin: 0.5em !important;
-	padding: 0.5em !important;
+	padding: 0.2em !important;
+	-webkit-box-decoration-break: clone !important;
+	box-decoration-break: clone !important;
 
 	.rgaaExt-OutlineHelper {
 		outline: 2px var(--rgaa-ext-color-blue) dashed !important;
@@ -18,19 +20,19 @@
 
 /* stylelint-disable max-nesting-depth, no-descending-specificity */
 
-:is(ul, [role='list']).rgaaExt-OutlineHelper {
+:is(ul, ol, [role='list']).rgaaExt-OutlineHelper {
 	outline: solid 2px var(--rgaa-ext-color-red) !important;
 
 	& > :is(li, [role='listitem']).rgaaExt-OutlineHelper {
 		outline: dashed 1px var(--rgaa-ext-color-red) !important;
 
-		& > :is(ul, [role='list']).rgaaExt-OutlineHelper {
+		& > :is(ul, ol, [role='list']).rgaaExt-OutlineHelper {
 			outline: dashed 2px var(--rgaa-ext-color-blue) !important;
 
 			& > :is(li, [role='listitem']).rgaaExt-OutlineHelper {
 				outline: dotted 1px var(--rgaa-ext-color-blue) !important;
 
-				& > :is(ul, [role='list']).rgaaExt-OutlineHelper {
+				& > :is(ul, ol, [role='list']).rgaaExt-OutlineHelper {
 					outline: dashed 2px var(--rgaa-ext-color-green) !important;
 
 					& > :is(li, [role='listitem']).rgaaExt-OutlineHelper {
