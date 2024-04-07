@@ -33,9 +33,6 @@
 		z-index: -1;
 	}
 
-	&[data-helper-count='0'] {
-		display: none;
-	}
 }
 
 .Minimap-window {
@@ -48,7 +45,6 @@
 	backdrop-filter: invert(1);
 	opacity: 0.1;
 	z-index: -1;
-	transition: top linear 50ms;
 }
 
 .Minimap-pins {

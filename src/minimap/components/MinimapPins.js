@@ -1,21 +1,11 @@
-import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
-import {useDebouncedEffect, useResizeEffect} from '../api/hooks';
+import React, {memo, useCallback, useEffect, useRef} from 'react';
+import {useMutationObserver, useResizeEffect} from '../api/hooks';
 
-const MinimapPins = ({helpers, minimumPinSize}) => {
+const MinimapPins = memo(({minimumPinSize}) => {
 	const canvasRef = useRef(null);
 
-	const scrollToPosition = ({clientY}) => {
-		const {scrollHeight} = document.documentElement;
-		const center = (clientY / canvasRef.current.clientHeight) * scrollHeight;
-		const top = Math.max(0, center - window.innerHeight / 2);
-
-		window.scrollTo({
-			top
-		});
-	};
-
-	const updatePins = () => {
+	const updatePins = useCallback(() => {
 		const canvas = canvasRef.current;
 		const ctx = canvas.getContext('2d');
 		const style = getComputedStyle(canvas);
@@ -24,7 +14,7 @@ const MinimapPins = ({helpers, minimumPinSize}) => {
 		canvas.height = canvas.parentElement.clientHeight;
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-		helpers.forEach((helper) => {
+		document.querySelectorAll('.rgaaExt-Helper--mappable').forEach((helper) => {
 			const {scrollHeight} = document.documentElement;
 			const {top, height} = helper.getBoundingClientRect();
 			const relativeTop = (top + window.scrollY) / scrollHeight;
@@ -38,23 +28,20 @@ const MinimapPins = ({helpers, minimumPinSize}) => {
 				Math.max(minimumPinSize, relativeHeight * canvas.height)
 			);
 		});
-	};
+	}, [canvasRef]);
 
-	useResizeEffect(updatePins);
-	useDebouncedEffect(updatePins, [helpers]);
-	useEffect(updatePins, []);
+	const frame = useCallback(() => {
+		requestAnimationFrame(updatePins);
+	}, [updatePins]);
 
-	return (
-		<canvas
-			ref={canvasRef}
-			className="Minimap-pins"
-			onClick={scrollToPosition}
-		/>
-	);
-};
+	useMutationObserver(frame);
+	useResizeEffect(frame);
+	useEffect(frame, []);
+
+	return <canvas ref={canvasRef} className="Minimap-pins" />;
+});
 
 MinimapPins.propTypes = {
-	helpers: PropTypes.arrayOf(PropTypes.instanceOf(Element)).isRequired,
 	minimumPinSize: PropTypes.number
 };
 
