@@ -41,6 +41,17 @@ Ce drapeau n'a pas d'effet direct dans l'extension, mais permet de se rappeler d
 
 ![Drapeau](page://flag.png)
 
+# Minimap
+
+Lors de l'application d'un test, une petite carte s'affiche sur le côté de la page pour indiquer les zones affectées par le test.
+Elle permet de savoir rapidement si le test a affecté la page, et à quels endroits.
+
+Cette carte représente l'ensemble de la page, et les zones en surbrillance les éléments mis en valeur.
+
+Un clic sur un point de la carte permet de naviguer à la position correspondante dans la page.
+
+![Minimap](page://minimap.png)
+
 # Outils
 
 Lors de l'application de certains tests, différents outils peuvent être affichés dans l'interface.

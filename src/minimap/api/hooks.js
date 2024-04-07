@@ -1,23 +1,10 @@
-import {debounce, throttle} from 'lodash';
-import {useCallback, useEffect, useState} from 'react';
+import {debounce} from 'lodash';
+import {useEffect} from 'react';
 
-export const useDebouncedEffect = (callback, deps, delay = 50) => {
-	const safeCallback = useCallback(debounce(callback, delay));
-	useEffect(safeCallback, deps);
-};
-
-export const useHelperElements = () => {
-	const [helpers, setHelpers] = useState([]);
-	const update = () => {
-		setHelpers(Array.from(document.querySelectorAll('.rgaaExt-Helper--mappable')));
-	};
-
-	return [helpers, update];
-};
-
-export const useMutationObserver = (callback) => {
+export const useMutationObserver = (callback, delay = 15) => {
 	useEffect(() => {
-		const observer = new MutationObserver(callback);
+		const debounced = debounce(callback, delay);
+		const observer = new MutationObserver(debounced);
 
 		observer.observe(document.body, {
 			subtree: true,
@@ -31,22 +18,17 @@ export const useMutationObserver = (callback) => {
 	}, []);
 };
 
-export const useScrollEffect = (callback, delay = 50) => {
+export const useScrollEffect = (callback) => {
 	useEffect(() => {
-		const handleScroll = throttle(callback, delay, {
-			leading: true,
-			trailing: true
-		});
-
-		window.addEventListener('scroll', handleScroll);
+		window.addEventListener('scroll', callback);
 
 		return () => {
-			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener('scroll', callback);
 		};
 	}, []);
 };
 
-export const useResizeEffect = (callback, delay = 100) => {
+export const useResizeEffect = (callback, delay = 15) => {
 	useEffect(() => {
 		const handleResize = debounce(callback, delay);
 

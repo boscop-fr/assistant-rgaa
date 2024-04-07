@@ -1,17 +1,26 @@
-import React from 'react';
-import MinimapWindow from './MinimapWindow';
+import React, {useRef} from 'react';
 import MinimapPins from './MinimapPins';
-import {useHelperElements, useMutationObserver} from '../api/hooks';
+import MinimapWindow from './MinimapWindow';
 
 const Minimap = () => {
-	const [helpers, updateHelpers] = useHelperElements();
+	const mapRef = useRef(null);
 
-	useMutationObserver(updateHelpers);
+	const scrollToPosition = ({clientY}) => {
+		const {scrollHeight} = document.documentElement;
+		const center = (clientY / mapRef.current.clientHeight) * scrollHeight;
+		const top = Math.max(0, center - window.innerHeight / 2);
+
+		window.scrollTo({
+			top
+		});
+	};
 
 	return (
-		<div className="Minimap" data-helper-count={helpers.length}>
+		// eslint-disable-next-line max-len
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+		<div ref={mapRef} className="Minimap" onClick={scrollToPosition}>
 			<MinimapWindow />
-			<MinimapPins helpers={helpers} />
+			<MinimapPins />
 		</div>
 	);
 };

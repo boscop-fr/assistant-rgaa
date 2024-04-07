@@ -7,6 +7,10 @@ import {toArray} from 'lodash';
  */
 export default function toggleStyleSheets(toggled) {
 	toArray(document.styleSheets).forEach((stylesheet) => {
+		if ('rgaaext' in stylesheet.ownerNode.dataset) {
+			return;
+		}
+
 		// eslint-disable-next-line no-param-reassign
 		stylesheet.disabled = !toggled;
 	});
