@@ -45,4 +45,21 @@ export const selectEnabledTestsByCriterion = createSelector(
 	(tests, ids) => filter(tests, ({id}) => ids.includes(id))
 );
 
+export const addTestsListeners = (startListening) => {
+	startListening({
+		actionCreator: enableTest,
+		effect({payload: id}, api) {
+			// disables previously enabled tests
+			const state = api.getState();
+			const enabledIds = selectEnabledTestIds(state);
+
+			enabledIds.forEach((otherId) => {
+				if (otherId !== id) {
+					api.dispatch(disableTest(otherId));
+				}
+			});
+		}
+	});
+};
+
 export default reducer;

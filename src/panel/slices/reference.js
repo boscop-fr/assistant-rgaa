@@ -1,5 +1,11 @@
 import {createSelector, createSlice} from '@reduxjs/toolkit';
 import {filter} from 'lodash';
+import {fetchHelpers} from '../utils/helpers';
+import {fetchInstructions} from '../utils/instructions';
+import {fetchReference, flattenReference} from '../utils/reference';
+import {resetChecklist} from './checklist';
+import {setHelpers} from './helpers';
+import {setInstructions} from './instructions';
 
 const referenceSlice = createSlice({
 	name: 'reference',
@@ -72,5 +78,25 @@ export const selectTestsByCriterion = createSelector(
 	[selectAllTests, (_, id) => id],
 	(tests, id) => filter(tests, ['criterionId', id])
 );
+
+export const addReferenceListeners = (startListening) => {
+	startListening({
+		actionCreator: setVersion,
+		async effect({payload: version}, api) {
+			const [reference, helpers, instructions] = await Promise.all([
+				fetchReference(version),
+				fetchHelpers(version),
+				fetchInstructions(version)
+			]);
+
+			const flattened = flattenReference(reference);
+
+			api.dispatch(resetChecklist());
+			api.dispatch(setReferenceData(flattened));
+			api.dispatch(setHelpers(helpers));
+			api.dispatch(setInstructions(instructions));
+		}
+	});
+};
 
 export default reducer;

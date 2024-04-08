@@ -1,6 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import createSagaMiddleware from 'redux-saga';
-import rootSaga from './sagas';
+import listenerMiddleware from './middlewares/listener';
 import checklist from './slices/checklist';
 import criteria from './slices/criteria';
 import helpers from './slices/helpers';
@@ -12,11 +11,10 @@ import tests from './slices/tests';
 import themes from './slices/themes';
 
 export default function createStore(preloadedState) {
-	const sagaMiddleware = createSagaMiddleware();
 	const store = configureStore({
 		preloadedState,
 		middleware: (getDefaultMiddleware) =>
-			getDefaultMiddleware().concat(sagaMiddleware),
+			getDefaultMiddleware().concat(listenerMiddleware),
 		reducer: {
 			checklist,
 			criteria,
@@ -29,10 +27,6 @@ export default function createStore(preloadedState) {
 			themes
 		}
 	});
-
-	if (rootSaga) {
-		sagaMiddleware.run(rootSaga);
-	}
 
 	return store;
 }

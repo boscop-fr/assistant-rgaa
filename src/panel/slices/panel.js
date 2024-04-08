@@ -1,4 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {closePopup, openPopup} from '../../background/slices/runtime';
+import {sendMessage} from '../../common/utils/runtime';
+import {setTabState} from '../../common/utils/tabs';
 
 const panelSlice = createSlice({
 	name: 'panel',
@@ -41,4 +44,36 @@ export const {
 	selectPageUrl,
 	selectPopupTabId
 } = selectors;
+
+export const addPanelListeners = (startListening) => {
+	startListening({
+		actionCreator: togglePopup,
+		effect(action, api) {
+			const state = api.getState();
+			const tabId = selectPageTabId(state);
+			const popupTabId = selectPopupTabId(state);
+
+			setTabState(tabId, state);
+			sendMessage(
+				popupTabId ? closePopup({tabId, popupTabId}) : openPopup({tabId})
+			);
+		}
+	});
+
+	// Saves the whole state each time something changes.
+	startListening({
+		predicate: () => true,
+		async effect(action, api) {
+			// @see https://redux-toolkit.js.org/api/createListenerMiddleware#complex-async-workflows
+			api.cancelActiveListeners();
+			await api.delay(300);
+
+			const state = api.getState();
+			const tabId = selectPageTabId(state);
+
+			setTabState(tabId, state);
+		}
+	});
+};
+
 export default reducer;

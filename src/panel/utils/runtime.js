@@ -1,16 +1,13 @@
-import {eventChannel} from 'redux-saga';
+export const onRuntimeAction = (action, callback) => {
+	const handler = (message) => {
+		if (action.match(message)) {
+			callback(message);
+		}
+	};
 
-export const messageChannel = (action) =>
-	eventChannel((emit) => {
-		const handleMessage = (message) => {
-			if (action.match(message)) {
-				emit(message);
-			}
-		};
+	browser.runtime.onMessage.addListener(handler);
 
-		browser.runtime.onMessage.addListener(handleMessage);
-
-		return () => {
-			browser.runtime.onMessage.removeListener(handleMessage);
-		};
-	});
+	return () => {
+		browser.runtime.onMessage.removeListener(handler);
+	};
+};
