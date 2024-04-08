@@ -2,7 +2,8 @@
 	"extends": "vtech",
 	"env": {
 		"browser": true,
-		"webextensions": true
+		"webextensions": true,
+		"jest/globals": true
 	},
 	"rules": {
 		"function-paren-newline": 0,

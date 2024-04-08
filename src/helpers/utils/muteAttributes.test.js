@@ -1,8 +1,8 @@
+/**
+ * @jest-environment jsdom
+ */
 import $ from 'jquery';
 import {muteAttribute, restoreAttribute, restoreAllAttributes} from './muteAttributes';
-
-
-
 
 describe('muteAttributes', function() {
 	describe('muteAttribute', function() {
@@ -11,9 +11,9 @@ describe('muteAttributes', function() {
 
 			muteAttribute(p, 'style');
 
-			expect(p.attr('style')).to.be.undefined;
-			expect(p.attr('data-rgaa-ext-muted')).to.be.equal('style');
-			expect(p.attr('data-rgaa-ext-muted-style')).to.equal('width: 100px');
+			expect(p.attr('style')).toBeUndefined();
+			expect(p.attr('data-rgaa-ext-muted')).toBe('style');
+			expect(p.attr('data-rgaa-ext-muted-style')).toBe('width: 100px');
 		});
 	});
 
@@ -24,9 +24,9 @@ describe('muteAttributes', function() {
 			muteAttribute(p, 'style');
 			restoreAttribute(p, 'style');
 
-			expect(p.attr('style')).to.equal('width: 100px');
-			expect(p.attr('data-rgaa-ext-muted')).to.be.undefined;
-			expect(p.attr('data-rgaa-ext-muted-style')).to.be.undefined;
+			expect(p.attr('style')).toBe('width: 100px');
+			expect(p.attr('data-rgaa-ext-muted')).toBeUndefined();
+			expect(p.attr('data-rgaa-ext-muted-style')).toBeUndefined();
 		});
 	});
 
@@ -38,11 +38,11 @@ describe('muteAttributes', function() {
 			muteAttribute(p, 'style');
 			restoreAllAttributes(p);
 
-			expect(p.attr('lang')).to.equal('en');
-			expect(p.attr('style')).to.equal('width: 100px');
-			expect(p.attr('data-rgaa-ext-muted')).to.be.undefined;
-			expect(p.attr('data-rgaa-ext-muted-lang')).to.be.undefined;
-			expect(p.attr('data-rgaa-ext-muted-style')).to.be.undefined;
+			expect(p.attr('lang')).toBe('en');
+			expect(p.attr('style')).toBe('width: 100px');
+			expect(p.attr('data-rgaa-ext-muted')).toBeUndefined();
+			expect(p.attr('data-rgaa-ext-muted-lang')).toBeUndefined();
+			expect(p.attr('data-rgaa-ext-muted-style')).toBeUndefined();
 		});
 	});
 });
