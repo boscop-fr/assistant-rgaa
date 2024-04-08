@@ -64,21 +64,19 @@ module.exports = {
 		writeToDisk: true
 	},
 	resolve: {
+		extensions: ['.tsx', '.ts', '...'],
 		fallback: {
-			buffer: require.resolve('buffer')
+			buffer: false
 		}
 	},
 	module: {
 		rules: [
 			{
-				test: /\.js$/,
+				test: /\.tsx?$/,
 				include: fullPath('src'),
 				use: [
 					{
-						loader: 'babel-loader',
-						options: {
-							cacheDirectory: true
-						}
+						loader: 'ts-loader'
 					},
 					{
 						loader: 'prettier-loader',

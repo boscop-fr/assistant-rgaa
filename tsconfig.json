@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"esModuleInterop": true,
+		"jsx": "react",
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"noImplicitAny": true,
+		"outDir": "./dist/",
+		"target": "esnext",
+	},
+	"include": ["src/**/*"]
+}
