@@ -4,7 +4,7 @@
 	"htmlWhitespaceSensitivity": "ignore",
 	"jsxBracketSameLine": false,
 	"jsxSingleQuote": false,
-	"parser": "babel",
+	"parser": "typescript",
 	"printWidth": 80,
 	"proseWrap": "always",
 	"quoteProps": "preserve",

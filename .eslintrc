@@ -2,8 +2,20 @@
 	"extends": "vtech",
 	"env": {
 		"browser": true,
-		"webextensions": true,
-		"jest/globals": true
+		"webextensions": true
+	},
+	"parser": "@typescript-eslint/parser",
+	"parserOptions":  {
+		"ecmaVersion":  2018,
+		"sourceType":  "module",
+		"ecmaFeatures":  {
+			"jsx":  true
+		}
+	},
+	"settings": {
+		"import/parsers": {
+			"@typescript-eslint/parser": [".ts", ".tsx"]
+		}
 	},
 	"rules": {
 		"function-paren-newline": 0,
