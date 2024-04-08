@@ -1,6 +1,5 @@
 import {isEmpty} from 'lodash';
 import {useEffect} from 'react';
-import {eventChannel} from 'redux-saga';
 import {INVALID_RESPONSE} from '../../background/slices/runtime';
 
 export const sendMessage = async (message, options = {}) => {
@@ -39,18 +38,3 @@ export const useRuntimeMessage = (callback) => {
 		};
 	}, []);
 };
-
-export const messageChannel = (action) =>
-	eventChannel((emit) => {
-		const handleMessage = (message) => {
-			if (action.match(message)) {
-				emit(message);
-			}
-		};
-
-		browser.runtime.onMessage.addListener(handleMessage);
-
-		return () => {
-			browser.runtime.onMessage.removeListener(handleMessage);
-		};
-	});

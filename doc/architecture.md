@@ -53,4 +53,4 @@ La configuration est sauvegardée dans le *storage local* de l'extension.
 
 L'interface principale de l'extension, chargée dans un panneau latéral natif du navigateur.
 
-On utilise `redux-toolkit` et `redux-saga` pour gérer l'état de l'extension pour une page donnée, et on stocke cet état en `session storage` afin de pouvoir le recharger au besoin.
+On utilise `redux` et `redux-toolkit` pour gérer l'état de l'extension pour une page donnée, et on stocke cet état en `session storage` afin de pouvoir le recharger au besoin.

@@ -28,4 +28,20 @@ const criteriaSlice = createSlice({
 const {actions, reducer, selectors} = criteriaSlice;
 export const {openCriterion, closeCriterion, toggleCriterion} = actions;
 export const {selectIsCriterionOpen} = selectors;
+
+export const addCriteriaListeners = (startListening) => {
+	startListening({
+		actionCreator: toggleCriterion,
+		effect({payload: id}, api) {
+			const isOpen = selectIsCriterionOpen(api.getState(), id);
+
+			if (isOpen) {
+				api.dispatch(closeCriterion(id));
+			} else {
+				api.dispatch(openCriterion(id));
+			}
+		}
+	});
+};
+
 export default reducer;
