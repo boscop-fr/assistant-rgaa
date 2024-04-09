@@ -1,6 +1,50 @@
 import React, {memo, useCallback, useEffect, useRef} from 'react';
 import {useMutationObserver, useResizeEffect} from '../api/hooks';
 
+// Tells if the given element is positionned relatively to
+// the window or the page by searching over its offset parents.
+const isWindowRelative = (element: HTMLElement) => {
+	let parent = element;
+
+	while ((parent = parent.offsetParent as HTMLElement)) {
+		// We're skipping our own positionned elements.
+		if (parent?.className.includes('rgaaExt')) {
+			continue;
+		}
+
+		const style = getComputedStyle(parent);
+
+		if (style.position === 'fixed' || style.position === 'sticky') {
+			return true;
+		}
+	}
+
+	return false;
+};
+
+type RelativeBounds = {
+	offset: number;
+	size: number;
+};
+
+const windowRelativeBounds = (element: HTMLElement): RelativeBounds => {
+	const {innerHeight} = window;
+	const {top, height} = element.getBoundingClientRect();
+	return {
+		offset: top / innerHeight,
+		size: height / innerHeight
+	};
+};
+
+const pageRelativeBounds = (element: HTMLElement): RelativeBounds => {
+	const {scrollHeight} = document.documentElement;
+	const {top, height} = element.getBoundingClientRect();
+	return {
+		offset: (top + window.scrollY) / scrollHeight,
+		size: height / scrollHeight
+	};
+};
+
 type MinimapPinsProps = {
 	minimumPinSize?: number;
 };
@@ -12,25 +56,27 @@ const MinimapPins = memo(({minimumPinSize = 4}: MinimapPinsProps) => {
 		const canvas = canvasRef.current;
 		const ctx = canvas.getContext('2d');
 		const style = getComputedStyle(canvas);
+		const windowPinColor = style.getPropertyValue('--window-pin-color');
+		const pagePinColor = style.getPropertyValue('--page-pin-color');
 
 		canvas.width = canvas.parentElement.clientWidth;
 		canvas.height = canvas.parentElement.clientHeight;
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		document
-			.querySelectorAll('.rgaaExt-Helper--mappable')
-			.forEach((helper) => {
-				const {scrollHeight} = document.documentElement;
-				const {top, height} = helper.getBoundingClientRect();
-				const relativeTop = (top + window.scrollY) / scrollHeight;
-				const relativeHeight = height / scrollHeight;
+			.querySelectorAll<HTMLElement>('.rgaaExt-Helper--mappable')
+			.forEach((element) => {
+				const isWinRelative = isWindowRelative(element);
+				const {offset, size} = isWinRelative
+					? windowRelativeBounds(element)
+					: pageRelativeBounds(element);
 
-				ctx.fillStyle = style.getPropertyValue('--pin-color');
+				ctx.fillStyle = isWinRelative ? windowPinColor : pagePinColor;
 				ctx.fillRect(
 					0,
-					relativeTop * canvas.height,
+					offset * canvas.height,
 					canvas.width,
-					Math.max(minimumPinSize, relativeHeight * canvas.height)
+					Math.max(minimumPinSize, size * canvas.height)
 				);
 			});
 	}, [canvasRef]);

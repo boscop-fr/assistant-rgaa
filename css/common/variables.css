@@ -67,6 +67,7 @@
 	--color-accent: orange;
 	--color-accent-text: var(--color-black);
 	--color-accent-darker: color-mix(in srgb, orange, black 7%);
+	--color-accent-contrast: #7c570e;
 
 	--max-z-index: 2147483647;
 }
