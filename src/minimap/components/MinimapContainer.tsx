@@ -1,22 +1,8 @@
 import React, {useRef} from 'react';
 import root from 'react-shadow';
+import containerStyles from '../../../css/minimap/components/rgaaExt-MinimapContainer.css';
 import styles from '../../../css/minimap/index.css';
 import Minimap from './Minimap';
-
-// We're using a simple set of inline styles here to avoid
-// running a whole build step for less than 10 lines of CSS.
-const CONTAINER_STYLES = `
-	.rgaaExt-MinimapContainer {
-		all: initial;
-		display: none;
-		position: fixed;
-		inset: 0 0 0 auto;
-	}
-
-	.rgaaExt-Body--withHelpers .rgaaExt-MinimapContainer {
-		display: block;
-	}
-`;
 
 // The minimap is rendered in a shadow DOM so the helpers
 // don't pick up on its contents, and its subtree changes
@@ -35,7 +21,7 @@ const MinimapContainer = () => {
 				<style>{styles}</style>
 			</root.div>
 
-			<style data-rgaaext>{CONTAINER_STYLES}</style>
+			<style data-rgaaext>{containerStyles}</style>
 		</>
 	);
 };

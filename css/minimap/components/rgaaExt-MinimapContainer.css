@@ -1,0 +1,11 @@
+.rgaaExt-MinimapContainer {
+	all: initial;
+	display: none;
+	position: fixed;
+	inset: 0 0 0 auto;
+	z-index: 999999;
+}
+
+.rgaaExt-Body--withHelpers .rgaaExt-MinimapContainer {
+	display: block;
+}
