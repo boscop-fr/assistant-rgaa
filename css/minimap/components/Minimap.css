@@ -3,7 +3,6 @@
 	height: 100%;
 	background: color-mix(in srgb, var(--color-blue-dark) 10%, transparent);
 	transition: background ease-out 150ms;
-	z-index: 999999;
 
 	&:hover {
 		background: color-mix(in srgb, var(--color-blue-dark) 15%, transparent);
