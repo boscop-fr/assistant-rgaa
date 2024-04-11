@@ -1,78 +1,85 @@
 import $ from 'jquery';
 import React from 'react';
-import {type IntlShape} from 'react-intl';
+import {createHelper} from '../utils/createHelper';
 import hideHelperElement from '../utils/hideHelperElement';
 import {sanitize} from '../utils/selectors';
 import serializeElement from '../utils/serializeElement';
 import showCodeNearElement from '../utils/showCodeNearElement';
 
-export const defaults = {
-	selector: '',
-	childrenSelector: '',
+type ShowChildElementsOptions = {
+	selector: string;
+	childrenSelector: string;
 	// Children attributes to show.
-	attributes: [] as string[],
+	attributes?: string[];
 	// Show the tag even if it is empty (i.e. it has neither
 	// content nor attributes.
-	showEmpty: false,
-	showName: true,
+	showEmpty?: boolean;
+	showName?: boolean;
 	// Show requested attributes that are not set on the element.
-	showMissingAttributes: false,
-	showContent: false
+	showMissingAttributes?: boolean;
+	showContent?: boolean;
 };
 
-export const describe = (
-	intl: IntlShape,
-	{
-		selector,
-		childrenSelector,
-		attributes = [],
-		showEmpty,
-		showName,
-		showMissingAttributes,
-		showContent
-	} = defaults
-) =>
-	intl.formatMessage(
+export default createHelper({
+	name: 'showChildElements',
+	defaultOptions: {
+		attributes: [],
+		showEmpty: false,
+		showName: true,
+		showMissingAttributes: false,
+		showContent: false
+	} as ShowChildElementsOptions,
+	describe(
+		intl,
 		{
-			id: 'Helper.showChildElements'
-		},
-		{
-			selector: sanitize(selector),
-			childrenSelector: sanitize(childrenSelector),
-			attributes: intl.formatList(attributes),
-			attributeCount: attributes.length,
+			selector,
+			childrenSelector,
+			attributes,
 			showEmpty,
 			showName,
 			showMissingAttributes,
-			showContent,
-			ul: (chunks) => <ul>{chunks}</ul>,
-			li: (chunks) => <li>{chunks}</li>,
-			code: (chunks) => <code>{chunks}</code>
+			showContent
 		}
-	);
-
-// Shows a DOM element.
-export const apply = (
-	id: string,
-	{selector, childrenSelector, ...options} = defaults
-) =>
-	$(selector).each((i, element) => {
-		const $element = $(element);
-
-		$element.find(childrenSelector).each((j, child) => {
-			const html = serializeElement($(child), options);
-
-			if (html) {
-				showCodeNearElement(
-					$element,
-					$('<code />', {
-						class: `${id} rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowChildElementsHelper`,
-						html
-					})
-				);
+	) {
+		return intl.formatMessage(
+			{
+				id: 'Helper.showChildElements'
+			},
+			{
+				selector: sanitize(selector),
+				childrenSelector: sanitize(childrenSelector),
+				attributes: intl.formatList(attributes),
+				attributeCount: attributes.length,
+				showEmpty,
+				showName,
+				showMissingAttributes,
+				showContent,
+				ul: (chunks) => <ul>{chunks}</ul>,
+				li: (chunks) => <li>{chunks}</li>,
+				code: (chunks) => <code>{chunks}</code>
 			}
-		});
-	});
+		);
+	},
+	apply(id, {selector, childrenSelector, ...options}) {
+		$(selector).each((i, element) => {
+			const $element = $(element);
 
-// Hides children of particular elements.
-export const revert = (id: string) => hideHelperElement(`.${id}`);
+			$element.find(childrenSelector).each((j, child) => {
+				const html = serializeElement($(child), options);
+
+				if (html) {
+					showCodeNearElement(
+						$element,
+						$('<code />', {
+							class: `${id} rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowChildElementsHelper`,
+							html
+						})
+					);
+				}
+			});
+		});
+	},
+	revert(id) {
+		hideHelperElement(`.${id}`);
+	}
+});

@@ -1,3 +1,5 @@
+import {Helper} from '../helpers/types';
+
 export type Test = {
 	id: `${number}.${number}.${number}` | `internal.${string}`;
 	title: string;
@@ -53,10 +55,6 @@ export type ShallowReference = Omit<Reference, 'themes'> & {
 export type Instructions = {
 	all?: string;
 	rgaa?: string;
-};
-
-export type Helper = {
-	helper: string;
 };
 
 export type HelpersByTest = Record<Test['id'], Helper[]>;

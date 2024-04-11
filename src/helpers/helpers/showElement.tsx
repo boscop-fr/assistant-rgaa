@@ -1,69 +1,79 @@
 import $ from 'jquery';
 import React from 'react';
-import {type IntlShape} from 'react-intl';
+import {createHelper} from '../utils/createHelper';
 import hideHelperElement from '../utils/hideHelperElement';
 import {sanitize} from '../utils/selectors';
 import serializeElement from '../utils/serializeElement';
 import showCodeNearElement from '../utils/showCodeNearElement';
 
-export const defaults = {
-	selector: '',
-	attributes: [] as string[],
-	showEmpty: false,
-	showName: true,
-	showMissingAttributes: false,
-	showContent: false
+type ShowElementOptions = {
+	selector: string;
+	attributes?: string[];
+	// Show the tag even if it is empty (i.e. it has
+	// neither content nor attributes.
+	showEmpty?: boolean;
+	showName?: boolean;
+	// Show requested attributes that are not set on the
+	// element.
+	showMissingAttributes?: boolean;
+	showContent?: boolean;
 };
 
-export const describe = (
-	intl: IntlShape,
-	{
-		selector,
-		attributes = [],
-		// Show the tag even if it is empty (i.e. it has
-		// neither content nor attributes.
-		showEmpty,
-		showName,
-		// Show requested attributes that are not set on the
-		// element.
-		showMissingAttributes,
-		showContent
-	} = defaults
-) =>
-	intl.formatMessage(
+export default createHelper({
+	name: 'showElement',
+	defaultOptions: {
+		attributes: [],
+		showEmpty: false,
+		showName: true,
+		showMissingAttributes: false,
+		showContent: false
+	} as ShowElementOptions,
+	describe(
+		intl,
 		{
-			id: 'Helper.showElement'
-		},
-		{
-			selector: sanitize(selector),
-			attributes: intl.formatList(attributes),
-			attributeCount: attributes.length,
+			selector,
+			attributes,
 			showEmpty,
 			showName,
 			showMissingAttributes,
-			showContent,
-			ul: (chunks) => <ul>{chunks}</ul>,
-			li: (chunks) => <li>{chunks}</li>,
-			code: (chunks) => <code>{chunks}</code>
+			showContent
 		}
-	);
+	) {
+		return intl.formatMessage(
+			{
+				id: 'Helper.showElement'
+			},
+			{
+				selector: sanitize(selector),
+				attributes: intl.formatList(attributes),
+				attributeCount: attributes.length,
+				showEmpty,
+				showName,
+				showMissingAttributes,
+				showContent,
+				ul: (chunks) => <ul>{chunks}</ul>,
+				li: (chunks) => <li>{chunks}</li>,
+				code: (chunks) => <code>{chunks}</code>
+			}
+		);
+	},
+	apply(id, {selector, ...options}) {
+		$(selector).each((i, element) => {
+			const $element = $(element);
+			const html = serializeElement($element, options);
 
-// Shows a DOM element.
-export const apply = (id: string, {selector, ...options} = defaults) =>
-	$(selector).each((i, element) => {
-		const $element = $(element);
-		const html = serializeElement($element, options);
-
-		if (html) {
-			showCodeNearElement(
-				$element,
-				$('<code />', {
-					class: `${id} rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowElementHelper`,
-					html
-				})
-			);
-		}
-	});
-
-// Hides children of particular elements.
-export const revert = (id: string) => hideHelperElement(`.${id}`);
+			if (html) {
+				showCodeNearElement(
+					$element,
+					$('<code />', {
+						class: `${id} rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowElementHelper`,
+						html
+					})
+				);
+			}
+		});
+	},
+	revert(id) {
+		hideHelperElement(`.${id}`);
+	}
+});
