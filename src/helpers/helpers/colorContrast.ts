@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import {forEach} from 'lodash';
-import {type IntlShape} from 'react-intl';
 import {getPixel} from '../../background/slices/runtime';
 import {createMessageHandler, sendMessage} from '../../common/utils/runtime';
 import ColorContrast from '../components/ColorContrast';
@@ -11,6 +10,7 @@ import {
 	updateColor,
 	updateStyle
 } from '../slices/colorContrast';
+import {createHelper} from '../utils/createHelper';
 import getSelectionStyle from '../utils/getSelectionStyle';
 import {
 	muteAttribute,
@@ -82,17 +82,38 @@ const handleMessage = createMessageHandler(async (action) => {
 	}
 });
 
-export const component = () => ColorContrast;
-
-export const describe = (intl: IntlShape) =>
-	intl.formatMessage({
-		id: 'Helper.colorContrast'
-	});
-
-export const apply = () => {
-	browser.runtime.onMessage.addListener(handleMessage);
+export type ColorInputConfig = {
+	label: string;
+	pixelPicker: boolean;
+	textPicker: boolean;
 };
 
-export const revert = () => {
-	browser.runtime.onMessage.removeListener(handleMessage);
+export type ColorExtractorConfig = {
+	label: string;
+	left: string;
+	right: string;
 };
+
+type ColorContrastOptions = {
+	minimumRatio: number;
+	left: ColorInputConfig;
+	right: ColorInputConfig;
+	extractor: ColorExtractorConfig;
+};
+
+export default createHelper({
+	name: 'colorContrast',
+	defaultOptions: {} as ColorContrastOptions,
+	component: ColorContrast,
+	describe(intl) {
+		return intl.formatMessage({
+			id: 'Helper.colorContrast'
+		});
+	},
+	apply() {
+		browser.runtime.onMessage.addListener(handleMessage);
+	},
+	revert() {
+		browser.runtime.onMessage.removeListener(handleMessage);
+	}
+});

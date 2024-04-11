@@ -1,53 +1,57 @@
 import {debounce} from 'lodash';
-import {type IntlShape} from 'react-intl';
 import {sendMessage} from '../../common/utils/runtime';
 import HeadingsHierarchy from '../components/HeadingsHierarchy';
 import {getHierarchy} from '../slices/headingsHierarchy';
+import {createHelper} from '../utils/createHelper';
 import getHeadingsHierarchy, {
 	withMissingHeadings
 } from '../utils/getHeadingsHierarchy';
 
-export const defaults = {
+type HeadingsHierarchyOptions = {
 	// Whether or not to report missing heading levels.
-	showMissing: true
+	showMissing?: boolean;
 };
 
 const observers = new Map();
 
-export const component = () => HeadingsHierarchy;
+export default createHelper({
+	name: 'headingsHierarchy',
+	defaultOptions: {
+		showMissing: true
+	} as HeadingsHierarchyOptions,
+	component: HeadingsHierarchy,
+	describe(intl) {
+		return intl.formatMessage({
+			id: 'Helper.headingsHierarchy'
+		});
+	},
+	apply(id, {showMissing = true}) {
+		const sendHierarchy = () => {
+			const hierarchy = getHeadingsHierarchy();
 
-export const describe = (intl: IntlShape) =>
-	intl.formatMessage({
-		id: 'Helper.headingsHierarchy'
-	});
+			sendMessage(
+				getHierarchy(
+					showMissing
+						? withMissingHeadings(hierarchy, 'Titre manquant')
+						: hierarchy
+				)
+			);
+		};
 
-export const apply = (id: string, {showMissing} = defaults) => {
-	const sendHierarchy = () => {
-		const hierarchy = getHeadingsHierarchy();
+		const observer = new MutationObserver(debounce(sendHierarchy, 300));
+		observers.set(id, observer);
+		observer.observe(document.body, {
+			childList: true
+		});
 
-		sendMessage(
-			getHierarchy(
-				showMissing
-					? withMissingHeadings(hierarchy, 'Titre manquant')
-					: hierarchy
-			)
-		);
-	};
+		sendHierarchy();
+	},
+	revert(id) {
+		const observer = observers.get(id);
 
-	const observer = new MutationObserver(debounce(sendHierarchy, 300));
-	observers.set(id, observer);
-	observer.observe(document.body, {
-		childList: true
-	});
-
-	sendHierarchy();
-};
-
-export const revert = (id: string) => {
-	const observer = observers.get(id);
-
-	if (observer) {
-		observer.disconnect();
-		observers.delete(id);
+		if (observer) {
+			observer.disconnect();
+			observers.delete(id);
+		}
 	}
-};
+});

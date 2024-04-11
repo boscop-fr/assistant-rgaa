@@ -1,40 +1,43 @@
 import $ from 'jquery';
 import React from 'react';
-import {type IntlShape} from 'react-intl';
+import {createHelper} from '../utils/createHelper';
 import hideHelperElement from '../utils/hideHelperElement';
 import {sanitize} from '../utils/selectors';
 import showTagApi from '../utils/showTag';
 
-export const defaults = {
-	selector: '',
-	showTag: false
+type OutlineOptions = {
+	selector: string;
+	showTag?: boolean;
 };
 
-export const describe = (intl: IntlShape, {selector, showTag} = defaults) =>
-	intl.formatMessage(
-		{
-			id: 'Helper.outline'
-		},
-		{
-			showTag,
-			selector: sanitize(selector),
-			code: (chunks) => <code>{chunks}</code>
+export default createHelper({
+	name: 'outline',
+	defaultOptions: {
+		showTag: false
+	} as OutlineOptions,
+	describe(intl, {selector, showTag = false}) {
+		return intl.formatMessage(
+			{
+				id: 'Helper.outline'
+			},
+			{
+				showTag,
+				selector: sanitize(selector),
+				code: (chunks) => <code>{chunks}</code>
+			}
+		);
+	},
+	apply(id, {selector, showTag = false}) {
+		$(selector).addClass('rgaaExt-Helper--mappable rgaaExt-OutlineHelper');
+
+		if (showTag) {
+			$(selector).each((i, element) => {
+				showTagApi(id, $(element));
+			});
 		}
-	);
-
-// Adds an outline to each element matched by the given selector.
-export const apply = (id: string, {selector, showTag} = defaults) => {
-	$(selector).addClass('rgaaExt-Helper--mappable rgaaExt-OutlineHelper');
-
-	if (showTag) {
-		$(selector).each((i, element) => {
-			showTagApi(id, $(element));
-		});
+	},
+	revert(id, {selector}) {
+		$(selector).removeClass('rgaaExt-Helper--mappable rgaaExt-OutlineHelper');
+		hideHelperElement(`.${id}`);
 	}
-};
-
-// Removes outlines that were previously disabled using apply().
-export const revert = (id: string, {selector} = defaults) => {
-	$(selector).removeClass('rgaaExt-Helper--mappable rgaaExt-OutlineHelper');
-	hideHelperElement(`.${id}`);
-};
+});

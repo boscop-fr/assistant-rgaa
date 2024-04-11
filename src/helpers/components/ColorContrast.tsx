@@ -2,6 +2,7 @@ import createColor from 'color';
 import {get} from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {sendMessage, useRuntimeMessage} from '../../common/utils/runtime';
+import {ColorExtractorConfig, ColorInputConfig} from '../helpers/colorContrast';
 import {
 	requestPixelColor,
 	requestStyle,
@@ -12,18 +13,6 @@ import {
 import ColorContrastField from './ColorContrastField';
 import ColorContrastResult from './ColorContrastResult';
 import ToggleButton from './ToggleButton';
-
-type ColorInputConfig = {
-	label: string;
-	pixelPicker: boolean;
-	textPicker: boolean;
-};
-
-type ExtractorConfig = {
-	label: string;
-	left: string;
-	right: string;
-};
 
 type ColorName = 'left' | 'right';
 type PickAction =
@@ -40,7 +29,7 @@ const contrastRatio = (left: string, right: string) => {
 	}
 };
 
-const usePicker = (extractor: ExtractorConfig) => {
+const usePicker = (extractor: ColorExtractorConfig) => {
 	const [colors, setColors] = useState({
 		left: '#fff',
 		right: '#fff'
@@ -98,7 +87,7 @@ const usePicker = (extractor: ExtractorConfig) => {
 type ColorContrastProps = {
 	left: ColorInputConfig;
 	right: ColorInputConfig;
-	extractor?: ExtractorConfig;
+	extractor?: ColorExtractorConfig;
 	minimumRatio: number;
 };
 

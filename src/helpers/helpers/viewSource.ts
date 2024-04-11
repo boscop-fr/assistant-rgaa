@@ -1,14 +1,13 @@
-import {noop} from 'lodash';
-import {IntlShape} from 'react-intl';
 import ViewSource from '../components/ViewSource';
+import {createHelper} from '../utils/createHelper';
 
-export const describe = (intl: IntlShape) =>
-	intl.formatMessage({
-		id: 'Helper.viewSource'
-	});
-
-export const component = () => ViewSource;
-
-export const apply = noop;
-
-export const revert = noop;
+export default createHelper({
+	name: 'viewSource',
+	defaultOptions: {},
+	component: ViewSource,
+	describe(intl) {
+		return intl.formatMessage({
+			id: 'Helper.viewSource'
+		});
+	}
+});

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, {useState} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Test} from '../../common/types';
-import {component, describe, info} from '../../helpers/utils/helpers';
+import {helperInfo} from '../../helpers/types';
 import {selectHelpersByTest} from '../slices/helpers';
 import {useAppSelector} from '../utils/hooks';
 
@@ -39,19 +39,23 @@ function TestHelpers({id}: TestHelpersProps) {
 
 			<div id={`TestHelpers-${id}`} className={contentClass}>
 				<ol>
-					{helpers.map((helper, i) => (
-						// eslint-disable-next-line react/no-array-index-key
-						<li key={i}>{describe(intl, helper)}</li>
-					))}
+					{helpers.map((helper, i) => {
+						const {module, args} = helperInfo(helper);
+
+						return (
+							// eslint-disable-next-line react/no-array-index-key
+							<li key={i}>{module.describe(intl, args)}</li>
+						);
+					})}
 				</ol>
 			</div>
 
 			<div className="TestSection-body">
 				{/* show helper widgets if any */}
 				{helpers
-					.map((config, i) => {
-						const {args} = info(config);
-						const Helper = component(config);
+					.map((helper, i) => {
+						const {module, args} = helperInfo(helper);
+						const Helper = module.component;
 
 						return Helper ? (
 							// eslint-disable-next-line react/no-array-index-key

@@ -1,26 +1,35 @@
 import $ from 'jquery';
-import {type IntlShape} from 'react-intl';
+import {createHelper} from '../utils/createHelper';
 
-export const describe = (intl: IntlShape, {description = ''} = {}) =>
-	intl.formatMessage(
-		{
-			id: 'Helper.style'
-		},
-		{
-			description,
-			hasDescription: !!description
-		}
-	);
+type StyleOptions = {
+	style: string;
+	description?: string;
+};
 
-// Injects a custom style block in the <head />.
-export const apply = (id: string, {style = ''} = {}) =>
-	$('head').append(
-		$('<style />', {
-			id,
-			type: 'text/css',
-			text: style
-		})
-	);
-
-// Removes style blocks previously added using apply().
-export const revert = (id: string) => $(`#${id}`).remove();
+export default createHelper({
+	name: 'style',
+	defaultOptions: {} as StyleOptions,
+	describe(intl, {description}) {
+		return intl.formatMessage(
+			{
+				id: 'Helper.style'
+			},
+			{
+				description,
+				hasDescription: !!description
+			}
+		);
+	},
+	apply(id, {style}) {
+		$('head').append(
+			$('<style />', {
+				id,
+				type: 'text/css',
+				text: style
+			})
+		);
+	},
+	revert(id) {
+		$(`#${id}`).remove();
+	}
+});

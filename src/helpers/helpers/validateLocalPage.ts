@@ -1,14 +1,13 @@
-import {noop} from 'lodash';
-import {type IntlShape} from 'react-intl';
 import LocalPageValidator from '../components/LocalPageValidator';
+import {createHelper} from '../utils/createHelper';
 
-export const describe = (intl: IntlShape) =>
-	intl.formatMessage({
-		id: 'Helper.validateLocalPage'
-	});
-
-export const component = () => LocalPageValidator;
-
-export const apply = noop;
-
-export const revert = noop;
+export default createHelper({
+	name: 'validateLocalPage',
+	defaultOptions: {},
+	component: LocalPageValidator,
+	describe(intl) {
+		return intl.formatMessage({
+			id: 'Helper.validateLocalPage'
+		});
+	}
+});

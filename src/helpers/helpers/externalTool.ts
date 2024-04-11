@@ -1,25 +1,24 @@
-import {noop} from 'lodash';
-import {type IntlShape} from 'react-intl';
 import ExternalTool from '../components/ExternalTool';
+import {createHelper} from '../utils/createHelper';
 
-export const defaults = {
-	name: '',
-	url: ''
+type ExternalToolOptions = {
+	name: string;
+	url: string;
 };
 
-export const describe = (intl: IntlShape, {name} = defaults) =>
-	intl.formatMessage(
-		{
-			id: 'Helper.externalTool'
-		},
-		{
-			name,
-			hasName: !!name
-		}
-	);
-
-export const component = () => ExternalTool;
-
-export const apply = noop;
-
-export const revert = noop;
+export default createHelper({
+	name: 'externalTool',
+	defaultOptions: {} as ExternalToolOptions,
+	component: ExternalTool,
+	describe(intl, {name}) {
+		return intl.formatMessage(
+			{
+				id: 'Helper.externalTool'
+			},
+			{
+				name,
+				hasName: !!name
+			}
+		);
+	}
+});
