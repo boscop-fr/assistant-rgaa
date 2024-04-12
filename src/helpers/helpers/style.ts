@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import {createHelper} from '../utils/createHelper';
 
 type StyleOptions = {
@@ -21,15 +20,12 @@ export default createHelper({
 		);
 	},
 	apply(id, {style}) {
-		$('head').append(
-			$('<style />', {
-				id,
-				type: 'text/css',
-				text: style
-			})
+		document.head.insertAdjacentHTML(
+			'beforeend',
+			`<style id="${id}">${style}</style>`
 		);
 	},
 	revert(id) {
-		$(`#${id}`).remove();
+		document.getElementById(id).remove();
 	}
 });

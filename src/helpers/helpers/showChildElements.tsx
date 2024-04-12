@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import React from 'react';
 import {createHelper} from '../utils/createHelper';
 import hideHelperElement from '../utils/hideHelperElement';
@@ -61,22 +60,18 @@ export default createHelper({
 		);
 	},
 	apply(id, {selector, childrenSelector, ...options}) {
-		$(selector).each((i, element) => {
-			const $element = $(element);
+		document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
+			element
+				.querySelectorAll(childrenSelector)
+				.forEach((child: HTMLElement) => {
+					const html = serializeElement(child, options);
 
-			$element.find(childrenSelector).each((j, child) => {
-				const html = serializeElement($(child), options);
-
-				if (html) {
-					showCodeNearElement(
-						$element,
-						$('<code />', {
-							class: `${id} rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowChildElementsHelper`,
-							html
-						})
-					);
-				}
-			});
+					if (html) {
+						showCodeNearElement(element, html, {
+							className: `${id} rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowChildElementsHelper`
+						});
+					}
+				});
 		});
 	},
 	revert(id) {

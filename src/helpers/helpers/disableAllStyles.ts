@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import {createHelper} from '../utils/createHelper';
 import {
 	muteAttribute,
@@ -18,7 +17,7 @@ export default createHelper({
 	},
 	apply(id) {
 		toggleStyleSheets(false);
-		muteAttribute($('[style]'), 'style');
+		muteAttribute(document.querySelectorAll('[style]'), 'style');
 		styleHelper.apply(id, {
 			style: `
 				img, svg, embed[type="image"], object[type="image"] {
@@ -42,7 +41,7 @@ export default createHelper({
 			undefined as (typeof styleHelper)['defaultOptions']
 		);
 
-		restoreAttribute($(selector), 'style');
+		restoreAttribute(document.querySelectorAll(selector), 'style');
 		toggleStyleSheets(true);
 	}
 });
