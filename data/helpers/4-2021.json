@@ -16,7 +16,7 @@
 				"role",
 				"aria-hidden"
 			],
-			"showMissingAttributes":true
+			"showMissing":true
 		}
 	],
 	"1.1.2": [
@@ -220,38 +220,38 @@
 		{
 			"helper": "outline",
 			"selector": "object[type^=\"image\"]",
-				"showTag":true
-			},
-			{
-				"helper": "showAttributes",
-				"selector": "object[type^=\"image\"]",
-					"attributes": [
-						"aria-hidden"
-					],
-					"showMissingAttributes":true
-				},
-				{
-					"helper": "showAttributes",
-					"selector": "object[type^=\"image\"]",
-						"attributes": [
-							"title",
-							"aria-label",
-							"aria-labelledby"
-						]
-					},
-					{
-						"helper": "showChildElements",
-						"selector": "object[type^=\"image\"]",
-							"childrenSelector": "*",
-							"attributes": [
-								"aria-label",
-								"aria-describedby",
-								"aria-labelledby",
-								"title"
-							],
-							"showContent":true
-						}
-					],
+			"showTag":true
+		},
+		{
+			"helper": "showAttributes",
+			"selector": "object[type^=\"image\"]",
+			"attributes": [
+				"aria-hidden"
+			],
+			"showMissing":true
+		},
+		{
+			"helper": "showAttributes",
+			"selector": "object[type^=\"image\"]",
+			"attributes": [
+				"title",
+				"aria-label",
+				"aria-labelledby"
+			]
+		},
+		{
+			"helper": "showChildElements",
+			"selector": "object[type^=\"image\"]",
+			"childrenSelector": "*",
+			"attributes": [
+				"aria-label",
+				"aria-describedby",
+				"aria-labelledby",
+				"title"
+			],
+			"showContent":true
+		}
+	],
 	"1.2.4": [
 		{
 			"helper": "outline",
@@ -1724,7 +1724,7 @@
 			"attributes": [
 				"summary"
 			],
-			"showContent":true
+			"showMissing":true
 		},
 		{
 			"helper": "showAttributes",
@@ -1765,7 +1765,7 @@
 			"attributes": [
 				"summary"
 			],
-			"showContent":true
+			"showMissing":true
 		},
 		{
 			"helper": "showAttributes",
@@ -2436,7 +2436,7 @@
 			"attributes": [
 				"aria-label", "aria-labelledby"
 			],
-			"showMissingAttributes":true
+			"showMissing":true
 		}
 	],
 	"9.3.1": [
@@ -2858,7 +2858,7 @@
 		{
 			"helper": "showElement",
 			"selector": "form [role='group']",
-			"showTag":true,
+			"showName":true,
 			"attributes": [
 				"role",
 				"aria-label",
@@ -2887,7 +2887,7 @@
 		{
 			"helper": "showElement",
 			"selector": "form [role='group']",
-			"showTag":true,
+			"showName":true,
 			"attributes": [
 				"role",
 				"aria-label",
@@ -2918,7 +2918,7 @@
 		{
 			"helper": "showElement",
 			"selector": "form [role='group']",
-			"showTag":true,
+			"showName":true,
 			"attributes": [
 				"role",
 				"aria-label",
@@ -3256,7 +3256,7 @@
 			"attributes": [
 				"role"
 			],
-			"showTag":true,
+			"showName":true,
 			"showMissingAttributes":true
 		}
 	],
@@ -3271,7 +3271,7 @@
 			"attributes": [
 				"href"
 			],
-			"showTag":true
+			"showName":true
 		}
 	],
 	"12.7.2": [
@@ -3285,7 +3285,7 @@
 			"attributes": [
 				"href"
 			],
-			"showTag":true
+			"showName":true
 		}
 	],
 	"12.8.1": [

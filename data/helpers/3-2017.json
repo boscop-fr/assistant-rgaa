@@ -114,7 +114,7 @@
 			"attributes": [
 				"aria-hidden"
 			],
-			"showMissingAttributes": true
+			"showMissing": true
 		},
 		{
 			"helper": "showAttributes",
@@ -1814,8 +1814,7 @@
 			"attributes": [
 				"summary"
 			],
-			"showMissing": true,
-			"showContent": true
+			"showMissing": true
 		},
 		{
 			"helper": "showAttributes",
@@ -1844,8 +1843,7 @@
 			"attributes": [
 				"summary"
 			],
-			"showMissing": true,
-			"showContent": true
+			"showMissing": true
 		},
 		{
 			"helper": "showAttributes",
@@ -3198,7 +3196,7 @@
 		{
 			"helper": "showElement",
 			"selector": "form [role='group']",
-			"showTag": true,
+			"showName": true,
 			"attributes": [
 				"role",
 				"aria-label",
@@ -3227,7 +3225,7 @@
 		{
 			"helper": "showElement",
 			"selector": "form [role='group']",
-			"showTag": true,
+			"showName": true,
 			"attributes": [
 				"role",
 				"aria-label",
@@ -3258,7 +3256,7 @@
 		{
 			"helper": "showElement",
 			"selector": "form [role='group']",
-			"showTag": true,
+			"showName": true,
 			"attributes": [
 				"role",
 				"aria-label",
@@ -3821,7 +3819,7 @@
 			"attributes": [
 				"role"
 			],
-			"showTag": true,
+			"showName": true,
 			"showMissingAttributes": true
 		}
 	],
@@ -3836,7 +3834,7 @@
 			"attributes": [
 				"href"
 			],
-			"showTag": true
+			"showName": true
 		}
 	],
 	"12.11.2": [
@@ -3850,7 +3848,7 @@
 			"attributes": [
 				"href"
 			],
-			"showTag": true
+			"showName": true
 		}
 	],
 	"12.11.3": [
@@ -3864,7 +3862,7 @@
 			"attributes": [
 				"href"
 			],
-			"showTag": true
+			"showName": true
 		}
 	],
 	"12.11.4": [
@@ -3878,7 +3876,7 @@
 			"attributes": [
 				"href"
 			],
-			"showTag": true
+			"showName": true
 		}
 	],
 	"12.13.1": [
