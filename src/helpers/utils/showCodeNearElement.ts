@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 // Stores helper containers indexed by their "parent" element.
 const containers = new WeakMap();
 
@@ -8,9 +6,9 @@ const createContainer = (element: HTMLElement) => {
 	container.className = 'rgaaExt-HelperContainer';
 
 	if (document.body.contains(element)) {
-		$(element).after(container);
+		element.after(container);
 	} else {
-		$(document.body).prepend(container);
+		document.body.insertAdjacentElement('afterbegin', container);
 	}
 
 	return container;
@@ -33,8 +31,17 @@ const getContainer = (element: HTMLElement) => {
 
 // Appends some code next to an element, ensuring that the
 // code is visible in the page.
-const showCodeNearElement = (element: JQuery, code: JQuery) => {
-	$(getContainer(element.get(0))).append(code);
+const showCodeNearElement = (
+	element: HTMLElement,
+	html: string,
+	{className} = {
+		className: ''
+	}
+) => {
+	getContainer(element).insertAdjacentHTML(
+		'beforeend',
+		`<code class="${className}">${html}</code>`
+	);
 };
 
 export default showCodeNearElement;

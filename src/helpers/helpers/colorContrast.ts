@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import {forEach} from 'lodash';
 import {getPixel} from '../../background/slices/runtime';
 import {createMessageHandler, sendMessage} from '../../common/utils/runtime';
@@ -32,14 +31,14 @@ const setPickingState = (className: string) =>
 
 const startPicking = (state: string) => {
 	setPickingState(state);
-	muteAttribute($('a'), 'href');
+	muteAttribute(document.querySelectorAll('a'), 'href');
 };
 
 const stopPicking = () => {
 	const selector = mutedAttributeSelector('href', 'a');
 
 	setPickingState(null);
-	restoreAttribute($(selector), 'href');
+	restoreAttribute(document.querySelectorAll(selector), 'href');
 };
 
 const handleMessage = createMessageHandler(async (action) => {

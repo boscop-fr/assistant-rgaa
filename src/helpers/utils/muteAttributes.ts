@@ -1,5 +1,5 @@
-import $ from 'jquery';
 import {concat, without} from 'lodash/fp';
+import {HTMLElementList} from './dom';
 
 //	Attributes muting works by aliasing original attributes.
 //	The API also maintains a custom attribute which holds the
@@ -25,63 +25,68 @@ export const mutedAttributeSelector = (attribute: string, base = '') => {
 export const anyMutedAttributeSelector = (base = '') =>
 	`${base}[${MutedAttribute}]`;
 
-const renameAttribute = (element: JQuery, from: string, to: string) => {
-	element.attr(to, element.attr(from));
-	element.removeAttr(from);
+const renameAttribute = (element: HTMLElement, from: string, to: string) => {
+	element.setAttribute(to, element.getAttribute(from));
+	element.removeAttribute(from);
 };
 
-const getMutedAttributes = (element: JQuery) => {
-	const list = element.attr(MutedAttribute);
+const getMutedAttributes = (element: HTMLElement) => {
+	const list = element.getAttribute(MutedAttribute);
 	return list ? list.split(',') : [];
 };
 
-const setMutedAttributes = (element: JQuery, list: string[]) => {
+const setMutedAttributes = (element: HTMLElement, list: string[]) => {
 	if (list.length) {
-		element.attr(MutedAttribute, list.join(','));
+		element.setAttribute(MutedAttribute, list.join(','));
 	} else {
-		element.removeAttr(MutedAttribute);
+		element.removeAttribute(MutedAttribute);
 	}
 };
 
 const updateMutedAttributes = (
-	element: JQuery,
+	element: HTMLElement,
 	update: (list: string[]) => string[]
 ) => {
 	const list = getMutedAttributes(element);
 	setMutedAttributes(element, update(list));
 };
 
-const muteAttributeOnElement = (element: JQuery, attribute: string) => {
+const muteAttributeOnElement = (element: HTMLElement, attribute: string) => {
 	renameAttribute(element, attribute, attributeAlias(attribute));
 	updateMutedAttributes(element, concat(attribute));
 };
 
-const restoreAttributeOnElement = (element: JQuery, attribute: string) => {
+const restoreAttributeOnElement = (element: HTMLElement, attribute: string) => {
 	renameAttribute(element, attributeAlias(attribute), attribute);
 	updateMutedAttributes(element, without([attribute]));
 };
 
-export const muteAttribute = (elements: JQuery, attribute: string) => {
+export const muteAttribute = (elements: HTMLElementList, attribute: string) => {
 	const selector = `[${attribute}]:not([class^="rgaaExt"])`;
 
-	elements.filter(selector).each((i, element) => {
-		muteAttributeOnElement($(element), attribute);
+	elements.forEach((element) => {
+		if (element.matches(selector)) {
+			muteAttributeOnElement(element, attribute);
+		}
 	});
 };
 
-export const restoreAttribute = (elements: JQuery, attribute: string) => {
+export const restoreAttribute = (
+	elements: HTMLElementList,
+	attribute: string
+) => {
 	const alias = attributeAlias(attribute);
 	const selector = `[${alias}]`;
 
-	elements.filter(selector).each((i, element) => {
-		restoreAttributeOnElement($(element), attribute);
+	elements.forEach((element) => {
+		if (element.matches(selector)) {
+			restoreAttributeOnElement(element, attribute);
+		}
 	});
 };
 
-export const restoreAllAttributes = (elements: JQuery) => {
-	elements.each((i, el) => {
-		const element = $(el);
-
+export const restoreAllAttributes = (elements: HTMLElementList) => {
+	elements.forEach((element) => {
 		getMutedAttributes(element).forEach((attribute) => {
 			restoreAttributeOnElement(element, attribute);
 		});

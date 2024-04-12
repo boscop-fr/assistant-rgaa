@@ -13,20 +13,22 @@ const escape = (html: string) =>
 
 // Returns inner HTML of the given element, without reserved
 // extension's elements.
-const innerHtml = (element: JQuery) => {
-	const copy = element.clone();
+const innerHtml = (element: HTMLElement) => {
+	const copy = element.cloneNode(true) as HTMLElement;
 
 	// removes extension's elements
-	copy.find('[class*=rgaaExt]').remove();
+	copy.querySelectorAll('[class*=rgaaExt]').forEach((element) => {
+		element.remove();
+	});
 
 	// restores muted attributees
-	restoreAllAttributes(copy.find(anyMutedAttributeSelector()));
+	restoreAllAttributes(copy.querySelectorAll(anyMutedAttributeSelector()));
 
-	return escape(copy.html());
+	return escape(copy.innerHTML);
 };
 
 const serializeElement = (
-	element: JQuery,
+	element: HTMLElement,
 	{
 		attributes = [] as string[],
 		showEmpty = false,
@@ -36,9 +38,7 @@ const serializeElement = (
 	} = {}
 ) => {
 	const name = showName
-		? `<span class="rgaaExt-Element-name">${element
-				.get(0)
-				.nodeName.toLowerCase()}</span>`
+		? `<span class="rgaaExt-Element-name">${element.nodeName.toLowerCase()}</span>`
 		: '';
 
 	const serializedAttributes = serializeAttributes(

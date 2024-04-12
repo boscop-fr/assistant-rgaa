@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import React from 'react';
 import {createHelper} from '../utils/createHelper';
 import hideHelperElement from '../utils/hideHelperElement';
@@ -28,16 +27,27 @@ export default createHelper({
 		);
 	},
 	apply(id, {selector, showTag = false}) {
-		$(selector).addClass('rgaaExt-Helper--mappable rgaaExt-OutlineHelper');
+		document.querySelectorAll(selector).forEach((element) => {
+			element.classList.add(
+				'rgaaExt-Helper--mappable',
+				'rgaaExt-OutlineHelper'
+			);
+		});
 
 		if (showTag) {
-			$(selector).each((i, element) => {
-				showTagApi(id, $(element));
+			document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
+				showTagApi(id, element);
 			});
 		}
 	},
 	revert(id, {selector}) {
-		$(selector).removeClass('rgaaExt-Helper--mappable rgaaExt-OutlineHelper');
+		document.querySelectorAll(selector).forEach((element) => {
+			element.classList.remove(
+				'rgaaExt-Helper--mappable',
+				'rgaaExt-OutlineHelper'
+			);
+		});
+
 		hideHelperElement(`.${id}`);
 	}
 });

@@ -1,5 +1,4 @@
 import {describe, expect, test} from '@jest/globals';
-import $ from 'jquery';
 import {
 	muteAttribute,
 	restoreAllAttributes,
@@ -9,42 +8,48 @@ import {
 describe('muteAttributes', function () {
 	describe('muteAttribute', function () {
 		test('should restore an attribute', function () {
-			const p = $('<p style="width: 100px">test</p>');
+			const p = document.createElement('p');
+			p.style.width = '100px';
 
-			muteAttribute(p, 'style');
+			muteAttribute([p], 'style');
 
-			expect(p.attr('style')).toBeUndefined();
-			expect(p.attr('data-rgaa-ext-muted')).toBe('style');
-			expect(p.attr('data-rgaa-ext-muted-style')).toBe('width: 100px');
+			expect(p.getAttribute('style')).toBeNull();
+			expect(p.getAttribute('data-rgaa-ext-muted')).toBe('style');
+			expect(p.getAttribute('data-rgaa-ext-muted-style')).toBe(
+				'width: 100px;'
+			);
 		});
 	});
 
 	describe('restoreAttribute', function () {
 		test('should restore an attribute', function () {
-			const p = $('<p style="width: 100px">test</p>');
+			const p = document.createElement('p');
+			p.style.width = '100px';
 
-			muteAttribute(p, 'style');
-			restoreAttribute(p, 'style');
+			muteAttribute([p], 'style');
+			restoreAttribute([p], 'style');
 
-			expect(p.attr('style')).toBe('width: 100px');
-			expect(p.attr('data-rgaa-ext-muted')).toBeUndefined();
-			expect(p.attr('data-rgaa-ext-muted-style')).toBeUndefined();
+			expect(p.getAttribute('style')).toBe('width: 100px;');
+			expect(p.getAttribute('data-rgaa-ext-muted')).toBeNull();
+			expect(p.getAttribute('data-rgaa-ext-muted-style')).toBeNull();
 		});
 	});
 
 	describe('restoreAllAttributes', function () {
 		test('should restore all muted attributes', function () {
-			const p = $('<p lang="en" style="width: 100px">test</p>');
+			const p = document.createElement('p');
+			p.style.width = '100px';
+			p.lang = 'en';
 
-			muteAttribute(p, 'lang');
-			muteAttribute(p, 'style');
-			restoreAllAttributes(p);
+			muteAttribute([p], 'lang');
+			muteAttribute([p], 'style');
+			restoreAllAttributes([p]);
 
-			expect(p.attr('lang')).toBe('en');
-			expect(p.attr('style')).toBe('width: 100px');
-			expect(p.attr('data-rgaa-ext-muted')).toBeUndefined();
-			expect(p.attr('data-rgaa-ext-muted-lang')).toBeUndefined();
-			expect(p.attr('data-rgaa-ext-muted-style')).toBeUndefined();
+			expect(p.getAttribute('lang')).toBe('en');
+			expect(p.getAttribute('style')).toBe('width: 100px;');
+			expect(p.getAttribute('data-rgaa-ext-muted')).toBeNull();
+			expect(p.getAttribute('data-rgaa-ext-muted-lang')).toBeNull();
+			expect(p.getAttribute('data-rgaa-ext-muted-style')).toBeNull();
 		});
 	});
 });

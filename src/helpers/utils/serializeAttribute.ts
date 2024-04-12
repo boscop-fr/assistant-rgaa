@@ -30,11 +30,11 @@ const linkId = (id: string) => {
 const linkIds = flow(split(/\s+/), flatMap(linkId), join(' '));
 
 const serializeAttribute = (
-	element: JQuery,
+	element: HTMLElement,
 	name: string,
 	showMissing: boolean
 ) => {
-	const value = element.attr(name);
+	const value = element.getAttribute(name);
 
 	if (isString(value)) {
 		const linkedIds = linkAttributes.includes(name) ? linkIds(value) : value;

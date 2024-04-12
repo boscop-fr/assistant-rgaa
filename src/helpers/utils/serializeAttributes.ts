@@ -1,7 +1,7 @@
 import serializeAttribute from './serializeAttribute';
 
 const serializeAttributes = (
-	element: JQuery,
+	element: HTMLElement,
 	attributes: string[],
 	showMissing: boolean
 ) =>
