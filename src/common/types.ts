@@ -22,9 +22,9 @@ export type Criterion = {
 	title: string;
 	level: 'A' | 'AA' | 'AAA';
 	tests: Test[];
-	specialCases: CriterionSpecialCase[];
-	technicalNotes: string[];
-	references: CriterionReference[];
+	specialCases?: CriterionSpecialCase[];
+	technicalNotes?: string[];
+	references?: CriterionReference[];
 };
 
 export type ShallowCriterion = Omit<Criterion, 'tests'> & {
@@ -57,4 +57,5 @@ export type Instructions = {
 	rgaa?: string;
 };
 
+export type InstructionsByTest = Record<Test['id'], Instructions>;
 export type HelpersByTest = Record<Test['id'], Helper[]>;

@@ -25,6 +25,24 @@ if (devMode) {
 	);
 }
 
+const jsonLintRule = (include, type) => ({
+	test: /\.json$/,
+	type: 'javascript/auto',
+	include,
+	use: [
+		{
+			loader: 'ts-loader'
+		},
+		{
+			loader: fullPath('loaders/json-lint-loader'),
+			options: {
+				typesPath: fullPath('src/common/types.ts'),
+				type
+			}
+		}
+	]
+})
+
 module.exports = {
 	mode: devMode
 		? 'development'
@@ -51,7 +69,10 @@ module.exports = {
 		],
 		background: [
 			'./src/background/index'
-		]
+		],
+		// This entry is used solely to validate JSON data
+		// against application types.
+		data: './data/lint'
 	},
 	output: {
 		path: fullPath('dist'),
@@ -71,9 +92,12 @@ module.exports = {
 	},
 	module: {
 		rules: [
+			jsonLintRule(fullPath('data/references'), 'Reference'),
+			jsonLintRule(fullPath('data/instructions'), 'InstructionsByTest'),
+			jsonLintRule(fullPath('data/helpers'), 'HelpersByTest'),
 			{
 				test: /\.tsx?$/,
-				include: fullPath('src'),
+				include: [fullPath('src'), fullPath('data')],
 				use: [
 					{
 						loader: 'ts-loader'
