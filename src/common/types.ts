@@ -11,11 +11,12 @@ export type ShallowTest = Test & {
 
 export type CriterionSpecialCase = string | {case: string};
 
-export type CriterionWcagReference = {wcag: string};
-export type CriterionTechniquesReference = {techniques: string};
-export type CriterionReference =
-	| CriterionWcagReference
-	| CriterionTechniquesReference;
+export type CriterionReferences = {
+	wcag?: {
+		criteria?: string;
+		techniques?: string;
+	};
+};
 
 export type Criterion = {
 	id: `${number}.${number}`;
@@ -24,7 +25,7 @@ export type Criterion = {
 	tests: Test[];
 	specialCases?: CriterionSpecialCase[];
 	technicalNotes?: string[];
-	references?: CriterionReference[];
+	references?: CriterionReferences;
 };
 
 export type ShallowCriterion = Omit<Criterion, 'tests'> & {

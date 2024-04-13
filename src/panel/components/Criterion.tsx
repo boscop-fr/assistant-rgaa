@@ -33,7 +33,7 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 	const isDone = useAppSelector((state) =>
 		selectAreAllTestsDone(state, tests)
 	);
-	const refLinks = useAppSelector((state) =>
+	const references = useAppSelector((state) =>
 		selectReferenceLinksByCriterion(state, id)
 	);
 	const specialCases = useAppSelector((state) =>
@@ -173,7 +173,7 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 
 						<Tabs>
 							<TabList>
-								{isEmpty(refLinks) ? null : (
+								{isEmpty(references) ? null : (
 									<Tab>
 										{intl.formatMessage({id: 'reference.tab.title'})}
 									</Tab>
@@ -196,10 +196,10 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 								)}
 							</TabList>
 
-							{isEmpty(refLinks) ? null : (
+							{isEmpty(references) ? null : (
 								<div className="Criterion-tabPanel">
 									<TabPanel>
-										<ExternalReferences refLinks={refLinks} />
+										<ExternalReferences references={references} />
 									</TabPanel>
 
 									{isNull(specialCases) ? null : (
