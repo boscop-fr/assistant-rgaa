@@ -77,24 +77,22 @@ function parseCriteria(criterias, topicNumber) {
 		technicalNotes: formatTechnicalNotesToMarkdown(
 			criteria.criterium?.technicalNote
 		),
-		references: [
-			{
-				wcag: marked(
+		references: {
+			wcag: {
+				criteria: marked(
 					getWcagCriteria(criteria.criterium.references[0]?.wcag),
 					{
 						renderer: externalLinksRenderer(w3cWcag21FrUrl)
 					}
-				)
-			},
-			{
+				) || undefined,
 				techniques: marked(
 					getWcagTechniques(criteria.criterium.references[1]?.techniques),
 					{
 						renderer: externalLinksRenderer(w3cTechniquesUrl)
 					}
-				)
+				) || undefined
 			}
-		]
+		}
 	}));
 }
 

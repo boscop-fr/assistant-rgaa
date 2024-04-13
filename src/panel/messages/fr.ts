@@ -20,10 +20,6 @@ const messages = {
 		'Des tests restent à faire sur ce critère - Cliquer pour marquer les tests comme "fait"',
 	'Criterion.toggle.show': 'Afficher les tests du critère {id}',
 	'Criterion.toggle.hide': 'Cacher les tests du critère {id}',
-	'Critererion.success': 'Critère(s) de succès:',
-	'Wcag.abbr': 'Web content accessibility guidelines',
-	'Wcag.techniques.sucess':
-		'Technique(s) suffisante(s) et/ou échec(s) (en anglais):',
 	'reference.tab.title': 'Réferences',
 	'specialCases.note.tab.title': 'Cas particuliers',
 	'technical.note.tabs.title': 'Notes techniques',
@@ -48,6 +44,10 @@ const messages = {
 	'ColorInput.sample': 'Aperçu de la couleur',
 	'ColorContrastResult.ratio': 'Ratio de contraste',
 	'ColorContrastResult.invalidResult': 'invalide',
+	'ExternalReferences.wcag.abbr': 'Web content accessibility guidelines',
+	'ExternalReferences.wcag.criteria': 'Critère(s) de succès:',
+	'ExternalReferences.wcag.techniques':
+		'Technique(s) suffisante(s) et/ou échec(s) (en anglais):',
 	'ExternalTool.linkTitle':
 		"Ouvrir l'outil (s'ouvre dans une nouvelle fenêtre)",
 	'HeadingsHierarchy.title': 'Hiérarchie de titres',

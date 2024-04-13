@@ -1,48 +1,46 @@
 import React from 'react';
 import {useIntl} from 'react-intl';
-import {
-	CriterionReference,
-	CriterionTechniquesReference,
-	CriterionWcagReference
-} from '../../common/types';
+import {CriterionReferences} from '../../common/types';
 
 type ExternalReferencesProps = {
-	refLinks: CriterionReference[];
+	references: CriterionReferences;
 };
 
-function ExternalReferences({refLinks}: ExternalReferencesProps) {
+function ExternalReferences({references}: ExternalReferencesProps) {
 	const intl = useIntl();
 
+	if (!references.wcag) {
+		return;
+	}
+
 	return (
-		<div className="References-container">
-			<div className="Wcag-success">
-				<h3 className="Wcag-success--header">
-					<abbr lang="en" title={intl.formatMessage({id: 'Wcag.abbr'})}>
+		<div className="ExternalReferences">
+			<div className="ExternalReferences-section">
+				<h3 className="ExternalReferences-sectionTitle">
+					<abbr
+						lang="en"
+						title={intl.formatMessage({
+							id: 'ExternalReferences.wcag.abbr'
+						})}
+					>
 						WCAG
 					</abbr>{' '}
 					2.1
 				</h3>
 
-				<p>{intl.formatMessage({id: 'Critererion.success'})}</p>
+				{Object.entries(references.wcag).map(([type, text]) => (
+					<div className="ExternalReferences-subSection" key={type}>
+						<h4 className="ExternalReferences-subSectionTitle">
+							{intl.formatMessage({
+								id: `ExternalReferences.wcag.${type}`
+							})}
+						</h4>
 
-				{refLinks.map(({wcag}: CriterionWcagReference, i) => (
-					<div
-						// eslint-disable-next-line react/no-array-index-key
-						key={i}
-						// eslint-disable-next-line react/no-danger
-						dangerouslySetInnerHTML={{__html: wcag}}
-					/>
-				))}
-
-				<p>{intl.formatMessage({id: 'Wcag.techniques.sucess'})}</p>
-
-				{refLinks.map(({techniques}: CriterionTechniquesReference, i) => (
-					<div
-						// eslint-disable-next-line react/no-array-index-key
-						key={i}
-						// eslint-disable-next-line react/no-danger
-						dangerouslySetInnerHTML={{__html: techniques}}
-					/>
+						<div
+							// eslint-disable-next-line react/no-danger
+							dangerouslySetInnerHTML={{__html: text}}
+						/>
+					</div>
 				))}
 			</div>
 		</div>
