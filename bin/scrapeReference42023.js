@@ -71,10 +71,10 @@ function parseCriteria(criterias, topicNumber) {
 			criteria.criterium.number,
 			topicNumber
 		),
-		specialCases: formatSpecialCasesToMarkdown(
+		specialCases: formatNotesToMarkdown(
 			criteria.criterium?.particularCases
 		),
-		technicalNotes: formatTechnicalNotesToMarkdown(
+		technicalNotes: formatNotesToMarkdown(
 			criteria.criterium?.technicalNote
 		),
 		references: {
@@ -185,45 +185,20 @@ function getWcagTechniques(techniques) {
 
 /**
  *
- * @param {Array<object|string>|undefined} specialCases
+ * @param {Array<object|string>|undefined} notes
  */
-function formatSpecialCasesToMarkdown(specialCases) {
-	if (!specialCases) {
-		return null;
+function formatNotesToMarkdown(notes) {
+	if (!notes) {
+		return undefined;
 	}
 
-	return specialCases.map((specialCase) => {
-		if (typeof specialCase === 'string') {
-			return marked(specialCase, {
-				renderer: externalLinksRenderer(accessGouvUrl)
-			});
-		}
+	return notes.map((note) => {
+		const content = typeof note === 'string'
+			? note
+			: note.ul.map((item) => item.replace(/ ;$/, '')).join('\n');
 
-		return {
-			case: marked(specialCase.ul.join('\n'), {
-				renderer: externalLinksRenderer(accessGouvUrl)
-			})
-		};
-	});
-}
-
-/**
- *
- * @param {Array<string>} technicalNotes
- */
-function formatTechnicalNotesToMarkdown(technicalNotes) {
-	if (!technicalNotes) {
-		return null;
-	}
-
-	return technicalNotes.map((note) => {
-		if (typeof note === 'string') {
-			return marked(note, {
-				renderer: externalLinksRenderer(accessGouvUrl)
-			});
-		}
-		return marked(note.ul.join('\n').replace(',', '\n'), {
+		return marked(content, {
 			renderer: externalLinksRenderer(accessGouvUrl)
 		});
-	});
+	}).join('');
 }
