@@ -22,6 +22,7 @@
 @import './components/ThemesList';
 @import './components/Theme';
 @import './components/Criterion';
+@import './components/CriterionNotes';
 @import './components/Test';
 @import './components/TestSection';
 @import './components/TestInstructions';
@@ -33,5 +34,4 @@
 @import '../helpers/components/ColorContrastResult';
 @import '../helpers/components/ColorInput';
 @import './components/ExternalReferences';
-@import './components/SpecialCases';
 @import './components/Tabs';

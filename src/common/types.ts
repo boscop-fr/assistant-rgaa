@@ -9,8 +9,6 @@ export type ShallowTest = Test & {
 	criterionId: Criterion['id'];
 };
 
-export type CriterionSpecialCase = string | {case: string};
-
 export type CriterionReferences = {
 	wcag?: {
 		criteria?: string;
@@ -23,8 +21,8 @@ export type Criterion = {
 	title: string;
 	level: 'A' | 'AA' | 'AAA';
 	tests: Test[];
-	specialCases?: CriterionSpecialCase[];
-	technicalNotes?: string[];
+	specialCases?: string;
+	technicalNotes?: string;
 	references?: CriterionReferences;
 };
 

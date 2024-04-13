@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 import classNames from 'classnames';
-import {isEmpty, isNull} from 'lodash';
+import {isEmpty} from 'lodash';
 import React, {ChangeEventHandler, MouseEventHandler} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
@@ -15,9 +15,9 @@ import {
 } from '../slices/reference';
 import {selectEnabledTestsByCriterion} from '../slices/tests';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
+import CriterionNotes from './CriterionNotes';
 import ExternalReferences from './ExternalReferences';
 import Icon from './Icon';
-import SpecialCasesTechnicalNotes from './SpecialCasesTechnicalNotes';
 import Test from './Test';
 
 type CriterionProps = {
@@ -175,48 +175,48 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 							<TabList>
 								{isEmpty(references) ? null : (
 									<Tab>
-										{intl.formatMessage({id: 'reference.tab.title'})}
-									</Tab>
-								)}
-
-								{isNull(specialCases) ? null : (
-									<Tab>
 										{intl.formatMessage({
-											id: 'specialCases.note.tab.title'
+											id: 'Criterion.tabs.references'
 										})}
 									</Tab>
 								)}
 
-								{isNull(notes) ? null : (
+								{specialCases ? (
 									<Tab>
 										{intl.formatMessage({
-											id: 'technical.note.tabs.title'
+											id: 'Criterion.tabs.specialCases'
 										})}
 									</Tab>
-								)}
+								) : null}
+
+								{notes ? (
+									<Tab>
+										{intl.formatMessage({
+											id: 'Criterion.tabs.technicalNotes'
+										})}
+									</Tab>
+								) : null}
 							</TabList>
 
-							{isEmpty(references) ? null : (
-								<div className="Criterion-tabPanel">
+							<div className="Criterion-tabPanel">
+								{isEmpty(references) ? null : (
 									<TabPanel>
 										<ExternalReferences references={references} />
 									</TabPanel>
+								)}
 
-									{isNull(specialCases) ? null : (
-										<TabPanel>
-											<SpecialCasesTechnicalNotes
-												data={specialCases}
-											/>
-										</TabPanel>
-									)}
+								{specialCases ? (
+									<TabPanel>
+										<CriterionNotes notes={specialCases} />
+									</TabPanel>
+								) : null}
 
-									{isNull(notes) ? null : (
-										<TabPanel>
-											<SpecialCasesTechnicalNotes data={notes} />
-										</TabPanel>
-									)}
-								</div>
-							)}
+								{notes ? (
+									<TabPanel>
+										<CriterionNotes notes={notes} />
+									</TabPanel>
+								) : null}
+							</div>
 						</Tabs>
 					</>
 				) : null}
