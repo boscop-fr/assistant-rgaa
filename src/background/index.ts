@@ -2,10 +2,10 @@ import {createMessageHandler, sendMessage} from '../common/utils/runtime';
 import {clearTabState, fetchCurrentTab} from '../common/utils/tabs';
 import {
 	INVALID_RESPONSE,
+	captureCurrentTab,
 	closePopup,
 	createTab,
-	getPixel,
-	helpersReady,
+	isProxiedAction,
 	openPopup,
 	openSidebar as openSidebarAction,
 	tabReloaded,
@@ -14,7 +14,6 @@ import {
 	viewPageSource
 } from './slices/runtime';
 import {injectContentScripts, removeContentScripts} from './utils/content';
-import {getPixelAt} from './utils/image';
 import {closeSidebar, openSidebar} from './utils/sidebar';
 import {PANEL_PAGE, captureVisibleTab} from './utils/tabs';
 import {validateLocalPage} from './utils/validateLocalPage';
@@ -78,10 +77,8 @@ browser.runtime.onMessage.addListener(
 			return true;
 		}
 
-		if (getPixel.match(message)) {
-			const {x, y} = message.payload;
-			const capture = await captureVisibleTab();
-			return getPixelAt(capture, x, y);
+		if (captureCurrentTab.match(message)) {
+			return captureVisibleTab();
 		}
 
 		if (validatePage.match(message)) {
@@ -100,9 +97,7 @@ browser.runtime.onMessage.addListener(
 			});
 		}
 
-		// Proxies the action from content scripts to the
-		// sidebar, as they can't communicate directly.
-		if (helpersReady.match(message)) {
+		if (isProxiedAction(message)) {
 			sendMessage(message);
 			return true;
 		}
