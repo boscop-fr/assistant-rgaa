@@ -1,5 +1,4 @@
 import {forEach} from 'lodash';
-import {getPixel} from '../../background/slices/runtime';
 import {createMessageHandler, sendMessage} from '../../common/utils/runtime';
 import ColorContrast from '../components/ColorContrast';
 import {
@@ -11,6 +10,7 @@ import {
 } from '../slices/colorContrast';
 import {createHelper} from '../utils/createHelper';
 import getSelectionStyle from '../utils/getSelectionStyle';
+import {captureCurrentTabPixel} from '../utils/images';
 import {
 	muteAttribute,
 	mutedAttributeSelector,
@@ -47,13 +47,7 @@ const handleMessage = createMessageHandler(async (action) => {
 			startPicking(PickingStates.pickingPixel);
 			const {clientX, clientY} = await waitForEvent('click');
 			setPickingState(PickingStates.processing);
-			const color = await sendMessage<string>(
-				getPixel({
-					x: clientX,
-					y: clientY
-				})
-			);
-
+			const color = await captureCurrentTabPixel(clientX, clientY);
 			await sendMessage(updateColor(color));
 		} finally {
 			stopPicking();

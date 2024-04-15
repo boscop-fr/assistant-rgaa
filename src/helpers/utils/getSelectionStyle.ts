@@ -1,8 +1,7 @@
 import createColor from 'color';
-import {getPixel} from '../../background/slices/runtime';
-import {sendMessage} from '../../common/utils/runtime';
 import wait from '../../common/utils/wait';
 import {ColorContrastStyle} from '../slices/colorContrast';
+import {captureCurrentTabPixel} from './images';
 
 const getSelectionStyle = async (): Promise<ColorContrastStyle> => {
 	const selection = window.getSelection();
@@ -20,12 +19,7 @@ const getSelectionStyle = async (): Promise<ColorContrastStyle> => {
 	// the real background one.
 	await wait(100);
 
-	const backgroundColor = await sendMessage<string>(
-		getPixel({
-			x: rect.left,
-			y: rect.top
-		})
-	);
+	const backgroundColor = await captureCurrentTabPixel(rect.left, rect.top);
 
 	return {
 		backgroundColor,
