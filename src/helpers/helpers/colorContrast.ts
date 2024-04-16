@@ -1,5 +1,5 @@
 import {forEach} from 'lodash';
-import {createMessageHandler, sendMessage} from '../../common/utils/runtime';
+import {sendMessage} from '../../common/utils/runtime';
 import ColorContrast from '../components/ColorContrast';
 import {
 	requestPixelColor,
@@ -41,7 +41,7 @@ const stopPicking = () => {
 	restoreAttribute(document.querySelectorAll(selector), 'href');
 };
 
-const handleMessage = createMessageHandler(async (action) => {
+const handleMessage = async (action: any) => {
 	if (requestPixelColor.match(action)) {
 		try {
 			startPicking(PickingStates.pickingPixel);
@@ -73,7 +73,7 @@ const handleMessage = createMessageHandler(async (action) => {
 			stopPicking();
 		}
 	}
-});
+};
 
 export type ColorInputConfig = {
 	label: string;

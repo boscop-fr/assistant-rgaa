@@ -1,4 +1,4 @@
-import {createMessageHandler, sendMessage} from '../common/utils/runtime';
+import {sendMessage} from '../common/utils/runtime';
 import {clearTabState, fetchCurrentTab} from '../common/utils/tabs';
 import {
 	INVALID_RESPONSE,
@@ -53,10 +53,9 @@ browser.tabs.onRemoved.addListener(async (tabId) => {
 });
 
 browser.runtime.onMessage.addListener(
-	createMessageHandler(async (message) => {
+	async (message) => {
 		if (openSidebarAction.match(message)) {
-			openSidebar(message.payload.tabId);
-			return true;
+			return openSidebar(message.payload.tabId);
 		}
 
 		if (openPopup.match(message)) {
@@ -66,15 +65,13 @@ browser.runtime.onMessage.addListener(
 				type: 'popup'
 			});
 
-			await closeSidebar(tabId);
-			return true;
+			return closeSidebar(tabId);
 		}
 
 		if (closePopup.match(message)) {
 			const {tabId, popupTabId} = message.payload;
 			await browser.tabs.remove(popupTabId);
-			await openSidebar(tabId);
-			return true;
+			return openSidebar(tabId);
 		}
 
 		if (captureCurrentTab.match(message)) {
@@ -98,10 +95,9 @@ browser.runtime.onMessage.addListener(
 		}
 
 		if (isProxiedAction(message)) {
-			sendMessage(message);
-			return true;
+			return sendMessage<typeof message>(message);
 		}
 
 		return INVALID_RESPONSE;
-	})
+	}
 );
