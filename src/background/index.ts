@@ -52,52 +52,50 @@ browser.tabs.onRemoved.addListener(async (tabId) => {
 	await clearTabState(tabId);
 });
 
-browser.runtime.onMessage.addListener(
-	async (message) => {
-		if (openSidebarAction.match(message)) {
-			return openSidebar(message.payload.tabId);
-		}
-
-		if (openPopup.match(message)) {
-			const {tabId} = message.payload;
-			await browser.windows.create({
-				url: `${browser.runtime.getURL(PANEL_PAGE)}?tabId=${tabId}`,
-				type: 'popup'
-			});
-
-			return closeSidebar(tabId);
-		}
-
-		if (closePopup.match(message)) {
-			const {tabId, popupTabId} = message.payload;
-			await browser.tabs.remove(popupTabId);
-			return openSidebar(tabId);
-		}
-
-		if (captureCurrentTab.match(message)) {
-			return captureVisibleTab();
-		}
-
-		if (validatePage.match(message)) {
-			return validateLocalPage(message.payload.url);
-		}
-
-		if (viewPageSource.match(message)) {
-			return viewSource(message.payload.url);
-		}
-
-		if (createTab.match(message)) {
-			const {index} = await fetchCurrentTab();
-			return browser.tabs.create({
-				url: message.payload.url,
-				index: index + 1
-			});
-		}
-
-		if (isProxiedAction(message)) {
-			return sendMessage<typeof message>(message);
-		}
-
-		return INVALID_RESPONSE;
+browser.runtime.onMessage.addListener(async (message) => {
+	if (openSidebarAction.match(message)) {
+		return openSidebar(message.payload.tabId);
 	}
-);
+
+	if (openPopup.match(message)) {
+		const {tabId} = message.payload;
+		await browser.windows.create({
+			url: `${browser.runtime.getURL(PANEL_PAGE)}?tabId=${tabId}`,
+			type: 'popup'
+		});
+
+		return closeSidebar(tabId);
+	}
+
+	if (closePopup.match(message)) {
+		const {tabId, popupTabId} = message.payload;
+		await browser.tabs.remove(popupTabId);
+		return openSidebar(tabId);
+	}
+
+	if (captureCurrentTab.match(message)) {
+		return captureVisibleTab();
+	}
+
+	if (validatePage.match(message)) {
+		return validateLocalPage(message.payload.url);
+	}
+
+	if (viewPageSource.match(message)) {
+		return viewSource(message.payload.url);
+	}
+
+	if (createTab.match(message)) {
+		const {index} = await fetchCurrentTab();
+		return browser.tabs.create({
+			url: message.payload.url,
+			index: index + 1
+		});
+	}
+
+	if (isProxiedAction(message)) {
+		return sendMessage<typeof message>(message);
+	}
+
+	return INVALID_RESPONSE;
+});

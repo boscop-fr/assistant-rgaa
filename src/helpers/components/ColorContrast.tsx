@@ -1,5 +1,4 @@
 import createColor from 'color';
-import {get} from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {sendMessage, useRuntimeMessage} from '../../common/utils/runtime';
 import {ColorExtractorConfig, ColorInputConfig} from '../helpers/colorContrast';
@@ -61,8 +60,8 @@ const usePicker = (extractor: ColorExtractorConfig) => {
 			stopPicking();
 		} else if (updateStyle.match(action)) {
 			setColors({
-				left: get(action.payload, extractor.left),
-				right: get(action.payload, extractor.right)
+				left: action.payload[extractor.left],
+				right: action.payload[extractor.right]
 			});
 			stopPicking();
 		}

@@ -1,12 +1,13 @@
 const utils = require('./utils');
-const _ = require('lodash');
 
 
 
 const formatToType = (data, type) =>
-	_.mapValues(data, (instruction) => ({
-		[type]: instruction
-	}));
+	Object.fromEntries(
+		Object.values(data).map((instruction) => ({
+			[type]: instruction
+		}))
+	)
 
 const format = (options) => {
 	const data = utils.readJson(options.source);

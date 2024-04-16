@@ -1,4 +1,4 @@
-import {debounce} from 'lodash';
+import debounce from 'debounce';
 import {useEffect} from 'react';
 
 export const useMutationObserver = (callback: () => void, delay = 15) => {

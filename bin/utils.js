@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const deepmerge = require('deepmerge');
 const fs = require('fs');
 const request = require('request');
 
@@ -38,7 +38,7 @@ const jsonify = (data) => JSON.stringify(data, null, '\t');
  */
 const writeJsonTo = (path, merge) => (data) => {
 	const oldData = readJson(path);
-	const newData = merge ? _.merge({}, oldData, data) : data;
+	const newData = merge ? deepmerge(oldData, data) : data;
 
 	fs.writeFileSync(path, jsonify(newData));
 };

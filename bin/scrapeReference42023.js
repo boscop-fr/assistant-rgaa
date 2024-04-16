@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const {marked} = require('marked');
-const {isEmpty} = require('lodash');
 
 const accessGouvUrl =
 	'https://accessibilite.numerique.gouv.fr/methode/glossaire/';
@@ -170,12 +169,15 @@ const wcagCategories = {
  * @returns {string} String
  */
 function getWcagTechniques(techniques) {
-	if (isEmpty(techniques)) {
+	const values = Object.values(techniques);
+
+	if (!values.length) {
 		return '';
 	}
+
 	const buildMdLink = (uri, ref) =>
 		`[${ref.join('')}](${uri}/${ref.join('')})`;
-	return Object.values(techniques)
+	return values
 		.map((v) => {
 			const ref = v.split('');
 			return ` * ${buildMdLink(wcagCategories[ref[0]], ref)}`;

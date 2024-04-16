@@ -1,6 +1,3 @@
-import {isString} from 'lodash';
-import {flatMap, flow, join, split} from 'lodash/fp';
-
 // Attributes that contain a list of ids.
 const linkAttributes = ['for', 'aria-labelledby', 'aria-describedby'];
 
@@ -27,7 +24,7 @@ const linkId = (id: string) => {
 };
 
 // Makes a anchor to each of the linked ids.
-const linkIds = flow(split(/\s+/), flatMap(linkId), join(' '));
+const linkIds = (id: string) => id.split(/\s+/).flatMap(linkId).join(' ');
 
 const serializeAttribute = (
 	element: HTMLElement,
@@ -36,7 +33,7 @@ const serializeAttribute = (
 ) => {
 	const value = element.getAttribute(name);
 
-	if (isString(value)) {
+	if (typeof value === 'string') {
 		const linkedIds = linkAttributes.includes(name) ? linkIds(value) : value;
 
 		return (

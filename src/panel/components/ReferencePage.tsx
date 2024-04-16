@@ -1,4 +1,4 @@
-import {debounce, map} from 'lodash';
+import debounce from 'debounce';
 import React, {useCallback} from 'react';
 import {selectAllThemes, selectIsLoaded} from '../slices/reference';
 import {saveScrollPosition, selectScrollPosition} from '../slices/themes';
@@ -44,8 +44,8 @@ const ReferencePage = () => {
 				onScroll={handleScroll}
 				ref={themesRef}
 			>
-				{map(themes, (theme, n) => (
-					<Theme key={n} theme={theme} />
+				{Object.values(themes).map((theme) => (
+					<Theme key={theme.id} theme={theme} />
 				))}
 			</div>
 		</div>

@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import {map} from 'lodash';
 import React from 'react';
 import {Button, Menu, Wrapper} from 'react-aria-menubutton';
 import {FormattedMessage} from 'react-intl';
@@ -57,7 +56,7 @@ const ThemesList = () => {
 
 			<Menu tag="ul" className="ThemesList-list">
 				<>
-					{map(themes, (theme) => (
+					{Object.values(themes).map((theme) => (
 						<ThemesListItem
 							{...theme}
 							icon={icons[theme.id as keyof typeof icons]}

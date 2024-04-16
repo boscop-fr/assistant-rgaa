@@ -1,11 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-
-export type ColorContrastStyle = {
-	backgroundColor: string;
-	color: string;
-	fontSize: string;
-	fontWeight: string;
-};
+import {ColorContrastStyle} from '../helpers/colorContrast';
 
 export const requestPixelColor = createAction(
 	'helpers/colorContrast/requestPixelColor'
