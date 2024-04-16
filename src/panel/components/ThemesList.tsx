@@ -1,12 +1,13 @@
 import classNames from 'classnames';
-import React from 'react';
-import {Button, Menu, Wrapper} from 'react-aria-menubutton';
+import React, {useRef, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {selectAllThemes} from '../slices/reference';
-import {selectIsMenuOpen, toggleMenu} from '../slices/themes';
-import {useAppDispatch, useAppSelector} from '../utils/hooks';
+import {
+	useAnchorEvent,
+	useAppSelector,
+	useFocusOutEffect
+} from '../utils/hooks';
 import Icon from './Icon';
-import ThemesListItem from './ThemesListItem';
 
 const icons = {
 	'1': 'image',
@@ -25,47 +26,58 @@ const icons = {
 };
 
 const ThemesList = () => {
-	const isMenuOpen = useAppSelector(selectIsMenuOpen);
 	const themes = useAppSelector(selectAllThemes);
-	const dispatch = useAppDispatch();
+	const [isOpen, setOpen] = useState(false);
+	const ref = useRef<HTMLDivElement>();
+
+	const handleToggle = () => {
+		setOpen((open) => !open);
+	};
+
+	useFocusOutEffect(ref, () => {
+		setOpen(false);
+	});
+
+	useAnchorEvent(() => {
+		setOpen(false);
+	});
 
 	return (
-		<Wrapper
-			className={classNames('ThemesList', {'is-open': isMenuOpen})}
-			onSelection={(href) => {
-				document.location.href = href;
-			}}
-			onMenuToggle={(menu) => {
-				dispatch(toggleMenu(menu.isOpen));
-			}}
-			id="ThemesList-wrapper"
-		>
-			<h2 className="ThemesList-title">
-				<Button className="ThemesList-toggle ActionButton" id="themesMenu">
-					{isMenuOpen ? (
-						<span aria-hidden="true" className="ThemesList-toggleIcon">
-							▼
-						</span>
-					) : (
-						<Icon name="list-ul" className="ThemesList-toggleIcon" />
-					)}
+		<div ref={ref} className="ThemesList">
+			<button
+				className="ThemesList-toggle ActionButton"
+				id="themesMenu"
+				aria-controls="themesMenuDropdown"
+				aria-expanded={isOpen}
+				onClick={handleToggle}
+			>
+				<Icon name="list-ul" className="ThemesList-toggleIcon" />
+				<FormattedMessage id="ThemesList.title" />
+			</button>
 
-					<FormattedMessage id="ThemesList.title" />
-				</Button>
-			</h2>
-
-			<Menu tag="ul" className="ThemesList-list">
-				<>
-					{Object.values(themes).map((theme) => (
-						<ThemesListItem
-							{...theme}
-							icon={icons[theme.id as keyof typeof icons]}
-							key={theme.id}
-						/>
-					))}
-				</>
-			</Menu>
-		</Wrapper>
+			<ul
+				id="themesMenuDropdown"
+				className={classNames({
+					'ThemesList-list': true,
+					'is-open': isOpen
+				})}
+			>
+				{Object.values(themes).map((theme) => (
+					<li key={theme.id}>
+						<a
+							className="InvisibleLink ThemesList-link"
+							href={`#theme-${theme.id}`}
+						>
+							<Icon
+								name={icons[theme.id as keyof typeof icons]}
+								className="ThemesList-itemIcon"
+							/>
+							{theme.title}
+						</a>
+					</li>
+				))}
+			</ul>
+		</div>
 	);
 };
 
