@@ -1,6 +1,6 @@
 import createColor from 'color';
 import wait from '../../common/utils/wait';
-import {ColorContrastStyle} from '../slices/colorContrast';
+import {ColorContrastStyle} from '../helpers/colorContrast';
 import {captureCurrentTabPixel} from './images';
 
 const getSelectionStyle = async (): Promise<ColorContrastStyle> => {
