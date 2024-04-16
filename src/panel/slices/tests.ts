@@ -1,5 +1,4 @@
 import {PayloadAction, createSelector, createSlice} from '@reduxjs/toolkit';
-import {filter} from 'lodash';
 import {Test} from '../../common/types';
 import {selectAllTests, selectTestsByCriterion} from './reference';
 
@@ -44,12 +43,12 @@ export const {selectIsTestEnabled, selectEnabledTestIds} = selectors;
 
 export const selectEnabledTests = createSelector(
 	[selectAllTests, selectEnabledTestIds],
-	(tests, ids) => filter(tests, ({id}) => ids.includes(id))
+	(tests, ids) => Object.values(tests).filter(({id}) => ids.includes(id))
 );
 
 export const selectEnabledTestsByCriterion = createSelector(
 	[selectTestsByCriterion, selectEnabledTestIds],
-	(tests, ids) => filter(tests, ({id}) => ids.includes(id))
+	(tests, ids) => tests.filter(({id}) => ids.includes(id))
 );
 
 export default reducer;

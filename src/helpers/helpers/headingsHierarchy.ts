@@ -1,4 +1,4 @@
-import {debounce} from 'lodash';
+import debounce from 'debounce';
 import {sendMessage} from '../../common/utils/runtime';
 import HeadingsHierarchy from '../components/HeadingsHierarchy';
 import {getHierarchy} from '../slices/headingsHierarchy';

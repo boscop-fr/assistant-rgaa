@@ -1,4 +1,3 @@
-import {concat, without} from 'lodash/fp';
 import {HTMLElementList} from './dom';
 
 //	Attributes muting works by aliasing original attributes.
@@ -53,12 +52,14 @@ const updateMutedAttributes = (
 
 const muteAttributeOnElement = (element: HTMLElement, attribute: string) => {
 	renameAttribute(element, attribute, attributeAlias(attribute));
-	updateMutedAttributes(element, concat(attribute));
+	updateMutedAttributes(element, (muted) => muted.concat(attribute));
 };
 
 const restoreAttributeOnElement = (element: HTMLElement, attribute: string) => {
 	renameAttribute(element, attributeAlias(attribute), attribute);
-	updateMutedAttributes(element, without([attribute]));
+	updateMutedAttributes(element, (muted) =>
+		muted.filter((attr) => attr !== attribute)
+	);
 };
 
 export const muteAttribute = (elements: HTMLElementList, attribute: string) => {

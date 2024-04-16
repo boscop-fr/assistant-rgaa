@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 import classNames from 'classnames';
-import {isEmpty} from 'lodash';
 import React, {ChangeEventHandler, MouseEventHandler} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
@@ -36,6 +35,7 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 	const references = useAppSelector((state) =>
 		selectReferenceLinksByCriterion(state, id)
 	);
+	const hasReferences = Object.keys(references).length > 0;
 	const specialCases = useAppSelector((state) =>
 		selectSpecialCasesByCriterion(state, id)
 	);
@@ -161,25 +161,27 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 				{isOpen ? (
 					<>
 						<ul className="Criterion-tests">
-							{tests.map(({id: testId, title: testTitle}) => (
-								<li
-									className="Criterion-test"
-									key={`criterion-${id}-test-${testId}`}
-								>
-									<Test id={testId} title={testTitle} />
-								</li>
-							))}
+							{Object.values(tests).map(
+								({id: testId, title: testTitle}) => (
+									<li
+										className="Criterion-test"
+										key={`criterion-${id}-test-${testId}`}
+									>
+										<Test id={testId} title={testTitle} />
+									</li>
+								)
+							)}
 						</ul>
 
 						<Tabs>
 							<TabList>
-								{isEmpty(references) ? null : (
+								{hasReferences ? (
 									<Tab>
 										{intl.formatMessage({
 											id: 'Criterion.tabs.references'
 										})}
 									</Tab>
-								)}
+								) : null}
 
 								{specialCases ? (
 									<Tab>
@@ -199,11 +201,11 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 							</TabList>
 
 							<div className="Criterion-tabPanel">
-								{isEmpty(references) ? null : (
+								{hasReferences ? (
 									<TabPanel>
 										<ExternalReferences references={references} />
 									</TabPanel>
-								)}
+								) : null}
 
 								{specialCases ? (
 									<TabPanel>

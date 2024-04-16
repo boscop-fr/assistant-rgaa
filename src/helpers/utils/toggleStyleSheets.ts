@@ -1,8 +1,6 @@
-import {toArray} from 'lodash';
-
 // Toggles all style sheets in the page.
 const toggleStyleSheets = (toggled: boolean) => {
-	toArray(document.styleSheets).forEach((stylesheet) => {
+	Array.from(document.styleSheets).forEach((stylesheet) => {
 		if ('rgaaext' in (stylesheet.ownerNode as HTMLElement)?.dataset) {
 			return;
 		}

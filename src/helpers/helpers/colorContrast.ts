@@ -1,4 +1,3 @@
-import {forEach} from 'lodash';
 import {sendMessage} from '../../common/utils/runtime';
 import ColorContrast from '../components/ColorContrast';
 import {
@@ -25,7 +24,7 @@ const PickingStates = {
 };
 
 const setPickingState = (className: string) =>
-	forEach(PickingStates, (c) => {
+	Object.values(PickingStates).forEach((c) => {
 		document.body.classList.toggle(c, c === className);
 	});
 
@@ -75,6 +74,13 @@ const handleMessage = async (action: any) => {
 	}
 };
 
+export type ColorContrastStyle = {
+	backgroundColor: string;
+	color: string;
+	fontSize: string;
+	fontWeight: string;
+};
+
 export type ColorInputConfig = {
 	label: string;
 	pixelPicker: boolean;
@@ -83,8 +89,8 @@ export type ColorInputConfig = {
 
 export type ColorExtractorConfig = {
 	label: string;
-	left: string;
-	right: string;
+	left: keyof ColorContrastStyle;
+	right: keyof ColorContrastStyle;
 };
 
 type ColorContrastOptions = {

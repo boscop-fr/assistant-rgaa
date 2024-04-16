@@ -1,5 +1,4 @@
 import {PayloadAction, createSelector, createSlice} from '@reduxjs/toolkit';
-import {filter} from 'lodash';
 import {
 	ShallowCriterion,
 	ShallowReference,
@@ -73,12 +72,14 @@ export const {
 
 export const selectCriteriaByTheme = createSelector(
 	[selectAllCriteria, (_, id) => id],
-	(criteria, id) => filter(criteria, ['themeId', id])
+	(criteria, id) =>
+		Object.values(criteria).filter(({themeId}) => themeId === id)
 );
 
 export const selectTestsByCriterion = createSelector(
 	[selectAllTests, (_, id) => id],
-	(tests, id) => filter(tests, ['criterionId', id])
+	(tests, id) =>
+		Object.values(tests).filter(({criterionId}) => criterionId === id)
 );
 
 export default reducer;
