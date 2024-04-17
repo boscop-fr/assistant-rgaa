@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, {ChangeEventHandler, useState} from 'react';
+import {type JSX} from 'react/jsx-runtime';
+import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
 import {type Test} from '../../common/types';
 import {markTestDone, selectIsTestDone} from '../slices/checklist';
@@ -39,11 +40,11 @@ function Test({id, title}: TestProps) {
 		}
 	};
 
-	const handleDoneChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+	const handleDoneChange = (event: JSX.TargetedEvent<HTMLInputElement>) => {
 		dispatch(
 			markTestDone({
 				id,
-				done: event.target.checked
+				done: event.currentTarget.checked
 			})
 		);
 	};

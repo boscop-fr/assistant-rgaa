@@ -41,7 +41,8 @@
 				"data/references/3-2017.json",
 				"data/references/4-2019.json",
 				"data/references/4-2021.json",
-				"data/references/4-2023.json"
+				"data/references/4-2023.json",
+				"dist/minimap-component.js"
 			],
 			"matches": [
 				"<all_urls>"

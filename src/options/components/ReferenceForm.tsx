@@ -1,9 +1,5 @@
-import React, {
-	ChangeEventHandler,
-	FormEventHandler,
-	useEffect,
-	useState
-} from 'react';
+import {type JSX} from 'react/jsx-runtime';
+import React, {useEffect, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import versions from '../../../data/versions.json';
 import {DEFAULT_VERSION} from '../../panel/utils/reference';
@@ -19,12 +15,12 @@ function ReferenceForm() {
 		);
 	}, []);
 
-	const onSelectChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
-		setSelectedVersion(event.target.value);
+	const onSelectChange = (event: JSX.TargetedEvent<HTMLSelectElement>) => {
+		setSelectedVersion(event.currentTarget.value);
 		setSuccess(false);
 	};
 
-	const onFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+	const onFormSubmit = (event: JSX.TargetedEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setOption(OPTIONS.referenceVersion, selectedVersion);
 		setSuccess(true);

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 import classNames from 'classnames';
-import React, {ChangeEventHandler, MouseEventHandler} from 'react';
+import {type JSX} from 'react/jsx-runtime';
+import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
 import {type Criterion} from '../../common/types';
@@ -57,18 +58,18 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 		'Title Title--sub': isOpen
 	});
 
-	const handleDoneChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+	const handleDoneChange = (event: JSX.TargetedEvent<HTMLInputElement>) => {
 		tests.forEach((test) =>
 			dispatch(
 				markTestDone({
 					id: test.id,
-					done: event.target.checked
+					done: event.currentTarget.checked
 				})
 			)
 		);
 	};
 
-	const handleToggle: MouseEventHandler<HTMLElement> = (event) => {
+	const handleToggle = (event: JSX.TargetedEvent<HTMLElement>) => {
 		event.stopPropagation();
 		dispatch(toggleCriterion(id));
 	};

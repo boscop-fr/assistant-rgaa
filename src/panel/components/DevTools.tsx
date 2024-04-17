@@ -1,4 +1,5 @@
 import React from 'react';
+import {type JSX} from 'react/jsx-runtime';
 import {selectVersion, setVersion} from '../slices/reference';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
 
@@ -16,8 +17,8 @@ const DevTools = () => {
 			<input
 				placeholder="critère"
 				type="search"
-				onChange={(event) => {
-					const id = event.target.value;
+				onChange={(event: JSX.TargetedEvent<HTMLInputElement>) => {
+					const id = event.currentTarget.value;
 					const criterion = document.querySelector(
 						`.Criterion[data-id="${id}"]`
 					);

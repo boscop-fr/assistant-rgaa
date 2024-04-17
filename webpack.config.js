@@ -65,6 +65,9 @@ module.exports = {
 		minimap: [
 			'./src/minimap/index'
 		],
+		'minimap-component': [
+			'./src/minimap/component'
+		],
 		options: [
 			'./src/options/index',
 			'./css/options/index.css'
@@ -88,6 +91,11 @@ module.exports = {
 	},
 	resolve: {
 		extensions: ['.tsx', '.ts', '...'],
+		alias: {
+			'react': 'preact/compat',
+			'react-dom': 'preact/compat',
+			'react/jsx-runtime': 'preact/jsx-runtime'
+		},
 		fallback: {
 			buffer: false
 		}

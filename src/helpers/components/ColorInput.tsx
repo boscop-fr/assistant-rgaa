@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import createColor from 'color';
-import React, {ChangeEventHandler, PropsWithChildren} from 'react';
+import {type JSX} from 'react/jsx-runtime';
+import React, {PropsWithChildren} from 'react';
 import {useIntl} from 'react-intl';
 
 const isValidColor = (color: string) => {
@@ -20,8 +21,8 @@ type ColorInputProps = PropsWithChildren<{
 
 const ColorInput = ({id, color, onChange, children}: ColorInputProps) => {
 	const intl = useIntl();
-	const handleChange: ChangeEventHandler<HTMLInputElement> = (event) =>
-		onChange(event.target.value);
+	const handleChange = (event: JSX.TargetedEvent<HTMLInputElement>) =>
+		onChange(event.currentTarget.value);
 
 	const isInvalid = !isValidColor(color);
 	const className = classNames({

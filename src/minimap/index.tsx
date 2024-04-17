@@ -1,17 +1,20 @@
-import React from 'react';
-import {createRoot} from 'react-dom/client';
 import {tabUnloaded} from '../background/slices/runtime';
-import MinimapContainer from './components/MinimapContainer';
+import {loadScript} from '../common/utils/dom';
 
-const container = document.createElement('div');
-document.body.appendChild(container);
+let minimap: HTMLElement;
 
-const root = createRoot(container);
-root.render(<MinimapContainer />);
+// WebComponents can't be registered from content scripts,
+// so we're bundling the minimap separately and loading it
+// through a regular script tag.
+loadScript('dist/minimap-component.js', () => {
+	minimap = document.createElement('rgaaext-minimap');
+	minimap.className = 'rgaaExt-VisibleWithHelpers ';
+	document.body.appendChild(minimap);
+});
 
 browser.runtime.onMessage.addListener((action) => {
 	if (tabUnloaded.match(action)) {
-		root.unmount();
-		container.remove();
+		minimap?.remove();
+		minimap = null;
 	}
 });
