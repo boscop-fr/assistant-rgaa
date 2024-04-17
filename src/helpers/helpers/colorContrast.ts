@@ -97,7 +97,7 @@ type ColorContrastOptions = {
 	minimumRatio: number;
 	left: ColorInputConfig;
 	right: ColorInputConfig;
-	extractor: ColorExtractorConfig;
+	extractor?: ColorExtractorConfig;
 };
 
 export default createHelper({
