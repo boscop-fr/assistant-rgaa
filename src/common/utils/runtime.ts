@@ -15,7 +15,7 @@ export const sendMessage = async <T>(
 	return response;
 };
 
-export const useRuntimeMessage = <T>(
+export const useRuntimeMessage = (
 	listener: Parameters<typeof browser.runtime.onMessage.addListener>[0]
 ) => {
 	useEffect(() => {
