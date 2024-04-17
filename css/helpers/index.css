@@ -1,10 +1,8 @@
-@import './variables';
-
-@import './components/rgaaExt-ScreenReaderOnly';
-
-@import './components/rgaaExt-Attribute';
-@import './components/rgaaExt-Body';
-@import './components/rgaaExt-ColorContrastHelper';
-@import './components/rgaaExt-HelperContainer';
-@import './components/rgaaExt-Helper';
-@import './components/rgaaExt-OutlineHelper';
+@import url('./variables');
+@import url('./components/rgaaExt-Attribute');
+@import url('./components/rgaaExt-Body');
+@import url('./components/rgaaExt-ColorContrastHelper');
+@import url('./components/rgaaExt-Helper');
+@import url('./components/rgaaExt-HelperContainer');
+@import url('./components/rgaaExt-OutlineHelper');
+@import url('./components/rgaaExt-ScreenReaderOnly');

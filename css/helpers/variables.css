@@ -1,15 +1,12 @@
 :root {
 	--rgaa-ext-font-size-base: 13px;
 	--rgaa-ext-line-height-base: calc(1.5 * var(--rgaa-ext-font-size-base));
-
 	--rgaa-ext-font-mono: monospace;
-
 	--rgaa-ext-color-blue: #2868c9;
 	--rgaa-ext-color-green: green;
 	--rgaa-ext-color-orange-text: #222;
 	--rgaa-ext-color-orange: #e6a420;
 	--rgaa-ext-color-red: firebrick;
 	--rgaa-ext-color-white: #fff;
-
 	--rgaa-ext-max-z-index: 2147483647;
 }

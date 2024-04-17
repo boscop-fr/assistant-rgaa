@@ -27,7 +27,7 @@ const HeadingsHierarchy = () => {
 							// eslint-disable-next-line react/no-array-index-key
 							key={i}
 							className={classNames('HeadingsHierarchy-item', {
-								[`HeadingsHierarchy-item--level-${level}`]: true,
+								[`HeadingsHierarchy-item--level${level}`]: true,
 								'HeadingsHierarchy-item--fake': fake
 							})}
 						>

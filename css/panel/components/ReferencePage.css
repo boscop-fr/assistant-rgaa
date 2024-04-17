@@ -3,8 +3,7 @@
 	display: flex;
 	flex: 1;
 	flex-direction: column;
-	overflow-x: hidden;
-	overflow-y: auto;
+	overflow: hidden auto;
 }
 
 .ReferencePage-actions {

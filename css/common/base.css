@@ -4,15 +4,11 @@ body {
 	padding: 0;
 }
 
-/* stylelint-disable selector-no-universal */
-
 *,
-*:after,
-*:before {
+*::after,
+*::before {
 	box-sizing: border-box;
 }
-
-/* stylelint-enable */
 
 body {
 	background: var(--color-white);

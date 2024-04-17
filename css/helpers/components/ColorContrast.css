@@ -6,7 +6,7 @@
 	.Form-row {
 		max-width: 30lh;
 
-		@media screen and (max-width: 20lh) {
+		@media screen and (width <= 20lh) {
 			display: block;
 		}
 	}

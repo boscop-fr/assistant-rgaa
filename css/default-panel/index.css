@@ -1,5 +1,5 @@
-@import '../common/variables';
-@import '../common/fonts';
-@import '../common/base';
-@import '../panel/components/ActionButton';
-@import './base';
+@import url('../common/variables');
+@import url('../common/fonts');
+@import url('../common/base');
+@import url('./base');
+@import url('../panel/components/ActionButton');
