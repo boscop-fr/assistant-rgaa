@@ -12,17 +12,17 @@
 	 *	A layer under the minimap that inverts its background
 	 *	to ensure the upper layer has enough contrast.
 	 */
-	&:before {
+	&::before {
 		content: '';
 		position: absolute;
-		inset: 0 0 0 0;
+		inset: 0;
 		backdrop-filter: invert(1);
 		opacity: 0.05;
 		z-index: -1;
 	}
 
 	/* A border made with the same technique as above. */
-	&:after {
+	&::after {
 		content: '';
 		width: 1px;
 		position: absolute;
@@ -38,6 +38,7 @@
 .Minimap-window {
 	--window-offset-ratio: 0;
 	--window-size-ratio: 0;
+
 	position: absolute;
 	top: calc(100% * var(--window-offset-ratio));
 	width: 100%;
@@ -50,6 +51,7 @@
 .Minimap-pins {
 	--window-pin-color: var(--color-accent-contrast);
 	--page-pin-color: var(--color-accent);
+
 	width: 100%;
 	height: 100%;
 	opacity: 0.8;

@@ -90,7 +90,7 @@
 	font-weight: normal;
 	font-style: italic;
 
-	&:before {
+	&::before {
 		content: ' - ';
 		display: inline;
 		font-weight: normal;
@@ -101,14 +101,14 @@
 	margin-right: 3px;
 }
 
-.Criterion-toggle:before {
+.Criterion-toggle::before {
 	display: inline-block;
 	font-family: var(--font-body);
 	content: '►';
 	transition: transform 0.25s;
 }
 
-.Criterion.is-open .Criterion-toggle:before {
+.Criterion.is-open .Criterion-toggle::before {
 	transform: rotate(90deg);
 }
 

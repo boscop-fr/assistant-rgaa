@@ -2,46 +2,36 @@
 :host {
 	--font-size-base: 13px;
 	--line-height-base: 1.5;
-
 	--font-size-xxlarge: 1.313rem;
 	--line-height-xxlarge:
 		calc(
 			var(--line-height-base) / var(--font-size-xxlarge)
 		);
-
 	--font-size-xlarge: 1.0625rem;
 	--line-height-xlarge: calc(var(--line-height-base) / var(--font-size-xlarge));
-
 	--font-size-large: 0.9375rem;
 	--line-height-large: calc(var(--line-height-base) / var(--font-size-large));
-
 	--font-size-regular: 0.8125rem;
 	--line-height-regular:
 		calc(
 			var(--line-height-base) / var(--font-size-regular)
 		);
-
 	--font-size-small: 0.688rem;
 	--line-height-small: calc(var(--line-height-base) / var(--font-size-small));
-
 	--app-gutter: 0.5lh;
-
 	--font-title:
 		'Avenir',
 		'Georgia',
 		'DejaVu Serif',
 		'Norasi',
 		serif;
-
 	--font-body:
 		'Arial',
 		'Helvetica',
 		'Liberation Sans',
 		'FreeSans',
 		sans-serif;
-
 	--font-mono: monospace;
-
 	--color-black: #111;
 	--color-white: #fff;
 	--color-sand: #f5f5f5;
@@ -58,16 +48,13 @@
 	--color-red: firebrick;
 	--color-green: green;
 	--color-highlight: color-mix(in srgb, yellow 30%, transparent);
-
 	--color-theme: var(--color-blue);
 	--color-theme-text: var(--color-white);
 	--color-theme-dark: var(--color-blue-dark);
 	--color-theme-dark-text: var(--color-blue-dark-text);
-
 	--color-accent: orange;
 	--color-accent-text: var(--color-black);
 	--color-accent-darker: color-mix(in srgb, orange, black 7%);
 	--color-accent-contrast: #7c570e;
-
 	--max-z-index: 2147483647;
 }

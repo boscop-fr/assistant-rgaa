@@ -1,8 +1,8 @@
+/* stylelint-disable selector-class-pattern */
 .react-tabs {
 	background-color: var(--color-white);
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
 .react-tabs__tab-list {
 	display: flex;
 	justify-content: stretch;
@@ -10,7 +10,6 @@
 	text-decoration: none;
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
 .react-tabs__tab {
 	flex-grow: 1;
 	text-align: center;
@@ -25,7 +24,6 @@
 		border-top-color: var(--color-gray);
 	}
 
-	/* stylelint-disable-next-line selector-class-pattern */
 	&.react-tabs__tab--selected {
 		/* stylelint-disable-next-line declaration-no-important */
 		border-top-color: var(--color-blue) !important;

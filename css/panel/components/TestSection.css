@@ -39,13 +39,13 @@
 	width: 100%;
 	text-align: left;
 
-	&:before {
+	&::before {
 		display: inline;
 		margin-right: 3px;
 		content: '►';
 	}
 
-	.TestSection.is-open &:before {
+	.TestSection.is-open &::before {
 		content: '▼';
 	}
 }

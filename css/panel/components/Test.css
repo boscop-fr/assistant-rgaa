@@ -24,7 +24,7 @@
 .Test-id {
 	font-weight: bold;
 
-	&:after {
+	&::after {
 		content: ' - ';
 		display: inline;
 		font-weight: normal;

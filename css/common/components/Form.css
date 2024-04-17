@@ -1,7 +1,7 @@
 .Form-row {
 	display: flex;
 	align-content: stretch;
-	margin: 0 -0.25lh 0.5lh -0.25lh;
+	margin: 0 -0.25lh 0.5lh;
 
 	> * {
 		margin: 0 0.25lh;
@@ -23,7 +23,7 @@
 	padding: 0.25lh;
 	font-size: var(--base-font-size);
 
-	&.isInvalid,
+	&.is-invalid,
 	&[pattern]:invalid {
 		border-color: var(--color-red);
 		color: var(--color-red);

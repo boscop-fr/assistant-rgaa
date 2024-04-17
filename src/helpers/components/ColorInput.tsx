@@ -26,7 +26,7 @@ const ColorInput = ({id, color, onChange, children}: ColorInputProps) => {
 	const isInvalid = !isValidColor(color);
 	const className = classNames({
 		'Form-input': true,
-		isInvalid
+		'is-invalid': isInvalid
 	});
 
 	return (
