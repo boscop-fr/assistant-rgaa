@@ -5,6 +5,14 @@
 	box-shadow: 0 0 10px var(--rgaa-ext-color-green) !important;
 }
 
+.rgaaExt-VisibleWithHelpers {
+	display: none;
+}
+
+.rgaaExt-Body--withHelpers .rgaaExt-VisibleWithHelpers {
+	display: block;
+}
+
 .rgaaExt-Body--disableAllStylesHelper {
 	legend {
 		/* prevents background content to be seen under the legend */

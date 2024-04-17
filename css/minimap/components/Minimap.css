@@ -1,3 +1,9 @@
+:host {
+	position: fixed;
+	inset: 0 0 0 auto;
+	z-index: 999999;
+}
+
 .Minimap {
 	width: clamp(10px, 2vw, 40px);
 	height: 100%;

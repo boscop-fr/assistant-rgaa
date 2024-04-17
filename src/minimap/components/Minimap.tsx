@@ -1,11 +1,14 @@
-import React, {MouseEventHandler, useRef} from 'react';
+import {type JSX} from 'react/jsx-runtime';
+import React, {useRef} from 'react';
 import MinimapPins from './MinimapPins';
 import MinimapWindow from './MinimapWindow';
 
 const Minimap = () => {
 	const mapRef = useRef(null);
 
-	const scrollToPosition: MouseEventHandler = ({clientY}) => {
+	const scrollToPosition = ({
+		clientY
+	}: JSX.TargetedEvent<HTMLElement, MouseEvent>) => {
 		const {scrollHeight} = document.documentElement;
 		const center = (clientY / mapRef.current.clientHeight) * scrollHeight;
 		const top = Math.max(0, center - window.innerHeight / 2);
