@@ -91,7 +91,7 @@ const getHeadingsHierarchy = () => {
 				level: getHeadingLevel(element),
 				text: getHeadingText(element),
 				fake: false
-			} as HeadingHierarchyNode)
+			}) as HeadingHierarchyNode
 	);
 };
 

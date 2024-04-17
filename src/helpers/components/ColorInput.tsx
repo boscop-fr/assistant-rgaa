@@ -40,7 +40,7 @@ const ColorInput = ({id, color, onChange, children}: ColorInputProps) => {
 					isInvalid
 						? intl.formatMessage({
 								id: 'ColorInput.invalidFormatError'
-						  })
+							})
 						: null
 				}
 				value={color}

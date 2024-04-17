@@ -18,10 +18,10 @@ const ViewSource = () => {
 			isFirefox(window.navigator.userAgent)
 				? viewPageSource({
 						url: tabUrl
-				  })
+					})
 				: createTab({
 						url: `view-source:${tabUrl}`
-				  })
+					})
 		);
 	};
 

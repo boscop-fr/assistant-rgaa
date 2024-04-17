@@ -15,17 +15,17 @@ export type HelperModule<Name, Options extends HelperOptions> = {
 	revert?: (uuid: string, options: Options) => void;
 };
 
-export type HelperDef<Module> = Module extends HelperModule<infer N, infer O>
-	? O & {helper: N}
-	: never;
+export type HelperDef<Module> =
+	Module extends HelperModule<infer N, infer O> ? O & {helper: N} : never;
 
-export type HelperModuleOptions<Module> = Module extends HelperModule<
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	infer N,
-	infer O
->
-	? O
-	: never;
+export type HelperModuleOptions<Module> =
+	Module extends HelperModule<
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		infer N,
+		infer O
+	>
+		? O
+		: never;
 
 export type Helper = HelperDef<(typeof modules)[keyof typeof modules]>;
 
