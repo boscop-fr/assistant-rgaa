@@ -1,7 +1,8 @@
-import {ComponentType} from 'react';
-import {IntlShape} from 'react-intl';
-import * as modules from './helpers';
+import {type ComponentType} from 'react';
+import {type IntlShape} from 'react-intl';
+import modules from './helpers';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type HelperOptions = Record<string, any>;
 type HelperDescription = ReturnType<IntlShape['formatMessage']>;
 
@@ -19,6 +20,7 @@ export type HelperDef<Module> = Module extends HelperModule<infer N, infer O>
 	: never;
 
 export type HelperModuleOptions<Module> = Module extends HelperModule<
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	infer N,
 	infer O
 >
@@ -35,11 +37,11 @@ export type HelpersInfo = {
 	};
 };
 
-export type UnionToIntersection<U> = (
-	U extends any ? (x: U) => void : never
-) extends (x: infer I) => void
-	? I
-	: never;
+export type UnionToIntersection<U> =
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	(U extends any ? (x: U) => void : never) extends (x: infer I) => void
+		? I
+		: never;
 
 // Finds actual module and arguments from a helper definition.
 export const helperInfo = <Name extends keyof HelpersInfo>({

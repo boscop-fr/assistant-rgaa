@@ -40,7 +40,7 @@ const stopPicking = () => {
 	restoreAttribute(document.querySelectorAll(selector), 'href');
 };
 
-const handleMessage = async (action: any) => {
+const handleMessage = async (action: unknown) => {
 	if (requestPixelColor.match(action)) {
 		try {
 			startPicking(PickingStates.pickingPixel);

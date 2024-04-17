@@ -1,5 +1,9 @@
-import {PayloadAction, createSelector, createSlice} from '@reduxjs/toolkit';
-import {Test} from '../../common/types';
+import {
+	type PayloadAction,
+	createSelector,
+	createSlice
+} from '@reduxjs/toolkit';
+import {type Test} from '../../common/types';
 import {selectAllTests, selectTestsByCriterion} from './reference';
 
 type TestsState = {

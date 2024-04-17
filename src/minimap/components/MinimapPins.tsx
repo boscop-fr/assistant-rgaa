@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {useMutationObserver, useResizeEffect} from '../api/hooks';
 
 // Tells if the given element is positionned relatively to
@@ -49,7 +49,7 @@ type MinimapPinsProps = {
 	minimumPinSize?: number;
 };
 
-const MinimapPins = memo(({minimumPinSize = 4}: MinimapPinsProps) => {
+const MinimapPins = ({minimumPinSize = 4}: MinimapPinsProps) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	const updatePins = useCallback(() => {
@@ -90,6 +90,6 @@ const MinimapPins = memo(({minimumPinSize = 4}: MinimapPinsProps) => {
 	useEffect(frame, []);
 
 	return <canvas ref={canvasRef} className="Minimap-pins" />;
-});
+};
 
 export default MinimapPins;

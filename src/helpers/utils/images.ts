@@ -23,7 +23,11 @@ const imageCanvas = (image: HTMLImageElement) => {
 };
 
 export const captureCurrentTabPixel = async (x: number, y: number) => {
-	const base64 = await sendMessage<string>(captureCurrentTab());
+	const base64 = await sendMessage<
+		ReturnType<typeof captureCurrentTab>,
+		string
+	>(captureCurrentTab());
+
 	const image = await imageElement(base64);
 	const canvas = imageCanvas(image);
 	const pixel = canvas.getContext('2d').getImageData(x, y, 1, 1);

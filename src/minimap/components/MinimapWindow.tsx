@@ -1,7 +1,7 @@
-import React, {memo, useEffect, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useResizeEffect, useScrollEffect} from '../api/hooks';
 
-const MinimapWindow = memo(() => {
+const MinimapWindow = () => {
 	const windowRef = useRef(null);
 
 	const updateWindow = () => {
@@ -28,6 +28,6 @@ const MinimapWindow = memo(() => {
 	useEffect(frame, []);
 
 	return <div ref={windowRef} className="Minimap-window" />;
-});
+};
 
 export default MinimapWindow;

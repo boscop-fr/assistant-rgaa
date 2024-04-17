@@ -94,7 +94,7 @@ browser.runtime.onMessage.addListener(async (message) => {
 	}
 
 	if (isProxiedAction(message)) {
-		return sendMessage<typeof message>(message);
+		return sendMessage(message);
 	}
 
 	return INVALID_RESPONSE;

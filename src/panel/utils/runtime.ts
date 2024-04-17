@@ -1,10 +1,10 @@
-import {ActionCreatorWithOptionalPayload} from '@reduxjs/toolkit';
+import {type ActionCreatorWithOptionalPayload} from '@reduxjs/toolkit';
 
 export const onRuntimeAction = <T>(
 	actionCreator: ActionCreatorWithOptionalPayload<T>,
 	callback: (action: ReturnType<ActionCreatorWithOptionalPayload<T>>) => void
 ) => {
-	const handler = (message: any) => {
+	const handler = (message: unknown) => {
 		if (actionCreator.match(message)) {
 			callback(message);
 		}

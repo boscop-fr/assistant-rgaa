@@ -1,11 +1,25 @@
-export {default as colorContrast} from './colorContrast';
-export {default as disableAllStyles} from './disableAllStyles';
-export {default as externalTool} from './externalTool';
-export {default as headingsHierarchy} from './headingsHierarchy';
-export {default as outline} from './outline';
-export {default as showAttributes} from './showAttributes';
-export {default as showChildElements} from './showChildElements';
-export {default as showElement} from './showElement';
-export {default as style} from './style';
-export {default as validateLocalPage} from './validateLocalPage';
-export {default as viewSource} from './viewSource';
+import colorContrast from './colorContrast';
+import disableAllStyles from './disableAllStyles';
+import externalTool from './externalTool';
+import headingsHierarchy from './headingsHierarchy';
+import outline from './outline';
+import showAttributes from './showAttributes';
+import showChildElements from './showChildElements';
+import showElement from './showElement';
+import style from './style';
+import validateLocalPage from './validateLocalPage';
+import viewSource from './viewSource';
+
+export default {
+	colorContrast,
+	disableAllStyles,
+	externalTool,
+	headingsHierarchy,
+	outline,
+	showAttributes,
+	showChildElements,
+	showElement,
+	style,
+	validateLocalPage,
+	viewSource
+};

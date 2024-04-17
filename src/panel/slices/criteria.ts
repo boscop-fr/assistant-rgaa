@@ -1,4 +1,4 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {Criterion} from '../../common/types';
 
 type CriteriaState = {
@@ -23,7 +23,12 @@ const criteriaSlice = createSlice({
 				state.opened.splice(index, 1);
 			}
 		},
-		toggleCriterion(state, action: PayloadAction<Criterion['id']>) {}
+		toggleCriterion(
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			state,
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			action: PayloadAction<Criterion['id']>
+		) {}
 	},
 	selectors: {
 		selectIsCriterionOpen(state, id) {
