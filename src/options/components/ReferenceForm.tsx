@@ -35,7 +35,9 @@ function ReferenceForm() {
 			<div className="Options-field">
 				<label htmlFor="Options-referencesSelect">
 					<FormattedMessage id="Options.references.label" />
+					{'' /* forces eslint to consider that the label has some text */}
 				</label>
+
 				<select
 					name="references"
 					id="Options-referencesSelect"

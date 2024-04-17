@@ -23,7 +23,7 @@ export const sendMessage = async <T>(
 	message: T,
 	options?: Tabs.SendMessageOptionsType
 ) => {
-	const response: typeof INVALID_RESPONSE | any = browser.tabs.sendMessage(
+	const response: typeof INVALID_RESPONSE | unknown = browser.tabs.sendMessage(
 		tabId,
 		message,
 		options

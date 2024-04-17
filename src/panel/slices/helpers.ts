@@ -1,4 +1,4 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {HelpersByTest, Test} from '../../common/types';
 import {Helper} from '../../helpers/types';
 
@@ -17,8 +17,11 @@ const helpersSlice = createSlice({
 		setHelpers(state, {payload: helpers}: PayloadAction<HelpersByTest>) {
 			state.helpers = helpers; // eslint-disable-line no-param-reassign
 		},
+
 		toggleHelpers(
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			state,
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			action: PayloadAction<{
 				id: Test['id'];
 				helpers: Helper[];

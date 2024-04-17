@@ -17,7 +17,9 @@ const plugins = [
 
 if (devMode) {
 	plugins.push(
-		new ESLintPlugin(),
+		new ESLintPlugin({
+			extensions: ['ts', 'tsx']
+		}),
 		new StyleLintPlugin({
 			failOnError: false,
 			context: 'css'

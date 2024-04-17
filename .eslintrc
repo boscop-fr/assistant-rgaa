@@ -1,41 +1,47 @@
 {
-	"extends": "vtech",
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:import/recommended",
+		"plugin:jsx-a11y/recommended",
+		"plugin:react/recommended",
+		"prettier"
+	],
 	"env": {
 		"browser": true,
 		"webextensions": true
 	},
 	"parser": "@typescript-eslint/parser",
-	"parserOptions":  {
-		"ecmaVersion":  2018,
-		"sourceType":  "module",
-		"ecmaFeatures":  {
-			"jsx":  true
+	"parserOptions": {
+		"ecmaVersion": 2018,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
 		}
 	},
 	"settings": {
 		"import/parsers": {
 			"@typescript-eslint/parser": [".ts", ".tsx"]
+		},
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".ts", ".tsx"]
+			},
+			"typescript": {
+				"alwaysTryTypes": true,
+				"project": "."
+			}
+		},
+		"react": {
+			"version": "detect"
 		}
 	},
 	"rules": {
-		"function-paren-newline": 0,
-		"implicit-arrow-linebreak": 0,
-		"import/prefer-default-export": 0,
-		"indent": 0,
-		"jsx-a11y/label-has-associated-control": [ 2, {
-			"assert": "either"
-		}],
-		"no-confusing-arrow": 0,
-		"no-mixed-spaces-and-tabs": 0,
-		"no-plusplus": 0,
-		"object-curly-newline": 0,
-		"operator-linebreak": 0,
-		"prefer-destructuring": 0,
-		"prefer-promise-reject-errors": 0,
-		"react/destructuring-assignment": 0,
-		"react/jsx-one-expression-per-line": 0,
-		"react/jsx-props-no-spreading": 0,
-		"react/no-deprecated": 0,
-		"react/no-string-refs": 0
+		"jsx-a11y/label-has-associated-control": [
+			"error",
+			{
+				"labelAttributes": ["title"]
+			}
+		]
 	}
 }

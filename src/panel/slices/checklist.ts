@@ -1,4 +1,4 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {Test} from '../../common/types';
 
 type ChecklistState = {
@@ -19,7 +19,7 @@ const checklistSlice = createSlice({
 		) {
 			state.tests[payload.id] = payload.done; // eslint-disable-line no-param-reassign
 		},
-		resetChecklist(state) {
+		resetChecklist() {
 			return initialState; // eslint-disable-line no-param-reassign, no-unused-vars
 		}
 	},

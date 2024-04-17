@@ -5,14 +5,13 @@ import React, {Component, ComponentType} from 'react';
 // components to update and re-render before mounting and
 // rendering an expensive `WrappedComponent`.
 // @see https://medium.com/@paularmstrong/twitter-lite-and-high-performance-react-progressive-web-apps-at-scale-d28a00e780a3#b1f2
-export default function deferRendering(WrappedComponent: ComponentType) {
-	type DeferredRenderWrapperProps = {};
+export default function deferRendering<P>(WrappedComponent: ComponentType<P>) {
 	type DeferredRenderWrapperState = {
 		shouldRender: boolean;
 	};
 
 	class DeferredRenderWrapper extends Component<
-		DeferredRenderWrapperProps,
+		P,
 		DeferredRenderWrapperState
 	> {
 		state: DeferredRenderWrapperState = {

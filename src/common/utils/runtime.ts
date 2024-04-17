@@ -2,10 +2,10 @@ import {useEffect} from 'react';
 import {type Runtime} from 'webextension-polyfill';
 import {INVALID_RESPONSE} from '../../background/slices/runtime';
 
-export const sendMessage = async <T>(
-	message: any,
+export const sendMessage = async <T, U = void>(
+	message: T,
 	options: Runtime.SendMessageOptionsType = {}
-): Promise<T> => {
+): Promise<U> => {
 	const response = await browser.runtime.sendMessage(message, options);
 
 	if (response === INVALID_RESPONSE) {

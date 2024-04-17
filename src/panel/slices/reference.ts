@@ -1,5 +1,9 @@
-import {PayloadAction, createSelector, createSlice} from '@reduxjs/toolkit';
 import {
+	type PayloadAction,
+	createSelector,
+	createSlice
+} from '@reduxjs/toolkit';
+import type {
 	ShallowCriterion,
 	ShallowReference,
 	ShallowTest,
@@ -27,7 +31,8 @@ const referenceSlice = createSlice({
 		setReferenceData(state, {payload}: PayloadAction<ReferenceState>) {
 			return payload;
 		},
-		setVersion(state, {payload: version}: PayloadAction<string>) {} // eslint-disable-line no-unused-vars
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		setVersion(state, {payload: version}: PayloadAction<string>) {}
 	},
 	selectors: {
 		selectIsLoaded(state) {

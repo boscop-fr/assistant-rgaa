@@ -21,4 +21,6 @@ export const router = createMemoryRouter([
 	}
 ]);
 
-export default () => <RouterProvider router={router} />;
+const Router = () => <RouterProvider router={router} />;
+
+export default Router;
