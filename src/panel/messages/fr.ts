@@ -32,9 +32,6 @@ const messages = {
 	'Test.todo': 'Test à faire - Cliquer pour marquer le test comme "fait"',
 	'Test.instructions': 'Instructions',
 	'TestHelpers.title': 'Description du test',
-	'Options.references.label': 'Version du référentiel RGAA à utiliser :',
-	'Options.references.submit': 'Valider',
-	'Options.references.successMessage': 'Version mise à jour',
 	'ColorInput.pickPixelButton.title':
 		"Prélever la couleur d'un pixel dans la page",
 	'ColorInput.pickTextButton.title':

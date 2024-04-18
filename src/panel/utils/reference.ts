@@ -6,8 +6,6 @@ import {
 	ShallowTheme
 } from '../../common/types';
 
-export const DEFAULT_VERSION = '4-2023';
-
 // Retrieves the reference full json object from a given
 // reference version property.
 export const fetchReference = (version: string) =>

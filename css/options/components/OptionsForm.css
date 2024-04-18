@@ -1,0 +1,12 @@
+.OptionsForm-label {
+	display: block;
+}
+
+.OptionsForm-field {
+	margin-bottom: 1lh;
+}
+
+.OptionsForm-success {
+	margin-top: 1lh;
+	color: var(--color-green);
+}

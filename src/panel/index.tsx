@@ -8,13 +8,12 @@ import {
 	getTabState,
 	onTabReloaded
 } from '../common/utils/tabs';
-import {OPTIONS, getOption} from '../options/utils/storage';
+import {getOption} from '../options/utils/storage';
 import messages from './messages/fr';
 import routes from './routes';
 import {setPageInfo} from './slices/panel';
 import {setVersion} from './slices/reference';
 import {createStore} from './store';
-import {DEFAULT_VERSION} from './utils/reference';
 
 const init = async () => {
 	const query = new URLSearchParams(window.location.search);
@@ -41,9 +40,7 @@ const init = async () => {
 	const state = await getTabState(targetTab.id);
 	const store = createStore(state);
 
-	store.dispatch(
-		setVersion(await getOption(OPTIONS.referenceVersion, DEFAULT_VERSION))
-	);
+	store.dispatch(setVersion(await getOption('referenceVersion')));
 
 	store.dispatch(
 		setPageInfo({

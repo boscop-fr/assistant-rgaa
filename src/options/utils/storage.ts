@@ -1,22 +1,42 @@
 import {type Storage} from 'webextension-polyfill';
 
-export const OPTIONS = {
-	referenceVersion: 'reference.version'
+export type Options = {
+	referenceVersion: string;
 };
 
-export const getOption = <T>(key: string, defaultValue: T) =>
+export const DEFAULT_OPTIONS: Options = {
+	referenceVersion: '4-2023'
+};
+
+export const getAllOptions = () =>
+	browser.storage.local.get().then(
+		(options) =>
+			({
+				...DEFAULT_OPTIONS,
+				...options
+			}) as Options
+	);
+
+export const getOption = <K extends keyof Options>(
+	key: K
+): Promise<Options[K]> =>
 	browser.storage.local
 		.get(key)
-		.then((options) => (key in options ? options[key] : defaultValue));
+		.then((options) =>
+			key in options ? options[key] : DEFAULT_OPTIONS[key]
+		);
 
-export const setOption = <T>(key: string, value: T) =>
+export const setAllOptions = (options: Options) =>
+	browser.storage.local.set(options);
+
+export const setOption = <T>(key: keyof Options, value: T) =>
 	browser.storage.local.set({
 		[key]: value
 	});
 
-export const onOptionChange = <T>(
-	key: string,
-	callback: (value: T) => void
+export const onOptionChange = <K extends keyof Options>(
+	key: keyof Options,
+	callback: (value: Options[K]) => void
 ) => {
 	const onChange = (changes: Storage.StorageAreaOnChangedChangesType) => {
 		if (key in changes && changes[key].oldValue !== changes[key].newValue) {
