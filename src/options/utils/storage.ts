@@ -1,12 +1,18 @@
+import {useEffect, useState} from 'react';
 import {type Storage} from 'webextension-polyfill';
 
 export type Options = {
 	referenceVersion: string;
+	autoOpenInstructions: boolean;
 };
 
 export const DEFAULT_OPTIONS: Options = {
-	referenceVersion: '4-2023'
+	referenceVersion: '4-2023',
+	autoOpenInstructions: true
 };
+
+export const isBooleanOption = (key: keyof Options) =>
+	typeof DEFAULT_OPTIONS[key] === 'boolean';
 
 export const getAllOptions = () =>
 	browser.storage.local.get().then(
@@ -36,7 +42,8 @@ export const setOption = <T>(key: keyof Options, value: T) =>
 
 export const onOptionChange = <K extends keyof Options>(
 	key: keyof Options,
-	callback: (value: Options[K]) => void
+	callback: (value: Options[K]) => void,
+	initial = false
 ) => {
 	const onChange = (changes: Storage.StorageAreaOnChangedChangesType) => {
 		if (key in changes && changes[key].oldValue !== changes[key].newValue) {
@@ -46,7 +53,17 @@ export const onOptionChange = <K extends keyof Options>(
 
 	browser.storage.local.onChanged.addListener(onChange);
 
+	if (initial) {
+		getOption(key).then(callback);
+	}
+
 	return () => {
 		browser.storage.local.onChanged.removeListener(onChange);
 	};
+};
+
+export const useOption = (key: keyof Options) => {
+	const [value, setValue] = useState(DEFAULT_OPTIONS[key]);
+	useEffect(onOptionChange(key, setValue, true));
+	return value;
 };

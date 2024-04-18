@@ -11,6 +11,7 @@ import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import Icon from './Icon';
 import TestHelpers from './TestHelpers';
 import TestInstructions from './TestInstructions';
+import {useOption} from '../../options/utils/storage';
 
 type TestProps = {
 	id: Test['id'];
@@ -28,6 +29,7 @@ function Test({id, title}: TestProps) {
 		selectInstructionsByTest(state, id)
 	);
 
+	const autoOpenInstructions = useOption('autoOpenInstructions');
 	const [areInstructionsOpen, setInstructionsOpen] = useState(applied);
 	const dispatch = useAppDispatch();
 
@@ -36,7 +38,10 @@ function Test({id, title}: TestProps) {
 			dispatch(disableTest(id));
 		} else {
 			dispatch(enableTest(id));
-			setInstructionsOpen(true);
+
+			if (autoOpenInstructions) {
+				setInstructionsOpen(true);
+			}
 		}
 	};
 

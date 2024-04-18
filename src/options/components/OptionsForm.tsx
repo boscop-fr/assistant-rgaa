@@ -6,6 +6,7 @@ import {
 	DEFAULT_OPTIONS,
 	Options,
 	getAllOptions,
+	isBooleanOption,
 	setAllOptions
 } from '../utils/storage';
 
@@ -20,18 +21,31 @@ function OptionsForm() {
 	const handleChange = (
 		event: JSX.TargetedEvent<HTMLInputElement | HTMLSelectElement>
 	) => {
-		const {name, value} = event.currentTarget;
+		const {name, value, checked} = event.currentTarget as HTMLInputElement;
+
 		setOptions((current) => ({
 			...current,
-			[name]: value
+			[name]: isBooleanOption(name as keyof Options) ? checked : value
 		}));
+
 		setSuccess(false);
 	};
 
 	const handleSubmit = (event: JSX.TargetedEvent<HTMLFormElement>) => {
-		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		setAllOptions(Object.fromEntries(data.entries()) as unknown as Options);
+		event.preventDefault();
+
+		setAllOptions(
+			Object.fromEntries(
+				Object.keys(options).map((name) => [
+					name,
+					isBooleanOption(name as keyof Options)
+						? data.has(name)
+						: data.get(name)?.toString()
+				])
+			) as Options
+		);
+
 		setSuccess(true);
 	};
 
@@ -58,6 +72,25 @@ function OptionsForm() {
 						</option>
 					))}
 				</select>
+			</div>
+
+			<div className="OptionsForm-field">
+				<label
+					className="OptionsForm-label"
+					htmlFor="OptionsForm-input--autoOpenInstructions"
+				>
+					<FormattedMessage id="OptionsForm.autoOpenInstructions" />
+					{'' /* forces eslint to consider that the label has some text */}
+				</label>
+
+				<input
+					id="OptionsForm-input--autoOpenInstructions"
+					type="checkbox"
+					name="autoOpenInstructions"
+					value="true"
+					checked={options.autoOpenInstructions}
+					onChange={handleChange}
+				/>
 			</div>
 
 			<div className="OptionsForm-submit">
