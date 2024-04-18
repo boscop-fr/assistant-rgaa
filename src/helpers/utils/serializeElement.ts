@@ -21,6 +21,21 @@ const innerHtml = (element: HTMLElement) => {
 		element.remove();
 	});
 
+	// The majority of SVG child nodes aren't relevant for an
+	// audit, we're stripping all of them except `title` and
+	// `desc`.
+	if (copy.matches('svg')) {
+		Array.from(copy.children).forEach((element) => {
+			if (element.matches('title, desc')) {
+				Array.from(element.attributes).forEach(({name}) => {
+					element.removeAttribute(name);
+				});
+			} else {
+				element.remove();
+			}
+		});
+	}
+
 	// restores muted attributees
 	restoreAllAttributes(copy.querySelectorAll(anyMutedAttributeSelector()));
 
