@@ -1,2 +1,2 @@
-@import url('../common/variables');
-@import url('./components/Minimap');
+@import url('../common/variables.css');
+@import url('./components/Minimap.css');
