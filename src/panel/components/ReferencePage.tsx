@@ -7,7 +7,6 @@ import DevTools from './DevTools';
 import StylesToggle from './StylesToggle';
 import Theme from './Theme';
 import ThemesList from './ThemesList';
-import deferRendering from './deferRendering';
 
 const ReferencePage = () => {
 	const isReferenceLoaded = useAppSelector(selectIsLoaded);
@@ -52,4 +51,4 @@ const ReferencePage = () => {
 	);
 };
 
-export default deferRendering(ReferencePage);
+export default ReferencePage;
