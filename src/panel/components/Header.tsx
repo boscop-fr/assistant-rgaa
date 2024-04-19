@@ -1,6 +1,6 @@
 import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {Link} from 'react-router-dom';
+import {Link} from 'wouter';
 import {openOptionsPage} from '../slices/options';
 import {selectPageTitle, selectPopupTabId, togglePopup} from '../slices/panel';
 import {selectVersion} from '../slices/reference';

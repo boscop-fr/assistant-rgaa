@@ -9,8 +9,8 @@ import {
 	onTabReloaded
 } from '../common/utils/tabs';
 import {getOption} from '../options/utils/storage';
+import App from './components/App';
 import messages from './messages/fr';
-import routes from './routes';
 import {setPageInfo} from './slices/panel';
 import {setVersion} from './slices/reference';
 import {createStore} from './store';
@@ -55,7 +55,7 @@ const init = async () => {
 	const app = (
 		<Provider store={store}>
 			<IntlProvider locale="fr" messages={messages}>
-				{routes()}
+				<App />
 			</IntlProvider>
 		</Provider>
 	);
