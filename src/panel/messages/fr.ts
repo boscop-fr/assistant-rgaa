@@ -165,7 +165,9 @@ const messages = {
 	'ReferencePage.styles.toggle.label': 'CSS',
 	'ReferencePage.styles.toggle.disabled.true':
 		'Afficher les styles de la page',
-	'ReferencePage.styles.toggle.disabled.false': 'Masquer les styles de la page'
+	'ReferencePage.styles.toggle.disabled.false':
+		'Masquer les styles de la page',
+	'HelpPage.title': 'Aide'
 };
 
 export default messages;

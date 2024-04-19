@@ -1,4 +1,6 @@
 export const replaceLocalUrls = (body: string, basePath: string) =>
-	body.replace(/page:\/\/([a-z0-9/_-]+)/gi, (_, path) =>
-		browser.runtime.getURL(`${basePath}/${path}`)
+	body.replace(
+		/(src=").\/([^"]+)(")/gi,
+		(_, before, path, after) =>
+			before + browser.runtime.getURL(`${basePath}/${path}`) + after
 	);

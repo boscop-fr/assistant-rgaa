@@ -1,14 +1,11 @@
-const path = require('path');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const {defineConfig} = require('@rspack/cli');
-const {
-	ProvidePlugin,
-	IgnorePlugin,
-	CssExtractRspackPlugin
-} = require('@rspack/core');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
+import path from 'path';
+import ESLintPlugin from 'eslint-webpack-plugin';
+import {defineConfig} from '@rspack/cli';
+import rspack from '@rspack/core';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
+import RemarkHTML from 'remark-html';
 
-const fullPath = path.resolve.bind(null, __dirname);
+const fullPath = path.resolve.bind(null, process.cwd());
 const devMode = process.env.NODE_ENV === 'development';
 
 const jsonLintRule = (include, type) => ({
@@ -37,7 +34,7 @@ const jsonLintRule = (include, type) => ({
 	]
 });
 
-module.exports = defineConfig({
+export default defineConfig({
 	mode: devMode ? 'development' : 'production',
 	entry: {
 		'default-panel': [
@@ -141,17 +138,32 @@ module.exports = defineConfig({
 					}
 				]
 			},
+			{
+				test: /\.md$/,
+				include: fullPath('data/pages'),
+				type: 'asset/source',
+				use: [
+					{
+						loader: 'remark-loader',
+						options: {
+							remarkOptions: {
+								plugins: [RemarkHTML]
+							}
+						}
+					}
+				]
+			},
 			jsonLintRule(fullPath('data/references'), 'Reference'),
 			jsonLintRule(fullPath('data/instructions'), 'InstructionsByTest'),
 			jsonLintRule(fullPath('data/helpers'), 'HelpersByTest')
 		]
 	},
 	plugins: [
-		new CssExtractRspackPlugin(),
-		new ProvidePlugin({
+		new rspack.CssExtractRspackPlugin(),
+		new rspack.ProvidePlugin({
 			browser: 'webextension-polyfill'
 		}),
-		new IgnorePlugin({
+		new rspack.IgnorePlugin({
 			resourceRegExp: /\.woff$/
 		})
 	].concat(
