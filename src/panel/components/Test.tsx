@@ -54,7 +54,6 @@ function Test({id, title}: TestProps) {
 		);
 	};
 
-	const applyTranslateKey = applied ? 'uncheck' : 'check';
 	const className = classNames({
 		Test: true,
 		'is-applied': applied
@@ -79,20 +78,22 @@ function Test({id, title}: TestProps) {
 
 				<div className="Test-actions">
 					{applicable ? (
-						<div className="Test-action Test-action---apply">
-							<input
+						<div className="Test-action Test-action--application">
+							<label
 								title={intl.formatMessage(
 									{
-										id: `Test.apply.${applyTranslateKey}.title`
+										id: 'Test.apply.title'
 									},
-									{id}
+									{id, applied}
 								)}
-								className="Test-actionInput"
-								type="checkbox"
-								id={`test-${id}-apply-input`}
-								checked={applied}
-								onChange={handleToggle}
-							/>
+							>
+								<input
+									type="checkbox"
+									id={`test-${id}-apply-input`}
+									checked={applied}
+									onChange={handleToggle}
+								/>
+							</label>
 						</div>
 					) : null}
 

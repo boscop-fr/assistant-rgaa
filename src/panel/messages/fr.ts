@@ -24,10 +24,8 @@ const messages = {
 	'Criterion.tabs.specialCases': 'Cas particuliers',
 	'Criterion.tabs.technicalNotes': 'Notes techniques',
 	'Test.title': 'Test {id}',
-	'Test.apply.check.title': 'Activer le test {id}',
-	'Test.apply.uncheck.title': 'Désactiver le test {id}',
-	'Test.apply.check.alt': 'Loupe',
-	'Test.apply.uncheck.alt': 'Interdit',
+	'Test.apply.title':
+		'{applied, select, true {Désactiver} other {Activer}} le test {id}',
 	'Test.done': 'Test fait - Cliquer pour marquer le test comme "à faire"',
 	'Test.todo': 'Test à faire - Cliquer pour marquer le test comme "fait"',
 	'Test.instructions': 'Instructions',

@@ -43,9 +43,24 @@
 .Test-action {
 	display: inline-block;
 	vertical-align: middle;
-	padding: 0.125lh;
+	padding: 0.25rlh 0.5ch;
 	border-left: 1px solid color-mix(in srgb, var(--color-black), white 80%);
 	height: 100%;
+}
+
+.Test-action--application {
+	display: inline-flex;
+	padding: 0;
+
+	label {
+		padding: 0.25rlh 1ch;
+	}
+
+	input {
+		margin-left: 0;
+		margin-right: 0;
+		accent-color: var(--color-theme);
+	}
 }
 
 .Test-actionLabel {

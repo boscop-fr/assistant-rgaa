@@ -119,7 +119,7 @@
 .Criterion-action {
 	display: inline-block;
 	vertical-align: middle;
-	padding: 0.125lh;
+	padding: 0.25rlh 0.5ch;
 	border-left: 1px solid color-mix(in srgb, var(--color-black), white 60%);
 	height: 100%;
 }
