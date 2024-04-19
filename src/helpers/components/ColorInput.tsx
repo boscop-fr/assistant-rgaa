@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import createColor from 'color';
-import {type JSX} from 'react/jsx-runtime';
 import React, {PropsWithChildren} from 'react';
 import {useIntl} from 'react-intl';
+import {type JSX} from 'react/jsx-runtime';
 
 const isValidColor = (color: string) => {
 	try {

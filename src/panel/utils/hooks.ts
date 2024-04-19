@@ -1,7 +1,6 @@
+import {type MutableRefObject, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import type {AppDispatch, AppState} from '../store';
-import {useEffect} from 'react';
-import {MutableRefObject} from 'react';
 
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export const useAppSelector = useSelector.withTypes<AppState>();

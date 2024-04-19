@@ -3,34 +3,24 @@
 	--font-size-base: 13px;
 	--line-height-base: 1.5;
 	--font-size-xxlarge: 1.313rem;
-	--line-height-xxlarge:
-		calc(
-			var(--line-height-base) / var(--font-size-xxlarge)
-		);
+	--line-height-xxlarge: calc(
+		var(--line-height-base) / var(--font-size-xxlarge)
+	);
 	--font-size-xlarge: 1.0625rem;
-	--line-height-xlarge: calc(var(--line-height-base) / var(--font-size-xlarge));
+	--line-height-xlarge: calc(
+		var(--line-height-base) / var(--font-size-xlarge)
+	);
 	--font-size-large: 0.9375rem;
 	--line-height-large: calc(var(--line-height-base) / var(--font-size-large));
 	--font-size-regular: 0.8125rem;
-	--line-height-regular:
-		calc(
-			var(--line-height-base) / var(--font-size-regular)
-		);
+	--line-height-regular: calc(
+		var(--line-height-base) / var(--font-size-regular)
+	);
 	--font-size-small: 0.688rem;
 	--line-height-small: calc(var(--line-height-base) / var(--font-size-small));
 	--app-gutter: 0.5lh;
-	--font-title:
-		'Avenir',
-		'Georgia',
-		'DejaVu Serif',
-		'Norasi',
-		serif;
-	--font-body:
-		'Arial',
-		'Helvetica',
-		'Liberation Sans',
-		'FreeSans',
-		sans-serif;
+	--font-title: 'Avenir', 'Georgia', 'DejaVu Serif', 'Norasi', serif;
+	--font-body: 'Arial', 'Helvetica', 'Liberation Sans', 'FreeSans', sans-serif;
 	--font-mono: monospace;
 	--color-black: #111;
 	--color-white: #fff;

@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 import classNames from 'classnames';
-import {type JSX} from 'react/jsx-runtime';
 import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
+import {type JSX} from 'react/jsx-runtime';
 import {type Criterion} from '../../common/types';
 import {markTestDone, selectAreAllTestsDone} from '../slices/checklist';
 import {selectIsCriterionOpen, toggleCriterion} from '../slices/criteria';

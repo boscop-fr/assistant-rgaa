@@ -1,6 +1,6 @@
-import {type JSX} from 'react/jsx-runtime';
 import React, {useEffect, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
+import {type JSX} from 'react/jsx-runtime';
 import versions from '../../../data/versions.json';
 import {
 	DEFAULT_OPTIONS,

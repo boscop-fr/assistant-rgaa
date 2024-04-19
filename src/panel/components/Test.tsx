@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import {type JSX} from 'react/jsx-runtime';
 import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
+import {type JSX} from 'react/jsx-runtime';
 import {type Test} from '../../common/types';
+import {useOption} from '../../options/utils/storage';
 import {markTestDone, selectIsTestDone} from '../slices/checklist';
 import {selectTestHasHelpers} from '../slices/helpers';
 import {selectInstructionsByTest} from '../slices/instructions';
@@ -11,7 +12,6 @@ import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import Icon from './Icon';
 import TestHelpers from './TestHelpers';
 import TestInstructions from './TestInstructions';
-import {useOption} from '../../options/utils/storage';
 
 type TestProps = {
 	id: Test['id'];

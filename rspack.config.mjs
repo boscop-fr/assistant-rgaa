@@ -1,8 +1,6 @@
-import path from 'path';
-import ESLintPlugin from 'eslint-webpack-plugin';
 import {defineConfig} from '@rspack/cli';
 import rspack from '@rspack/core';
-import StyleLintPlugin from 'stylelint-webpack-plugin';
+import path from 'path';
 import RemarkHTML from 'remark-html';
 
 const fullPath = path.resolve.bind(null, process.cwd());
@@ -96,18 +94,7 @@ export default defineConfig({
 							}
 						}
 					}
-				].concat(
-					devMode
-						? [
-								{
-									loader: 'prettier-loader',
-									options: {
-										ignoreInitial: true
-									}
-								}
-							]
-						: []
-				)
+				]
 			},
 			{
 				// Custom CSS build for the minimap styles, as
@@ -166,17 +153,5 @@ export default defineConfig({
 		new rspack.IgnorePlugin({
 			resourceRegExp: /\.woff$/
 		})
-	].concat(
-		devMode
-			? [
-					new ESLintPlugin({
-						extensions: ['ts', 'tsx']
-					}),
-					new StyleLintPlugin({
-						failOnError: false,
-						context: 'css'
-					})
-				]
-			: []
-	)
+	]
 });
