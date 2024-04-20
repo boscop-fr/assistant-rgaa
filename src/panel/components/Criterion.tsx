@@ -5,7 +5,7 @@ import {FormattedMessage, useIntl} from 'react-intl';
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
 import {type JSX} from 'react/jsx-runtime';
 import {type Criterion} from '../../common/types';
-import {markTestDone, selectAreAllTestsDone} from '../slices/checklist';
+import {selectCriterionStatus} from '../slices/audit';
 import {selectIsCriterionOpen, toggleCriterion} from '../slices/criteria';
 import {
 	selectReferenceLinksByCriterion,
@@ -17,8 +17,8 @@ import {selectEnabledTestsByCriterion} from '../slices/tests';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import CriterionNotes from './CriterionNotes';
 import ExternalReferences from './ExternalReferences';
-import Icon from './Icon';
 import Test from './Test';
+import TestStatus from './TestStatus';
 
 type CriterionProps = {
 	id: Criterion['id'];
@@ -29,10 +29,8 @@ type CriterionProps = {
 const Criterion = ({id, level, title}: CriterionProps) => {
 	const intl = useIntl();
 	const isOpen = useAppSelector((state) => selectIsCriterionOpen(state, id));
+	const status = useAppSelector((state) => selectCriterionStatus(state, id));
 	const tests = useAppSelector((state) => selectTestsByCriterion(state, id));
-	const isDone = useAppSelector((state) =>
-		selectAreAllTestsDone(state, tests)
-	);
 	const references = useAppSelector((state) =>
 		selectReferenceLinksByCriterion(state, id)
 	);
@@ -57,17 +55,6 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 	const headerClassName = classNames('Criterion-header', {
 		'Title Title--sub': isOpen
 	});
-
-	const handleDoneChange = (event: JSX.TargetedEvent<HTMLInputElement>) => {
-		tests.forEach((test) =>
-			dispatch(
-				markTestDone({
-					id: test.id,
-					done: event.currentTarget.checked
-				})
-			)
-		);
-	};
 
 	const handleToggle = (event: JSX.TargetedEvent<HTMLElement>) => {
 		event.stopPropagation();
@@ -127,33 +114,8 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 				</div>
 
 				<div className="Criterion-actions">
-					<div
-						className={classNames(
-							'Criterion-action Criterion-action--done',
-							{
-								'Criterion-action--checked': isDone
-							}
-						)}
-					>
-						<label
-							htmlFor={`criterion-${id}-done-input`}
-							className="Criterion-actionLabel"
-							title={intl.formatMessage({
-								id: isDone
-									? 'Criterion.done.label'
-									: 'Criterion.todo.label'
-							})}
-						>
-							<Icon name="flag" />
-						</label>
-
-						<input
-							type="checkbox"
-							id={`criterion-${id}-done-input`}
-							className="u-hidden"
-							checked={isDone}
-							onChange={handleDoneChange}
-						/>
+					<div className="Criterion-action">
+						<TestStatus status={status} />
 					</div>
 				</div>
 			</header>

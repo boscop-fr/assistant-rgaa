@@ -1,6 +1,6 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import listener from './middlewares/listener';
-import checklist from './slices/checklist';
+import audit from './slices/audit';
 import criteria from './slices/criteria';
 import helpers from './slices/helpers';
 import instructions from './slices/instructions';
@@ -11,7 +11,7 @@ import tests from './slices/tests';
 import themes from './slices/themes';
 
 const reducer = combineReducers({
-	checklist,
+	audit,
 	criteria,
 	helpers,
 	instructions,

@@ -44,11 +44,10 @@ zone "description du test" liste les modifications exactes apportées à la page
 
 ![Test actif](./test.png)
 
-Un petit drapeau permet de marquer chaque test comme déjà effectué. Ce drapeau
-n'a pas d'effet direct dans l'extension, mais permet de se rappeler des tests
-déjà fait pour ne pas les refaire par erreur.
+Un résultat peut être assigné à chaque test pour suivre l'avancée de l'audit.
+Ces résultats sont agrégés automatiquement sur les critères parents.
 
-![Drapeau](./flag.png)
+![Statut d'un test](./statuses.png)
 
 # Minimap
 

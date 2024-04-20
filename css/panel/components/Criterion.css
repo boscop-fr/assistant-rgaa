@@ -125,7 +125,7 @@
 }
 
 .Criterion.is-open .Criterion-action {
-	border-color: color-mix(in srgb, var(--color-theme), white 20%);
+	border-color: rgba(255 255 255 / 25%);
 }
 
 .Criterion-content {
@@ -147,29 +147,6 @@
 
 .Criterion-test:hover {
 	background: var(--color-highlight);
-}
-
-.Criterion-actionLabel {
-	display: block;
-	cursor: pointer;
-}
-
-.Criterion-action--done {
-	font-size: 0;
-}
-
-.Criterion-action--done .Icon {
-	line-height: 1;
-	font-size: var(--font-size-xxlarge);
-	transition: transform 0.2s ease-out;
-}
-
-.Criterion-action--done.Criterion-action--checked .Icon {
-	transform: rotate(60deg);
-}
-
-.Criterion.is-open .Criterion-action--done {
-	padding-top: 0.25lh;
 }
 
 .Criterion-tabPanel {

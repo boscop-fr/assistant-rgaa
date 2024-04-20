@@ -1,4 +1,5 @@
 import {createAction, isAnyOf} from '@reduxjs/toolkit';
+import {AuditResults} from '../../common/types';
 
 // Runtime message types.
 // These are not used inside redux but through the extension

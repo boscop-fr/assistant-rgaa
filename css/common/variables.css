@@ -47,4 +47,14 @@
 	--color-accent-darker: color-mix(in srgb, orange, black 7%);
 	--color-accent-contrast: #7c570e;
 	--max-z-index: 2147483647;
+
+	/* @see https://schemist.fglt.fr?preset=1@a@6728x5a,4500,6728x59,9a02,6728x5b,bc04,6728x5a,de06,6x1128x5a,fx1028a8,!0122313579@clr,,color,2868c9,inf,Info,ctr,On%20$,amount,pos,Success,wrn,Warning,neg,Error,s,neutral,on%20neutral */
+	--color-success: #437c32;
+	--color-on-success: #d2fcc7;
+	--color-warning: #985c14;
+	--color-on-warning: #feeee0;
+	--color-error: #be2d40;
+	--color-on-error: #feeaea;
+	--color-neutral: #666d77;
+	--color-on-neutral: #eef0f2;
 }

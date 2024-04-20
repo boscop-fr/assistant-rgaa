@@ -1,5 +1,5 @@
 import {AppStartListening} from '../middlewares/listener';
-import {resetChecklist} from '../slices/checklist';
+import {resetResults} from '../slices/audit';
 import {setHelpers} from '../slices/helpers';
 import {setInstructions} from '../slices/instructions';
 import {setReferenceData, setVersion} from '../slices/reference';
@@ -19,7 +19,7 @@ export const addReferenceListeners = (startListening: AppStartListening) => {
 
 			const flattened = flattenReference(reference);
 
-			api.dispatch(resetChecklist());
+			api.dispatch(resetResults());
 			api.dispatch(setReferenceData(flattened));
 			api.dispatch(setHelpers(helpers));
 			api.dispatch(setInstructions(instructions));

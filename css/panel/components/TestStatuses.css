@@ -1,0 +1,11 @@
+.TestStatuses {
+	margin: 0;
+	border: 0;
+	padding: 0;
+}
+
+.TestStatuses-options {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+}

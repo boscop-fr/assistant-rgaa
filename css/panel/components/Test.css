@@ -80,18 +80,3 @@
 		text-decoration: underline;
 	}
 }
-
-.Test-action--done {
-	color: var(--color-gray-dark);
-	font-size: 0;
-}
-
-.Test-action--done .Icon {
-	line-height: 1;
-	font-size: var(--font-size-xxlarge);
-	transition: transform 0.2s ease-out;
-}
-
-.Test-action--done.Test-action--checked .Icon {
-	transform: rotate(60deg);
-}

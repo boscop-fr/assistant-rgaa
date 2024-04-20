@@ -1,17 +1,15 @@
 import classNames from 'classnames';
 import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
-import {type JSX} from 'react/jsx-runtime';
 import {type Test} from '../../common/types';
 import {useOption} from '../../options/utils/storage';
-import {markTestDone, selectIsTestDone} from '../slices/checklist';
 import {selectTestHasHelpers} from '../slices/helpers';
 import {selectInstructionsByTest} from '../slices/instructions';
 import {disableTest, enableTest, selectIsTestEnabled} from '../slices/tests';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
-import Icon from './Icon';
 import TestHelpers from './TestHelpers';
 import TestInstructions from './TestInstructions';
+import TestStatuses from './TestStatuses';
 
 type TestProps = {
 	id: Test['id'];
@@ -20,7 +18,6 @@ type TestProps = {
 
 function Test({id, title}: TestProps) {
 	const intl = useIntl();
-	const done = useAppSelector((state) => selectIsTestDone(state, id));
 	const applicable = useAppSelector((state) =>
 		selectTestHasHelpers(state, id)
 	);
@@ -43,15 +40,6 @@ function Test({id, title}: TestProps) {
 				setInstructionsOpen(true);
 			}
 		}
-	};
-
-	const handleDoneChange = (event: JSX.TargetedEvent<HTMLInputElement>) => {
-		dispatch(
-			markTestDone({
-				id,
-				done: event.currentTarget.checked
-			})
-		);
 	};
 
 	const className = classNames({
@@ -97,28 +85,8 @@ function Test({id, title}: TestProps) {
 						</div>
 					) : null}
 
-					<div
-						className={classNames('Test-action Test-action--done', {
-							'Test-action--checked': done
-						})}
-					>
-						<label
-							htmlFor={`test-${id}-done-input`}
-							className="Test-actionLabel"
-							title={intl.formatMessage({
-								id: done ? 'Test.done' : 'Test.todo'
-							})}
-						>
-							<Icon name="flag" />
-						</label>
-
-						<input
-							className="Test-actionInput u-hidden"
-							type="checkbox"
-							id={`test-${id}-done-input`}
-							checked={done}
-							onChange={handleDoneChange}
-						/>
+					<div className="Test-action">
+						<TestStatuses id={id} isReadOnly={!applied} />
 					</div>
 				</div>
 			</header>

@@ -9,6 +9,14 @@ export type ShallowTest = Test & {
 	criterionId: Criterion['id'];
 };
 
+export type TestStatus = 'C' | 'NC' | 'NA' | 'NT';
+
+export type AuditResult = {
+	status: TestStatus;
+};
+
+export type AuditResults = Record<Test['id'], AuditResult>;
+
 export type CriterionReferences = {
 	wcag?: {
 		criteria?: string;

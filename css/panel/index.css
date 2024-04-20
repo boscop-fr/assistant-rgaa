@@ -32,6 +32,8 @@
 @import url('./components/Test.css');
 @import url('./components/TestHelpers.css');
 @import url('./components/TestInstructions.css');
+@import url('./components/TestStatuses.css');
 @import url('./components/TestSection.css');
+@import url('./components/TestStatus.css');
 @import url('./components/Theme.css');
 @import url('./components/ThemesList.css');

@@ -30,6 +30,9 @@ const messages = {
 	'Test.todo': 'Test à faire - Cliquer pour marquer le test comme "fait"',
 	'Test.instructions': 'Instructions',
 	'TestHelpers.title': 'Description du test',
+	'TestStatus.title':
+		'{status, select, C {Conforme} NC {Non conforme} NA {Non applicable} NT {Non testé} other {}}',
+	'TestStatuses.legend': 'Statut',
 	'ColorInput.pickPixelButton.title':
 		"Prélever la couleur d'un pixel dans la page",
 	'ColorInput.pickTextButton.title':
