@@ -1,8 +1,5 @@
 .ReferencePage {
 	position: relative;
-	display: flex;
-	flex: 1;
-	flex-direction: column;
 	overflow: hidden auto;
 }
 
@@ -15,6 +12,5 @@
 }
 
 .ReferencePage-themes {
-	flex: 1;
 	overflow: auto;
 }

@@ -10,9 +10,7 @@
 }
 
 .Theme-header {
-	display: flex;
-}
-
-.Theme-title {
-	flex: 1 1 auto;
+	position: sticky;
+	top: 0;
+	z-index: 5;
 }
