@@ -3,7 +3,6 @@ import React, {useCallback} from 'react';
 import {selectAllThemes, selectIsLoaded} from '../slices/reference';
 import {saveScrollPosition, selectScrollPosition} from '../slices/themes';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
-import DevTools from './DevTools';
 import Theme from './Theme';
 
 const ReferencePage = () => {
@@ -29,8 +28,6 @@ const ReferencePage = () => {
 
 	return (
 		<div className="ReferencePage">
-			{process.env.NODE_ENV === 'production' ? null : <DevTools />}
-
 			<div
 				className="ReferencePage-themes"
 				onScroll={handleScroll}
