@@ -4,9 +4,7 @@ import {selectAllThemes, selectIsLoaded} from '../slices/reference';
 import {saveScrollPosition, selectScrollPosition} from '../slices/themes';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import DevTools from './DevTools';
-import StylesToggle from './StylesToggle';
 import Theme from './Theme';
-import ThemesList from './ThemesList';
 
 const ReferencePage = () => {
 	const isReferenceLoaded = useAppSelector(selectIsLoaded);
@@ -32,11 +30,6 @@ const ReferencePage = () => {
 	return (
 		<div className="ReferencePage">
 			{process.env.NODE_ENV === 'production' ? null : <DevTools />}
-
-			<div className="ReferencePage-actions">
-				<ThemesList />
-				<StylesToggle />
-			</div>
 
 			<div
 				className="ReferencePage-themes"

@@ -1,0 +1,57 @@
+.HelpPage {
+	display: flex;
+	height: 100vh;
+}
+
+.HelpPage-aside {
+	padding: 2lh;
+	max-width: 45ch;
+	background: var(--color-theme-gradient);
+	color: var(--color-white);
+
+	p {
+		margin-bottom: 0;
+	}
+}
+
+.HelpPage-toc {
+	position: sticky;
+	top: 0;
+	padding-top: 2lh;
+
+	a {
+		color: var(--color-white);
+	}
+}
+
+.HelpPage-body {
+	flex: 1;
+	padding: 2lh;
+	overflow-y: auto;
+}
+
+.HelpPage-bodyInner {
+	max-width: 70ch;
+
+	& > :first-child {
+		margin-top: 0;
+	}
+
+	& > :last-child {
+		margin-bottom: 0;
+	}
+}
+
+.HelpPage-illustrated {
+	display: flex;
+	gap: 2rlh;
+	width: 150%;
+
+	> * {
+		flex: 1;
+	}
+
+	img {
+		order: 2;
+	}
+}

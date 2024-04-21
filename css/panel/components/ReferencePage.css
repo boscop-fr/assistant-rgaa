@@ -3,14 +3,6 @@
 	overflow: hidden auto;
 }
 
-.ReferencePage-actions {
-	display: flex;
-	gap: 0.5lh;
-	padding: 0.5lh;
-	background: var(--color-blue-dark);
-	border-bottom: 3px solid var(--color-accent);
-}
-
 .ReferencePage-themes {
 	overflow: auto;
 }

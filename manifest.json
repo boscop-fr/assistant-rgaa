@@ -37,12 +37,9 @@
 	"web_accessible_resources": [
 		{
 			"resources": [
-				"data/references/3-2016.json",
-				"data/references/3-2017.json",
-				"data/references/4-2019.json",
-				"data/references/4-2021.json",
-				"data/references/4-2023.json",
-				"dist/minimap-component.js"
+				"dist/minimap-component.js",
+				"data/references/*",
+				"pages/help/*"
 			],
 			"matches": [
 				"<all_urls>"

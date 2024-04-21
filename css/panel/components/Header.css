@@ -1,26 +1,29 @@
 .Header {
 	flex-shrink: 0;
 	display: flex;
+	gap: 2ch;
 	padding: 0.25lh 0.5lh;
 	align-items: center;
+	justify-content: space-between;
 	background: color-mix(in srgb, var(--color-blue) 5%, white);
-	color: color-mix(in srgb, var(--color-black), white 30%);
+	color: color-mix(in srgb, var(--color-black), white 25%);
 }
 
 .Header-title {
 	flex: 1;
+	line-height: 1;
 }
 
-.Header-actions > * {
-	display: inline-block;
-	margin-left: 0.25lh;
+.Header-menu {
+	display: flex;
+	gap: 1ch;
 }
 
-.Header-actions > .Link {
-	color: var(--color-black);
+.Header-actions {
+	display: flex;
+	gap: 1ch;
 }
 
-.Header-dock,
 .Header-closePopup {
 	margin-left: 1lh;
 }

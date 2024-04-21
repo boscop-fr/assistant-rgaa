@@ -1,18 +1,22 @@
 .ActionButton {
 	display: flex;
 	align-items: center;
-	gap: 0.25lh;
+	gap: 1ch;
 	border: none;
-	padding: 0.2lh 0.5lh;
+	padding: 0.25lh 1ch;
 	border-radius: 5px;
 	background-color: var(--color-accent);
 	color: var(--color-accent-text);
-	line-height: var(--line-height-xlarge);
-	font-size: var(--font-size-xlarge);
 	transition: background-color ease-out 0.2s;
 
 	&:hover,
 	&:focus {
 		background-color: var(--color-accent-darker);
 	}
+}
+
+.ActionButton--large {
+	padding: 0.2lh 1ch;
+	line-height: var(--line-height-xlarge);
+	font-size: var(--font-size-xlarge);
 }

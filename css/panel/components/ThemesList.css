@@ -6,7 +6,8 @@
 	display: none;
 	position: absolute;
 	top: calc(100% + 0.25lh);
-	width: clamp(20ch, 90vw, 50ch);
+	right: -2ch;
+	width: clamp(20ch, 90vw, 40ch);
 	background: var(--color-white);
 	border: 2px solid var(--color-theme);
 	border-top: 0;
@@ -40,9 +41,7 @@
 	padding: 0.25lh var(--app-gutter);
 	background: var(--color-white) none no-repeat 0.6rem 50%;
 	background-size: 24px;
-	border: 1px solid color-mix(in srgb, var(--color-sand), black 30%);
-	border-left: 0;
-	border-right: 0;
+	border-top: 1px solid color-mix(in srgb, var(--color-sand), black 30%);
 	text-decoration: underline;
 }
 

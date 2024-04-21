@@ -42,6 +42,12 @@
 	--color-theme-text: var(--color-white);
 	--color-theme-dark: var(--color-blue-dark);
 	--color-theme-dark-text: var(--color-blue-dark-text);
+	--color-theme-gradient: linear-gradient(
+		135deg,
+		#453796 0%,
+		#1560a0 50%,
+		#3fb9b1 100%
+	);
 	--color-accent: orange;
 	--color-accent-text: var(--color-black);
 	--color-accent-darker: color-mix(in srgb, orange, black 7%);

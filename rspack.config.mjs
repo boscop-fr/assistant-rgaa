@@ -1,7 +1,6 @@
 import {defineConfig} from '@rspack/cli';
 import rspack from '@rspack/core';
 import path from 'path';
-import RemarkHTML from 'remark-html';
 
 const fullPath = path.resolve.bind(null, process.cwd());
 const devMode = process.env.NODE_ENV === 'development';
@@ -45,6 +44,7 @@ export default defineConfig({
 		'minimap-component': ['./src/minimap/component'],
 		options: ['./src/options/index', './css/options/index.css'],
 		background: ['./src/background/index'],
+		help: ['./css/help/index.css'],
 		// This entry is used solely to validate JSON data
 		// against application types.
 		data: './data/lint'
@@ -121,21 +121,6 @@ export default defineConfig({
 						loader: 'css-loader',
 						options: {
 							url: false
-						}
-					}
-				]
-			},
-			{
-				test: /\.md$/,
-				include: fullPath('data/pages'),
-				type: 'asset/source',
-				use: [
-					{
-						loader: 'remark-loader',
-						options: {
-							remarkOptions: {
-								plugins: [RemarkHTML]
-							}
 						}
 					}
 				]

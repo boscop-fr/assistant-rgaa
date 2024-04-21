@@ -1,0 +1,325 @@
+<!doctype html>
+
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Aide Assistant RGAA</title>
+		<link rel="stylesheet" href="../dist/help.css" />
+	</head>
+
+	<body>
+		<main>
+			<article class="HelpPage">
+				<div class="HelpPage-aside">
+					<header>
+						<h1>Aide Assistant RGAA</h1>
+					</header>
+
+					<p>
+						Cette extension propose une liste complète des tests du
+						référentiel RGAA. Pour chacun de ces tests, l'extension permet
+						d'appliquer des modifications à la page courante
+						(modifications de style, ajout d'informations, outils),
+						permettant d'effectuer plus simplement les tests.
+					</p>
+
+					<nav class="HelpPage-toc">
+						<ul>
+							<li>
+								<a href="#interface">Interface</a>
+								<ul>
+									<li><a href="#menu">Menu principal</a></li>
+									<li><a href="#navigation">Navigation</a></li>
+								</ul>
+							</li>
+							<li><a href="#tests">Tests</a></li>
+							<li><a href="#minimap">Minimap</a></li>
+							<li>
+								<a href="#tools">Outils</a>
+								<ul>
+									<li>
+										<a href="#contrast">Analyseur de contraste</a>
+									</li>
+									<li><a href="#validator">Validateur W3C</a></li>
+									<li>
+										<a href="#link-checker">Validateur de liens</a>
+									</li>
+									<li>
+										<a href="#title-hierarchy">
+											Hiérarchie de titres
+										</a>
+									</li>
+									<li><a href="#sources">Voir les sources</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
+
+				<div class="HelpPage-body">
+					<div class="HelpPage-bodyInner">
+						<h2 id="interface">Interface</h2>
+
+						<h3 id="menu">Menu principal</h3>
+
+						<img alt="Menu principal" src="./help/menu.png" />
+
+						<dl>
+							<dt>Version du référentiel utilisée</dt>
+							<dd>
+								À l'heure actuelle, seule les versions 3-2016, 3-2017,
+								4.0 (2019), 4.1 (2021) et 4.1.2 (2023) sont supportées.
+							</dd>
+							<dt>Aide</dt>
+							<dd>Vous y êtes !</dd>
+							<dt>Options</dt>
+							<dd>
+								Options globales de l'extension, permettant notamment de
+								configurer la version du référentiel à utiliser.
+							</dd>
+							<dt>Mode popup</dt>
+							<dd>
+								Grâce à ce menu, l'extension peut-être ouverte dans une
+								fenêtre séparée.
+							</dd>
+							<dt>Menu de navigation dans les thématiques</dt>
+							<dd>
+								Comme dans le référentiel, les tests sont d'abord
+								organisés par thématiques. Ces thématiques sont visibles
+								au premier niveau de la liste des tests, et accessibles
+								par un menu déroulant présent dans le menu principal.
+							</dd>
+							<dt>Activation des styles</dt>
+							<dd>
+								Ce bouton permet d'activer ou désactiver intégralement
+								les styles de la page auditée.
+							</dd>
+						</dl>
+
+						<h3 id="navigation">Navigation</h3>
+
+						<p>
+							Sous chaque thème se trouve une liste de critères, qui
+							peuvent être dépliés pour révéler la liste de tests qu'ils
+							contiennent.
+						</p>
+
+						<div class="HelpPage-illustrated">
+							<img
+								alt="Vue à l'ouverture de la page"
+								src="./help/reference.png"
+							/>
+
+							<img alt="Critère ouvert" src="./help/criterion.png" />
+						</div>
+
+						<h2 id="tests">Tests</h2>
+
+						<div class="HelpPage-illustrated">
+							<p>
+								Pour chaque test, une case à cocher permet d'appliquer
+								les modifications associées dans la page. Une fois
+								cochée, les modifications s'appliquent, et les
+								instructions à suivre pour valider le test s'affichent.
+								Pour plus de détail, une zone "description du test"
+								liste les modifications exactes apportées à la page.
+							</p>
+
+							<img alt="Test actif" src="./help/test.png" />
+						</div>
+
+						<div class="HelpPage-illustrated">
+							<p>
+								Un résultat peut être assigné à chaque test pour suivre
+								l'avancée de l'audit. Ces résultats sont agrégés
+								automatiquement sur les critères parents.
+							</p>
+
+							<img alt="Statut d'un test" src="./help/statuses.png" />
+						</div>
+
+						<h2 id="minimap">Minimap</h2>
+
+						<div class="HelpPage-illustrated">
+							<div>
+								<p>
+									Lors de l'application d'un test, une petite carte
+									s'affiche sur le côté de la page pour indiquer les
+									zones affectées par le test. Elle permet de savoir
+									rapidement si le test a affecté la page, et à quels
+									endroits.
+								</p>
+
+								<p>
+									Cette carte représente l'ensemble de la page, et les
+									zones en surbrillance les éléments mis en valeur.
+								</p>
+
+								<p>
+									Un clic sur un point de la carte permet de naviguer à
+									la position correspondante dans la page.
+								</p>
+							</div>
+
+							<img alt="Minimap" src="./help/minimap.png" />
+						</div>
+
+						<h2 id="tools">Outils</h2>
+
+						<h3 id="contrast">Analyseur de contraste</h3>
+
+						<div class="HelpPage-illustrated">
+							<img
+								alt="Outil d'analyse de contraste"
+								src="./help/color-contrast.png"
+							/>
+
+							<div>
+								<p>
+									Cet outil permet de calculer le ratio de contraste
+									entre 2 couleurs.
+								</p>
+
+								<p>
+									Pour chaque couleur, il est possible d'éditer
+									directement son code hexadécimal ou son nom (par
+									exemple
+									<code>#fff</code>
+									,
+									<code>#bada55</code>
+									,
+									<code>green</code>
+									), ou de la sélectionner dans la page de deux
+									manières diférentes :
+								</p>
+
+								<dl>
+									<dt>Sélecteur de pixel</dt>
+									<dd>
+										Cliquez dessus, puis cliquez dans la page pour
+										extraire la couleur du pixel sous le curseur.
+									</dd>
+									<dt>Sélecteur de texte</dt>
+									<dd>
+										Cliquez-dessus, puis sélectionnez une zone de
+										texte dans la page pour extraire sa couleur.
+									</dd>
+								</dl>
+
+								<p>
+									Pour certains tests, vous trouverez également un
+									bouton permettant d'extraire les deux couleurs d'un
+									seul coup depuis une sélection de texte. Dans
+									l'exemple ci-dessus, il extraira la couleur de texte
+									et d'arrière-plan.
+								</p>
+							</div>
+						</div>
+
+						<h3 id="validator">Validateur W3C</h3>
+
+						<div class="HelpPage-illustrated">
+							<img
+								alt="Boutons du validateur W3C"
+								src="./help/w3c-validator.png"
+							/>
+
+							<div>
+								<p>
+									Le bouton "Validateur W3C" sert à valider le code
+									source d'un site en ligne via
+									<a href="https://validator.w3.org">
+										validator.w3.org
+									</a>
+									.
+								</p>
+
+								<p>
+									Le bouton "Validateur W3C (HTML local)" sert à
+									valider le code source d'un site non disponible en
+									ligne (
+									<code>http://localhost</code>
+									, intranet, site protégé par .htaccess, etc.).
+									<br />
+									<em>
+										Note : valider le code source d'un fichier (
+										<code>file://...</code>
+										dans la barre d'adresse du navigateur) n'est pas
+										supporté.
+									</em>
+								</p>
+							</div>
+						</div>
+
+						<h3 id="link-checker">Validateur de liens</h3>
+
+						<div class="HelpPage-illustrated">
+							<img
+								alt="Boutons du validateur de liens"
+								src="./help/link-checker.png"
+							/>
+
+							<p>
+								Le bouton "Validateur de liens" sert à vérifier que les
+								liens de la page courante sont fonctionnels via
+								<a href="https://validator.w3.org/checklink">
+									validator.w3.org/checklink
+								</a>
+								.
+							</p>
+						</div>
+
+						<h3 id="title-hierarchy">Hiérarchie de titres</h3>
+
+						<div class="HelpPage-illustrated">
+							<img
+								alt="Hiérarchie de titres en erreur"
+								src="./help/titles-error.png"
+							/>
+
+							<div>
+								<p>
+									Cet outil, utilisé dans le test 9.1.2 du référentiel
+									3-2016, affiche la hiérarchie de titres de la page.
+									Chaque titre (balises
+									<code>h1</code>
+									à
+									<code>h6</code>
+									, ou élément avec attribut
+									<code>aria-level</code>
+									) est listé ici dans l'ordre d'apparition des
+									éléments dans le DOM. Si une erreur dans la
+									hiérarchie est détectée, les titres manquants et leur
+									niveau sont affichés dans la liste.
+								</p>
+
+								<p>
+									Attention cependant, dans les version 4.0 et 4.1 du
+									référentiel, la gestion des titres à été assouplie,
+									de fait l'indication d'un titre manquant en rouge ou
+									d'un "trou" dans le plan du document n'est pas
+									nécessairement des contenus à considérer comme
+									non-conforme (NC).
+								</p>
+							</div>
+						</div>
+
+						<h3 id="sources">Voir les sources</h3>
+
+						<div class="HelpPage-illustrated">
+							<img
+								alt="Voir les sources"
+								src="./help/view-sources.png"
+							/>
+
+							<p>
+								Le bouton "Voir les sources" affiche le code source de
+								la page dans un nouvel onglet.
+							</p>
+						</div>
+					</div>
+				</div>
+			</article>
+		</main>
+	</body>
+</html>

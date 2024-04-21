@@ -1,6 +1,6 @@
 html {
 	height: 100vh;
-	background: linear-gradient(135deg, #453796 0%, #1560a0 50%, #3fb9b1 100%);
+	background: var(--color-theme-gradient);
 	color: var(--color-white);
 	font-size: 100%;
 }

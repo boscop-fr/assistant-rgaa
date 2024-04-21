@@ -1,12 +1,13 @@
-import {AppWindowIcon, SettingsIcon} from 'lucide-react';
+import {AppWindowIcon, CircleHelpIcon, SettingsIcon} from 'lucide-react';
 import React from 'react';
-import {FormattedMessage, useIntl} from 'react-intl';
-import {Link} from 'wouter';
+import {useIntl} from 'react-intl';
 import {openOptionsPage} from '../slices/options';
 import {selectPageTitle, selectPopupTabId, togglePopup} from '../slices/panel';
 import {selectVersion} from '../slices/reference';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import Icon from './Icon';
+import StylesToggle from './StylesToggle';
+import ThemesList from './ThemesList';
 
 const Header = () => {
 	const intl = useIntl();
@@ -14,6 +15,16 @@ const Header = () => {
 	const isPopup = !!useAppSelector(selectPopupTabId);
 	const title = useAppSelector(selectPageTitle);
 	const dispatch = useAppDispatch();
+	const helpTitle = intl.formatMessage({id: 'Header.help'});
+	const optionsTitle = intl.formatMessage({id: 'Header.options'});
+	const popupTitle = intl.formatMessage({id: 'Header.openPopup'});
+
+	const openHelpPage = () => {
+		browser.windows.create({
+			type: 'panel',
+			url: 'pages/help.html'
+		});
+	};
 
 	return (
 		<header className="Header">
@@ -22,16 +33,15 @@ const Header = () => {
 				RGAA v{version}
 			</h1>
 
-			<div className="Header-actions">
-				<Link className="Header-themes Link" to="/">
-					<FormattedMessage id="Header.themes" />
-				</Link>
-
-				<Link className="Header-help Link" to="/help">
-					<FormattedMessage id="Header.help" />
-				</Link>
-
-				<div className="Header-dock" />
+			<div className="Header-menu">
+				<button
+					type="button"
+					className="Header-help Link"
+					title={helpTitle}
+					onClick={openHelpPage}
+				>
+					<Icon icon={CircleHelpIcon} title={helpTitle} />
+				</button>
 
 				<button
 					type="button"
@@ -39,12 +49,9 @@ const Header = () => {
 						dispatch(openOptionsPage());
 					}}
 					className="Header-options Link"
-					title={intl.formatMessage({id: 'Header.options'})}
+					title={optionsTitle}
 				>
-					<Icon
-						icon={SettingsIcon}
-						title={intl.formatMessage({id: 'Header.options'})}
-					/>
+					<Icon icon={SettingsIcon} title={optionsTitle} />
 				</button>
 
 				{isPopup ? null : (
@@ -54,14 +61,16 @@ const Header = () => {
 							dispatch(togglePopup());
 						}}
 						className="Header-openPopup InvisibleButton"
-						title={intl.formatMessage({id: 'Header.openPopup'})}
+						title={popupTitle}
 					>
-						<Icon
-							icon={AppWindowIcon}
-							title={intl.formatMessage({id: 'Header.openPopup'})}
-						/>
+						<Icon icon={AppWindowIcon} title={popupTitle} />
 					</button>
 				)}
+			</div>
+
+			<div className="Header-actions">
+				<ThemesList />
+				<StylesToggle />
 			</div>
 		</header>
 	);
