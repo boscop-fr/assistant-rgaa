@@ -4,11 +4,37 @@
 		<meta charset="utf-8" />
 		<title>Assistant RGAA</title>
 		<link rel="stylesheet" href="../dist/panel.css" />
+
+		<style>
+			/**
+			 *	We're using inline styles so they are applied
+			 *	instantly, avoiding a flash of the whole panel
+			 *	if the preferred color sheme doesn't match
+			 *	the default user stylesheet.
+			 */
+
+			html {
+				color-scheme: light dark;
+				background: Canvas;
+				color: GrayText;
+			}
+
+			.Loader {
+				display: flex;
+				align-items: flex-end;
+				justify-content: center;
+				padding: 1lh;
+				height: 100vh;
+				text-align: center;
+			}
+		</style>
 	</head>
 
 	<body>
 		<div class="Panel" id="panel">
-			<div class="Panel-loading">Chargement…</div>
+			<div class="Loader">
+				<p>Chargement</p>
+			</div>
 		</div>
 
 		<script src="../dist/panel.js"></script>

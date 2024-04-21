@@ -3,6 +3,7 @@
 	display: flex;
 	padding: 0.25lh 0.5lh;
 	align-items: center;
+	background: color-mix(in srgb, var(--color-blue) 5%, white);
 	color: color-mix(in srgb, var(--color-black), white 30%);
 }
 

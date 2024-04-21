@@ -3,6 +3,7 @@
 	flex: 1;
 	flex-direction: column;
 	overflow-y: auto;
+	background: var(--color-white);
 }
 
 .Page-body {
