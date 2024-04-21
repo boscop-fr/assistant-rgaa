@@ -1,6 +1,24 @@
 import classNames from 'classnames';
+import {
+	BookOpenTextIcon,
+	ClapperboardIcon,
+	CodeXmlIcon,
+	GalleryVerticalIcon,
+	ImageIcon,
+	LayoutDashboardIcon,
+	Link2Icon,
+	ListIcon,
+	type LucideIcon,
+	NavigationIcon,
+	OctagonAlertIcon,
+	PaletteIcon,
+	PencilRulerIcon,
+	TablePropertiesIcon,
+	TextCursorInputIcon
+} from 'lucide-react';
 import React, {useRef, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
+import {Theme} from '../../common/types';
 import {selectAllThemes} from '../slices/reference';
 import {
 	useAnchorEvent,
@@ -9,20 +27,20 @@ import {
 } from '../utils/hooks';
 import Icon from './Icon';
 
-const icons = {
-	'1': 'image',
-	'2': 'window-maximize',
-	'3': 'paint-brush',
-	'4': 'film',
-	'5': 'table',
-	'6': 'chain',
-	'7': 'code',
-	'8': 'exclamation-triangle',
-	'9': 'mouse-pointer',
-	'10': 'columns',
-	'11': 'list-alt',
-	'12': 'check-square-o',
-	'13': 'desktop'
+const icons: Record<Theme['id'], LucideIcon> = {
+	'1': ImageIcon,
+	'2': GalleryVerticalIcon,
+	'3': PaletteIcon,
+	'4': ClapperboardIcon,
+	'5': TablePropertiesIcon,
+	'6': Link2Icon,
+	'7': CodeXmlIcon,
+	'8': OctagonAlertIcon,
+	'9': PencilRulerIcon,
+	'10': LayoutDashboardIcon,
+	'11': TextCursorInputIcon,
+	'12': NavigationIcon,
+	'13': BookOpenTextIcon
 };
 
 const ThemesList = () => {
@@ -51,7 +69,7 @@ const ThemesList = () => {
 				aria-expanded={isOpen}
 				onClick={handleToggle}
 			>
-				<Icon name="list-ul" className="ThemesList-toggleIcon" />
+				<Icon icon={ListIcon} className="ThemesList-toggleIcon" />
 				<FormattedMessage id="ThemesList.title" />
 			</button>
 
@@ -69,7 +87,7 @@ const ThemesList = () => {
 							href={`#theme-${theme.id}`}
 						>
 							<Icon
-								name={icons[theme.id as keyof typeof icons]}
+								icon={icons[theme.id]}
 								className="ThemesList-itemIcon"
 							/>
 							{theme.title}

@@ -1,30 +1,23 @@
 import classNames from 'classnames';
-import React, {ComponentProps} from 'react';
+import {type LucideIcon} from 'lucide-react';
+import React from 'react';
 
-type IconProps = ComponentProps<'svg'> & {
-	spritePath?: string;
-	name: string;
+type IconProps = {
+	icon: LucideIcon;
 	className?: string;
 	title?: string;
 };
 
-export default function Icon({
-	name,
-	title,
-	className,
-	spritePath = '/dist/icons.svg',
-	...props
-}: IconProps) {
+export default function Icon({icon, title, className, ...props}: IconProps) {
+	const Component = icon;
 	return (
-		<svg
+		<Component
+			{...props}
 			className={classNames('Icon', `Icon--${name}`, className)}
+			size={16}
 			role={title ? 'img' : null}
 			aria-label={title}
 			aria-hidden={title ? null : true}
-			{...props}
-		>
-			{title ? <desc>{title}</desc> : null}
-			<use xlinkHref={`${spritePath}#${name}`} />
-		</svg>
+		/>
 	);
 }

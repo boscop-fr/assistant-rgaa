@@ -1,3 +1,4 @@
+import {EyeIcon, EyeOffIcon} from 'lucide-react';
 import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {selectAreStylesEnabled, toggleStyles} from '../slices/styles';
@@ -22,7 +23,7 @@ const StylesToggle = () => {
 				}`
 			})}
 		>
-			{areStylesEnabled ? <Icon name="visible" /> : <Icon name="hidden" />}
+			<Icon icon={areStylesEnabled ? EyeIcon : EyeOffIcon} />
 			<FormattedMessage id="ReferencePage.styles.toggle.label" />
 		</button>
 	);

@@ -1,3 +1,4 @@
+import {PipetteIcon, TextCursorIcon} from 'lucide-react';
 import React from 'react';
 import {useIntl} from 'react-intl';
 import Icon from '../../panel/components/Icon';
@@ -47,7 +48,7 @@ const ColorContrastField = ({
 							id: 'ColorInput.pickPixelButton.title'
 						})}
 					>
-						<Icon name="eyedropper" />
+						<Icon icon={PipetteIcon} />
 					</ToggleButton>
 				) : null}
 
@@ -59,7 +60,7 @@ const ColorContrastField = ({
 							id: 'ColorInput.pickTextButton.title'
 						})}
 					>
-						<Icon name="cursor" />
+						<Icon icon={TextCursorIcon} />
 					</ToggleButton>
 				) : null}
 			</ColorInput>

@@ -7,9 +7,8 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "start": "npm run icons && NODE_ENV=development rspack build --watch",
-    "icons": "touch ./dist/icons.svg && spritesh --input ./icons --output ./dist/icons.svg",
-    "build": "npm run icons && rspack build",
+    "start": "NODE_ENV=development rspack build --watch",
+    "build": "rspack build",
     "build-extension": "npm run build && web-ext build --artifacts-dir artifacts/ --ignore-files ./bin ./css ./doc ./fixtures ./src ./test ./site ./package.json ./webpack.config.*",
     "sign-extension": "npm run build && web-ext sign --artifacts-dir artifacts/ --ignore-files ./bin ./css ./doc ./fixtures ./src ./test ./site ./package.json ./webpack.config.*",
     "lint:format": "prettier --check ./src ./css ./data",
@@ -53,7 +52,6 @@
     "remark-html": "^15.0.2",
     "remark-loader": "^6.0.0",
     "request": "^2.74.0",
-    "spritesh": "^1.2.1",
     "stylelint": "^16.3.1",
     "stylelint-config-standard": "^36.0.0",
     "ts-jest": "^29.1.2",
@@ -70,6 +68,7 @@
     "debounce": "^2.0.0",
     "deepmerge": "^4.3.1",
     "hoist-non-react-statics": "^3.3.2",
+    "lucide-react": "^0.372.0",
     "papaparse": "^5.4.1",
     "preact": "^10.20.2",
     "preact-custom-element": "^4.3.0",

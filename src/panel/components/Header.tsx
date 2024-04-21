@@ -1,3 +1,4 @@
+import {AppWindowIcon, SettingsIcon} from 'lucide-react';
 import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Link} from 'wouter';
@@ -41,7 +42,7 @@ const Header = () => {
 					title={intl.formatMessage({id: 'Header.options'})}
 				>
 					<Icon
-						name="cog"
+						icon={SettingsIcon}
 						title={intl.formatMessage({id: 'Header.options'})}
 					/>
 				</button>
@@ -56,7 +57,7 @@ const Header = () => {
 						title={intl.formatMessage({id: 'Header.openPopup'})}
 					>
 						<Icon
-							name="popup"
+							icon={AppWindowIcon}
 							title={intl.formatMessage({id: 'Header.openPopup'})}
 						/>
 					</button>
