@@ -25,6 +25,13 @@ module.exports = {
 			options: {
 				parser: 'typescript'
 			}
+		},
+		{
+			files: '*.yml',
+			options: {
+				useTabs: false,
+				tabWidth: 2
+			}
 		}
 	]
 };
