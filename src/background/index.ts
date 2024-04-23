@@ -1,19 +1,18 @@
 import {sendMessage} from '../common/utils/runtime';
 import {clearTabState, fetchCurrentTab} from '../common/utils/tabs';
 import {
-	INVALID_RESPONSE,
 	captureCurrentTab,
 	closePopup,
 	createTab,
 	isProxiedAction,
 	openPopup,
 	openSidebar as openSidebarAction,
-	tabReloaded,
+	tabLoaded,
 	tabUnloaded,
 	validatePage,
 	viewPageSource
 } from './slices/runtime';
-import {injectContentScripts, removeContentScripts} from './utils/content';
+import {injectContentScripts} from './utils/content';
 import {closeSidebar, openSidebar} from './utils/sidebar';
 import {PANEL_PAGE, captureVisibleTab} from './utils/tabs';
 import {validateLocalPage} from './utils/validateLocalPage';
@@ -31,20 +30,12 @@ browser.action.onClicked.addListener((tab) => {
 
 browser.runtime.onConnect.addListener(async (port) => {
 	const tabId = parseInt(port.name, 10);
-	await injectContentScripts(tabId);
-
-	port.onMessage.addListener(async (message) => {
-		if (tabReloaded.match(message)) {
-			await injectContentScripts(tabId);
-		}
-	});
 
 	// We're using the disconnection callback to detect when
 	// the sidebar is closed.
 	// @see https://stackoverflow.com/a/77106777/2391359
 	port.onDisconnect.addListener(async () => {
 		await browser.tabs.sendMessage(tabId, tabUnloaded());
-		await removeContentScripts(tabId);
 	});
 });
 
@@ -73,6 +64,10 @@ browser.runtime.onMessage.addListener(async (message) => {
 		return openSidebar(tabId);
 	}
 
+	if (tabLoaded.match(message)) {
+		await injectContentScripts(message.payload.tabId);
+	}
+
 	if (captureCurrentTab.match(message)) {
 		return captureVisibleTab();
 	}
@@ -96,6 +91,4 @@ browser.runtime.onMessage.addListener(async (message) => {
 	if (isProxiedAction(message)) {
 		return sendMessage(message);
 	}
-
-	return INVALID_RESPONSE;
 });

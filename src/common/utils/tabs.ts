@@ -1,5 +1,3 @@
-import {type Tabs} from 'webextension-polyfill';
-import {INVALID_RESPONSE} from '../../background/slices/runtime';
 import {AppState} from '../../panel/store';
 import {clearData, getData, setData} from './storage';
 
@@ -18,23 +16,7 @@ export const fetchCurrentTab = async () => {
 	return tabs[0];
 };
 
-export const sendMessage = async <T>(
-	tabId: number,
-	message: T,
-	options?: Tabs.SendMessageOptionsType
-) => {
-	const response: typeof INVALID_RESPONSE | unknown = browser.tabs.sendMessage(
-		tabId,
-		message,
-		options
-	);
-
-	if (response === INVALID_RESPONSE) {
-		throw new Error(response);
-	}
-
-	return response;
-};
+export const sendMessage = browser.tabs.sendMessage;
 
 const onUpdate = (
 	callback: Parameters<typeof browser.tabs.onUpdated.addListener>[0]
@@ -55,8 +37,16 @@ export const onTabLoaded = (id: number, callback: () => void) => {
 	});
 };
 
-export const onTabReloaded = (id: number, callback: () => void) => {
+export const onTabReloaded = (
+	id: number,
+	callback: () => void,
+	initial = true
+) => {
 	let isLoading = false;
+
+	if (initial) {
+		callback();
+	}
 
 	return onUpdate((tabId, {status}) => {
 		if (tabId !== id) {

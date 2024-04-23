@@ -2,7 +2,8 @@ import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 import {Provider} from 'react-redux';
-import {tabReloaded} from '../background/slices/runtime';
+import {tabLoaded} from '../background/slices/runtime';
+import {keepRuntimeConnectionAlive, sendMessage} from '../common/utils/runtime';
 import {
 	fetchCurrentTab,
 	getTabState,
@@ -29,12 +30,14 @@ const init = async () => {
 
 	// Used to observe the panel's lifecycle.
 	// @see https://stackoverflow.com/a/77106777/2391359
-	const port = browser.runtime.connect({
-		name: `${targetTab.id}`
-	});
+	keepRuntimeConnectionAlive(targetTab.id);
 
 	onTabReloaded(targetTab.id, () => {
-		port.postMessage(tabReloaded());
+		sendMessage(
+			tabLoaded({
+				tabId: targetTab.id
+			})
+		);
 	});
 
 	const state = await getTabState(targetTab.id);

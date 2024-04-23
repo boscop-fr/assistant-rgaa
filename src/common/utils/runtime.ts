@@ -1,19 +1,37 @@
 import {useEffect} from 'react';
-import {type Runtime} from 'webextension-polyfill';
-import {INVALID_RESPONSE} from '../../background/slices/runtime';
+import {Runtime} from 'webextension-polyfill';
 
-export const sendMessage = async <T, U = void>(
-	message: T,
-	options: Runtime.SendMessageOptionsType = {}
-): Promise<U> => {
-	const response = await browser.runtime.sendMessage(message, options);
+export const keepRuntimeConnectionAlive = (tabId: number) => {
+	let port: Runtime.Port = null;
 
-	if (response === INVALID_RESPONSE) {
-		throw new Error(response);
-	}
+	const openPort = () => {
+		try {
+			port = browser.runtime.connect({
+				name: `${tabId}`
+			});
+		} catch (e) {
+			console.error(e);
+		}
+	};
 
-	return response;
+	// We're keeping the connection alive by sending regular
+	// pings to the other end.
+	// The service worker being interruptable at any moment,
+	// the connexion is inherently unstable by default.
+	// If we're getting disconnected anyway, we're reopening
+	// the connexion.
+	setInterval(async () => {
+		try {
+			await port?.postMessage('KEEPALIVE');
+		} catch (e) {
+			console.error(e);
+			port = null;
+			openPort();
+		}
+	}, 5000);
 };
+
+export const sendMessage = browser.runtime.sendMessage;
 
 export const useRuntimeMessage = (
 	listener: Parameters<typeof browser.runtime.onMessage.addListener>[0]

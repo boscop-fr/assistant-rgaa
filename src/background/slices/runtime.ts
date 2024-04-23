@@ -16,11 +16,9 @@ export const viewPageSource = createAction<{url: string}>(
 	'runtime/viewPageSource'
 );
 export const createTab = createAction<{url: string}>('runtime/createTab');
-export const tabReloaded = createAction('runtime/tabReloaded');
+export const tabLoaded = createAction<{tabId: number}>('runtime/tabLoaded');
 export const tabUnloaded = createAction('runtime/tabUnloaded');
 export const helpersReady = createAction('runtime/helpersReady');
-
-export const INVALID_RESPONSE = 'runtime/INVALID_RESPONSE';
 
 // For the following actions, the background script acts as
 // a relay, receiving actions from a content script and
