@@ -1,5 +1,6 @@
 import createColor from 'color';
 import React, {useEffect, useState} from 'react';
+import {useIntl} from 'react-intl';
 import {sendMessage, useRuntimeMessage} from '../../common/utils/runtime';
 import {ColorExtractorConfig, ColorInputConfig} from '../helpers/colorContrast';
 import {
@@ -99,6 +100,7 @@ const ColorContrast = ({
 	extractor,
 	minimumRatio
 }: ColorContrastProps) => {
+	const intl = useIntl();
 	const {colors, ratio, pickingAction, pickedColor, setColor, pickColor} =
 		usePicker(extractor);
 
@@ -108,7 +110,7 @@ const ColorContrast = ({
 	) => (
 		<ColorContrastField
 			name={name}
-			label={label}
+			label={intl.formatMessage({id: label})}
 			color={colors[name]}
 			hasPixelPicker={pixelPicker}
 			hasTextPicker={textPicker}
@@ -137,7 +139,7 @@ const ColorContrast = ({
 						pressed={requestStyle.match(pickingAction)}
 						onClick={() => pickColor(null, requestStyle())}
 					>
-						{extractor.label}
+						{intl.formatMessage({id: extractor.label})}
 					</ToggleButton>
 				) : null}
 			</form>

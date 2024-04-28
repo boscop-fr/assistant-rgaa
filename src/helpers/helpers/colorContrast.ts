@@ -102,7 +102,23 @@ type ColorContrastOptions = {
 
 export default createHelper({
 	name: 'colorContrast',
-	defaultOptions: {} as ColorContrastOptions,
+	defaultOptions: {
+		left: {
+			label: 'ColorContrast.textColor',
+			pixelPicker: true,
+			textPicker: true
+		},
+		right: {
+			label: 'ColorContrast.backgroundColor',
+			pixelPicker: true,
+			textPicker: false
+		},
+		extractor: {
+			label: 'ColorContrast.extract',
+			left: 'color',
+			right: 'backgroundColor'
+		}
+	} as ColorContrastOptions,
 	component: ColorContrast,
 	describe(intl) {
 		return intl.formatMessage({

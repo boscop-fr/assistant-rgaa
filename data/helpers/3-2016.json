@@ -1024,169 +1024,49 @@
 	"3.3.1": [
 		{
 			"helper": "colorContrast",
-			"minimumRatio": 4.5,
-			"left": {
-				"label": "Couleur de texte",
-				"pixelPicker": true,
-				"textPicker": true
-			},
-			"right": {
-				"label": "Couleur d'arrière-plan",
-				"pixelPicker": true,
-				"textPicker": false
-			},
-			"extractor": {
-				"label": "Extraire la couleur de texte et d'arrière-plan depuis une sélection dans la page",
-				"left": "color",
-				"right": "backgroundColor"
-			}
+			"minimumRatio": 4.5
 		}
 	],
 	"3.3.2": [
 		{
 			"helper": "colorContrast",
-			"minimumRatio": 4.5,
-			"left": {
-				"label": "Couleur de texte",
-				"pixelPicker": true,
-				"textPicker": true
-			},
-			"right": {
-				"label": "Couleur d'arrière-plan",
-				"pixelPicker": true,
-				"textPicker": false
-			},
-			"extractor": {
-				"label": "Extraire la couleur de texte et d'arrière-plan depuis une sélection dans la page",
-				"left": "color",
-				"right": "backgroundColor"
-			}
+			"minimumRatio": 4.5
 		}
 	],
 	"3.3.3": [
 		{
 			"helper": "colorContrast",
-			"minimumRatio": 3,
-			"left": {
-				"label": "Couleur de texte",
-				"pixelPicker": true,
-				"textPicker": true
-			},
-			"right": {
-				"label": "Couleur d'arrière-plan",
-				"pixelPicker": true,
-				"textPicker": false
-			},
-			"extractor": {
-				"label": "Extraire la couleur de texte et d'arrière-plan depuis une sélection dans la page",
-				"left": "color",
-				"right": "backgroundColor"
-			}
+			"minimumRatio": 3
 		}
 	],
 	"3.3.4": [
 		{
 			"helper": "colorContrast",
-			"minimumRatio": 3,
-			"left": {
-				"label": "Couleur de texte",
-				"pixelPicker": true,
-				"textPicker": true
-			},
-			"right": {
-				"label": "Couleur d'arrière-plan",
-				"pixelPicker": true,
-				"textPicker": false
-			},
-			"extractor": {
-				"label": "Extraire la couleur de texte et d'arrière-plan depuis une sélection dans la page",
-				"left": "color",
-				"right": "backgroundColor"
-			}
+			"minimumRatio": 3
 		}
 	],
 	"3.4.1": [
 		{
 			"helper": "colorContrast",
-			"minimumRatio": 7,
-			"left": {
-				"label": "Couleur de texte",
-				"pixelPicker": true,
-				"textPicker": true
-			},
-			"right": {
-				"label": "Couleur d'arrière-plan",
-				"pixelPicker": true,
-				"textPicker": false
-			},
-			"extractor": {
-				"label": "Extraire la couleur de texte et d'arrière-plan depuis une sélection dans la page",
-				"left": "color",
-				"right": "backgroundColor"
-			}
+			"minimumRatio": 7
 		}
 	],
 	"3.4.2": [
 		{
 			"helper": "colorContrast",
-			"minimumRatio": 7,
-			"left": {
-				"label": "Couleur de texte",
-				"pixelPicker": true,
-				"textPicker": true
-			},
-			"right": {
-				"label": "Couleur d'arrière-plan",
-				"pixelPicker": true,
-				"textPicker": false
-			},
-			"extractor": {
-				"label": "Extraire la couleur de texte et d'arrière-plan depuis une sélection dans la page",
-				"left": "color",
-				"right": "backgroundColor"
-			}
+			"minimumRatio": 7
 		}
 	],
 	"3.4.3": [
 		{
 			"helper": "colorContrast",
-			"minimumRatio": 4.5,
-			"left": {
-				"label": "Couleur de texte",
-				"pixelPicker": true,
-				"textPicker": true
-			},
-			"right": {
-				"label": "Couleur d'arrière-plan",
-				"pixelPicker": true,
-				"textPicker": false
-			},
-			"extractor": {
-				"label": "Extraire la couleur de texte et d'arrière-plan depuis une sélection dans la page",
-				"left": "color",
-				"right": "backgroundColor"
-			}
+			"minimumRatio": 4.5
 		}
 	],
 	"3.4.4": [
 		{
 			"helper": "colorContrast",
-			"minimumRatio": 4.5,
-			"left": {
-				"label": "Couleur de texte",
-				"pixelPicker": true,
-				"textPicker": true
-			},
-			"right": {
-				"label": "Couleur d'arrière-plan",
-				"pixelPicker": true,
-				"textPicker": false
-			},
-			"extractor": {
-				"label": "Extraire la couleur de texte et d'arrière-plan depuis une sélection dans la page",
-				"left": "color",
-				"right": "backgroundColor"
-			}
+			"minimumRatio": 4.5
 		}
 	],
 	"4.1.1": [

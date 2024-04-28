@@ -39,6 +39,10 @@ const messages = {
 	'ColorInput.invalidFormatError':
 		'Cette couleur est invalide. Veuillez utiliser un code hexadécimal (#f00, #a2a2a2, ...) ou un nom de couleur HTML (red, yellow, ...)',
 	'ColorInput.sample': 'Aperçu de la couleur',
+	'ColorContrast.textColor': 'Couleur de texte',
+	'ColorContrast.backgroundColor': "Couleur d'arrière-plan",
+	'ColorContrast.extract':
+		"Extraire la couleur de texte et d'arrière-plan depuis une sélection dans la page",
 	'ColorContrastResult.ratio': 'Ratio de contraste',
 	'ColorContrastResult.invalidResult': 'invalide',
 	'ExternalReferences.wcag.abbr': 'Web content accessibility guidelines',
