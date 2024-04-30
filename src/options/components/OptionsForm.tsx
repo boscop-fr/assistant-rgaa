@@ -77,6 +77,25 @@ function OptionsForm() {
 			<div className="OptionsForm-field">
 				<label
 					className="OptionsForm-label"
+					htmlFor="OptionsForm-input--allowMultipleTests"
+				>
+					<FormattedMessage id="OptionsForm.allowMultipleTests" />
+					{'' /* forces eslint to consider that the label has some text */}
+				</label>
+
+				<input
+					id="OptionsForm-input--allowMultipleTests"
+					type="checkbox"
+					name="allowMultipleTests"
+					value="true"
+					checked={options.allowMultipleTests}
+					onChange={handleChange}
+				/>
+			</div>
+
+			<div className="OptionsForm-field">
+				<label
+					className="OptionsForm-label"
 					htmlFor="OptionsForm-input--autoOpenInstructions"
 				>
 					<FormattedMessage id="OptionsForm.autoOpenInstructions" />

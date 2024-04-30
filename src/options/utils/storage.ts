@@ -3,11 +3,13 @@ import {type Storage} from 'webextension-polyfill';
 
 export type Options = {
 	referenceVersion: string;
+	allowMultipleTests: boolean;
 	autoOpenInstructions: boolean;
 };
 
 export const DEFAULT_OPTIONS: Options = {
 	referenceVersion: '4-2023',
+	allowMultipleTests: false,
 	autoOpenInstructions: true
 };
 

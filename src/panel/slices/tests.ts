@@ -1,5 +1,6 @@
 import {
 	type PayloadAction,
+	createAction,
 	createSelector,
 	createSlice
 } from '@reduxjs/toolkit';
@@ -18,17 +19,23 @@ const testsSlice = createSlice({
 	name: 'tests',
 	initialState,
 	reducers: {
-		enableTest(state, {payload: id}: PayloadAction<Test['id']>) {
-			state.enabledIds.push(id);
-		},
-		disableTest(state, {payload: id}: PayloadAction<Test['id']>) {
-			const index = state.enabledIds.findIndex(
-				(enabledId) => id === enabledId
-			);
+		toggleTest(
+			state,
+			action: PayloadAction<{
+				id: Test['id'];
+				isExclusive: boolean;
+				toggle: boolean;
+			}>
+		) {
+			const {id, isExclusive, toggle} = action.payload;
 
-			if (index >= 0) {
-				state.enabledIds.splice(index, 1);
-			}
+			state.enabledIds = isExclusive
+				? toggle
+					? [id]
+					: []
+				: toggle
+					? state.enabledIds.concat(id)
+					: state.enabledIds.filter((i) => i !== id);
 		}
 	},
 	selectors: {
@@ -42,8 +49,12 @@ const testsSlice = createSlice({
 });
 
 const {actions, reducer, selectors} = testsSlice;
-export const {enableTest, disableTest} = actions;
+export const {toggleTest} = actions;
 export const {selectIsTestEnabled, selectEnabledTestIds} = selectors;
+
+export const autoToggleTest = createAction<{id: Test['id']; toggle: boolean}>(
+	'tests/autoToggleTest'
+);
 
 export const selectEnabledTests = createSelector(
 	[selectAllTests, selectEnabledTestIds],

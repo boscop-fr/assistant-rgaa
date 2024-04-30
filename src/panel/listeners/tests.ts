@@ -1,19 +1,15 @@
+import {getOption} from '../../options/utils/storage';
 import {AppStartListening} from '../middlewares/listener';
-import {disableTest, enableTest, selectEnabledTestIds} from '../slices/tests';
+import {autoToggleTest, toggleTest} from '../slices/tests';
 
 export const addTestsListeners = (startListening: AppStartListening) => {
 	startListening({
-		actionCreator: enableTest,
-		effect({payload: id}, api) {
-			// disables previously enabled tests
-			const state = api.getState();
-			const enabledIds = selectEnabledTestIds(state);
+		actionCreator: autoToggleTest,
+		async effect({payload}, api) {
+			const {id, toggle} = payload;
+			const isExclusive = !(await getOption('allowMultipleTests'));
 
-			enabledIds.forEach((otherId) => {
-				if (otherId !== id) {
-					api.dispatch(disableTest(otherId));
-				}
-			});
+			api.dispatch(toggleTest({id, isExclusive, toggle}));
 		}
 	});
 };

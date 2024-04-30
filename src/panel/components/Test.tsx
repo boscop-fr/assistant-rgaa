@@ -5,7 +5,7 @@ import {type Test} from '../../common/types';
 import {useOption} from '../../options/utils/storage';
 import {selectTestHasHelpers} from '../slices/helpers';
 import {selectInstructionsByTest} from '../slices/instructions';
-import {disableTest, enableTest, selectIsTestEnabled} from '../slices/tests';
+import {autoToggleTest, selectIsTestEnabled} from '../slices/tests';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import TestHelpers from './TestHelpers';
 import TestInstructions from './TestInstructions';
@@ -31,14 +31,11 @@ function Test({id, title}: TestProps) {
 	const dispatch = useAppDispatch();
 
 	const handleToggle = () => {
-		if (applied) {
-			dispatch(disableTest(id));
-		} else {
-			dispatch(enableTest(id));
+		const toggle = !applied;
+		dispatch(autoToggleTest({id, toggle}));
 
-			if (autoOpenInstructions) {
-				setInstructionsOpen(true);
-			}
+		if (toggle && autoOpenInstructions) {
+			setInstructionsOpen(true);
 		}
 	};
 

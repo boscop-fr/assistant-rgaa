@@ -15,7 +15,7 @@ import {
 	setGlobalHelper
 } from '../slices/helpers';
 import {selectPageTabId} from '../slices/panel';
-import {disableTest, enableTest, selectEnabledTestIds} from '../slices/tests';
+import {selectEnabledTestIds, toggleTest} from '../slices/tests';
 import {AppDispatch, AppState} from '../store';
 import {pollEffect} from '../utils/listeners';
 import {onRuntimeAction} from '../utils/runtime';
@@ -39,12 +39,7 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 	};
 
 	startListening({
-		matcher: isAnyOf(
-			enableTest,
-			disableTest,
-			setGlobalHelper,
-			removeGlobalHelper
-		),
+		matcher: isAnyOf(toggleTest, setGlobalHelper, removeGlobalHelper),
 		effect: applyHelpersEffect
 	});
 
