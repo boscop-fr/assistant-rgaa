@@ -11,8 +11,8 @@ export type HelperModule<Name, Options extends HelperOptions> = {
 	defaultOptions: Options;
 	component?: ComponentType<Options>;
 	describe: (intl: IntlShape, options: Options) => HelperDescription;
-	apply?: (uuid: string, options: Options) => void;
-	revert?: (uuid: string, options: Options) => void;
+	apply?: (options: Options) => void;
+	revert?: (options: Options) => void;
 };
 
 export type HelperDef<Module> =

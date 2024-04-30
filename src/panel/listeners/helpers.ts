@@ -1,56 +1,58 @@
+import {
+	type ListenerEffectAPI,
+	type UnknownAction,
+	isAnyOf
+} from '@reduxjs/toolkit';
 import {helpersReady} from '../../background/slices/runtime';
 import {sendMessage} from '../../common/utils/tabs';
 import {AppStartListening} from '../middlewares/listener';
-import {selectHelpersByTest, toggleHelpers} from '../slices/helpers';
+import {
+	applyHelpers,
+	removeGlobalHelper,
+	revertActiveHelpers,
+	selectGlobalHelpers,
+	selectHelpersByTests,
+	setGlobalHelper
+} from '../slices/helpers';
 import {selectPageTabId} from '../slices/panel';
 import {disableTest, enableTest, selectEnabledTestIds} from '../slices/tests';
+import {AppDispatch, AppState} from '../store';
 import {pollEffect} from '../utils/listeners';
 import {onRuntimeAction} from '../utils/runtime';
 
 export const addHelpersListeners = (startListening: AppStartListening) => {
-	startListening({
-		actionCreator: toggleHelpers,
-		effect(action, api) {
-			const tabId = selectPageTabId(api.getState());
-			sendMessage(tabId, action);
-		}
-	});
+	const applyHelpersEffect = (
+		action: UnknownAction,
+		api: ListenerEffectAPI<AppState, AppDispatch>
+	) => {
+		const state = api.getState();
+		const ids = selectEnabledTestIds(state);
+		const helpers = selectHelpersByTests(state, ids);
+		const globalHelpers = selectGlobalHelpers(state);
+		const allHelpers = helpers.concat(globalHelpers);
+		const tabId = selectPageTabId(api.getState());
+
+		sendMessage(
+			tabId,
+			allHelpers.length ? applyHelpers(allHelpers) : revertActiveHelpers()
+		);
+	};
 
 	startListening({
-		actionCreator: enableTest,
-		effect({payload: id}, api) {
-			const helpers = selectHelpersByTest(api.getState(), id);
-			api.dispatch(toggleHelpers({id, helpers, enabled: true}));
-		}
-	});
-
-	startListening({
-		actionCreator: disableTest,
-		effect({payload: id}, api) {
-			const helpers = selectHelpersByTest(api.getState(), id);
-			api.dispatch(toggleHelpers({id, helpers, enabled: false}));
-		}
+		matcher: isAnyOf(
+			enableTest,
+			disableTest,
+			setGlobalHelper,
+			removeGlobalHelper
+		),
+		effect: applyHelpersEffect
 	});
 
 	startListening({
 		predicate: () => true,
 		effect: pollEffect(
 			onRuntimeAction.bind(null, helpersReady),
-			(action, api) => {
-				const ids = selectEnabledTestIds(api.getState());
-
-				ids.forEach((id) => {
-					const helpers = selectHelpersByTest(api.getState(), id);
-
-					api.dispatch(
-						toggleHelpers({
-							id,
-							helpers,
-							enabled: true
-						})
-					);
-				});
-			}
+			applyHelpersEffect
 		)
 	});
 };

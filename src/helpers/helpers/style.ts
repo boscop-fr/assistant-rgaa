@@ -1,3 +1,4 @@
+import {hashCode} from '../../common/utils/strings';
 import {createHelper} from '../utils/createHelper';
 
 type StyleOptions = {
@@ -19,13 +20,13 @@ export default createHelper({
 			}
 		);
 	},
-	apply(id, {style}) {
+	apply({style}) {
 		document.head.insertAdjacentHTML(
 			'beforeend',
-			`<style id="${id}">${style}</style>`
+			`<style id="${hashCode(style)}">${style}</style>`
 		);
 	},
-	revert(id) {
-		document.getElementById(id).remove();
+	revert({style}) {
+		document.getElementById(hashCode(style)).remove();
 	}
 });

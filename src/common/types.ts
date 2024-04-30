@@ -1,7 +1,7 @@
 import {Helper} from '../helpers/types';
 
 export type Test = {
-	id: `${number}.${number}.${number}` | `internal.${string}`;
+	id: `${number}.${number}.${number}`;
 	title: string;
 };
 

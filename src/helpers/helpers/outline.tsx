@@ -2,7 +2,7 @@ import React from 'react';
 import {createHelper} from '../utils/createHelper';
 import hideHelperElement from '../utils/hideHelperElement';
 import {sanitize} from '../utils/selectors';
-import showTagApi from '../utils/showTag';
+import showCodeNearElement from '../utils/showCodeNearElement';
 
 type OutlineOptions = {
 	selector: string;
@@ -26,7 +26,7 @@ export default createHelper({
 			}
 		);
 	},
-	apply(id, {selector, showTag = false}) {
+	apply({selector, showTag = false}) {
 		document.querySelectorAll(selector).forEach((element) => {
 			element.classList.add(
 				'rgaaExt-Helper--mappable',
@@ -36,11 +36,13 @@ export default createHelper({
 
 		if (showTag) {
 			document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
-				showTagApi(id, element);
+				showCodeNearElement(element, `${element.tagName.toLowerCase()}`, {
+					className: `rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-OutlineHelper-tag`
+				});
 			});
 		}
 	},
-	revert(id, {selector}) {
+	revert({selector}) {
 		document.querySelectorAll(selector).forEach((element) => {
 			element.classList.remove(
 				'rgaaExt-Helper--mappable',
@@ -48,6 +50,6 @@ export default createHelper({
 			);
 		});
 
-		hideHelperElement(`.${id}`);
+		hideHelperElement('.rgaaExt-OutlineHelper-tag');
 	}
 });

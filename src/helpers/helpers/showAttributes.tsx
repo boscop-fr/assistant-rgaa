@@ -32,18 +32,19 @@ export default createHelper({
 			}
 		);
 	},
-	apply(id, {selector, attributes, showMissing = false}) {
+	apply({selector, attributes, showMissing = false}) {
 		document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
 			const html = serializeAttributes(element, attributes, showMissing);
 
 			if (html) {
 				showCodeNearElement(element, html, {
-					className: `${id} rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowAttributesHelper`
+					className:
+						'rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowAttributesHelper'
 				});
 			}
 		});
 	},
-	revert(id) {
-		hideHelperElement(`.${id}`);
+	revert() {
+		hideHelperElement('.rgaaExt-ShowAttributesHelper');
 	}
 });

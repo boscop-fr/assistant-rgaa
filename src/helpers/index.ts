@@ -1,13 +1,17 @@
 import {helpersReady, tabUnloaded} from '../background/slices/runtime';
 import {sendMessage} from '../common/utils/runtime';
-import {toggleHelpers as toggleHelpersAction} from '../panel/slices/helpers';
+import {
+	applyHelpers as applyHelpersAction,
+	revertActiveHelpers as revertActiveHelpersAction
+} from '../panel/slices/helpers';
 import {onDomLoaded} from './utils/dom';
-import {revertActiveHelpers, toggleHelpers} from './utils/helpers';
+import {applyHelpers, revertActiveHelpers} from './utils/helpers';
 
 browser.runtime.onMessage.addListener((action) => {
-	if (toggleHelpersAction.match(action)) {
-		const {id, helpers, enabled} = action.payload;
-		toggleHelpers(id, helpers, enabled);
+	if (applyHelpersAction.match(action)) {
+		applyHelpers(action.payload);
+	} else if (revertActiveHelpersAction.match(action)) {
+		revertActiveHelpers();
 	} else if (tabUnloaded.match(action)) {
 		revertActiveHelpers();
 	}

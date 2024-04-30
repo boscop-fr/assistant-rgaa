@@ -59,7 +59,7 @@ export default createHelper({
 			}
 		);
 	},
-	apply(id, {selector, childrenSelector, ...options}) {
+	apply({selector, childrenSelector, ...options}) {
 		document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
 			element
 				.querySelectorAll<HTMLElement>(childrenSelector)
@@ -68,13 +68,14 @@ export default createHelper({
 
 					if (html) {
 						showCodeNearElement(element, html, {
-							className: `${id} rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowChildElementsHelper`
+							className:
+								'rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowChildElementsHelper'
 						});
 					}
 				});
 		});
 	},
-	revert(id) {
-		hideHelperElement(`.${id}`);
+	revert() {
+		hideHelperElement('.rgaaExt-ShowChildElementsHelper');
 	}
 });

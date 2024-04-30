@@ -1,26 +1,33 @@
+import {type ListenerEffectAPI} from '@reduxjs/toolkit';
 import {helpersReady} from '../../background/slices/runtime';
 import {AppStartListening} from '../middlewares/listener';
-import {toggleHelpers} from '../slices/helpers';
+import {removeGlobalHelper, setGlobalHelper} from '../slices/helpers';
 import {selectAreStylesEnabled, toggleStyles} from '../slices/styles';
+import {AppDispatch, AppState} from '../store';
 import {pollEffect} from '../utils/listeners';
 import {onRuntimeAction} from '../utils/runtime';
 
 export const addStylesListeners = (startListening: AppStartListening) => {
-	const applyHelpers = (enabled: boolean) =>
-		toggleHelpers({
-			id: 'internal.styles',
-			helpers: [{helper: 'disableAllStyles'}],
-			// This can be quite confusing…
-			// We're using the **disableAllStyles** helper, so
-			// we want it to do the opposite of what we ask for
-			// (i.e. enabled styles = !disableAllStyles)
-			enabled: !enabled
-		});
+	const toggleGlobalHelper = (
+		api: ListenerEffectAPI<AppState, AppDispatch>,
+		enabled: boolean
+	) => {
+		if (enabled) {
+			api.dispatch(removeGlobalHelper('styles'));
+		} else {
+			api.dispatch(
+				setGlobalHelper({
+					id: 'styles',
+					helper: {helper: 'disableAllStyles'}
+				})
+			);
+		}
+	};
 
 	startListening({
 		actionCreator: toggleStyles,
 		effect({payload: enabled}, api) {
-			api.dispatch(applyHelpers(enabled));
+			toggleGlobalHelper(api, enabled);
 		}
 	});
 
@@ -30,7 +37,7 @@ export const addStylesListeners = (startListening: AppStartListening) => {
 			onRuntimeAction.bind(null, helpersReady),
 			(action, api) => {
 				const enabled = selectAreStylesEnabled(api.getState());
-				api.dispatch(applyHelpers(enabled));
+				toggleGlobalHelper(api, enabled);
 			}
 		)
 	});

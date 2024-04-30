@@ -56,18 +56,19 @@ export default createHelper({
 			}
 		);
 	},
-	apply(id, {selector, ...options}) {
+	apply({selector, ...options}) {
 		document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
 			const html = serializeElement(element, options);
 
 			if (html) {
 				showCodeNearElement(element, html, {
-					className: `${id} rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowElementHelper`
+					className:
+						'rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowElementHelper'
 				});
 			}
 		});
 	},
-	revert(id) {
-		hideHelperElement(`.${id}`);
+	revert() {
+		hideHelperElement('.rgaaExt-ShowElementHelper');
 	}
 });

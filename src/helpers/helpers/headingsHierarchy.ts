@@ -12,7 +12,7 @@ type HeadingsHierarchyOptions = {
 	showMissing?: boolean;
 };
 
-const observers = new Map();
+let observer: MutationObserver = null;
 
 export default createHelper({
 	name: 'headingsHierarchy',
@@ -25,7 +25,11 @@ export default createHelper({
 			id: 'Helper.headingsHierarchy'
 		});
 	},
-	apply(id, {showMissing = true}) {
+	apply({showMissing = true}) {
+		if (observer) {
+			return;
+		}
+
 		const sendHierarchy = () => {
 			const hierarchy = getHeadingsHierarchy();
 
@@ -38,20 +42,17 @@ export default createHelper({
 			);
 		};
 
-		const observer = new MutationObserver(debounce(sendHierarchy, 300));
-		observers.set(id, observer);
+		observer = new MutationObserver(debounce(sendHierarchy, 300));
 		observer.observe(document.body, {
 			childList: true
 		});
 
 		sendHierarchy();
 	},
-	revert(id) {
-		const observer = observers.get(id);
-
+	revert() {
 		if (observer) {
 			observer.disconnect();
-			observers.delete(id);
+			observer = null;
 		}
 	}
 });
