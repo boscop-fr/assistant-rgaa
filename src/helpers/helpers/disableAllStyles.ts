@@ -1,10 +1,10 @@
-import {createHelper} from '../utils/createHelper';
 import {
-	muteAttribute,
-	mutedAttributeSelector,
-	restoreAttribute
-} from '../utils/muteAttributes';
-import toggleStyleSheets from '../utils/toggleStyleSheets';
+	muteElementsAttributeEffect,
+	toggleClassEffect,
+	toggleStyleSheetsEffect
+} from '../effects/dom';
+import {createHelper} from '../utils/createHelper';
+import {combineEffects} from '../utils/effects';
 import styleHelper from './style';
 
 const CssReset = `
@@ -25,17 +25,13 @@ export default createHelper({
 		});
 	},
 	apply() {
-		toggleStyleSheets(false);
-		muteAttribute(document.querySelectorAll('[style]'), 'style');
-		styleHelper.apply({
-			style: CssReset
-		});
-	},
-	revert(id) {
-		const selector = mutedAttributeSelector('style');
-
-		styleHelper.revert({style: CssReset});
-		restoreAttribute(document.querySelectorAll(selector), 'style');
-		toggleStyleSheets(true);
+		return combineEffects([
+			toggleClassEffect(document.body, 'rgaaExt-DisableAllStylesHelper'),
+			toggleStyleSheetsEffect(false),
+			muteElementsAttributeEffect('[style]', 'style'),
+			styleHelper.apply({
+				style: CssReset
+			})
+		]);
 	}
 });

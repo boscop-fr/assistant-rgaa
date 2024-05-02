@@ -2,6 +2,10 @@ import {type ComponentType} from 'react';
 import {type IntlShape} from 'react-intl';
 import modules from './helpers';
 
+// An effect is a function that does something and returns a
+// function to revert what it did.
+export type Effect = () => () => void;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type HelperOptions = Record<string, any>;
 type HelperDescription = ReturnType<IntlShape['formatMessage']>;
@@ -11,8 +15,7 @@ export type HelperModule<Name, Options extends HelperOptions> = {
 	defaultOptions: Options;
 	component?: ComponentType<Options>;
 	describe: (intl: IntlShape, options: Options) => HelperDescription;
-	apply?: (options: Options) => void;
-	revert?: (options: Options) => void;
+	apply?: (options: Options) => Effect;
 };
 
 export type HelperDef<Module> =

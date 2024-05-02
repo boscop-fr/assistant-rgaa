@@ -64,7 +64,7 @@ const MinimapPins = ({minimumPinSize = 4}: MinimapPinsProps) => {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		document
-			.querySelectorAll<HTMLElement>('.rgaaExt-Helper--mappable')
+			.querySelectorAll<HTMLElement>('.rgaaExt-Mappable')
 			.forEach((element) => {
 				const isWinRelative = isWindowRelative(element);
 				const {offset, size} = isWinRelative

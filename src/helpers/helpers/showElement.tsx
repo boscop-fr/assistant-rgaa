@@ -1,9 +1,7 @@
 import React from 'react';
+import {setHighlightOptionsEffect} from '../effects/highlight';
 import {createHelper} from '../utils/createHelper';
-import hideHelperElement from '../utils/hideHelperElement';
 import {sanitize} from '../utils/selectors';
-import serializeElement from '../utils/serializeElement';
-import showCodeNearElement from '../utils/showCodeNearElement';
 
 type ShowElementOptions = {
 	selector: string;
@@ -56,19 +54,19 @@ export default createHelper({
 			}
 		);
 	},
-	apply({selector, ...options}) {
-		document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
-			const html = serializeElement(element, options);
-
-			if (html) {
-				showCodeNearElement(element, html, {
-					className:
-						'rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowElementHelper'
-				});
-			}
+	apply({
+		selector,
+		showName,
+		showEmpty,
+		attributes,
+		showMissingAttributes,
+		showContent
+	}) {
+		return setHighlightOptionsEffect(selector, (options) => {
+			options.showTag(showName);
+			options.showIfEmpty(showEmpty);
+			options.pushAttributes(attributes, showMissingAttributes);
+			options.showContent(showContent);
 		});
-	},
-	revert() {
-		hideHelperElement('.rgaaExt-ShowElementHelper');
 	}
 });

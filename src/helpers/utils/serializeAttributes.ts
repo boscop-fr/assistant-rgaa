@@ -3,10 +3,16 @@ import serializeAttribute from './serializeAttribute';
 const serializeAttributes = (
 	element: HTMLElement,
 	attributes: string[],
-	showMissing: boolean
+	shownWhenMissing: string[]
 ) =>
 	attributes
-		.map((attribute) => serializeAttribute(element, attribute, showMissing))
+		.map((attribute) =>
+			serializeAttribute(
+				element,
+				attribute,
+				shownWhenMissing.includes(attribute)
+			)
+		)
 		.filter((attribute) => !!attribute)
 		.join(' ');
 

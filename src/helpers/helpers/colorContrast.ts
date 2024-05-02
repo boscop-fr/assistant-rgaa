@@ -126,9 +126,12 @@ export default createHelper({
 		});
 	},
 	apply() {
-		browser.runtime.onMessage.addListener(handleMessage);
-	},
-	revert() {
-		browser.runtime.onMessage.removeListener(handleMessage);
+		return () => {
+			browser.runtime.onMessage.addListener(handleMessage);
+
+			return () => {
+				browser.runtime.onMessage.removeListener(handleMessage);
+			};
+		};
 	}
 });

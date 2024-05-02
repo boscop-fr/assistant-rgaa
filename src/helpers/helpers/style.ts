@@ -21,12 +21,16 @@ export default createHelper({
 		);
 	},
 	apply({style}) {
-		document.head.insertAdjacentHTML(
-			'beforeend',
-			`<style id="${hashCode(style)}">${style}</style>`
-		);
-	},
-	revert({style}) {
-		document.getElementById(hashCode(style)).remove();
+		return () => {
+			const id = hashCode(style);
+			document.head.insertAdjacentHTML(
+				'beforeend',
+				`<style id="${id}">${style}</style>`
+			);
+
+			return () => {
+				document.getElementById(id).remove();
+			};
+		};
 	}
 });

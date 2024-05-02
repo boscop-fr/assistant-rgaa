@@ -26,33 +26,34 @@ export default createHelper({
 		});
 	},
 	apply({showMissing = true}) {
-		if (observer) {
-			return;
-		}
+		return () => {
+			if (!observer) {
+				const sendHierarchy = () => {
+					const hierarchy = getHeadingsHierarchy();
 
-		const sendHierarchy = () => {
-			const hierarchy = getHeadingsHierarchy();
+					sendMessage(
+						getHierarchy(
+							showMissing
+								? withMissingHeadings(hierarchy, 'Titre manquant')
+								: hierarchy
+						)
+					);
+				};
 
-			sendMessage(
-				getHierarchy(
-					showMissing
-						? withMissingHeadings(hierarchy, 'Titre manquant')
-						: hierarchy
-				)
-			);
+				observer = new MutationObserver(debounce(sendHierarchy, 300));
+				observer.observe(document.body, {
+					childList: true
+				});
+
+				sendHierarchy();
+			}
+
+			return () => {
+				if (observer) {
+					observer.disconnect();
+					observer = null;
+				}
+			};
 		};
-
-		observer = new MutationObserver(debounce(sendHierarchy, 300));
-		observer.observe(document.body, {
-			childList: true
-		});
-
-		sendHierarchy();
-	},
-	revert() {
-		if (observer) {
-			observer.disconnect();
-			observer = null;
-		}
 	}
 });

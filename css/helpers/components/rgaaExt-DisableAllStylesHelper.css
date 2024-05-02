@@ -1,0 +1,26 @@
+.rgaaExt-DisableAllStylesHelper {
+	legend {
+		/* prevents background content to be seen under the legend */
+		background: #fff !important;
+	}
+
+	label,
+	input,
+	textarea,
+	select,
+	object {
+		display: block !important;
+	}
+
+	a {
+		display: inline-block !important;
+	}
+
+	.rgaaExt-Helper {
+		margin-bottom: calc(var(--rgaa-ext-line-height-base) / 2) !important;
+	}
+
+	[hidden] {
+		display: inline-block !important;
+	}
+}

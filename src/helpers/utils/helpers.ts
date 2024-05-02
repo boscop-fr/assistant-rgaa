@@ -1,31 +1,33 @@
+import {toggleClassEffect} from '../effects/dom';
+import {highlightElementsEffect} from '../effects/highlight';
 import {Helper, helperInfo} from '../types';
+import {combineEffects} from './effects';
 
-let activeHelpers: Helper[] = [];
+let revertEffects: () => void;
 
-export const toggleHelpers = (helpers: Helper[], toggle: boolean) => {
-	const method = toggle ? 'apply' : 'revert';
+export const applyHelpers = (helpers: Helper[]) => {
+	revertEffects?.();
 
-	helpers.forEach((helper, i) => {
+	const helperEffects = helpers.flatMap((helper) => {
 		try {
 			const {module, args} = helperInfo(helper);
-			module[method](args);
-			document.body.classList.toggle(`rgaaExt-Body--${name}Helper`, toggle);
+			return module.apply(args);
 		} catch (e) {
 			// eslint-disable-next-line no-console
 			console.error(e);
 		}
 	});
 
-	document.body.classList.toggle('rgaaExt-Body', toggle);
-	document.body.classList.toggle('rgaaExt-Body--withHelpers', toggle);
-	activeHelpers = toggle ? helpers : [];
+	const effect = combineEffects([
+		...helperEffects,
+		highlightElementsEffect(),
+		toggleClassEffect(document.body, 'rgaaExt-Body'),
+		toggleClassEffect(document.body, 'rgaaExt-Body--withHelpers')
+	]);
+
+	revertEffects = effect();
 };
 
 export const revertActiveHelpers = () => {
-	toggleHelpers(activeHelpers, false);
-};
-
-export const applyHelpers = (helpers: Helper[]) => {
-	revertActiveHelpers();
-	toggleHelpers(helpers, true);
+	revertEffects?.();
 };

@@ -1,9 +1,11 @@
+const CONTAINER_CLASS_NAME = 'rgaaExt-HelperContainer';
+
 // Stores helper containers indexed by their "parent" element.
 const containers = new WeakMap();
 
 const createContainer = (element: HTMLElement) => {
 	const container = document.createElement('div');
-	container.className = 'rgaaExt-HelperContainer';
+	container.className = CONTAINER_CLASS_NAME;
 
 	if (document.body.contains(element)) {
 		element.after(container);
@@ -31,17 +33,17 @@ const getContainer = (element: HTMLElement) => {
 
 // Appends some code next to an element, ensuring that the
 // code is visible in the page.
-const showCodeNearElement = (
-	element: HTMLElement,
-	html: string,
-	{className} = {
-		className: ''
-	}
-) => {
+export const showCodeNearElement = (element: HTMLElement, html: string) => {
 	getContainer(element).insertAdjacentHTML(
 		'beforeend',
-		`<code class="${className}">${html}</code>`
+		`<code class="rgaaExt-Helper rgaaExt-Mappable">${html}</code>`
 	);
 };
 
-export default showCodeNearElement;
+export const removeCodeNearElement = (element: HTMLElement) => {
+	const next = element.nextElementSibling;
+
+	if (next?.classList.contains(CONTAINER_CLASS_NAME)) {
+		next.remove();
+	}
+};

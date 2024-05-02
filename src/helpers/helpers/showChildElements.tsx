@@ -1,9 +1,7 @@
 import React from 'react';
+import {setChildHighlightOptionsEffect} from '../effects/highlight';
 import {createHelper} from '../utils/createHelper';
-import hideHelperElement from '../utils/hideHelperElement';
 import {sanitize} from '../utils/selectors';
-import serializeElement from '../utils/serializeElement';
-import showCodeNearElement from '../utils/showCodeNearElement';
 
 type ShowChildElementsOptions = {
 	selector: string;
@@ -59,23 +57,24 @@ export default createHelper({
 			}
 		);
 	},
-	apply({selector, childrenSelector, ...options}) {
-		document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
-			element
-				.querySelectorAll<HTMLElement>(childrenSelector)
-				.forEach((child) => {
-					const html = serializeElement(child, options);
-
-					if (html) {
-						showCodeNearElement(element, html, {
-							className:
-								'rgaaExt-Helper rgaaExt-Helper--mappable rgaaExt-ShowChildElementsHelper'
-						});
-					}
-				});
-		});
-	},
-	revert() {
-		hideHelperElement('.rgaaExt-ShowChildElementsHelper');
+	apply({
+		selector,
+		childrenSelector,
+		showName,
+		showEmpty,
+		attributes,
+		showMissingAttributes,
+		showContent
+	}) {
+		return setChildHighlightOptionsEffect(
+			selector,
+			childrenSelector,
+			(options) => {
+				options.showTag(showName);
+				options.showIfEmpty(showEmpty);
+				options.pushAttributes(attributes, showMissingAttributes);
+				options.showContent(showContent);
+			}
+		);
 	}
 });
