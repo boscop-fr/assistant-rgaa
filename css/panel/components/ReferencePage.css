@@ -6,3 +6,11 @@
 .ReferencePage-themes {
 	overflow: auto;
 }
+
+.ReferencePage-enabledTests {
+	position: sticky;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 200;
+}

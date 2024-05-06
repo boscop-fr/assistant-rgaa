@@ -1,0 +1,19 @@
+.EnabledTests {
+	border-top: 1px solid color-mix(in srgb, var(--color-black), white 60%);
+	background: var(--color-theme-dark);
+	color: var(--color-theme-dark-text);
+}
+
+.EnabledTests-testList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5ch;
+	padding: 0 var(--app-gutter) 0.5lh var(--app-gutter);
+}
+
+.EnabledTests-disableButton {
+	&:hover,
+	&:focus {
+		text-decoration: line-through;
+	}
+}

@@ -22,6 +22,8 @@ const messages = {
 	'Criterion.tabs.references': 'Réferences',
 	'Criterion.tabs.specialCases': 'Cas particuliers',
 	'Criterion.tabs.technicalNotes': 'Notes techniques',
+	'EnabledTests.title': 'Tests actifs',
+	'EnabledTests.disableTest': 'Désactiver le test {id}',
 	'Test.title': 'Test {id}',
 	'Test.apply.title':
 		'{applied, select, true {Désactiver} other {Activer}} le test {id}',

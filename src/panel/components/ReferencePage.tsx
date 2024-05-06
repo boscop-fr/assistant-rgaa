@@ -3,6 +3,7 @@ import React, {useCallback} from 'react';
 import {selectAllThemes, selectIsLoaded} from '../slices/reference';
 import {saveScrollPosition, selectScrollPosition} from '../slices/themes';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
+import EnabledTests from './EnabledTests';
 import Theme from './Theme';
 
 const ReferencePage = () => {
@@ -36,6 +37,10 @@ const ReferencePage = () => {
 				{Object.values(themes).map((theme) => (
 					<Theme key={theme.id} theme={theme} />
 				))}
+			</div>
+
+			<div className="ReferencePage-enabledTests">
+				<EnabledTests />
 			</div>
 		</div>
 	);
