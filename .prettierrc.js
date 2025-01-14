@@ -32,6 +32,12 @@ module.exports = {
 				useTabs: false,
 				tabWidth: 2
 			}
+		},
+		{
+			files: '*.html',
+			options: {
+				htmlWhitespaceSensitivity: 'css'
+			}
 		}
 	]
 };

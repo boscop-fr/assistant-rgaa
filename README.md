@@ -19,7 +19,7 @@ L'extension peut être positionnée à différents endroits du navigateur (à dr
 
 ## À propos
 
-L'assistant RGAA, initialement développé pour le compte de la <abbr title="Direction interministérielle du numérique">DINUM</abbr> (anciennement <abbr title="Direction interministérielle du numérique et du système d'information et de communication de l'État français">DINSIC</abbr>), est maintenu et mis à jour par [Empreinte Digitale](https://empreintedigitale.fr/).
+L'assistant RGAA, initialement développé pour le compte de la <abbr title="Direction interministérielle du numérique">DINUM</abbr> (anciennement <abbr title="Direction interministérielle du numérique et du système d'information et de communication de l'État français">DINSIC</abbr>), est maintenu et mis à jour par [Boscop](https://boscop.fr/).
 Cette extension est placée sous [licence MIT](./LICENSE).
 
 ## Documentation

@@ -1,5 +1,5 @@
 {
-  "name": "@empreinte-digitale/assistant-rgaa",
+  "name": "@boscop/assistant-rgaa",
   "version": "1.3.0",
   "description": "Assistant RGAA",
   "main": "js/index.js",
@@ -11,12 +11,12 @@
     "build": "rspack build",
     "build-extension": "npm run build && web-ext build --artifacts-dir artifacts/ --ignore-files ./bin ./css ./doc ./fixtures ./src ./test ./site ./package.json ./webpack.config.*",
     "sign-extension": "npm run build && web-ext sign --artifacts-dir artifacts/ --ignore-files ./bin ./css ./doc ./fixtures ./src ./test ./site ./package.json ./webpack.config.*",
-    "lint:format": "prettier --check ./src ./css ./data",
+    "lint:format": "prettier --check ./src ./css ./data ./site",
     "lint:js": "eslint ./src",
     "lint:css": "stylelint \"./css/**/*.css\"",
     "lint:extension": "web-ext lint",
     "lint": "npm run lint:format && npm run lint:js && npm run lint:css && npm run lint:extension",
-    "format": "prettier --write ./src ./css ./data",
+    "format": "prettier --write ./src ./css ./data ./site",
     "test": "jest",
     "prepare": "husky"
   },
