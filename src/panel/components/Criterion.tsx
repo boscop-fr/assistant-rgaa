@@ -2,7 +2,6 @@
 import classNames from 'classnames';
 import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
 import {type JSX} from 'react/jsx-runtime';
 import {type Criterion} from '../../common/types';
 import {selectCriterionStatus} from '../slices/audit';
@@ -123,6 +122,48 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 			<div className="Criterion-content" id={`Criterion-${id}-content`}>
 				{isOpen ? (
 					<>
+						{hasReferences ? (
+							<details className="Criterion-details">
+								<summary className="Criterion-detailsSummary">
+									{intl.formatMessage({
+										id: 'Criterion.tabs.references'
+									})}
+								</summary>
+
+								<div className="Criterion-detailsBody">
+									<ExternalReferences references={references} />
+								</div>
+							</details>
+						) : null}
+
+						{specialCases ? (
+							<details className="Criterion-details">
+								<summary className="Criterion-detailsSummary">
+									{intl.formatMessage({
+										id: 'Criterion.tabs.specialCases'
+									})}
+								</summary>
+
+								<div className="Criterion-detailsBody">
+									<CriterionNotes notes={specialCases} />
+								</div>
+							</details>
+						) : null}
+
+						{notes ? (
+							<details className="Criterion-details">
+								<summary className="Criterion-detailsSummary">
+									{intl.formatMessage({
+										id: 'Criterion.tabs.technicalNotes'
+									})}
+								</summary>
+
+								<div className="Criterion-detailsBody">
+									<CriterionNotes notes={notes} />
+								</div>
+							</details>
+						) : null}
+
 						<ul className="Criterion-tests">
 							{Object.values(tests).map(
 								({id: testId, title: testTitle}) => (
@@ -135,54 +176,6 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 								)
 							)}
 						</ul>
-
-						<Tabs>
-							<TabList>
-								{hasReferences ? (
-									<Tab>
-										{intl.formatMessage({
-											id: 'Criterion.tabs.references'
-										})}
-									</Tab>
-								) : null}
-
-								{specialCases ? (
-									<Tab>
-										{intl.formatMessage({
-											id: 'Criterion.tabs.specialCases'
-										})}
-									</Tab>
-								) : null}
-
-								{notes ? (
-									<Tab>
-										{intl.formatMessage({
-											id: 'Criterion.tabs.technicalNotes'
-										})}
-									</Tab>
-								) : null}
-							</TabList>
-
-							<div className="Criterion-tabPanel">
-								{hasReferences ? (
-									<TabPanel>
-										<ExternalReferences references={references} />
-									</TabPanel>
-								) : null}
-
-								{specialCases ? (
-									<TabPanel>
-										<CriterionNotes notes={specialCases} />
-									</TabPanel>
-								) : null}
-
-								{notes ? (
-									<TabPanel>
-										<CriterionNotes notes={notes} />
-									</TabPanel>
-								) : null}
-							</div>
-						</Tabs>
 					</>
 				) : null}
 			</div>

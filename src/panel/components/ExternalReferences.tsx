@@ -24,8 +24,7 @@ function ExternalReferences({references}: ExternalReferencesProps) {
 						})}
 					>
 						WCAG
-					</abbr>{' '}
-					2.1
+					</abbr>
 				</h3>
 
 				{Object.entries(references.wcag).map(([type, text]) => (
@@ -37,6 +36,7 @@ function ExternalReferences({references}: ExternalReferencesProps) {
 						</h4>
 
 						<div
+							className="ExternalReferences-subSectionBody"
 							// eslint-disable-next-line react/no-danger
 							dangerouslySetInnerHTML={{__html: text}}
 						/>

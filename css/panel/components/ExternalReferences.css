@@ -1,39 +1,24 @@
-.ExternalReferences {
-	ul {
-		display: flex;
-		justify-content: start;
-		flex-wrap: wrap;
-		margin-bottom: 0.5lh;
-		color: var(--color-white);
-		gap: 0.5ch;
-	}
-
-	a {
-		width: 100%;
-		text-decoration: none;
-		padding: 0.2lh 0.5lh;
-		color: inherit;
-		border-radius: 0.5lh;
-		background-color: var(--color-blue-dark);
-		line-height: var(--line-height-regular);
-		font-size: var(--font-size-regular);
-
-		&:hover,
-		&:focus {
-			background: var(--color-blue);
-		}
-	}
-}
-
 .ExternalReferences-sectionTitle {
-	line-height: var(--line-height-large);
-	font-size: var(--font-size-large);
+	margin-bottom: 0.25lh;
 	font-weight: bold;
-	font-family: var(--font-title);
 }
 
 .ExternalReferences-subSectionTitle {
-	margin-bottom: 5px;
-	line-height: var(--line-height-regular);
-	font-size: var(--font-size-regular);
+	display: inline-block;
+	margin-right: 0.5ch;
+	font-weight: normal;
+}
+
+.ExternalReferences-subSectionBody {
+	display: contents;
+
+	ul {
+		display: inline-flex;
+		flex-wrap: wrap;
+	}
+
+	li:not(:last-child) a::after {
+		content: ', ';
+		margin-right: 0.5ch;
+	}
 }

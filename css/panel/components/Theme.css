@@ -6,6 +6,7 @@
 		border-radius: 2px;
 		background: #ffeaea;
 		word-wrap: break-word;
+		box-decoration-break: clone;
 	}
 }
 

@@ -137,6 +137,30 @@
 	padding-left: var(--app-gutter);
 }
 
+.Criterion-details {
+	border-top: 1px solid rgba(255 255 255 / 25%);
+	background: var(--color-theme);
+	color: var(--color-blue-lighter);
+}
+
+.Criterion-detailsSummary {
+	padding: 0.25lh var(--app-gutter);
+	font-variant: all-petite-caps;
+}
+
+.Criterion-detailsBody {
+	padding: 0.25lh var(--app-gutter);
+
+	/* stylelint-disable-next-line no-descending-specificity */
+	a {
+		color: var(--color-theme-text);
+	}
+
+	code {
+		background: var(--color-blue-dark) !important;
+	}
+}
+
 .Criterion-tests {
 	background: var(--color-white);
 }
