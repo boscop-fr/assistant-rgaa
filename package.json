@@ -14,7 +14,8 @@
     "lint:format": "prettier --check ./src ./css ./data",
     "lint:js": "eslint ./src",
     "lint:css": "stylelint \"./css/**/*.css\"",
-    "lint": "npm run lint:format && npm run lint:js && npm run lint:css",
+    "lint:extension": "web-ext lint",
+    "lint": "npm run lint:format && npm run lint:js && npm run lint:css && npm run lint:extension",
     "format": "prettier --write ./src ./css ./data",
     "test": "jest",
     "prepare": "husky"

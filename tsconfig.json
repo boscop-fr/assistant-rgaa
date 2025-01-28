@@ -12,7 +12,7 @@
 			"react-dom": ["./node_modules/preact/compat/"]
 		},
 		"outDir": "./dist/",
-		"target": "esnext",
+		"target": "esnext"
 	},
 	"include": ["src/**/*", "data/**/*"]
 }
