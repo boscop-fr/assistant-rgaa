@@ -13,7 +13,7 @@ import {
 	viewPageSource
 } from './slices/runtime';
 import {injectContentScripts} from './utils/content';
-import {closeSidebar, openSidebar} from './utils/sidebar';
+import {closeSidebar, openSidebar, reloadSidebar} from './utils/sidebar';
 import {PANEL_PAGE, captureVisibleTab} from './utils/tabs';
 import {validateLocalPage} from './utils/validateLocalPage';
 import {viewSource} from './utils/viewSource';
@@ -37,6 +37,10 @@ browser.runtime.onConnect.addListener(async (port) => {
 	port.onDisconnect.addListener(async () => {
 		await browser.tabs.sendMessage(tabId, tabUnloaded());
 	});
+});
+
+browser.tabs.onActivated.addListener((tab) => {
+	reloadSidebar(tab.tabId);
 });
 
 browser.tabs.onRemoved.addListener(async (tabId) => {
