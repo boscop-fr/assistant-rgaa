@@ -19,13 +19,6 @@ const Header = () => {
 	const optionsTitle = intl.formatMessage({id: 'Header.options'});
 	const popupTitle = intl.formatMessage({id: 'Header.openPopup'});
 
-	const openHelpPage = () => {
-		browser.windows.create({
-			type: 'panel',
-			url: 'pages/help.html'
-		});
-	};
-
 	return (
 		<header className="Header">
 			<h1 className="Header-title">
@@ -34,14 +27,13 @@ const Header = () => {
 			</h1>
 
 			<div className="Header-menu">
-				<button
-					type="button"
+				<a
 					className="Header-help Link"
+					href="http://assistant-rgaa.boscop.fr/#fonctionnalites"
 					title={helpTitle}
-					onClick={openHelpPage}
 				>
 					<Icon icon={CircleHelpIcon} title={helpTitle} />
-				</button>
+				</a>
 
 				<button
 					type="button"

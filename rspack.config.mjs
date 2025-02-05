@@ -44,7 +44,6 @@ export default defineConfig({
 		'minimap-component': ['./src/minimap/component'],
 		options: ['./src/options/index', './css/options/index.css'],
 		background: ['./src/background/index'],
-		help: ['./css/help/index.css'],
 		// This entry is used solely to validate JSON data
 		// against application types.
 		data: './data/lint'

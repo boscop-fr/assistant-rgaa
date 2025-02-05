@@ -40,8 +40,7 @@
 		{
 			"resources": [
 				"dist/minimap-component.js",
-				"data/references/*",
-				"pages/help/*"
+				"data/references/*"
 			],
 			"matches": [
 				"<all_urls>"
