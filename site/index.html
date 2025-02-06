@@ -6,10 +6,45 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
+		<meta property="og:title" content="Assistant RGAA" />
+		<meta
+			property="og:description"
+			content="Extension de navigateur permettant d'auditer des pages web en suivant le référentiel RGAA"
+		/>
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://assistant-rgaa.boscop.fr" />
+		<meta
+			property="og:image"
+			content="https://assistant-rgaa.boscop.fr/img/panel-large.png"
+		/>
+		<meta property="og:locale" content="fr_FR" />
+
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="Assistant RGAA" />
+		<meta
+			name="twitter:description"
+			content="Extension de navigateur permettant d'auditer des pages web en suivant le référentiel RGAA"
+		/>
+		<meta
+			name="twitter:image"
+			content="https://assistant-rgaa.boscop.fr/img/panel-large.png"
+		/>
+		<meta
+			name="twitter:image:alt"
+			content="Exemple d'utilisation de l'assistant RGAA"
+		/>
+
 		<title>
 			Assistant RGAA - Extension de navigateur permettant d'auditer des pages
 			web en suivant le référentiel RGAA
 		</title>
+
+		<link rel="icon" type="image/png" href="/favicon.png" />
+
+		<link
+			rel="stylesheet"
+			href="https://boscop.fr/wp-content/themes/boscop/dist/app.css"
+		/>
 
 		<style>
 			@font-face {
@@ -23,38 +58,19 @@
 			#fonctionnalites {
 				margin-top: 0;
 			}
+
+			@media screen and (min-width: 80ch) {
+				.Split {
+					display: grid;
+					grid-template-columns: 1fr 1fr;
+					gap: 0 var(--spacing-inline--xl);
+				}
+
+				.Split--reverse :first-child {
+					order: 1;
+				}
+			}
 		</style>
-
-		<link
-			rel="stylesheet"
-			href="https://boscop.fr/wp-content/themes/boscop/dist/app.css"
-		/>
-		<link rel="icon" type="image/png" href="/favicon.png" />
-
-		<meta property="og:title" content="Assistant RGAA" />
-		<meta
-			property="og:description"
-			content="Extension de navigateur permettant d'auditer des pages web en suivant le référentiel RGAA"
-		/>
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://assistant-rgaa.boscop.fr" />
-		<meta
-			property="og:image"
-			content="https://assistant-rgaa.boscop.fr/img/assistant-rgaa.png"
-		/>
-		<meta property="og:locale" content="fr_FR" />
-
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content="Assistant RGAA" />
-		<meta
-			name="twitter:description"
-			content="Extension de navigateur permettant d'auditer des pages web en suivant le référentiel RGAA"
-		/>
-		<meta
-			name="twitter:image"
-			content="https://assistant-rgaa.boscop.fr/img/assistant-rgaa.png"
-		/>
-		<meta name="twitter:image:alt" content="Logo de l'assistant RGAA" />
 	</head>
 
 	<body>
@@ -123,10 +139,16 @@
 
 					<h3>Interface</h3>
 
-					<img
-						alt="L'extension ouverte sur une page avec un test activé"
-						src="./img/panel.png"
-					/>
+					<a
+						class="ImagePreview"
+						href="./img/panel-large.png"
+						title="L'extension ouverte sur une page avec un test activé"
+					>
+						<img
+							alt="L'extension ouverte sur une page avec un test activé"
+							src="./img/panel.png"
+						/>
+					</a>
 
 					<h4>Menu principal</h4>
 
@@ -172,7 +194,7 @@
 						contiennent.
 					</p>
 
-					<div class="Grid Grid--m">
+					<div class="Split">
 						<img
 							alt="Vue à l'ouverture de la page"
 							src="./img/reference.png"
@@ -183,7 +205,9 @@
 
 					<h3>Tests</h3>
 
-					<div class="Grid Grid--m">
+					<div class="Split Split--reverse">
+						<img alt="Test actif" src="./img/test.png" />
+
 						<p>
 							Pour chaque test, une case à cocher permet d'appliquer les
 							modifications associées dans la page. Une fois cochée, les
@@ -192,23 +216,23 @@
 							zone "description du test" liste les modifications exactes
 							apportées à la page.
 						</p>
-
-						<img alt="Test actif" src="./img/test.png" />
 					</div>
 
-					<div class="Grid Grid--m">
+					<div class="Split Split--reverse">
+						<img alt="Statut d'un test" src="./img/statuses.png" />
+
 						<p>
 							Un résultat peut être assigné à chaque test pour suivre
 							l'avancée de l'audit. Ces résultats sont agrégés
 							automatiquement sur les critères parents.
 						</p>
-
-						<img alt="Statut d'un test" src="./img/statuses.png" />
 					</div>
 
 					<h3>Minimap</h3>
 
-					<div class="Grid Grid--m">
+					<div class="Split Split--reverse">
+						<img alt="Minimap" src="./img/minimap.png" />
+
 						<div>
 							<p>
 								Lors de l'application d'un test, une petite carte
@@ -227,15 +251,18 @@
 								position correspondante dans la page.
 							</p>
 						</div>
-
-						<img alt="Minimap" src="./img/minimap.png" />
 					</div>
 
 					<h3>Outils</h3>
 
 					<h4>Analyseur de contraste</h4>
 
-					<div class="Grid Grid--m">
+					<div class="Split Split--reverse">
+						<img
+							alt="Outil d'analyse de contraste"
+							src="./img/color-contrast.png"
+						/>
+
 						<div>
 							<p>
 								Cet outil permet de calculer le ratio de contraste entre
@@ -270,16 +297,16 @@
 								il extraira la couleur de texte et d'arrière-plan.
 							</p>
 						</div>
-
-						<img
-							alt="Outil d'analyse de contraste"
-							src="./img/color-contrast.png"
-						/>
 					</div>
 
 					<h4>Hiérarchie de titres</h4>
 
-					<div class="Grid Grid--m">
+					<div class="Split Split--reverse">
+						<img
+							alt="Hiérarchie de titres en erreur"
+							src="./img/headings-hierarchy.png"
+						/>
+
 						<div>
 							<p>
 								Cet outil, utilisé dans le test 9.1.1, affiche la
@@ -299,16 +326,16 @@
 								des contenus à considérer comme non-conforme (NC).
 							</p>
 						</div>
-
-						<img
-							alt="Hiérarchie de titres en erreur"
-							src="./img/titles-error.png"
-						/>
 					</div>
 
 					<h4>Validateur W3C</h4>
 
-					<div class="Grid Grid--m">
+					<div class="Split Split--reverse">
+						<img
+							alt="Boutons du validateur W3C"
+							src="./img/w3c-validator.png"
+						/>
+
 						<div>
 							<p>
 								Le bouton "Validateur W3C" sert à valider le code source
@@ -334,16 +361,16 @@
 								</em>
 							</p>
 						</div>
-
-						<img
-							alt="Boutons du validateur W3C"
-							src="./img/w3c-validator.png"
-						/>
 					</div>
 
 					<h4>Validateur de liens</h4>
 
-					<div class="Grid Grid--m">
+					<div class="Split Split--reverse">
+						<img
+							alt="Boutons du validateur de liens"
+							src="./img/link-checker.png"
+						/>
+
 						<p>
 							Le bouton "Validateur de liens" sert à vérifier que les
 							liens de la page courante sont fonctionnels via
@@ -351,22 +378,17 @@
 								validator.w3.org/checklink </a
 							>.
 						</p>
-
-						<img
-							alt="Boutons du validateur de liens"
-							src="./img/link-checker.png"
-						/>
 					</div>
 
 					<h4>Voir les sources</h4>
 
-					<div class="Grid Grid--m">
+					<div class="Split Split--reverse">
+						<img alt="Voir les sources" src="./img/view-sources.png" />
+
 						<p>
 							Le bouton "Voir les sources" affiche le code source de la
 							page dans un nouvel onglet.
 						</p>
-
-						<img alt="Voir les sources" src="./img/view-sources.png" />
 					</div>
 
 					<h2 id="telechargement">Télécharger l'extension</h2>
