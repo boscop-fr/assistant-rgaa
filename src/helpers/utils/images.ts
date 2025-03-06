@@ -1,5 +1,5 @@
-import createColor from 'color';
 import {captureCurrentTab} from '../../background/slices/runtime';
+import {srgbToHex} from '../../common/utils/color';
 import {sendMessage} from '../../common/utils/runtime';
 
 export const imageElement = async (base64: string) => {
@@ -29,8 +29,9 @@ export const captureCurrentTabPixel = async (x: number, y: number) => {
 	>(captureCurrentTab());
 
 	const image = await imageElement(base64);
-	const canvas = imageCanvas(image);
-	const pixel = canvas.getContext('2d').getImageData(x, y, 1, 1);
+	const [r, g, b] = imageCanvas(image)
+		.getContext('2d')
+		.getImageData(x, y, 1, 1).data;
 
-	return createColor(pixel.data).hex().toString();
+	return srgbToHex(r / 255, g / 255, b / 255);
 };

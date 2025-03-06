@@ -1,12 +1,11 @@
-import createColor from 'color';
+import {cssToHex} from '../../common/utils/color';
 import wait from '../../common/utils/wait';
 import {ColorContrastStyle} from '../helpers/colorContrast';
 import {captureCurrentTabPixel} from './images';
 
 const getSelectionStyle = async (): Promise<ColorContrastStyle> => {
 	const selection = window.getSelection();
-	const anchor = selection.anchorNode.parentElement;
-	const style = window.getComputedStyle(anchor);
+	const style = window.getComputedStyle(selection.anchorNode.parentElement);
 	const rect = selection.getRangeAt(0).getBoundingClientRect();
 
 	// cancels the selection so the color picker doesn't pick
@@ -23,7 +22,7 @@ const getSelectionStyle = async (): Promise<ColorContrastStyle> => {
 
 	return {
 		backgroundColor,
-		color: createColor(style.getPropertyValue('color')).hex().toString(),
+		color: cssToHex(style.getPropertyValue('color')),
 		fontSize: style.getPropertyValue('font-size'),
 		fontWeight: style.getPropertyValue('font-weight')
 	};

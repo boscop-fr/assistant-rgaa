@@ -1,5 +1,10 @@
 import {createAction, isAnyOf} from '@reduxjs/toolkit';
 import {AuditResults} from '../../common/types';
+import {
+	requestPixelColor,
+	requestStyle,
+	requestTextColor
+} from '../../helpers/slices/colorContrast';
 
 // Runtime message types.
 // These are not used inside redux but through the extension
@@ -22,6 +27,12 @@ export const helpersReady = createAction('runtime/helpersReady');
 
 // For the following actions, the background script acts as
 // a relay, receiving actions from a content script and
-// broadcasting them to other ones, because content scripts
-// can't communicate with each other directly.
-export const isProxiedAction = isAnyOf(helpersReady);
+// broadcasting them to different parts of the extension,
+// because side panels and content scripts can't communicate
+// with each other directly.
+export const isRuntimeAction = isAnyOf(helpersReady);
+export const isContentAction = isAnyOf(
+	requestPixelColor,
+	requestTextColor,
+	requestStyle
+);

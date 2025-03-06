@@ -1,12 +1,12 @@
 import classNames from 'classnames';
-import createColor from 'color';
 import React, {PropsWithChildren} from 'react';
 import {useIntl} from 'react-intl';
 import {type JSX} from 'react/jsx-runtime';
+import {cssToHex} from '../../common/utils/color';
 
 const isValidColor = (color: string) => {
 	try {
-		createColor(color);
+		cssToHex(color);
 		return true;
 	} catch (e) {
 		return false;

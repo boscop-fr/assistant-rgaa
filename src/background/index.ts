@@ -1,10 +1,15 @@
 import {sendMessage} from '../common/utils/runtime';
-import {clearTabState, fetchCurrentTab} from '../common/utils/tabs';
+import {
+	clearTabState,
+	fetchCurrentTab,
+	sendMessage as sendMessageToTab
+} from '../common/utils/tabs';
 import {
 	captureCurrentTab,
 	closePopup,
 	createTab,
-	isProxiedAction,
+	isContentAction,
+	isRuntimeAction,
 	openPopup,
 	openSidebar as openSidebarAction,
 	tabLoaded,
@@ -92,7 +97,12 @@ browser.runtime.onMessage.addListener(async (message) => {
 		});
 	}
 
-	if (isProxiedAction(message)) {
+	if (isRuntimeAction(message)) {
 		return sendMessage(message);
+	}
+
+	if (isContentAction(message)) {
+		const {id} = await fetchCurrentTab();
+		return sendMessageToTab(id, message);
 	}
 });

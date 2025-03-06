@@ -1,6 +1,6 @@
-import createColor from 'color';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
+import {contrast} from '../../common/utils/color';
 import {sendMessage, useRuntimeMessage} from '../../common/utils/runtime';
 import {ColorExtractorConfig, ColorInputConfig} from '../helpers/colorContrast';
 import {
@@ -20,67 +20,90 @@ type PickAction =
 	| ReturnType<typeof requestTextColor>
 	| ReturnType<typeof requestStyle>;
 
-const contrastRatio = (left: string, right: string) => {
-	try {
-		const ratio = createColor(left).contrast(createColor(right));
-		return Number(ratio.toFixed(3));
-	} catch (e) {
-		return 0;
-	}
-};
-
+// This whole thing is VERY obscure.
+// The communication between the widgets and the page
+// needs a proper refactoring to be more simple and robust.
 const usePicker = (extractor: ColorExtractorConfig) => {
-	const [colors, setColors] = useState({
+	const [pickerState, setPickerState] = useState<{
+		left: string;
+		right: string;
+		pickingName?: ColorName;
+		pickingAction?: PickAction;
+	}>({
 		left: '#fff',
 		right: '#fff'
 	});
 
-	const [pickingAction, setPickAction] = useState<PickAction>();
-	const [pickedColor, setPickedColor] = useState<ColorName>();
+	const isPickingPixel = (name: ColorName) =>
+		pickerState?.pickingName === name &&
+		requestPixelColor.match(pickerState?.pickingAction);
+
+	const isPickingText = (name: ColorName) =>
+		pickerState?.pickingName === name &&
+		requestTextColor.match(pickerState?.pickingAction);
+
+	const isPickingStyle = () => requestStyle.match(pickerState?.pickingAction);
 
 	const setColor = (name: string, value: string) => {
-		setColors((current) => ({
+		setPickerState((current) => ({
 			...current,
 			[name]: value
 		}));
 	};
 
 	const pickColor = (name: ColorName, action: PickAction) => {
-		setPickedColor(name);
-		setPickAction(action);
+		sendMessage(action);
+		setPickerState((state) => ({
+			...state,
+			pickingName: name,
+			pickingAction: action
+		}));
 	};
 
-	const stopPicking = () => {
-		setPickAction(null);
-		setPickedColor(null);
+	const pickPixel = (name: ColorName) => {
+		pickColor(name, requestPixelColor());
+	};
+
+	const pickText = (name: ColorName) => {
+		pickColor(name, requestTextColor());
+	};
+
+	const pickStyle = () => {
+		pickColor(null, requestStyle());
 	};
 
 	useRuntimeMessage((action) => {
 		if (updateColor.match(action)) {
-			setColor(pickedColor, action.payload);
-			stopPicking();
-		} else if (updateStyle.match(action)) {
-			setColors({
+			setPickerState((state) => ({
+				...state,
+				[state.pickingName]: action.payload,
+				pickingName: null,
+				pickingAction: null
+			}));
+		}
+
+		if (updateStyle.match(action)) {
+			setPickerState(() => ({
 				left: action.payload[extractor.left],
-				right: action.payload[extractor.right]
-			});
-			stopPicking();
+				right: action.payload[extractor.right],
+				pickingName: null,
+				pickingAction: null
+			}));
 		}
 	});
 
-	useEffect(() => {
-		if (pickingAction) {
-			sendMessage(pickingAction);
-		}
-	}, [pickingAction]);
-
 	return {
-		colors,
-		pickingAction,
-		pickedColor,
 		setColor,
-		pickColor,
-		ratio: contrastRatio(colors.left, colors.right)
+		isPickingPixel,
+		isPickingText,
+		isPickingStyle,
+		pickPixel,
+		pickText,
+		pickStyle,
+		colors: {
+			left: pickerState.left,
+			right: pickerState.right
+		}
 	};
 };
 
@@ -91,9 +114,6 @@ type ColorContrastProps = {
 	minimumRatio: number;
 };
 
-// This whole thing is VERY obscure.
-// The communication between the widgets and the page
-// needs a proper refactoring to be more simple and robust.
 const ColorContrast = ({
 	left,
 	right,
@@ -101,8 +121,16 @@ const ColorContrast = ({
 	minimumRatio
 }: ColorContrastProps) => {
 	const intl = useIntl();
-	const {colors, ratio, pickingAction, pickedColor, setColor, pickColor} =
-		usePicker(extractor);
+	const {
+		colors,
+		setColor,
+		isPickingPixel,
+		isPickingText,
+		isPickingStyle,
+		pickPixel,
+		pickText,
+		pickStyle
+	} = usePicker(extractor);
 
 	const renderField = (
 		name: ColorName,
@@ -114,14 +142,10 @@ const ColorContrast = ({
 			color={colors[name]}
 			hasPixelPicker={pixelPicker}
 			hasTextPicker={textPicker}
-			isPickingPixel={
-				pickedColor === name && requestPixelColor.match(pickingAction)
-			}
-			isPickingText={
-				pickedColor === name && requestTextColor.match(pickingAction)
-			}
-			onPickPixel={() => pickColor(name, requestPixelColor())}
-			onPickText={() => pickColor(name, requestTextColor())}
+			isPickingPixel={isPickingPixel(name)}
+			isPickingText={isPickingText(name)}
+			onPickPixel={() => pickPixel(name)}
+			onPickText={() => pickText(name)}
 			onChangeColor={(value) => setColor(name, value)}
 		/>
 	);
@@ -136,15 +160,18 @@ const ColorContrast = ({
 
 				{extractor ? (
 					<ToggleButton
-						pressed={requestStyle.match(pickingAction)}
-						onClick={() => pickColor(null, requestStyle())}
+						pressed={isPickingStyle()}
+						onClick={() => pickStyle()}
 					>
 						{intl.formatMessage({id: extractor.label})}
 					</ToggleButton>
 				) : null}
 			</form>
 
-			<ColorContrastResult ratio={ratio} minimumRatio={minimumRatio} />
+			<ColorContrastResult
+				ratio={Number(contrast(colors.left, colors.right).toFixed(2))}
+				minimumRatio={minimumRatio}
+			/>
 		</div>
 	);
 };
