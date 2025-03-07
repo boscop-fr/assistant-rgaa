@@ -1,4 +1,4 @@
-import {type Page} from '@playwright/test';
+import {type Page, expect} from '@playwright/test';
 
 export default class HelpersPage {
 	readonly #page: Page;
@@ -10,6 +10,8 @@ export default class HelpersPage {
 
 	async setup() {
 		await this.#page.addInitScript(() => {
+			globalThis.sentMessages = [];
+
 			// This tricks the webext polyfill into considering the
 			// page as having an extension context.
 			globalThis.chrome = {
@@ -22,7 +24,9 @@ export default class HelpersPage {
 			globalThis.browser = {
 				runtime: {
 					id: 'playwright',
-					sendMessage() {},
+					sendMessage(action) {
+						globalThis.sentMessages.push(action);
+					},
 					onMessage: {
 						addListener(callback) {
 							globalThis.sendMessage = callback;
@@ -59,6 +63,30 @@ export default class HelpersPage {
 		}, action);
 	}
 
+	async sentMessages(): Promise<any[]> {
+		return this.#page.evaluate(async () => {
+			return globalThis.sentMessages;
+		});
+	}
+
+	async sentMessageCount() {
+		const messages = await this.sentMessages();
+		return messages.length;
+	}
+
+	async lastSentMessage(): Promise<any> {
+		const messages = await this.sentMessages();
+		return messages.at(-1);
+	}
+
+	async waitForNextSentMessage(): Promise<any> {
+		const messageCount = await this.sentMessageCount();
+
+		await expect(async () => {
+			expect(await this.sentMessageCount()).toBeGreaterThan(messageCount);
+		}).toPass();
+	}
+
 	get elementHiddenViaStyleSheet() {
 		return this.#page.locator('#hidden-sheet');
 	}
@@ -69,5 +97,11 @@ export default class HelpersPage {
 
 	get elementHiddenViaStyleAttribute() {
 		return this.#page.locator('#hidden-attribute');
+	}
+
+	async removeIntermediateHeading() {
+		await this.#page.evaluate(() => {
+			document.querySelector('h2')?.remove();
+		});
 	}
 }

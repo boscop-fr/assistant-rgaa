@@ -12,8 +12,6 @@ type HeadingsHierarchyOptions = {
 	showMissing?: boolean;
 };
 
-let observer: MutationObserver = null;
-
 export default createHelper({
 	name: 'headingsHierarchy',
 	defaultOptions: {
@@ -27,32 +25,27 @@ export default createHelper({
 	},
 	apply({showMissing = true}) {
 		return () => {
-			if (!observer) {
-				const sendHierarchy = () => {
-					const hierarchy = getHeadingsHierarchy();
+			const sendHierarchy = () => {
+				const hierarchy = getHeadingsHierarchy();
 
-					sendMessage(
-						getHierarchy(
-							showMissing
-								? withMissingHeadings(hierarchy, 'Titre manquant')
-								: hierarchy
-						)
-					);
-				};
+				sendMessage(
+					getHierarchy(
+						showMissing
+							? withMissingHeadings(hierarchy, 'Titre manquant')
+							: hierarchy
+					)
+				);
+			};
 
-				observer = new MutationObserver(debounce(sendHierarchy, 300));
-				observer.observe(document.body, {
-					childList: true
-				});
+			const observer = new MutationObserver(debounce(sendHierarchy, 300));
+			observer.observe(document.body, {
+				childList: true
+			});
 
-				sendHierarchy();
-			}
+			sendHierarchy();
 
 			return () => {
-				if (observer) {
-					observer.disconnect();
-					observer = null;
-				}
+				observer.disconnect();
 			};
 		};
 	}

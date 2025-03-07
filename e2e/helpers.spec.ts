@@ -25,3 +25,28 @@ test('should toggle styles', async ({helpersPage: page}) => {
 	await expect(page.elementHiddenViaStyleTag).toBeHidden();
 	await expect(page.elementHiddenViaStyleAttribute).toBeHidden();
 });
+
+test('should extract headings hierarchy', async ({helpersPage: page}) => {
+	await page.sendMessage(applyHelpers([{helper: 'headingsHierarchy'}]));
+
+	await expect(await page.lastSentMessage()).toEqual({
+		type: 'helpers/headingsHierarchy/get',
+		payload: [
+			{level: 1, text: 'Heading 1', fake: false},
+			{level: 2, text: 'Heading 2', fake: false},
+			{level: 3, text: 'Heading 3', fake: false}
+		]
+	});
+
+	await page.removeIntermediateHeading();
+	await page.waitForNextSentMessage();
+
+	await expect(await page.lastSentMessage()).toEqual({
+		type: 'helpers/headingsHierarchy/get',
+		payload: [
+			{level: 1, text: 'Heading 1', fake: false},
+			{level: 2, text: 'Titre manquant', fake: true},
+			{level: 3, text: 'Heading 3', fake: false}
+		]
+	});
+});
