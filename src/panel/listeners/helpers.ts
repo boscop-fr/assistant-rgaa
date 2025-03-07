@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import {helpersReady} from '../../background/slices/runtime';
 import {sendMessage} from '../../common/utils/tabs';
-import {AppStartListening} from '../middlewares/listener';
+import type {AppStartListening} from '../middlewares/listener';
 import {
 	applyHelpers,
 	removeGlobalHelper,
@@ -16,7 +16,7 @@ import {
 } from '../slices/helpers';
 import {selectPageTabId} from '../slices/panel';
 import {selectEnabledTestIds, toggleTest} from '../slices/tests';
-import {AppDispatch, AppState} from '../store';
+import type {AppDispatch, AppState} from '../store';
 import {pollEffect} from '../utils/listeners';
 import {onRuntimeAction} from '../utils/runtime';
 

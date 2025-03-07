@@ -1,4 +1,4 @@
-import {Effect} from '../types';
+import type {Effect} from '../types';
 
 export const combineEffects =
 	(effects: Effect[]): Effect =>

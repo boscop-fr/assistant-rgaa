@@ -1,4 +1,4 @@
-import {Effect} from '../types';
+import type {Effect} from '../types';
 import {muteAttribute, restoreAttribute} from '../utils/muteAttributes';
 
 // Toggles all style sheets in the page.

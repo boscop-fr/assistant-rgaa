@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, {useState} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {Test} from '../../common/types';
+import type {Test} from '../../common/types';
 import {helperInfo} from '../../helpers/types';
 import {selectHelpersByTest} from '../slices/helpers';
 import {useAppSelector} from '../utils/hooks';

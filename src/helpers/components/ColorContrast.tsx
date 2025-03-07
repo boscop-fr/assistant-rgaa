@@ -2,7 +2,10 @@ import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
 import {contrast} from '../../common/utils/color';
 import {sendMessage, useRuntimeMessage} from '../../common/utils/runtime';
-import {ColorExtractorConfig, ColorInputConfig} from '../helpers/colorContrast';
+import type {
+	ColorExtractorConfig,
+	ColorInputConfig
+} from '../helpers/colorContrast';
 import {
 	requestPixelColor,
 	requestStyle,

@@ -37,6 +37,7 @@
 		}
 	},
 	"rules": {
+		"@typescript-eslint/consistent-type-imports": "error",
 		"jsx-a11y/label-has-associated-control": [
 			"error",
 			{

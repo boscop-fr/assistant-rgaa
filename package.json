@@ -60,7 +60,8 @@
     "stylelint-config-standard": "^36.0.0",
     "ts-jest": "^29.1.2",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.4.5",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.0",
     "web-ext": "^7.11.0",
     "webextension-polyfill": "^0.11.0"
   },
@@ -78,8 +79,7 @@
     "react-addons-update": "^15.6.3",
     "react-intl": "^6.6.5",
     "react-redux": "^9.1.1",
-    "redux": "^5.0.1",
-    "typescript-eslint": "^7.7.0"
+    "redux": "^5.0.1"
   },
   "volta": {
     "node": "20.0.0"

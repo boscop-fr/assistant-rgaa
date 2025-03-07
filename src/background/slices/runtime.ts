@@ -1,5 +1,5 @@
 import {createAction, isAnyOf} from '@reduxjs/toolkit';
-import {AuditResults} from '../../common/types';
+import {type AuditResults} from '../../common/types';
 import {
 	requestPixelColor,
 	requestStyle,

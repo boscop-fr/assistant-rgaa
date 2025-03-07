@@ -1,5 +1,5 @@
 import {onOptionChange} from '../../options/utils/storage';
-import {AppStartListening} from '../middlewares/listener';
+import type {AppStartListening} from '../middlewares/listener';
 import {openOptionsPage} from '../slices/options';
 import {setVersion} from '../slices/reference';
 import {pollEffect} from '../utils/listeners';

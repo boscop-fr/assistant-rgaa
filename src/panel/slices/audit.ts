@@ -3,7 +3,7 @@ import {
 	createSelector,
 	createSlice
 } from '@reduxjs/toolkit';
-import {AuditResults, Test, TestStatus} from '../../common/types';
+import type {AuditResults, Test, TestStatus} from '../../common/types';
 import {aggregateStatuses} from '../utils/tests';
 import {selectTestsByCriterion} from './reference';
 

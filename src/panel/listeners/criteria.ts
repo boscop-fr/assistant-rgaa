@@ -1,4 +1,4 @@
-import {AppStartListening} from '../middlewares/listener';
+import type {AppStartListening} from '../middlewares/listener';
 import {
 	closeCriterion,
 	openCriterion,

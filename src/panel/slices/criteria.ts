@@ -1,5 +1,5 @@
 import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {Criterion} from '../../common/types';
+import type {Criterion} from '../../common/types';
 
 type CriteriaState = {
 	opened: Criterion['id'][];

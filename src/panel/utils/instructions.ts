@@ -1,4 +1,4 @@
-import {Instructions} from '../../common/types';
+import type {Instructions} from '../../common/types';
 
 // Retrieves instructions mapping for the given version.
 export const fetchInstructions = async (version: string) => {

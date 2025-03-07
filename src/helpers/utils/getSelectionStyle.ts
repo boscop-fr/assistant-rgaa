@@ -1,6 +1,6 @@
 import {cssToHex} from '../../common/utils/color';
 import wait from '../../common/utils/wait';
-import {ColorContrastStyle} from '../helpers/colorContrast';
+import type {ColorContrastStyle} from '../helpers/colorContrast';
 import {captureCurrentTabPixel} from './images';
 
 const getSelectionStyle = async (): Promise<ColorContrastStyle> => {

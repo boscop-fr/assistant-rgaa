@@ -1,4 +1,4 @@
-import {TestStatus} from '../../common/types';
+import type {TestStatus} from '../../common/types';
 
 export const aggregateStatuses = (statuses: TestStatus[]): TestStatus =>
 	statuses.includes('NC')

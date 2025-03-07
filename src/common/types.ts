@@ -1,4 +1,4 @@
-import {Helper} from '../helpers/types';
+import {type Helper} from '../helpers/types';
 
 export type Test = {
 	id: `${number}.${number}.${number}`;

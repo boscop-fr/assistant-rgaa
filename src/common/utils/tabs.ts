@@ -1,4 +1,4 @@
-import {AppState} from '../../panel/store';
+import type {AppState} from '../../panel/store';
 import {clearData, getData, setData} from './storage';
 
 export const fetchCurrentTab = async () => {

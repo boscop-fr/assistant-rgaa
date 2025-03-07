@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useRuntimeMessage} from '../../common/utils/runtime';
 import {getHierarchy} from '../slices/headingsHierarchy';
-import {HeadingHierarchyNode} from '../utils/getHeadingsHierarchy';
+import type {HeadingHierarchyNode} from '../utils/getHeadingsHierarchy';
 
 const HeadingsHierarchy = () => {
 	const [items, setItems] = useState<HeadingHierarchyNode[]>([]);

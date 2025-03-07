@@ -1,7 +1,7 @@
 import {closePopup, openPopup} from '../../background/slices/runtime';
 import {sendMessage} from '../../common/utils/runtime';
 import {setTabState} from '../../common/utils/tabs';
-import {AppStartListening} from '../middlewares/listener';
+import type {AppStartListening} from '../middlewares/listener';
 import {selectPageTabId, selectPopupTabId, togglePopup} from '../slices/panel';
 
 export const addPanelListeners = (startListening: AppStartListening) => {

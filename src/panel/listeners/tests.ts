@@ -1,5 +1,5 @@
 import {getOption} from '../../options/utils/storage';
-import {AppStartListening} from '../middlewares/listener';
+import type {AppStartListening} from '../middlewares/listener';
 import {autoToggleTest, toggleTest} from '../slices/tests';
 
 export const addTestsListeners = (startListening: AppStartListening) => {

@@ -3,7 +3,7 @@ import type {
 	ListenerEffectAPI,
 	UnknownAction
 } from '@reduxjs/toolkit';
-import {AppDispatch, AppState} from '../store';
+import type {AppDispatch, AppState} from '../store';
 
 // Executes an effect each time a subscriber emits a new value.
 export const pollEffect =

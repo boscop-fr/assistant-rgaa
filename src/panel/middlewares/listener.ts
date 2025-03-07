@@ -6,7 +6,7 @@ import {addPanelListeners} from '../listeners/panel';
 import {addReferenceListeners} from '../listeners/reference';
 import {addStylesListeners} from '../listeners/styles';
 import {addTestsListeners} from '../listeners/tests';
-import {AppDispatch, AppState} from '../store';
+import type {AppDispatch, AppState} from '../store';
 
 const listener = createListenerMiddleware();
 const startListening = listener.startListening.withTypes<

@@ -1,4 +1,4 @@
-import {Effect} from '../types';
+import type {Effect} from '../types';
 import serializeAttributes from '../utils/serializeAttributes';
 import serializeElement from '../utils/serializeElement';
 import {

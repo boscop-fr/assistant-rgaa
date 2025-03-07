@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import React, {useRef, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
-import {Theme} from '../../common/types';
+import type {Theme} from '../../common/types';
 import {selectAllThemes} from '../slices/reference';
 import {
 	useAnchorEvent,

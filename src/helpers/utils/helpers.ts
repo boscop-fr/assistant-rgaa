@@ -1,6 +1,6 @@
 import {toggleClassEffect} from '../effects/dom';
 import {highlightElementsEffect} from '../effects/highlight';
-import {Helper, helperInfo} from '../types';
+import {type Helper, helperInfo} from '../types';
 import {combineEffects} from './effects';
 
 let revertEffects: () => void;

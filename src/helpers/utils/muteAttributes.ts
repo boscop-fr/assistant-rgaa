@@ -1,4 +1,4 @@
-import {HTMLElementList} from './dom';
+import type {HTMLElementList} from './dom';
 
 //	Attributes muting works by aliasing original attributes.
 //	The API also maintains a custom attribute which holds the

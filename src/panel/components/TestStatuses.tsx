@@ -1,6 +1,7 @@
-import React, {ChangeEventHandler} from 'react';
+import type {ChangeEventHandler} from 'react';
+import React from 'react';
 import {useIntl} from 'react-intl';
-import {Test, type TestStatus as TestStatusType} from '../../common/types';
+import type {Test, TestStatus as TestStatusType} from '../../common/types';
 import {selectTestStatus, setTestStatus} from '../slices/audit';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import TestStatus from './TestStatus';

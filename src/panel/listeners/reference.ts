@@ -1,4 +1,4 @@
-import {AppStartListening} from '../middlewares/listener';
+import type {AppStartListening} from '../middlewares/listener';
 import {resetResults} from '../slices/audit';
 import {setHelpers} from '../slices/helpers';
 import {setInstructions} from '../slices/instructions';

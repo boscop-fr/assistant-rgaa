@@ -1,9 +1,9 @@
 import {type ListenerEffectAPI} from '@reduxjs/toolkit';
 import {helpersReady} from '../../background/slices/runtime';
-import {AppStartListening} from '../middlewares/listener';
+import type {AppStartListening} from '../middlewares/listener';
 import {removeGlobalHelper, setGlobalHelper} from '../slices/helpers';
 import {selectAreStylesEnabled, toggleStyles} from '../slices/styles';
-import {AppDispatch, AppState} from '../store';
+import type {AppDispatch, AppState} from '../store';
 import {pollEffect} from '../utils/listeners';
 import {onRuntimeAction} from '../utils/runtime';
 

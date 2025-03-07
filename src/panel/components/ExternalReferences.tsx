@@ -1,6 +1,6 @@
 import React from 'react';
 import {useIntl} from 'react-intl';
-import {CriterionReferences} from '../../common/types';
+import type {CriterionReferences} from '../../common/types';
 
 type ExternalReferencesProps = {
 	references: CriterionReferences;
