@@ -1,6 +1,4 @@
-const utils = require('./utils');
-
-
+import utils from './utils';
 
 /**
  *
@@ -18,4 +16,4 @@ const scrapeWith = (scraper) => (options) =>
 /**
  *
  */
-module.exports = scrapeWith;
+export default scrapeWith;

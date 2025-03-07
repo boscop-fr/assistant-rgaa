@@ -1,9 +1,7 @@
 #!/usr/bin/env node
-const path = require('path');
-const program = require('commander');
-const formatInstructions = require('./formatInstructions');
-
-
+import {program} from 'commander';
+import path from 'path';
+import formatInstructions from './formatInstructions';
 
 /**
  *
@@ -18,7 +16,7 @@ program
 	.option(
 		'-d, --dest <dest>',
 		'Destination file.',
-		path.resolve(__dirname, '../data/instructions/3-2016.json')
+		path.resolve(import.meta.dirname, '../data/instructions/3-2016.json')
 	)
 	.action((options) => {
 		if (!options.source) {

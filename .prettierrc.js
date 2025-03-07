@@ -1,14 +1,10 @@
-const sortImportsPlugin = require.resolve(
-	'@trivago/prettier-plugin-sort-imports'
-);
-
 /** @type {import("prettier").Config} */
-module.exports = {
+export default {
 	arrowParens: 'always',
 	bracketSpacing: false,
 	htmlWhitespaceSensitivity: 'ignore',
 	jsxSingleQuote: false,
-	plugins: [sortImportsPlugin],
+	plugins: ['@trivago/prettier-plugin-sort-imports'],
 	printWidth: 80,
 	proseWrap: 'always',
 	quoteProps: 'preserve',

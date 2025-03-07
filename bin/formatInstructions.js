@@ -1,6 +1,4 @@
-const utils = require('./utils');
-
-
+import utils from './utils';
 
 const formatToType = (data, type) =>
 	Object.fromEntries(
@@ -15,4 +13,4 @@ const format = (options) => {
 	return utils.writeJsonTo(options.dest, false)(formatted);
 };
 
-module.exports = format;
+export default format;

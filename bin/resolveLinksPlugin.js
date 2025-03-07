@@ -1,6 +1,4 @@
-const resolve = require('url').resolve;
-
-
+import {resolve} from 'url';
 
 /**
  *
@@ -34,6 +32,4 @@ const resolveLinksPlugin = ($) => {
 	};
 };
 
-
-
-module.exports = resolveLinksPlugin;
+export default resolveLinksPlugin;

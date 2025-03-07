@@ -1,4 +1,7 @@
 export class HighlightOptions {
+	public readonly element: HTMLElement;
+	public readonly targetElement: HTMLElement;
+
 	#tag = false;
 	#ifEmpty = false;
 	#attributes = new Set<string>();
@@ -6,10 +9,10 @@ export class HighlightOptions {
 	#content = false;
 	#outline = false;
 
-	constructor(
-		public readonly element: HTMLElement,
-		public readonly targetElement = element
-	) {}
+	constructor(element: HTMLElement, targetElement = element) {
+		this.element = element;
+		this.targetElement = targetElement;
+	}
 
 	get tag() {
 		return this.#tag;

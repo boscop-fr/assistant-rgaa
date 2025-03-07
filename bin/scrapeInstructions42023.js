@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const {marked} = require('marked');
+import {marked} from 'marked';
 
 /**
  * marked js Renderer
@@ -28,7 +28,7 @@ renderer.link = function (href, title, text) {
  *		- {boolean} merge - Whether or not to merge the output
  *			file with the existing one, if any.
  */
-module.exports = (options) => (json) => {
+export default (options) => (json) => {
 	if (!json || typeof json !== 'string') {
 		throw new Error('RGAA Criteria  Json file missing');
 	}

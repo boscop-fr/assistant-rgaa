@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-const path = require('path');
-const program = require('commander');
-const scrapeWith = require('./scrapeWith');
-const scrapeReference42023 = require('./scrapeReference42023');
-const scrapeInstructions42023 = require('./scrapeInstructions42023');
+import {program} from 'commander';
+import path from 'path';
+import scrapeInstructions42023 from './scrapeInstructions42023';
+import scrapeReference42023 from './scrapeReference42023';
+import scrapeWith from './scrapeWith';
 
 /**
  * command to scrape references
@@ -20,7 +20,7 @@ program
 	.option(
 		'-d, --dest <dest>',
 		'Destination file.',
-		path.resolve(__dirname, '../data/references/4-2023.json')
+		path.resolve(import.meta.dirname, '../data/references/4-2023.json')
 	)
 	.option(
 		'-m, --merge',
@@ -45,7 +45,7 @@ program
 	.option(
 		'-d, --dest <dest>',
 		'Destination file.',
-		path.resolve(__dirname, '../data/instructions/4-2023.json')
+		path.resolve(import.meta.dirname, '../data/instructions/4-2023.json')
 	)
 	.option(
 		'-m, --merge',

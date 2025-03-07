@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const {marked} = require('marked');
+import {marked} from 'marked';
 
 const accessGouvUrl =
 	'https://accessibilite.numerique.gouv.fr/methode/glossaire/';
@@ -29,7 +29,7 @@ function externalLinksRenderer(link) {
  *		- {boolean} merge - Whether or not to merge the output
  *		- file with the existing one, if any.
  */
-module.exports = (json) => {
+export default (json) => {
 	if (!json || typeof json !== 'string') {
 		throw new Error('RGAA Criteria  Json file missing');
 	}

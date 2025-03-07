@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {Runtime} from 'webextension-polyfill';
+import {type Runtime} from 'webextension-polyfill';
 
 export const keepRuntimeConnectionAlive = (tabId: number) => {
 	let port: Runtime.Port = null;

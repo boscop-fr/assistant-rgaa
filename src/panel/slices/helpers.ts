@@ -1,6 +1,6 @@
 import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {HelpersByTest, Test} from '../../common/types';
-import {Helper} from '../../helpers/types';
+import type {HelpersByTest, Test} from '../../common/types';
+import type {Helper} from '../../helpers/types';
 
 type HelpersState = {
 	helpers: HelpersByTest;

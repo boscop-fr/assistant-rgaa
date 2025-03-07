@@ -1,9 +1,9 @@
-const path = require('path');
+import path from 'path';
 
 // We're using the contents of JSON files as TS objects to
 // leverage the compiler typechecking.
 // @see https://github.com/microsoft/TypeScript/issues/32063#issuecomment-800162987
-module.exports = function (json) {
+export default function (json) {
 	// Although we're flagging the loader as not cacheable,
 	// it is still not rerun when the JSON changes.
 	// Using `cache: false` as a global option in webpack
@@ -38,4 +38,4 @@ module.exports = function (json) {
 	// Allows ts-loader to recognize the file as TS source.
 	this.resourcePath = this.resourcePath.replace('.json', '.ts');
 	return ts;
-};
+}
