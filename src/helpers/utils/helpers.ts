@@ -6,8 +6,6 @@ import {combineEffects} from './effects';
 let revertEffects: () => void;
 
 export const applyHelpers = (helpers: Helper[]) => {
-	revertEffects?.();
-
 	const helperEffects = helpers.flatMap((helper) => {
 		try {
 			const {module, args} = helperInfo(helper);
@@ -18,16 +16,18 @@ export const applyHelpers = (helpers: Helper[]) => {
 		}
 	});
 
-	const effect = combineEffects([
+	const apply = combineEffects([
 		...helperEffects,
 		highlightElementsEffect(),
 		toggleClassEffect(document.body, 'rgaaExt-Body'),
 		toggleClassEffect(document.body, 'rgaaExt-Body--withHelpers')
 	]);
 
-	revertEffects = effect();
+	revertEffects?.();
+	revertEffects = apply();
 };
 
 export const revertActiveHelpers = () => {
 	revertEffects?.();
+	revertEffects = null;
 };
