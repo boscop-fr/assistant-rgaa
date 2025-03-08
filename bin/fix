@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+import {program} from 'commander';
+import fs from 'fs';
+import path from 'path';
+
+/**
+ * command to scrape references
+ */
+program
+	.command('reference')
+	.alias('r')
+	.description('Fixes reference.')
+	.option('-n, --name <reference>', 'Reference name.')
+	.option(
+		'-d, --dest <dest>',
+		'Destination path.',
+		path.resolve(import.meta.dirname, '../data/references')
+	)
+	.action(({name, dest}) => {
+		const referencePath = path.join(dest, `${name}.json`);
+		const reference = JSON.parse(fs.readFileSync(referencePath, 'utf-8'));
+
+		const fixed = {
+			...reference,
+			themes: reference.themes.map((theme) => ({
+				...theme,
+				criteria: theme.criteria
+					.filter((criterion) => criterion.id.startsWith(`${theme.id}.`))
+					.map((criterion) => ({
+						...criterion,
+						tests: criterion.tests.filter((test) =>
+							test.id.startsWith(`${criterion.id}.`)
+						)
+					}))
+			}))
+		};
+
+		fs.writeFileSync(referencePath, JSON.stringify(fixed, null, '\t'));
+	});
+
+program.parse(process.argv);
