@@ -15,7 +15,7 @@
     "lint:format": "prettier --check ./src ./css ./data ./site",
     "lint:js": "eslint ./src",
     "lint:css": "stylelint \"./css/**/*.css\"",
-    "lint:extension": "web-ext lint",
+    "lint:extension": "web-ext lint --ignore-files bin/** e2e/** fixtures/** site/**",
     "lint": "npm run lint:format && npm run lint:js && npm run lint:css && npm run lint:extension",
     "format": "prettier --write ./src ./css ./data ./site",
     "test:unit": "jest",
@@ -62,7 +62,7 @@
     "ts-loader": "^9.5.1",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.26.0",
-    "web-ext": "^7.11.0",
+    "web-ext": "^8.4.0",
     "webextension-polyfill": "^0.11.0"
   },
   "dependencies": {

@@ -34,10 +34,11 @@ const getContainer = (element: HTMLElement) => {
 // Appends some code next to an element, ensuring that the
 // code is visible in the page.
 export const showCodeNearElement = (element: HTMLElement, html: string) => {
-	getContainer(element).insertAdjacentHTML(
-		'beforeend',
-		`<code class="rgaaExt-Helper rgaaExt-Mappable">${html}</code>`
-	);
+	const code = document.createElement('code');
+	code.classList.add('rgaaExt-Helper', 'rgaaExt-Mappable');
+	code.innerHTML = html;
+
+	getContainer(element).insertAdjacentElement('beforeend', code);
 };
 
 export const removeCodeNearElement = (element: HTMLElement) => {

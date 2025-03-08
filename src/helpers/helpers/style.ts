@@ -23,10 +23,10 @@ export default createHelper({
 	apply({style}) {
 		return () => {
 			const id = hashCode(style);
-			document.head.insertAdjacentHTML(
-				'beforeend',
-				`<style id="${id}">${style}</style>`
-			);
+			const tag = document.createElement('style');
+			tag.id = id;
+			tag.innerText = style;
+			document.head.insertAdjacentElement('beforeend', tag);
 
 			return () => {
 				document.getElementById(id).remove();
