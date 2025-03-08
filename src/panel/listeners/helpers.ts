@@ -3,7 +3,7 @@ import {
 	type UnknownAction,
 	isAnyOf
 } from '@reduxjs/toolkit';
-import {helpersReady} from '../../background/slices/runtime';
+import {helpersReady, syncHelpers} from '../../background/slices/runtime';
 import {sendMessage} from '../../common/utils/tabs';
 import type {AppStartListening} from '../middlewares/listener';
 import {
@@ -39,7 +39,12 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 	};
 
 	startListening({
-		matcher: isAnyOf(toggleTest, setGlobalHelper, removeGlobalHelper),
+		matcher: isAnyOf(
+			toggleTest,
+			setGlobalHelper,
+			removeGlobalHelper,
+			syncHelpers
+		),
 		effect: applyHelpersEffect
 	});
 

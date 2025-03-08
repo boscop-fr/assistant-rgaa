@@ -22,9 +22,9 @@ export const viewPageSource = createAction<{url: string}>(
 	'runtime/viewPageSource'
 );
 export const createTab = createAction<{url: string}>('runtime/createTab');
-export const tabLoaded = createAction<{tabId: number}>('runtime/tabLoaded');
-export const panelUnloaded = createAction('runtime/panelUnloaded');
+export const appLoaded = createAction<{tabId: number}>('runtime/appLoaded');
 export const helpersReady = createAction('runtime/helpersReady');
+export const syncHelpers = createAction('runtime/syncHelpers');
 
 // For the following actions, the background script acts as
 // a relay, receiving actions from a content script and
@@ -33,7 +33,6 @@ export const helpersReady = createAction('runtime/helpersReady');
 // with each other directly.
 export const isRuntimeAction = isAnyOf(helpersReady);
 export const isContentAction = isAnyOf(
-	panelUnloaded,
 	getHierarchy,
 	requestPixelColor,
 	requestTextColor,

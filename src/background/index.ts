@@ -5,6 +5,7 @@ import {
 	sendMessage as sendMessageToTab
 } from '../common/utils/tabs';
 import {
+	appLoaded,
 	captureCurrentTab,
 	closePopup,
 	createTab,
@@ -12,7 +13,6 @@ import {
 	isRuntimeAction,
 	openPopup,
 	openSidebar as openSidebarAction,
-	tabLoaded,
 	validatePage,
 	viewPageSource
 } from './slices/runtime';
@@ -61,7 +61,7 @@ browser.runtime.onMessage.addListener(async (message) => {
 		return openSidebar(tabId);
 	}
 
-	if (tabLoaded.match(message)) {
+	if (appLoaded.match(message)) {
 		await injectContentScripts(message.payload.tabId);
 	}
 

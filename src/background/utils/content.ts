@@ -12,12 +12,11 @@ const areScriptsInjected = async (tabId: number) => {
 	return !!results?.[0]?.result;
 };
 
-const setScriptsInjected = (tabId: number, injected = true) =>
+const setScriptsInjected = (tabId: number) =>
 	browser.scripting.executeScript({
 		target: {tabId},
-		args: [injected],
-		func(flag) {
-			document.body.dataset.rgaaExt = flag;
+		func() {
+			document.body.dataset.rgaaExt = 'true';
 		}
 	});
 
@@ -27,7 +26,7 @@ export const injectContentScripts = async (tabId: number) => {
 	}
 
 	return Promise.all([
-		setScriptsInjected(tabId, true),
+		setScriptsInjected(tabId),
 		browser.scripting.insertCSS({
 			target: {tabId},
 			files: CONTENT_STYLES

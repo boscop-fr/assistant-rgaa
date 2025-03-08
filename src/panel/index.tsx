@@ -2,8 +2,9 @@ import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 import {Provider} from 'react-redux';
-import {panelUnloaded, tabLoaded} from '../background/slices/runtime';
+import {appLoaded, syncHelpers} from '../background/slices/runtime';
 import {sendMessage} from '../common/utils/runtime';
+import {sendMessage as sendMessageToTab} from '../common/utils/tabs';
 import {
 	fetchCurrentTab,
 	getTabState,
@@ -12,6 +13,7 @@ import {
 import {getOption} from '../options/utils/storage';
 import App from './components/App';
 import messages from './messages/fr';
+import {revertActiveHelpers} from './slices/helpers';
 import {setPageInfo} from './slices/panel';
 import {setVersion} from './slices/reference';
 import {createStore} from './store';
@@ -28,25 +30,10 @@ const init = async () => {
 		? await browser.tabs.get(targetTabId)
 		: currentTab;
 
-	window.addEventListener('visibilitychange', () => {
-		if (document.visibilityState === 'hidden') {
-			sendMessage(panelUnloaded());
-		}
-	});
-
-	onTabReloaded(targetTab.id, () => {
-		sendMessage(
-			tabLoaded({
-				tabId: targetTab.id
-			})
-		);
-	});
-
 	const state = await getTabState(targetTab.id);
 	const store = createStore(state);
 
 	store.dispatch(setVersion(await getOption('referenceVersion')));
-
 	store.dispatch(
 		setPageInfo({
 			tabId: targetTab.id,
@@ -55,6 +42,39 @@ const init = async () => {
 			popupTabId
 		})
 	);
+
+	// Applies previously set helpers if any were persisted
+	// before.
+	store.dispatch(syncHelpers());
+
+	window.addEventListener('visibilitychange', () => {
+		switch (document.visibilityState) {
+			// Reverts helpers when the panel is closed or
+			// hidden. We're relying on this because there
+			// no event to tell when the panel is open or
+			// closed. This requires more work as helpers
+			// are applied or reverted each time the user
+			// switches tab, but it is the only reliable
+			// method.
+			case 'hidden':
+				sendMessageToTab(targetTab.id, revertActiveHelpers());
+				break;
+
+			// Reapplies helpers when the panel becomes
+			// visible again.
+			case 'visible':
+				store.dispatch(syncHelpers());
+				break;
+		}
+	});
+
+	onTabReloaded(targetTab.id, () => {
+		sendMessage(
+			appLoaded({
+				tabId: targetTab.id
+			})
+		);
+	});
 
 	const root = createRoot(document.getElementById('panel'));
 	const app = (
