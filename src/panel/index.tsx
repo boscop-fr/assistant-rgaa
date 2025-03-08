@@ -2,8 +2,8 @@ import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 import {Provider} from 'react-redux';
-import {tabLoaded} from '../background/slices/runtime';
-import {keepRuntimeConnectionAlive, sendMessage} from '../common/utils/runtime';
+import {panelUnloaded, tabLoaded} from '../background/slices/runtime';
+import {sendMessage} from '../common/utils/runtime';
 import {
 	fetchCurrentTab,
 	getTabState,
@@ -28,9 +28,11 @@ const init = async () => {
 		? await browser.tabs.get(targetTabId)
 		: currentTab;
 
-	// Used to observe the panel's lifecycle.
-	// @see https://stackoverflow.com/a/77106777/2391359
-	keepRuntimeConnectionAlive(targetTab.id);
+	window.addEventListener('visibilitychange', () => {
+		if (document.visibilityState === 'hidden') {
+			sendMessage(panelUnloaded());
+		}
+	});
 
 	onTabReloaded(targetTab.id, () => {
 		sendMessage(

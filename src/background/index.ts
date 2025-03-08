@@ -13,7 +13,6 @@ import {
 	openPopup,
 	openSidebar as openSidebarAction,
 	tabLoaded,
-	tabUnloaded,
 	validatePage,
 	viewPageSource
 } from './slices/runtime';
@@ -31,17 +30,6 @@ import {viewSource} from './utils/viewSource';
 // @see https://issues.chromium.org/issues/40929586
 browser.action.onClicked.addListener((tab) => {
 	openSidebar(tab.id);
-});
-
-browser.runtime.onConnect.addListener(async (port) => {
-	const tabId = parseInt(port.name, 10);
-
-	// We're using the disconnection callback to detect when
-	// the sidebar is closed.
-	// @see https://stackoverflow.com/a/77106777/2391359
-	port.onDisconnect.addListener(async () => {
-		await browser.tabs.sendMessage(tabId, tabUnloaded());
-	});
 });
 
 browser.tabs.onActivated.addListener((tab) => {

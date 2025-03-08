@@ -1,4 +1,4 @@
-import {tabUnloaded} from '../background/slices/runtime';
+import {panelUnloaded} from '../background/slices/runtime';
 import {loadScript} from '../common/utils/dom';
 
 let minimap: HTMLElement;
@@ -13,7 +13,7 @@ loadScript('dist/minimap-component.js', () => {
 });
 
 browser.runtime.onMessage.addListener((action) => {
-	if (tabUnloaded.match(action)) {
+	if (panelUnloaded.match(action)) {
 		minimap?.remove();
 		minimap = null;
 	}

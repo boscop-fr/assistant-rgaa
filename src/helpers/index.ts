@@ -1,4 +1,4 @@
-import {helpersReady, tabUnloaded} from '../background/slices/runtime';
+import {helpersReady, panelUnloaded} from '../background/slices/runtime';
 import {sendMessage} from '../common/utils/runtime';
 import {
 	applyHelpers as applyHelpersAction,
@@ -12,7 +12,7 @@ browser.runtime.onMessage.addListener((action) => {
 		applyHelpers(action.payload);
 	} else if (revertActiveHelpersAction.match(action)) {
 		revertActiveHelpers();
-	} else if (tabUnloaded.match(action)) {
+	} else if (panelUnloaded.match(action)) {
 		revertActiveHelpers();
 	}
 });
