@@ -43,11 +43,11 @@
 	margin-right: 0.2lh;
 }
 
-.HeadingsHierarchy-item--fake .HeadingsHierarchy-level {
+.HeadingsHierarchy-item--missing .HeadingsHierarchy-level {
 	background: var(--color-red);
 }
 
-.HeadingsHierarchy-item--fake .HeadingsHierarchy-text {
+.HeadingsHierarchy-item--missing .HeadingsHierarchy-text {
 	font-weight: bold;
 	color: var(--color-red);
 }

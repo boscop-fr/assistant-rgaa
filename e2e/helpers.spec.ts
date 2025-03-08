@@ -30,11 +30,23 @@ test('should extract headings hierarchy', async ({helpersPage: page}) => {
 	await page.sendMessage(applyHelpers([{helper: 'headingsHierarchy'}]));
 
 	await expect(await page.lastSentMessage()).toEqual({
-		type: 'helpers/headingsHierarchy/get',
+		type: 'helpers/headingsHierarchy/set',
 		payload: [
-			{level: 1, text: 'Heading 1', fake: false},
-			{level: 2, text: 'Heading 2', fake: false},
-			{level: 3, text: 'Heading 3', fake: false}
+			{level: 1, text: 'Heading 1'},
+			{level: 2, text: 'Heading 2'},
+			{level: 3, text: 'Heading 3'}
+		]
+	});
+
+	await page.sendMessage(revertActiveHelpers());
+	await page.sendMessage(applyHelpers([{helper: 'headingsHierarchy'}]));
+
+	await expect(await page.lastSentMessage()).toEqual({
+		type: 'helpers/headingsHierarchy/set',
+		payload: [
+			{level: 1, text: 'Heading 1'},
+			{level: 2, text: 'Heading 2'},
+			{level: 3, text: 'Heading 3'}
 		]
 	});
 
@@ -42,11 +54,10 @@ test('should extract headings hierarchy', async ({helpersPage: page}) => {
 	await page.waitForNextSentMessage();
 
 	await expect(await page.lastSentMessage()).toEqual({
-		type: 'helpers/headingsHierarchy/get',
+		type: 'helpers/headingsHierarchy/set',
 		payload: [
-			{level: 1, text: 'Heading 1', fake: false},
-			{level: 2, text: 'Titre manquant', fake: true},
-			{level: 3, text: 'Heading 3', fake: false}
+			{level: 1, text: 'Heading 1'},
+			{level: 3, text: 'Heading 3'}
 		]
 	});
 });

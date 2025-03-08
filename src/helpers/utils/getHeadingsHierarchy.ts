@@ -1,7 +1,6 @@
 export type HeadingHierarchyNode = {
 	level: number;
-	text: string;
-	fake: boolean;
+	text?: string;
 };
 
 const HxPattern = /^h([1-6])$/i;
@@ -47,10 +46,7 @@ const getHeadingText = (element: HTMLElement) => {
 	return 'Erreur lors de la récupération du texte';
 };
 
-export const withMissingHeadings = (
-	hierarchy: HeadingHierarchyNode[],
-	text: string
-) => {
+export const withMissingHeadings = (hierarchy: HeadingHierarchyNode[]) => {
 	const newHierarchy: HeadingHierarchyNode[] = [];
 	let previousLevel = 0;
 
@@ -61,9 +57,7 @@ export const withMissingHeadings = (
 			missingLevel++
 		) {
 			newHierarchy.push({
-				text,
-				level: missingLevel,
-				fake: true
+				level: missingLevel
 			});
 		}
 
@@ -89,8 +83,7 @@ const getHeadingsHierarchy = () => {
 		(element) =>
 			({
 				level: getHeadingLevel(element),
-				text: getHeadingText(element),
-				fake: false
+				text: getHeadingText(element)
 			}) as HeadingHierarchyNode
 	);
 };

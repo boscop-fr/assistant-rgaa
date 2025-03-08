@@ -1,11 +1,9 @@
 import debounce from 'debounce';
 import {sendMessage} from '../../common/utils/runtime';
 import HeadingsHierarchy from '../components/HeadingsHierarchy';
-import {getHierarchy} from '../slices/headingsHierarchy';
+import {getHierarchy, setHierarchy} from '../slices/headingsHierarchy';
 import {createHelper} from '../utils/createHelper';
-import getHeadingsHierarchy, {
-	withMissingHeadings
-} from '../utils/getHeadingsHierarchy';
+import getHeadingsHierarchy from '../utils/getHeadingsHierarchy';
 
 type HeadingsHierarchyOptions = {
 	// Whether or not to report missing heading levels.
@@ -23,28 +21,33 @@ export default createHelper({
 			id: 'Helper.headingsHierarchy'
 		});
 	},
-	apply({showMissing = true}) {
+	apply() {
 		return () => {
 			const sendHierarchy = () => {
-				const hierarchy = getHeadingsHierarchy();
-
-				sendMessage(
-					getHierarchy(
-						showMissing
-							? withMissingHeadings(hierarchy, 'Titre manquant')
-							: hierarchy
-					)
-				);
+				sendMessage(setHierarchy(getHeadingsHierarchy()));
 			};
 
-			const observer = new MutationObserver(debounce(sendHierarchy, 300));
+			const handleMessage = async (action: unknown) => {
+				if (getHierarchy.match(action)) {
+					sendHierarchy();
+				}
+			};
+
+			browser.runtime.onMessage.addListener(handleMessage);
+
+			const observer = new MutationObserver(debounce(sendHierarchy, 100));
+
 			observer.observe(document.body, {
 				childList: true
 			});
 
+			// We're sending the hierarchy once at start,
+			// without waiting for the requesting message,
+			// in case we missed it.
 			sendHierarchy();
 
 			return () => {
+				browser.runtime.onMessage.removeListener(handleMessage);
 				observer.disconnect();
 			};
 		};

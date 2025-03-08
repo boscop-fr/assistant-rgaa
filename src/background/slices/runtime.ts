@@ -5,6 +5,7 @@ import {
 	requestStyle,
 	requestTextColor
 } from '../../helpers/slices/colorContrast';
+import {getHierarchy} from '../../helpers/slices/headingsHierarchy';
 
 // Runtime message types.
 // These are not used inside redux but through the extension
@@ -33,6 +34,7 @@ export const helpersReady = createAction('runtime/helpersReady');
 export const isRuntimeAction = isAnyOf(helpersReady);
 export const isContentAction = isAnyOf(
 	panelUnloaded,
+	getHierarchy,
 	requestPixelColor,
 	requestTextColor,
 	requestStyle
