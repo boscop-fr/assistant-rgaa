@@ -9,9 +9,9 @@
 	right: -2ch;
 	width: clamp(20ch, 90vw, 40ch);
 	background: var(--color-white);
-	border: 2px solid var(--color-theme);
+	border: 1px solid var(--color-gutter-light);
 	border-top: 0;
-	box-shadow: 0 5px 5px 0 rgb(0 0 0 / 60%);
+	box-shadow: 0 0.5lh 1lh 0 rgb(0 0 0 / 40%);
 	z-index: 10;
 
 	&.is-open {
@@ -41,7 +41,7 @@
 	padding: 0.25lh var(--app-gutter);
 	background: var(--color-white) none no-repeat 0.6rem 50%;
 	background-size: 24px;
-	border-top: 1px solid color-mix(in srgb, var(--color-sand), black 30%);
+	border-top: 1px solid var(--color-gutter-light);
 	text-decoration: underline;
 }
 

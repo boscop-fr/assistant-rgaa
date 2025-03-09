@@ -13,18 +13,16 @@ function EnabledTests() {
 	}
 
 	return (
-		<section className="EnabledTests">
-			<header className="EnabledTests-header">
-				<h2 className="EnabledTests-title Title">
-					<FormattedMessage id="EnabledTests.title" />
-				</h2>
-			</header>
+		<section className="EnabledTests Toolbar">
+			<h2 className="Toolbar-title">
+				<FormattedMessage id="EnabledTests.title" />
+			</h2>
 
-			<ul className="EnabledTests-testList">
+			<ul className="Toolbar-actions">
 				{tests.map(({id}) => (
 					<li key={id} className="EnabledTests-testItem">
 						<button
-							className="Button EnabledTests-disableButton"
+							className="EnabledTests-disableButton ActionButton ActionButton--small"
 							title={intl.formatMessage(
 								{
 									id: 'EnabledTests.disableTest'

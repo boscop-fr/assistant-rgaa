@@ -7,12 +7,16 @@
 	border-radius: 5px;
 	background-color: var(--color-accent);
 	color: var(--color-accent-text);
-	transition: background-color ease-out 0.2s;
 
 	&:hover,
 	&:focus {
 		background-color: var(--color-accent-darker);
 	}
+}
+
+.ActionButton--small {
+	line-height: var(--line-height-small);
+	font-size: var(--font-size-small);
 }
 
 .ActionButton--large {

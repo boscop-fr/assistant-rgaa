@@ -10,7 +10,7 @@
 .ReferencePage-enabledTests {
 	position: sticky;
 	right: 0;
-	bottom: 0;
+	bottom: -1px;
 	left: 0;
 	z-index: 200;
 }

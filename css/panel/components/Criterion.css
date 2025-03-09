@@ -1,5 +1,5 @@
 .Criterion {
-	border-bottom: 1px solid color-mix(in srgb, var(--color-black), white 60%);
+	border-bottom: 1px solid var(--color-gutter);
 }
 
 .Criterion-header {
@@ -105,7 +105,7 @@
 	display: inline-block;
 	font-family: var(--font-body);
 	content: '►';
-	transition: transform 0.25s;
+	transition: transform 200ms ease-in;
 }
 
 .Criterion.is-open .Criterion-toggle::before {
@@ -120,17 +120,16 @@
 	display: inline-block;
 	vertical-align: middle;
 	padding: 0.25rlh 0.5ch;
-	border-left: 1px solid color-mix(in srgb, var(--color-black), white 60%);
+	border-left: 1px solid var(--color-gutter);
 	height: 100%;
 }
 
 .Criterion.is-open .Criterion-action {
-	border-color: rgba(255 255 255 / 25%);
+	border-color: var(--color-gutter-theme);
 }
 
 .Criterion-content {
 	background-color: var(--color-theme);
-	transition: padding-left 0.3s;
 }
 
 .Criterion.is-open .Criterion-content {
@@ -138,7 +137,7 @@
 }
 
 .Criterion-details {
-	border-top: 1px solid rgba(255 255 255 / 25%);
+	border-top: 1px solid var(--color-gutter-theme);
 	background: var(--color-theme);
 	color: var(--color-blue-lighter);
 }
@@ -163,6 +162,10 @@
 
 .Criterion-tests {
 	background: var(--color-white);
+}
+
+.Criterion-test:not(:last-child) {
+	border-bottom: 1px solid var(--color-gutter);
 }
 
 .Criterion-test:nth-child(even) {

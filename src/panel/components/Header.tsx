@@ -20,13 +20,13 @@ const Header = () => {
 	const popupTitle = intl.formatMessage({id: 'Header.openPopup'});
 
 	return (
-		<header className="Header">
-			<h1 className="Header-title">
+		<header className="Header Toolbar">
+			<h1 className="Toolbar-title Toolbar-title--wide ">
 				{isPopup ? `${title} | ` : null}
 				RGAA v{version}
 			</h1>
 
-			<div className="Header-menu">
+			<div className="Toolbar-actions">
 				<a
 					className="Header-help Link"
 					href="http://assistant-rgaa.boscop.fr/#fonctionnalites"
@@ -60,7 +60,7 @@ const Header = () => {
 				)}
 			</div>
 
-			<div className="Header-actions">
+			<div className="Toolbar-actions">
 				<ThemesList />
 				<StylesToggle />
 			</div>

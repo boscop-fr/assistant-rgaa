@@ -1,27 +1,5 @@
 .Header {
-	flex-shrink: 0;
-	display: flex;
-	gap: 2ch;
-	padding: 0.25lh 0.5lh;
-	align-items: center;
-	justify-content: space-between;
-	background: color-mix(in srgb, var(--color-blue) 5%, white);
-	color: color-mix(in srgb, var(--color-black), white 25%);
-}
-
-.Header-title {
-	flex: 1;
-	line-height: 1;
-}
-
-.Header-menu {
-	display: flex;
-	gap: 1ch;
-}
-
-.Header-actions {
-	display: flex;
-	gap: 1ch;
+	border-bottom: 1px solid var(--color-gutter-light);
 }
 
 .Header-closePopup {
@@ -34,7 +12,7 @@
 	padding: 0 0.125lh;
 
 	.Icon {
-		color: color-mix(in srgb, var(--color-black), white 30%);
+		color: var(--color-on-toolbar);
 		width: 1.25em;
 		height: 1.25em;
 	}

@@ -1,6 +1,4 @@
 .Test {
-	border-bottom: 1px solid color-mix(in srgb, var(--color-black), white 60%);
-
 	&.is-applied {
 		background: var(--color-blue-lighter);
 	}
@@ -44,7 +42,7 @@
 	display: inline-block;
 	vertical-align: middle;
 	padding: 0.25rlh 0.5ch;
-	border-left: 1px solid color-mix(in srgb, var(--color-black), white 80%);
+	border-left: 1px solid var(--color-gutter-light);
 	height: 100%;
 }
 

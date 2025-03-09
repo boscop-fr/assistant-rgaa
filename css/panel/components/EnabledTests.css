@@ -1,7 +1,7 @@
 .EnabledTests {
-	border-top: 1px solid color-mix(in srgb, var(--color-black), white 60%);
-	background: var(--color-theme-dark);
-	color: var(--color-theme-dark-text);
+	border-top: 1px solid var(--color-gutter-light);
+	background: var(--color-toolbar);
+	color: var(--color-on-toolbar);
 }
 
 .EnabledTests-testList {

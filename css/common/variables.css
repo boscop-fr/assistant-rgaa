@@ -24,9 +24,7 @@
 	--font-mono: monospace;
 	--color-black: #111;
 	--color-white: #fff;
-	--color-sand: #f5f5f5;
 	--color-gray: #888;
-	--color-gray-light: #eee;
 	--color-gray-dark: #555;
 	--color-blue: #2868c9;
 	--color-blue-light: #4c93ff;
@@ -37,7 +35,8 @@
 	--color-orange-text: #222;
 	--color-red: firebrick;
 	--color-green: green;
-	--color-highlight: color-mix(in srgb, yellow 30%, transparent);
+
+	--color-highlight: (in srgb, yellow 30%, transparent);
 	--color-theme: var(--color-blue);
 	--color-theme-text: var(--color-white);
 	--color-theme-dark: var(--color-blue-dark);
@@ -63,4 +62,11 @@
 	--color-on-error: #feeaea;
 	--color-neutral: #666d77;
 	--color-on-neutral: #eef0f2;
+
+	--color-toolbar: color-mix(in srgb, var(--color-blue) 5%, white);
+	--color-on-toolbar: color-mix(in srgb, var(--color-black), white 25%);
+
+	--color-gutter: color-mix(in srgb, var(--color-black), white 60%);
+	--color-gutter-light: color-mix(in srgb, var(--color-black), white 80%);
+	--color-gutter-theme: var(--color-blue-light);
 }
