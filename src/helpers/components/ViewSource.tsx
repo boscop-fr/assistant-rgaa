@@ -1,7 +1,6 @@
 import React from 'react';
 import {createTab, viewPageSource} from '../../background/slices/runtime';
 import {isFirefox} from '../../common/utils/browser';
-import {sendMessage} from '../../common/utils/runtime';
 import {selectPageUrl} from '../../panel/slices/panel';
 import {useAppSelector} from '../../panel/utils/hooks';
 import HelperButton from './HelperButton';
@@ -14,7 +13,7 @@ const ViewSource = () => {
 		// the source code as we can't open the `view-source`
 		// page directly.
 		// @TODO Move logic to the background script.
-		sendMessage(
+		browser.runtime.sendMessage(
 			isFirefox(window.navigator.userAgent)
 				? viewPageSource({
 						url: tabUrl

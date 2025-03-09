@@ -1,5 +1,4 @@
 import debounce from 'debounce';
-import {sendMessage} from '../../common/utils/runtime';
 import HeadingsHierarchy from '../components/HeadingsHierarchy';
 import {getHierarchy, setHierarchy} from '../slices/headingsHierarchy';
 import {createHelper} from '../utils/createHelper';
@@ -24,7 +23,7 @@ export default createHelper({
 	apply() {
 		return () => {
 			const sendHierarchy = () => {
-				sendMessage(setHierarchy(getHeadingsHierarchy()));
+				browser.runtime.sendMessage(setHierarchy(getHeadingsHierarchy()));
 			};
 
 			const handleMessage = async (action: unknown) => {

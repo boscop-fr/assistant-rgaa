@@ -1,18 +1,12 @@
-import {sendMessage} from '../common/utils/runtime';
-import {
-	clearTabState,
-	fetchCurrentTab,
-	sendMessage as sendMessageToTab
-} from '../common/utils/tabs';
+import {clearTabState, fetchCurrentTab} from '../common/utils/tabs';
 import {
 	appLoaded,
 	captureCurrentTab,
 	closePopup,
 	createTab,
-	isContentAction,
-	isRuntimeAction,
 	openPopup,
 	openSidebar as openSidebarAction,
+	tabAction,
 	validatePage,
 	viewPageSource
 } from './slices/runtime';
@@ -40,57 +34,57 @@ browser.tabs.onRemoved.addListener(async (tabId) => {
 	await clearTabState(tabId);
 });
 
-browser.runtime.onMessage.addListener(async (message) => {
-	if (openSidebarAction.match(message)) {
-		return openSidebar(message.payload.tabId);
-	}
+browser.runtime.onMessage.addListener((message, sender) => {
+	switch (true) {
+		case openSidebarAction.match(message):
+			openSidebar(message.payload.tabId);
+			break;
 
-	if (openPopup.match(message)) {
-		const {tabId} = message.payload;
-		await browser.windows.create({
-			url: `${browser.runtime.getURL(PANEL_PAGE)}?tabId=${tabId}`,
-			type: 'popup'
-		});
+		case openPopup.match(message):
+			closeSidebar(message.payload.tabId);
+			browser.windows.create({
+				url: `${browser.runtime.getURL(PANEL_PAGE)}?tabId=${message.payload.tabId}`,
+				type: 'popup'
+			});
+			break;
 
-		return closeSidebar(tabId);
-	}
+		case closePopup.match(message):
+			browser.tabs.remove(message.payload.popupTabId);
+			openSidebar(message.payload.tabId);
+			break;
 
-	if (closePopup.match(message)) {
-		const {tabId, popupTabId} = message.payload;
-		await browser.tabs.remove(popupTabId);
-		return openSidebar(tabId);
-	}
+		case appLoaded.match(message):
+			injectContentScripts(message.payload.tabId);
+			break;
 
-	if (appLoaded.match(message)) {
-		await injectContentScripts(message.payload.tabId);
-	}
+		case captureCurrentTab.match(message):
+			return captureVisibleTab();
 
-	if (captureCurrentTab.match(message)) {
-		return captureVisibleTab();
-	}
+		case validatePage.match(message):
+			validateLocalPage(message.payload.url);
+			break;
 
-	if (validatePage.match(message)) {
-		return validateLocalPage(message.payload.url);
-	}
+		case viewPageSource.match(message):
+			viewSource(message.payload.url);
+			break;
 
-	if (viewPageSource.match(message)) {
-		return viewSource(message.payload.url);
-	}
+		case createTab.match(message):
+			fetchCurrentTab().then(({index}) => {
+				browser.tabs.create({
+					url: message.payload.url,
+					index: index + 1
+				});
+			});
 
-	if (createTab.match(message)) {
-		const {index} = await fetchCurrentTab();
-		return browser.tabs.create({
-			url: message.payload.url,
-			index: index + 1
-		});
-	}
+			break;
 
-	if (isRuntimeAction(message)) {
-		return sendMessage(message);
-	}
-
-	if (isContentAction(message)) {
-		const {id} = await fetchCurrentTab();
-		return sendMessageToTab(id, message);
+		case !!sender?.tab?.id:
+			browser.runtime.sendMessage(
+				tabAction({
+					tabId: sender.tab.id,
+					action: message
+				})
+			);
+			break;
 	}
 });

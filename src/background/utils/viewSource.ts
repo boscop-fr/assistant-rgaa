@@ -1,8 +1,4 @@
-import {
-	fetchCurrentTab,
-	onTabLoaded,
-	sendMessage
-} from '../../common/utils/tabs';
+import {fetchCurrentTab, onTabLoaded} from '../../common/utils/tabs';
 import {getSource} from './source';
 
 export const viewSource = async (url: string) => {
@@ -14,6 +10,6 @@ export const viewSource = async (url: string) => {
 	});
 
 	onTabLoaded(tab.id, () => {
-		sendMessage(tab.id, source);
+		browser.tabs.sendMessage(tab.id, source);
 	});
 };

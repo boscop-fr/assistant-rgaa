@@ -1,5 +1,4 @@
 import {closePopup, openPopup} from '../../background/slices/runtime';
-import {sendMessage} from '../../common/utils/runtime';
 import {setTabState} from '../../common/utils/tabs';
 import type {AppStartListening} from '../middlewares/listener';
 import {selectPageTabId, selectPopupTabId, togglePopup} from '../slices/panel';
@@ -13,7 +12,8 @@ export const addPanelListeners = (startListening: AppStartListening) => {
 			const popupTabId = selectPopupTabId(state);
 
 			setTabState(tabId, state);
-			sendMessage(
+
+			browser.runtime.sendMessage(
 				popupTabId ? closePopup({tabId, popupTabId}) : openPopup({tabId})
 			);
 		}

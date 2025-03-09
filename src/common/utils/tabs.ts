@@ -16,8 +16,6 @@ export const fetchCurrentTab = async () => {
 	return tabs[0];
 };
 
-export const sendMessage = browser.tabs.sendMessage;
-
 const onUpdate = (
 	callback: Parameters<typeof browser.tabs.onUpdated.addListener>[0]
 ) => {

@@ -3,8 +3,11 @@ import {
 	type UnknownAction,
 	isAnyOf
 } from '@reduxjs/toolkit';
-import {helpersReady, syncHelpers} from '../../background/slices/runtime';
-import {sendMessage} from '../../common/utils/tabs';
+import {
+	helpersReady,
+	syncHelpers,
+	tabAction
+} from '../../background/slices/runtime';
 import type {AppStartListening} from '../middlewares/listener';
 import {
 	applyHelpers,
@@ -18,41 +21,52 @@ import {selectPageTabId} from '../slices/panel';
 import {selectEnabledTestIds, toggleTest} from '../slices/tests';
 import type {AppDispatch, AppState} from '../store';
 import {pollEffect} from '../utils/listeners';
-import {onRuntimeAction} from '../utils/runtime';
 
 export const addHelpersListeners = (startListening: AppStartListening) => {
-	const applyHelpersEffect = (
-		action: UnknownAction,
-		api: ListenerEffectAPI<AppState, AppDispatch>
-	) => {
-		const state = api.getState();
-		const ids = selectEnabledTestIds(state);
-		const helpers = selectHelpersByTests(state, ids);
-		const globalHelpers = selectGlobalHelpers(state);
-		const allHelpers = helpers.concat(globalHelpers);
-		const tabId = selectPageTabId(api.getState());
-
-		sendMessage(
-			tabId,
-			allHelpers.length ? applyHelpers(allHelpers) : revertActiveHelpers()
-		);
-	};
-
-	startListening({
-		matcher: isAnyOf(
-			toggleTest,
-			setGlobalHelper,
-			removeGlobalHelper,
-			syncHelpers
-		),
-		effect: applyHelpersEffect
-	});
-
 	startListening({
 		predicate: () => true,
 		effect: pollEffect(
-			onRuntimeAction.bind(null, helpersReady),
-			applyHelpersEffect
+			browser.runtime.onMessage.addListener,
+			(message, api) => {
+				if (
+					!tabAction.match(message) ||
+					!helpersReady.match(message.payload.action)
+				) {
+					return;
+				}
+
+				const tabId = selectPageTabId(api.getState());
+
+				if (message.payload.tabId === tabId) {
+					api.dispatch(message.payload.action);
+				}
+			}
 		)
+	});
+
+	startListening({
+		matcher: isAnyOf(
+			helpersReady,
+			syncHelpers,
+			toggleTest,
+			setGlobalHelper,
+			removeGlobalHelper
+		),
+		effect: (
+			action: UnknownAction,
+			api: ListenerEffectAPI<AppState, AppDispatch>
+		) => {
+			const state = api.getState();
+			const ids = selectEnabledTestIds(state);
+			const helpers = selectHelpersByTests(state, ids);
+			const globalHelpers = selectGlobalHelpers(state);
+			const allHelpers = helpers.concat(globalHelpers);
+			const tabId = selectPageTabId(api.getState());
+
+			browser.tabs.sendMessage(
+				tabId,
+				allHelpers.length ? applyHelpers(allHelpers) : revertActiveHelpers()
+			);
+		}
 	});
 };

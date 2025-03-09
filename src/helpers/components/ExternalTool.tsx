@@ -1,6 +1,5 @@
 import React from 'react';
 import {createTab} from '../../background/slices/runtime';
-import {sendMessage} from '../../common/utils/runtime';
 import {selectPageUrl} from '../../panel/slices/panel';
 import {useAppSelector} from '../../panel/utils/hooks';
 import HelperButton from './HelperButton';
@@ -16,7 +15,7 @@ const ExternalTool = ({name, url}: ExternalToolProps) => {
 	const handleCreateTab = () => {
 		const interpolated = url.replace(':url', tabUrl);
 
-		sendMessage(
+		browser.runtime.sendMessage(
 			createTab({
 				url: interpolated
 			})

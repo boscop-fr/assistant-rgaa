@@ -1,29 +1,32 @@
 import classNames from 'classnames';
 import React, {useEffect, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
-import {sendMessage, useRuntimeMessage} from '../../common/utils/runtime';
+import {useSelector} from 'react-redux';
+import {selectPageTabId} from '../../panel/slices/panel';
 import {getHierarchy, setHierarchy} from '../slices/headingsHierarchy';
 import {
 	type HeadingHierarchyNode,
 	withMissingHeadings
 } from '../utils/getHeadingsHierarchy';
+import {useTabAction} from '../utils/hooks';
 
 type HeadingsHierarchyProps = {
 	showMissing?: boolean;
 };
 
 const HeadingsHierarchy = ({showMissing}: HeadingsHierarchyProps) => {
+	const tabId = useSelector(selectPageTabId);
 	const [items, setItems] = useState<HeadingHierarchyNode[]>([]);
 	const allItems = showMissing ? withMissingHeadings(items) : items;
 
-	useRuntimeMessage((action: unknown) => {
+	useTabAction(tabId, (action) => {
 		if (setHierarchy.match(action)) {
 			setItems(action.payload);
 		}
 	});
 
 	useEffect(() => {
-		sendMessage(getHierarchy());
+		browser.tabs.sendMessage(tabId, getHierarchy());
 	}, []);
 
 	return (

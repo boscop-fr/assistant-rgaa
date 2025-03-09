@@ -1,7 +1,5 @@
 import {useEffect} from 'react';
 
-export const sendMessage = browser.runtime.sendMessage;
-
 export const useRuntimeMessage = (
 	listener: Parameters<typeof browser.runtime.onMessage.addListener>[0]
 ) => {

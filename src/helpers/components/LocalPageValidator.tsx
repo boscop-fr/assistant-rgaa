@@ -1,7 +1,6 @@
 import React from 'react';
 import {validatePage} from '../../background/slices/runtime';
 import {isFirefox} from '../../common/utils/browser';
-import {sendMessage} from '../../common/utils/runtime';
 import {selectPageUrl} from '../../panel/slices/panel';
 import {useAppSelector} from '../../panel/utils/hooks';
 import HelperButton from './HelperButton';
@@ -10,7 +9,7 @@ const LocalPageValidator = () => {
 	const tabUrl = useAppSelector(selectPageUrl);
 
 	const handleValidate = () => {
-		sendMessage(validatePage({url: tabUrl}));
+		browser.runtime.sendMessage(validatePage({url: tabUrl}));
 	};
 
 	if (isFirefox(window.navigator.userAgent)) {

@@ -1,6 +1,5 @@
 import {captureCurrentTab} from '../../background/slices/runtime';
 import {srgbToHex} from '../../common/utils/color';
-import {sendMessage} from '../../common/utils/runtime';
 
 export const imageElement = async (base64: string) => {
 	const {promise, resolve} = Promise.withResolvers<HTMLImageElement>();
@@ -23,10 +22,9 @@ const imageCanvas = (image: HTMLImageElement) => {
 };
 
 export const captureCurrentTabPixel = async (x: number, y: number) => {
-	const base64 = await sendMessage<
-		ReturnType<typeof captureCurrentTab>,
-		string
-	>(captureCurrentTab());
+	const base64 = (await browser.runtime.sendMessage(
+		captureCurrentTab()
+	)) as string;
 
 	const image = await imageElement(base64);
 	const [r, g, b] = imageCanvas(image)

@@ -3,8 +3,6 @@ import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 import {Provider} from 'react-redux';
 import {appLoaded, syncHelpers} from '../background/slices/runtime';
-import {sendMessage} from '../common/utils/runtime';
-import {sendMessage as sendMessageToTab} from '../common/utils/tabs';
 import {
 	fetchCurrentTab,
 	getTabState,
@@ -57,7 +55,7 @@ const init = async () => {
 			// switches tab, but it is the only reliable
 			// method.
 			case 'hidden':
-				sendMessageToTab(targetTab.id, revertActiveHelpers());
+				browser.tabs.sendMessage(targetTab.id, revertActiveHelpers());
 				break;
 
 			// Reapplies helpers when the panel becomes
@@ -69,7 +67,7 @@ const init = async () => {
 	});
 
 	onTabReloaded(targetTab.id, () => {
-		sendMessage(
+		browser.runtime.sendMessage(
 			appLoaded({
 				tabId: targetTab.id
 			})

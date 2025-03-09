@@ -4,8 +4,6 @@ import type {AppStartListening} from '../middlewares/listener';
 import {removeGlobalHelper, setGlobalHelper} from '../slices/helpers';
 import {selectAreStylesEnabled, toggleStyles} from '../slices/styles';
 import type {AppDispatch, AppState} from '../store';
-import {pollEffect} from '../utils/listeners';
-import {onRuntimeAction} from '../utils/runtime';
 
 export const addStylesListeners = (startListening: AppStartListening) => {
 	const toggleGlobalHelper = (
@@ -32,13 +30,10 @@ export const addStylesListeners = (startListening: AppStartListening) => {
 	});
 
 	startListening({
-		predicate: () => true,
-		effect: pollEffect(
-			onRuntimeAction.bind(null, helpersReady),
-			(action, api) => {
-				const enabled = selectAreStylesEnabled(api.getState());
-				toggleGlobalHelper(api, enabled);
-			}
-		)
+		actionCreator: helpersReady,
+		effect(action, api) {
+			const enabled = selectAreStylesEnabled(api.getState());
+			toggleGlobalHelper(api, enabled);
+		}
 	});
 };

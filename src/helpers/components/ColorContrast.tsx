@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
+import {useSelector} from 'react-redux';
 import {contrast} from '../../common/utils/color';
-import {sendMessage, useRuntimeMessage} from '../../common/utils/runtime';
+import {selectPageTabId} from '../../panel/slices/panel';
 import type {
 	ColorExtractorConfig,
 	ColorInputConfig
@@ -13,6 +14,7 @@ import {
 	updateColor,
 	updateStyle
 } from '../slices/colorContrast';
+import {useTabAction} from '../utils/hooks';
 import ColorContrastField from './ColorContrastField';
 import ColorContrastResult from './ColorContrastResult';
 import ToggleButton from './ToggleButton';
@@ -27,6 +29,7 @@ type PickAction =
 // The communication between the widgets and the page
 // needs a proper refactoring to be more simple and robust.
 const usePicker = (extractor: ColorExtractorConfig) => {
+	const tabId = useSelector(selectPageTabId);
 	const [pickerState, setPickerState] = useState<{
 		left: string;
 		right: string;
@@ -55,7 +58,7 @@ const usePicker = (extractor: ColorExtractorConfig) => {
 	};
 
 	const pickColor = (name: ColorName, action: PickAction) => {
-		sendMessage(action);
+		browser.tabs.sendMessage(tabId, action);
 		setPickerState((state) => ({
 			...state,
 			pickingName: name,
@@ -75,23 +78,25 @@ const usePicker = (extractor: ColorExtractorConfig) => {
 		pickColor(null, requestStyle());
 	};
 
-	useRuntimeMessage((action) => {
-		if (updateColor.match(action)) {
-			setPickerState((state) => ({
-				...state,
-				[state.pickingName]: action.payload,
-				pickingName: null,
-				pickingAction: null
-			}));
-		}
+	useTabAction(tabId, (action) => {
+		switch (true) {
+			case updateColor.match(action):
+				setPickerState((state) => ({
+					...state,
+					[state.pickingName]: action.payload,
+					pickingName: null,
+					pickingAction: null
+				}));
+				break;
 
-		if (updateStyle.match(action)) {
-			setPickerState(() => ({
-				left: action.payload[extractor.left],
-				right: action.payload[extractor.right],
-				pickingName: null,
-				pickingAction: null
-			}));
+			case updateStyle.match(action):
+				setPickerState(() => ({
+					left: action.payload[extractor.left],
+					right: action.payload[extractor.right],
+					pickingName: null,
+					pickingAction: null
+				}));
+				break;
 		}
 	});
 

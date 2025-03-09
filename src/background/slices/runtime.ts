@@ -1,11 +1,4 @@
-import {createAction, isAnyOf} from '@reduxjs/toolkit';
-import {type AuditResults} from '../../common/types';
-import {
-	requestPixelColor,
-	requestStyle,
-	requestTextColor
-} from '../../helpers/slices/colorContrast';
-import {getHierarchy} from '../../helpers/slices/headingsHierarchy';
+import {type Action, createAction} from '@reduxjs/toolkit';
 
 // Runtime message types.
 // These are not used inside redux but through the extension
@@ -26,15 +19,6 @@ export const appLoaded = createAction<{tabId: number}>('runtime/appLoaded');
 export const helpersReady = createAction('runtime/helpersReady');
 export const syncHelpers = createAction('runtime/syncHelpers');
 
-// For the following actions, the background script acts as
-// a relay, receiving actions from a content script and
-// broadcasting them to different parts of the extension,
-// because side panels and content scripts can't communicate
-// with each other directly.
-export const isRuntimeAction = isAnyOf(helpersReady);
-export const isContentAction = isAnyOf(
-	getHierarchy,
-	requestPixelColor,
-	requestTextColor,
-	requestStyle
+export const tabAction = createAction<{tabId: number; action: Action}>(
+	'runtime/tabAction'
 );
