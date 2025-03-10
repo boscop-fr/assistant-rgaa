@@ -13,9 +13,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 'lts'
+          node-version: lts/*
       - run: npm ci
       - run: npx playwright install --with-deps
+      # The build must be done before linting because web-ext
+      # checks for existence of files listed in the manifest.
+      - run: npm run build
       - run: npm run lint
       - run: npm test
       - uses: actions/upload-artifact@v4
