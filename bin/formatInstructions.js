@@ -5,7 +5,7 @@ const formatToType = (data, type) =>
 		Object.values(data).map((instruction) => ({
 			[type]: instruction
 		}))
-	)
+	);
 
 const format = (options) => {
 	const data = utils.readJson(options.source);

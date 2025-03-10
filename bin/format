@@ -8,11 +8,10 @@ import formatInstructions from './formatInstructions';
  */
 program
 	.command('instructions-3-2016')
-	.description('Transform a flat v3-2016 instructions JSON file to the correct instructions format.')
-	.option(
-		'-s, --source <source>',
-		'Source URL.'
+	.description(
+		'Transform a flat v3-2016 instructions JSON file to the correct instructions format.'
 	)
+	.option('-s, --source <source>', 'Source URL.')
 	.option(
 		'-d, --dest <dest>',
 		'Destination file.',

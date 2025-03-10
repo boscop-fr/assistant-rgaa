@@ -70,26 +70,23 @@ function parseCriteria(criterias, topicNumber) {
 			criteria.criterium.number,
 			topicNumber
 		),
-		specialCases: formatNotesToMarkdown(
-			criteria.criterium?.particularCases
-		),
-		technicalNotes: formatNotesToMarkdown(
-			criteria.criterium?.technicalNote
-		),
+		specialCases: formatNotesToMarkdown(criteria.criterium?.particularCases),
+		technicalNotes: formatNotesToMarkdown(criteria.criterium?.technicalNote),
 		references: {
 			wcag: {
-				criteria: marked(
-					getWcagCriteria(criteria.criterium.references[0]?.wcag),
-					{
+				criteria:
+					marked(getWcagCriteria(criteria.criterium.references[0]?.wcag), {
 						renderer: externalLinksRenderer(w3cWcag21FrUrl)
-					}
-				) || undefined,
-				techniques: marked(
-					getWcagTechniques(criteria.criterium.references[1]?.techniques),
-					{
-						renderer: externalLinksRenderer(w3cTechniquesUrl)
-					}
-				) || undefined
+					}) || undefined,
+				techniques:
+					marked(
+						getWcagTechniques(
+							criteria.criterium.references[1]?.techniques
+						),
+						{
+							renderer: externalLinksRenderer(w3cTechniquesUrl)
+						}
+					) || undefined
 			}
 		}
 	}));
@@ -147,9 +144,7 @@ function getWcagCriteria(titles) {
 	return titles
 		.map(parseWcagCriteria)
 		.map(({id, title, level}) => {
-			const anchor = title
-				? `#${wcagTitleSlug(title)}`
-				: '';
+			const anchor = title ? `#${wcagTitleSlug(title)}` : '';
 
 			return ` * [${id} (${level})](${anchor})`;
 		})
@@ -194,13 +189,16 @@ function formatNotesToMarkdown(notes) {
 		return undefined;
 	}
 
-	return notes.map((note) => {
-		const content = typeof note === 'string'
-			? note
-			: note.ul.map((item) => item.replace(/ ;$/, '')).join('\n');
+	return notes
+		.map((note) => {
+			const content =
+				typeof note === 'string'
+					? note
+					: note.ul.map((item) => item.replace(/ ;$/, '')).join('\n');
 
-		return marked(content, {
-			renderer: externalLinksRenderer(accessGouvUrl)
-		});
-	}).join('');
+			return marked(content, {
+				renderer: externalLinksRenderer(accessGouvUrl)
+			});
+		})
+		.join('');
 }

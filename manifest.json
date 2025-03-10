@@ -18,33 +18,19 @@
 		"default_panel": "pages/default-panel.html",
 		"open_at_install": false
 	},
-	"permissions": [
-		"tabs",
-		"storage",
-		"scripting",
-		"sidePanel"
-	],
-	"host_permissions": [
-		"<all_urls>"
-	],
+	"permissions": ["tabs", "storage", "scripting", "sidePanel"],
+	"host_permissions": ["<all_urls>"],
 	"background": {
 		"service_worker": "dist/background.js",
-		"scripts": [
-			"dist/background.js"
-		]
+		"scripts": ["dist/background.js"]
 	},
 	"options_ui": {
 		"page": "pages/options.html"
 	},
 	"web_accessible_resources": [
 		{
-			"resources": [
-				"dist/minimap-component.js",
-				"data/references/*"
-			],
-			"matches": [
-				"<all_urls>"
-			]
+			"resources": ["dist/minimap-component.js", "data/references/*"],
+			"matches": ["<all_urls>"]
 		}
 	],
 	"minimum_chrome_version": "121",

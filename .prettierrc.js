@@ -23,7 +23,7 @@ export default {
 			}
 		},
 		{
-			files: '*.yml',
+			files: ['package.json', 'package-lock.json', '*.yml', '*.md'],
 			options: {
 				useTabs: false,
 				tabWidth: 2
