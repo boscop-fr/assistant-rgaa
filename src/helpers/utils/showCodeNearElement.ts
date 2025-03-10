@@ -42,9 +42,5 @@ export const showCodeNearElement = (element: HTMLElement, html: string) => {
 };
 
 export const removeCodeNearElement = (element: HTMLElement) => {
-	const next = element.nextElementSibling;
-
-	if (next?.classList.contains(CONTAINER_CLASS_NAME)) {
-		next.remove();
-	}
+	getContainer(element)?.remove();
 };
