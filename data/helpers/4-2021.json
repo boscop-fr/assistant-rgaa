@@ -1225,7 +1225,7 @@
 		{
 			"helper": "showChildElements",
 			"selector": "table",
-			"childrenSelector": "> caption",
+			"childrenSelector": "& > caption",
 			"attributes": [],
 			"showContent": true
 		},
@@ -1265,7 +1265,7 @@
 		{
 			"helper": "showChildElements",
 			"selector": "table",
-			"childrenSelector": "> caption",
+			"childrenSelector": "& > caption",
 			"attributes": [],
 			"showContent": true
 		},
@@ -1318,7 +1318,7 @@
 		{
 			"helper": "showChildElements",
 			"selector": "table",
-			"childrenSelector": "> caption",
+			"childrenSelector": "& > caption",
 			"attributes": [],
 			"showContent": true
 		},
@@ -1348,7 +1348,7 @@
 		{
 			"helper": "showChildElements",
 			"selector": "table",
-			"childrenSelector": "> caption",
+			"childrenSelector": "& > caption",
 			"attributes": [],
 			"showContent": true
 		},
@@ -1520,7 +1520,7 @@
 		{
 			"helper": "showChildElements",
 			"selector": "table",
-			"childrenSelector": "> caption",
+			"childrenSelector": "& > caption",
 			"attributes": [],
 			"showContent": true
 		},
