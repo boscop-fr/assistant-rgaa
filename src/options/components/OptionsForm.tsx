@@ -74,15 +74,7 @@ function OptionsForm() {
 				</select>
 			</div>
 
-			<div className="OptionsForm-field">
-				<label
-					className="OptionsForm-label"
-					htmlFor="OptionsForm-input--allowMultipleTests"
-				>
-					<FormattedMessage id="OptionsForm.allowMultipleTests" />
-					{'' /* forces eslint to consider that the label has some text */}
-				</label>
-
+			<div className="OptionsForm-field OptionsForm-field--inline">
 				<input
 					id="OptionsForm-input--allowMultipleTests"
 					type="checkbox"
@@ -91,17 +83,17 @@ function OptionsForm() {
 					checked={options.allowMultipleTests}
 					onChange={handleChange}
 				/>
-			</div>
 
-			<div className="OptionsForm-field">
 				<label
 					className="OptionsForm-label"
-					htmlFor="OptionsForm-input--autoOpenInstructions"
+					htmlFor="OptionsForm-input--allowMultipleTests"
 				>
-					<FormattedMessage id="OptionsForm.autoOpenInstructions" />
+					<FormattedMessage id="OptionsForm.allowMultipleTests" />
 					{'' /* forces eslint to consider that the label has some text */}
 				</label>
+			</div>
 
+			<div className="OptionsForm-field OptionsForm-field--inline">
 				<input
 					id="OptionsForm-input--autoOpenInstructions"
 					type="checkbox"
@@ -110,7 +102,49 @@ function OptionsForm() {
 					checked={options.autoOpenInstructions}
 					onChange={handleChange}
 				/>
+
+				<label
+					className="OptionsForm-label"
+					htmlFor="OptionsForm-input--autoOpenInstructions"
+				>
+					<FormattedMessage id="OptionsForm.autoOpenInstructions" />
+					{'' /* forces eslint to consider that the label has some text */}
+				</label>
 			</div>
+
+			<fieldset className="OptionsForm-field">
+				<legend className="OptionsForm-label">
+					<FormattedMessage id="OptionsForm.statePersistence" />
+				</legend>
+
+				<p className="OptionsForm-hint">
+					<FormattedMessage id="OptionsForm.statePersistence.hint" />
+				</p>
+
+				{['always', 'tab', 'url', 'tabUrl'].map((option) => {
+					const id = `OptionsForm-input--statePersistence-${option}`;
+
+					return (
+						<div className="OptionsForm-field--inline" key={option}>
+							<input
+								id={id}
+								type="radio"
+								name="statePersistence"
+								value={option}
+								checked={options.statePersistence === option}
+								onChange={handleChange}
+							/>
+
+							{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+							<label htmlFor={id}>
+								<FormattedMessage
+									id={`OptionsForm.statePersistence.${option}`}
+								/>
+							</label>
+						</div>
+					);
+				})}
+			</fieldset>
 
 			<div className="OptionsForm-submit">
 				<button type="submit">

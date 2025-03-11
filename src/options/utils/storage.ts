@@ -1,16 +1,20 @@
 import {useEffect, useState} from 'react';
 import {type Storage} from 'webextension-polyfill';
 
+export type StatePersistence = 'always' | 'tab' | 'url' | 'tabUrl';
+
 export type Options = {
 	referenceVersion: string;
 	allowMultipleTests: boolean;
 	autoOpenInstructions: boolean;
+	statePersistence: StatePersistence;
 };
 
 export const DEFAULT_OPTIONS: Options = {
 	referenceVersion: '4-2023',
 	allowMultipleTests: false,
-	autoOpenInstructions: true
+	autoOpenInstructions: true,
+	statePersistence: 'tabUrl'
 };
 
 export const isBooleanOption = (key: keyof Options) =>

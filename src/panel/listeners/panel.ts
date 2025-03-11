@@ -1,36 +1,25 @@
 import {closePopup, openPopup} from '../../background/slices/runtime';
-import {setTabState} from '../../common/utils/tabs';
 import type {AppStartListening} from '../middlewares/listener';
-import {selectPageTabId, selectPopupTabId, togglePopup} from '../slices/panel';
+import {
+	selectPopupTabId,
+	selectTargetTabId,
+	togglePopup
+} from '../slices/panel';
+import {storeState} from '../slices/storage';
 
 export const addPanelListeners = (startListening: AppStartListening) => {
 	startListening({
 		actionCreator: togglePopup,
-		effect(action, api) {
+		async effect(action, api) {
 			const state = api.getState();
-			const tabId = selectPageTabId(state);
+			const tabId = selectTargetTabId(state);
 			const popupTabId = selectPopupTabId(state);
 
-			setTabState(tabId, state);
+			await api.dispatch(storeState()).unwrap();
 
 			browser.runtime.sendMessage(
 				popupTabId ? closePopup({tabId, popupTabId}) : openPopup({tabId})
 			);
-		}
-	});
-
-	// Saves the whole state each time something changes.
-	startListening({
-		predicate: () => true,
-		async effect(action, api) {
-			// @see https://redux-toolkit.js.org/api/createListenerMiddleware#complex-async-workflows
-			api.cancelActiveListeners();
-			await api.delay(300);
-
-			const state = api.getState();
-			const tabId = selectPageTabId(state);
-
-			setTabState(tabId, state);
 		}
 	});
 };

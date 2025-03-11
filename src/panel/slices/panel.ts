@@ -1,16 +1,16 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
 
 type PanelState = {
-	pageTabId: number;
-	pageUrl: string;
-	pageTitle: string;
+	targetTabId: number;
+	targetTabUrl: string;
+	targetTabTitle: string;
 	popupTabId: number;
 };
 
 const initialState: PanelState = {
-	pageTabId: null,
-	pageUrl: null,
-	pageTitle: null,
+	targetTabId: null,
+	targetTabUrl: null,
+	targetTabTitle: null,
 	popupTabId: null
 };
 
@@ -18,23 +18,31 @@ const panelSlice = createSlice({
 	name: 'panel',
 	initialState,
 	reducers: {
-		setPageInfo(state, {payload}) {
-			state.pageTabId = payload.tabId; // eslint-disable-line no-param-reassign
-			state.pageUrl = payload.url; // eslint-disable-line no-param-reassign
-			state.pageTitle = payload.title; // eslint-disable-line no-param-reassign
-			state.popupTabId = payload.popupTabId; // eslint-disable-line no-param-reassign
+		setTabIds(
+			state,
+			{payload}: PayloadAction<{targetTabId: number; popupTabId: number}>
+		) {
+			state.targetTabId = payload.targetTabId;
+			state.popupTabId = payload.popupTabId;
+		},
+		setTabInfo(
+			state,
+			{payload}: PayloadAction<{url: string; title: string}>
+		) {
+			state.targetTabUrl = payload.url;
+			state.targetTabTitle = payload.title;
 		},
 		togglePopup() {}
 	},
 	selectors: {
-		selectPageTabId(state) {
-			return state.pageTabId;
+		selectTargetTabId(state) {
+			return state.targetTabId;
 		},
-		selectPageTitle(state) {
-			return state.pageTitle;
+		selectTargetTabTitle(state) {
+			return state.targetTabTitle;
 		},
-		selectPageUrl(state) {
-			return state.pageUrl;
+		selectTargetTabUrl(state) {
+			return state.targetTabUrl;
 		},
 		selectPopupTabId(state) {
 			return state.popupTabId;
@@ -43,11 +51,12 @@ const panelSlice = createSlice({
 });
 
 const {actions, reducer, selectors} = panelSlice;
-export const {setPageInfo, togglePopup} = actions;
+export const {setTabIds, setTabInfo, togglePopup} = actions;
 export const {
-	selectPageTabId,
-	selectPageTitle,
-	selectPageUrl,
+	selectTargetTabId,
+	selectTargetTabTitle,
+	selectTargetTabUrl,
 	selectPopupTabId
 } = selectors;
+
 export default reducer;

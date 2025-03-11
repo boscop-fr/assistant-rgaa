@@ -3,11 +3,7 @@ import {
 	type UnknownAction,
 	isAnyOf
 } from '@reduxjs/toolkit';
-import {
-	helpersReady,
-	syncHelpers,
-	tabAction
-} from '../../background/slices/runtime';
+import {helpersReady, tabAction} from '../../background/slices/runtime';
 import type {AppStartListening} from '../middlewares/listener';
 import {
 	applyHelpers,
@@ -17,17 +13,19 @@ import {
 	selectHelpersByTests,
 	setGlobalHelper
 } from '../slices/helpers';
-import {selectPageTabId} from '../slices/panel';
+import {selectTargetTabId} from '../slices/panel';
 import {selectEnabledTestIds, toggleTest} from '../slices/tests';
 import type {AppDispatch, AppState} from '../store';
 import {pollEffect} from '../utils/listeners';
 
 export const addHelpersListeners = (startListening: AppStartListening) => {
+	// Dispatches actions received from the background script
+	// to the store.
 	startListening({
 		predicate: () => true,
 		effect: pollEffect(
 			browser.runtime.onMessage.addListener,
-			(message, api) => {
+			(api, message) => {
 				if (
 					!tabAction.match(message) ||
 					!helpersReady.match(message.payload.action)
@@ -35,7 +33,7 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 					return;
 				}
 
-				const tabId = selectPageTabId(api.getState());
+				const tabId = selectTargetTabId(api.getState());
 
 				if (message.payload.tabId === tabId) {
 					api.dispatch(message.payload.action);
@@ -45,9 +43,38 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 	});
 
 	startListening({
+		predicate: () => true,
+		effect: pollEffect(
+			window.addEventListener.bind(null, 'visibilitychange'),
+			(api) => {
+				switch (document.visibilityState) {
+					// Reverts helpers when the panel is closed or
+					// hidden. We're relying on this because there
+					// no event to tell when the panel is open or
+					// closed. This requires more work as helpers
+					// are applied or reverted each time the user
+					// switches tab, but it is the only reliable
+					// method.
+					case 'hidden':
+						browser.tabs.sendMessage(
+							selectTargetTabId(api.getState()),
+							revertActiveHelpers()
+						);
+						break;
+
+					// Reapplies helpers when the panel becomes
+					// visible again.
+					case 'visible':
+						api.dispatch(helpersReady());
+						break;
+				}
+			}
+		)
+	});
+
+	startListening({
 		matcher: isAnyOf(
 			helpersReady,
-			syncHelpers,
 			toggleTest,
 			setGlobalHelper,
 			removeGlobalHelper
@@ -61,12 +88,19 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 			const helpers = selectHelpersByTests(state, ids);
 			const globalHelpers = selectGlobalHelpers(state);
 			const allHelpers = helpers.concat(globalHelpers);
-			const tabId = selectPageTabId(api.getState());
+			const tabId = selectTargetTabId(api.getState());
 
-			browser.tabs.sendMessage(
-				tabId,
-				allHelpers.length ? applyHelpers(allHelpers) : revertActiveHelpers()
-			);
+			try {
+				browser.tabs.sendMessage(
+					tabId,
+					allHelpers.length
+						? applyHelpers(allHelpers)
+						: revertActiveHelpers()
+				);
+			} catch (e) {
+				// Content scripts on the receiving end
+				// might not be loaded yet.
+			}
 		}
 	});
 };

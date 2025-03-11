@@ -1,7 +1,7 @@
 import {onOptionChange} from '../../options/utils/storage';
 import type {AppStartListening} from '../middlewares/listener';
+import {loadReference} from '../slices/app';
 import {openOptionsPage} from '../slices/options';
-import {setVersion} from '../slices/reference';
 import {pollEffect} from '../utils/listeners';
 
 export const addOptionsListener = (startListening: AppStartListening) => {
@@ -14,10 +14,10 @@ export const addOptionsListener = (startListening: AppStartListening) => {
 
 	startListening({
 		predicate: () => true,
-		effect: pollEffect<string>(
+		effect: pollEffect<[string]>(
 			onOptionChange.bind(null, 'referenceVersion'),
-			(version, api) => {
-				api.dispatch(setVersion(version));
+			(api, version) => {
+				api.dispatch(loadReference(version));
 			}
 		)
 	});

@@ -30,9 +30,7 @@ const referenceSlice = createSlice({
 	reducers: {
 		setReferenceData(state, {payload}: PayloadAction<ReferenceState>) {
 			return payload;
-		},
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		setVersion(state, {payload: version}: PayloadAction<string>) {}
+		}
 	},
 	selectors: {
 		selectIsLoaded(state) {
@@ -63,7 +61,7 @@ const referenceSlice = createSlice({
 });
 
 const {actions, reducer, selectors} = referenceSlice;
-export const {setReferenceData, setVersion} = actions;
+export const {setReferenceData} = actions;
 export const {
 	selectIsLoaded,
 	selectVersion,

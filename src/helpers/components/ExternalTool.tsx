@@ -1,6 +1,6 @@
 import React from 'react';
 import {createTab} from '../../background/slices/runtime';
-import {selectPageUrl} from '../../panel/slices/panel';
+import {selectTargetTabUrl} from '../../panel/slices/panel';
 import {useAppSelector} from '../../panel/utils/hooks';
 import HelperButton from './HelperButton';
 
@@ -10,7 +10,7 @@ type ExternalToolProps = {
 };
 
 const ExternalTool = ({name, url}: ExternalToolProps) => {
-	const tabUrl = useAppSelector(selectPageUrl);
+	const tabUrl = useAppSelector(selectTargetTabUrl);
 
 	const handleCreateTab = () => {
 		const interpolated = url.replace(':url', tabUrl);

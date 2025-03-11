@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, {useEffect, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useSelector} from 'react-redux';
-import {selectPageTabId} from '../../panel/slices/panel';
+import {selectTargetTabId} from '../../panel/slices/panel';
 import {getHierarchy, setHierarchy} from '../slices/headingsHierarchy';
 import {
 	type HeadingHierarchyNode,
@@ -15,7 +15,7 @@ type HeadingsHierarchyProps = {
 };
 
 const HeadingsHierarchy = ({showMissing}: HeadingsHierarchyProps) => {
-	const tabId = useSelector(selectPageTabId);
+	const tabId = useSelector(selectTargetTabId);
 	const [items, setItems] = useState<HeadingHierarchyNode[]>([]);
 	const allItems = showMissing ? withMissingHeadings(items) : items;
 

@@ -17,7 +17,6 @@ export const viewPageSource = createAction<{url: string}>(
 export const createTab = createAction<{url: string}>('runtime/createTab');
 export const appLoaded = createAction<{tabId: number}>('runtime/appLoaded');
 export const helpersReady = createAction('runtime/helpersReady');
-export const syncHelpers = createAction('runtime/syncHelpers');
 
 export const tabAction = createAction<{tabId: number; action: Action}>(
 	'runtime/tabAction'

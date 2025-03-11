@@ -1,9 +1,19 @@
-import {AppWindowIcon, CircleHelpIcon, SettingsIcon} from 'lucide-react';
+import {
+	AppWindowIcon,
+	CircleHelpIcon,
+	DatabaseBackupIcon,
+	SettingsIcon
+} from 'lucide-react';
 import React from 'react';
 import {useIntl} from 'react-intl';
 import {openOptionsPage} from '../slices/options';
-import {selectPageTitle, selectPopupTabId, togglePopup} from '../slices/panel';
+import {
+	selectPopupTabId,
+	selectTargetTabTitle,
+	togglePopup
+} from '../slices/panel';
 import {selectVersion} from '../slices/reference';
+import {stateReset} from '../slices/storage';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
 import Icon from './Icon';
 import StylesToggle from './StylesToggle';
@@ -13,11 +23,12 @@ const Header = () => {
 	const intl = useIntl();
 	const version = useAppSelector(selectVersion);
 	const isPopup = !!useAppSelector(selectPopupTabId);
-	const title = useAppSelector(selectPageTitle);
+	const title = useAppSelector(selectTargetTabTitle);
 	const dispatch = useAppDispatch();
-	const helpTitle = intl.formatMessage({id: 'Header.help'});
-	const optionsTitle = intl.formatMessage({id: 'Header.options'});
+	const resetTitle = intl.formatMessage({id: 'Header.reset'});
 	const popupTitle = intl.formatMessage({id: 'Header.openPopup'});
+	const optionsTitle = intl.formatMessage({id: 'Header.options'});
+	const helpTitle = intl.formatMessage({id: 'Header.help'});
 
 	return (
 		<header className="Header Toolbar">
@@ -27,38 +38,49 @@ const Header = () => {
 			</h1>
 
 			<div className="Toolbar-actions">
-				<a
-					className="Header-help Link"
-					href="http://assistant-rgaa.boscop.fr/#fonctionnalites"
-					target="_blank"
-					title={helpTitle}
-				>
-					<Icon icon={CircleHelpIcon} title={helpTitle} />
-				</a>
-
-				<button
-					type="button"
-					onClick={() => {
-						dispatch(openOptionsPage());
-					}}
-					className="Header-options Link"
-					title={optionsTitle}
-				>
-					<Icon icon={SettingsIcon} title={optionsTitle} />
-				</button>
-
 				{isPopup ? null : (
 					<button
 						type="button"
 						onClick={() => {
 							dispatch(togglePopup());
 						}}
-						className="Header-openPopup InvisibleButton"
+						className="Header-action InvisibleButton"
 						title={popupTitle}
 					>
 						<Icon icon={AppWindowIcon} title={popupTitle} />
 					</button>
 				)}
+
+				<button
+					type="button"
+					onClick={() => {
+						dispatch(stateReset());
+					}}
+					className="Header-action InvisibleButton"
+					title={resetTitle}
+				>
+					<Icon icon={DatabaseBackupIcon} title={resetTitle} />
+				</button>
+
+				<button
+					type="button"
+					onClick={() => {
+						dispatch(openOptionsPage());
+					}}
+					className="Header-action Link"
+					title={optionsTitle}
+				>
+					<Icon icon={SettingsIcon} title={optionsTitle} />
+				</button>
+
+				<a
+					className="Header-action Link"
+					href="http://assistant-rgaa.boscop.fr/#fonctionnalites"
+					target="_blank"
+					title={helpTitle}
+				>
+					<Icon icon={CircleHelpIcon} title={helpTitle} />
+				</a>
 			</div>
 
 			<div className="Toolbar-actions">

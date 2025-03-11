@@ -2,14 +2,8 @@
 	border-bottom: 1px solid var(--color-gutter-light);
 }
 
-.Header-closePopup {
-	margin-left: 1lh;
-}
-
-.Header-options,
-.Header-closePopup,
-.Header-help {
-	padding: 0 0.125lh;
+.Header-action {
+	aspect-ratio: 1 / 1;
 
 	.Icon {
 		color: var(--color-on-toolbar);

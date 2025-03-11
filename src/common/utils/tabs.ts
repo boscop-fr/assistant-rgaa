@@ -1,6 +1,3 @@
-import type {AppState} from '../../panel/store';
-import {clearData, getData, setData} from './storage';
-
 export const fetchCurrentTab = async () => {
 	const query = {
 		active: true,
@@ -16,7 +13,7 @@ export const fetchCurrentTab = async () => {
 	return tabs[0];
 };
 
-const onUpdate = (
+export const onTabUpdated = (
 	callback: Parameters<typeof browser.tabs.onUpdated.addListener>[0]
 ) => {
 	browser.tabs.onUpdated.addListener(callback);
@@ -27,7 +24,7 @@ const onUpdate = (
 };
 
 export const onTabLoaded = (id: number, callback: () => void) => {
-	const cleanup = onUpdate((tabId, {status}) => {
+	const cleanup = onTabUpdated((tabId, {status}) => {
 		if (tabId === id && status === 'complete') {
 			callback();
 			cleanup();
@@ -35,35 +32,24 @@ export const onTabLoaded = (id: number, callback: () => void) => {
 	});
 };
 
-export const onTabReloaded = (
-	id: number,
-	callback: () => void,
-	initial = true
-) => {
+export const onTabMount = (id: number, callback: () => () => void) => {
 	let isLoading = false;
+	let cleanup = callback();
 
-	if (initial) {
-		callback();
-	}
-
-	return onUpdate((tabId, {status}) => {
+	return onTabUpdated((tabId, {status}) => {
 		if (tabId !== id) {
 			return;
 		}
 
 		if (status === 'loading') {
 			isLoading = true;
-		} else if (status === 'complete' && isLoading) {
+			cleanup();
+			return;
+		}
+
+		if (status === 'complete' && isLoading) {
 			isLoading = false;
-			callback();
+			cleanup = callback();
 		}
 	});
 };
-
-export const getTabState = (tabId: number) =>
-	getData(`${tabId}.state`, undefined);
-
-export const setTabState = (tabId: number, state: AppState) =>
-	setData(`${tabId}.state`, state);
-
-export const clearTabState = (tabId: number) => clearData(`${tabId}.state`);

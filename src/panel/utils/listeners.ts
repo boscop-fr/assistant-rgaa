@@ -7,27 +7,30 @@ import type {AppDispatch, AppState} from '../store';
 
 // Executes an effect each time a subscriber emits a new value.
 export const pollEffect =
-	<T>(
-		subscribe: (callback: (value: T) => void) => void,
-		effect: (value: T, api: ListenerEffectAPI<AppState, AppDispatch>) => void
+	<P extends unknown[]>(
+		subscribe: (callback: (...params: P) => void) => void,
+		effect: (
+			api: ListenerEffectAPI<AppState, AppDispatch>,
+			...values: P
+		) => void
 	): ListenerEffect<UnknownAction, AppState, AppDispatch> =>
 	(action, api) => {
 		// We want the effect to run only once and start a
 		// background task.
 		api.unsubscribe();
 		api.fork(async () => {
-			let {promise, resolve} = Promise.withResolvers<T>();
+			let {promise, resolve} = Promise.withResolvers<P>();
 
-			subscribe((value) => {
-				resolve(value);
+			subscribe((...args) => {
+				resolve(args);
 			});
 
 			// eslint-disable-next-line no-constant-condition
 			while (true) {
 				// eslint-disable-next-line no-await-in-loop
-				const value = await promise;
-				({promise, resolve} = Promise.withResolvers<T>());
-				effect(value, api);
+				const args = await promise;
+				({promise, resolve} = Promise.withResolvers<P>());
+				effect(api, ...args);
 			}
 		});
 	};

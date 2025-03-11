@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
 import {useSelector} from 'react-redux';
 import {contrast} from '../../common/utils/color';
-import {selectPageTabId} from '../../panel/slices/panel';
+import {selectTargetTabId} from '../../panel/slices/panel';
 import type {
 	ColorExtractorConfig,
 	ColorInputConfig
@@ -29,7 +29,7 @@ type PickAction =
 // The communication between the widgets and the page
 // needs a proper refactoring to be more simple and robust.
 const usePicker = (extractor: ColorExtractorConfig) => {
-	const tabId = useSelector(selectPageTabId);
+	const tabId = useSelector(selectTargetTabId);
 	const [pickerState, setPickerState] = useState<{
 		left: string;
 		right: string;

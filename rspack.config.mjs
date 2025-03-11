@@ -1,6 +1,7 @@
 import {defineConfig} from '@rspack/cli';
 import rspack from '@rspack/core';
 import path from 'path';
+import manifest from './manifest.json' with {type: 'json'};
 
 const fullPath = path.resolve.bind(null, process.cwd());
 const devMode = process.env.NODE_ENV === 'development';
@@ -130,6 +131,9 @@ export default defineConfig({
 		]
 	},
 	plugins: [
+		new rspack.EnvironmentPlugin({
+			VERSION: manifest.version
+		}),
 		new rspack.CssExtractRspackPlugin(),
 		new rspack.ProvidePlugin({
 			browser: 'webextension-polyfill'

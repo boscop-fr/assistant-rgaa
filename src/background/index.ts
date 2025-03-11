@@ -1,4 +1,4 @@
-import {clearTabState, fetchCurrentTab} from '../common/utils/tabs';
+import {fetchCurrentTab} from '../common/utils/tabs';
 import {
 	appLoaded,
 	captureCurrentTab,
@@ -28,10 +28,6 @@ browser.action.onClicked.addListener((tab) => {
 
 browser.tabs.onActivated.addListener((tab) => {
 	reloadSidebar(tab.tabId);
-});
-
-browser.tabs.onRemoved.addListener(async (tabId) => {
-	await clearTabState(tabId);
 });
 
 browser.runtime.onMessage.addListener((message, sender) => {

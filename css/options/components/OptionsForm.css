@@ -6,6 +6,19 @@
 	margin-bottom: 1lh;
 }
 
+.OptionsForm-field--inline {
+	display: flex;
+	align-items: baseline;
+	gap: 1ch;
+}
+
+.OptionsForm-hint {
+	margin-bottom: 1em;
+	line-height: var(--line-height-small);
+	font-size: var(--font-size-small);
+	font-style: italic;
+}
+
 .OptionsForm-success {
 	margin-top: 1lh;
 	color: var(--color-green);

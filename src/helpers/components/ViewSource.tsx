@@ -1,12 +1,12 @@
 import React from 'react';
 import {createTab, viewPageSource} from '../../background/slices/runtime';
 import {isFirefox} from '../../common/utils/browser';
-import {selectPageUrl} from '../../panel/slices/panel';
+import {selectTargetTabUrl} from '../../panel/slices/panel';
 import {useAppSelector} from '../../panel/utils/hooks';
 import HelperButton from './HelperButton';
 
 const ViewSource = () => {
-	const tabUrl = useAppSelector(selectPageUrl);
+	const tabUrl = useAppSelector(selectTargetTabUrl);
 
 	const handleViewSource = () => {
 		// On Firefox, we're opening a home-made page showing
