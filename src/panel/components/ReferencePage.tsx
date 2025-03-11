@@ -3,7 +3,6 @@ import React, {useCallback} from 'react';
 import {selectAllThemes, selectIsLoaded} from '../slices/reference';
 import {saveScrollPosition, selectScrollPosition} from '../slices/themes';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
-import EnabledTests from './EnabledTests';
 import Theme from './Theme';
 
 const ReferencePage = () => {
@@ -28,20 +27,10 @@ const ReferencePage = () => {
 	}
 
 	return (
-		<div className="ReferencePage">
-			<div
-				className="ReferencePage-themes"
-				onScroll={handleScroll}
-				ref={themesRef}
-			>
-				{Object.values(themes).map((theme) => (
-					<Theme key={theme.id} theme={theme} />
-				))}
-			</div>
-
-			<div className="ReferencePage-enabledTests">
-				<EnabledTests />
-			</div>
+		<div className="ReferencePage" onScroll={handleScroll} ref={themesRef}>
+			{Object.values(themes).map((theme) => (
+				<Theme key={theme.id} theme={theme} />
+			))}
 		</div>
 	);
 };

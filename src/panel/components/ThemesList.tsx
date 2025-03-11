@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import {
 	BookOpenTextIcon,
 	ClapperboardIcon,
@@ -16,15 +15,11 @@ import {
 	TablePropertiesIcon,
 	TextCursorInputIcon
 } from 'lucide-react';
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {FormattedMessage} from 'react-intl';
 import type {Theme} from '../../common/types';
 import {selectAllThemes} from '../slices/reference';
-import {
-	useAnchorEvent,
-	useAppSelector,
-	useFocusOutEffect
-} from '../utils/hooks';
+import {useAnchorEvent, useAppSelector} from '../utils/hooks';
 import Icon from './Icon';
 
 const icons: Record<Theme['id'], LucideIcon> = {
@@ -45,40 +40,35 @@ const icons: Record<Theme['id'], LucideIcon> = {
 
 const ThemesList = () => {
 	const themes = useAppSelector(selectAllThemes);
-	const [isOpen, setOpen] = useState(false);
-	const ref = useRef<HTMLDivElement>();
-
-	const handleToggle = () => {
-		setOpen((open) => !open);
-	};
-
-	useFocusOutEffect(ref, () => {
-		setOpen(false);
-	});
+	const popoverRef = useRef<HTMLUListElement>();
 
 	useAnchorEvent(() => {
-		setOpen(false);
+		popoverRef.current.hidePopover();
 	});
 
 	return (
-		<div ref={ref} className="ThemesList">
+		<div className="ThemesList">
 			<button
-				className="ThemesList-toggle ActionButton"
 				id="themesMenu"
-				aria-controls="themesMenuDropdown"
-				aria-expanded={isOpen}
-				onClick={handleToggle}
+				className="ThemesList-toggle ActionButton"
+				popovertarget="themesMenuDropdown"
 			>
 				<Icon icon={ListIcon} className="ThemesList-toggleIcon" />
 				<FormattedMessage id="ThemesList.title" />
 			</button>
 
 			<ul
+				ref={popoverRef}
 				id="themesMenuDropdown"
-				className={classNames({
-					'ThemesList-list': true,
-					'is-open': isOpen
-				})}
+				className="ThemesList-list"
+				popover="auto"
+				onBlur={(event) => {
+					const target = event.relatedTarget as HTMLElement;
+
+					if (!popoverRef.current.contains(target)) {
+						popoverRef.current.hidePopover();
+					}
+				}}
 			>
 				{Object.values(themes).map((theme) => (
 					<li key={theme.id}>

@@ -2,23 +2,6 @@
 	position: relative;
 }
 
-.ThemesList-list {
-	display: none;
-	position: absolute;
-	top: calc(100% + 0.25lh);
-	right: -2ch;
-	width: clamp(20ch, 90vw, 40ch);
-	background: var(--color-white);
-	border: 1px solid var(--color-gutter-light);
-	border-top: 0;
-	box-shadow: 0 0.5lh 1lh 0 rgb(0 0 0 / 40%);
-	z-index: 10;
-
-	&.is-open {
-		display: block;
-	}
-}
-
 .ThemesList-title {
 	flex-shrink: 0;
 	padding: 0;
@@ -34,6 +17,19 @@
 	justify-content: center;
 	width: 1em;
 	height: 1em;
+}
+
+.ThemesList-list {
+	position: absolute;
+	top: 2lh;
+	right: 0;
+	left: 0;
+	width: 100%;
+	background: var(--color-white);
+	border: 1px solid var(--color-gutter-light);
+	border-top: 0;
+	box-shadow: 0 0.5lh 1lh 0 rgb(0 0 0 / 40%);
+	z-index: 10;
 }
 
 .ThemesList-link {

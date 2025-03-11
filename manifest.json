@@ -37,7 +37,7 @@
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "assistant-rgaa@boscop.fr",
-			"strict_min_version": "121.0"
+			"strict_min_version": "125.0"
 		}
 	}
 }
