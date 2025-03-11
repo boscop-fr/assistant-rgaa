@@ -30,6 +30,7 @@ const Header = () => {
 				<a
 					className="Header-help Link"
 					href="http://assistant-rgaa.boscop.fr/#fonctionnalites"
+					target="_blank"
 					title={helpTitle}
 				>
 					<Icon icon={CircleHelpIcon} title={helpTitle} />

@@ -43,6 +43,7 @@
 			{
 				"labelAttributes": ["title"]
 			}
-		]
+		],
+		"react/jsx-no-target-blank": 0
 	}
 }
