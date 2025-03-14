@@ -76,10 +76,7 @@ const ThemesList = () => {
 							className="InvisibleLink ThemesList-link"
 							href={`#theme-${theme.id}`}
 						>
-							<Icon
-								icon={icons[theme.id]}
-								className="ThemesList-itemIcon"
-							/>
+							<Icon icon={icons[theme.id]} className="ThemesList-itemIcon" />
 							{theme.title}
 						</a>
 					</li>

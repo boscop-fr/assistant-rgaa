@@ -1,5 +1,5 @@
 const deepmerge = require('deepmerge');
-const fs = require('fs');
+const fs = require('node:fs');
 const request = require('request');
 
 /**

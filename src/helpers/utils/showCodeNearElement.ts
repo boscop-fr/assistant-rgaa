@@ -21,7 +21,7 @@ const createContainer = (element: HTMLElement) => {
 const getContainer = (element: HTMLElement) => {
 	const currentContainer = containers.get(element);
 
-	if (currentContainer && currentContainer.parentNode) {
+	if (currentContainer?.parentNode) {
 		return currentContainer;
 	}
 

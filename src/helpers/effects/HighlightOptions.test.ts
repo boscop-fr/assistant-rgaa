@@ -1,8 +1,8 @@
 import {describe, expect, test} from '@jest/globals';
 import {HighlightOptions} from './HighlightOptions';
 
-describe('HighlightOptions', function () {
-	test('tag', function () {
+describe('HighlightOptions', () => {
+	test('tag', () => {
 		const options = new HighlightOptions(null as HTMLElement);
 		expect(options.tag).toBeFalsy();
 
@@ -16,7 +16,7 @@ describe('HighlightOptions', function () {
 		expect(options.tag).toBeTruthy();
 	});
 
-	test('ifEmpty', function () {
+	test('ifEmpty', () => {
 		const options = new HighlightOptions(null as HTMLElement);
 		expect(options.ifEmpty).toBeFalsy();
 
@@ -30,7 +30,7 @@ describe('HighlightOptions', function () {
 		expect(options.ifEmpty).toBeTruthy();
 	});
 
-	test('content', function () {
+	test('content', () => {
 		const options = new HighlightOptions(null as HTMLElement);
 		expect(options.content).toBeFalsy();
 
@@ -44,7 +44,7 @@ describe('HighlightOptions', function () {
 		expect(options.content).toBeTruthy();
 	});
 
-	test('outline', function () {
+	test('outline', () => {
 		const options = new HighlightOptions(null as HTMLElement);
 		expect(options.outline).toBeFalsy();
 
@@ -58,7 +58,7 @@ describe('HighlightOptions', function () {
 		expect(options.outline).toBeTruthy();
 	});
 
-	test('attributes', function () {
+	test('attributes', () => {
 		const options = new HighlightOptions(null as HTMLElement);
 		expect(options.attributes).toStrictEqual([]);
 		expect(options.missingAttributes).toStrictEqual([]);

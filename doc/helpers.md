@@ -20,8 +20,8 @@ Les fonctions `apply()` et `revert()` peuvent ensuite définir un certain nombre
 d'options, requises ou non (voir détails de chaque helper).
 
 ```js
-export const apply = (id) => {} /* aucune option */
-export const apply = (id, options) => {} /* n options */
+export const apply = (id) => {}; /* aucune option */
+export const apply = (id, options) => {}; /* n options */
 ```
 
 Les configuration des helpers à appliquer suivant les tests RGAA sont définies

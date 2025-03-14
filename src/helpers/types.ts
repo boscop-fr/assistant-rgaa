@@ -1,5 +1,5 @@
-import {type ComponentType} from 'react';
-import {type IntlShape} from 'react-intl';
+import type {ComponentType} from 'react';
+import type {IntlShape} from 'react-intl';
 import modules from './helpers';
 
 // An effect is a function that does something and returns a
@@ -18,17 +18,16 @@ export type HelperModule<Name, Options extends HelperOptions> = {
 	apply?: (options: Options) => Effect;
 };
 
-export type HelperDef<Module> =
-	Module extends HelperModule<infer N, infer O> ? O & {helper: N} : never;
+export type HelperDef<Module> = Module extends HelperModule<infer N, infer O>
+	? O & {helper: N}
+	: never;
 
-export type HelperModuleOptions<Module> =
-	Module extends HelperModule<
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		infer N,
-		infer O
-	>
-		? O
-		: never;
+export type HelperModuleOptions<Module> = Module extends HelperModule<
+	infer N,
+	infer O
+>
+	? O
+	: never;
 
 export type Helper = HelperDef<(typeof modules)[keyof typeof modules]>;
 
@@ -40,11 +39,13 @@ export type HelpersInfo = {
 	};
 };
 
-export type UnionToIntersection<U> =
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	(U extends any ? (x: U) => void : never) extends (x: infer I) => void
-		? I
-		: never;
+export type UnionToIntersection<U> = (
+	U extends any
+		? (x: U) => void
+		: never
+) extends (x: infer I) => void
+	? I
+	: never;
 
 // Finds actual module and arguments from a helper definition.
 export const helperInfo = <Name extends keyof HelpersInfo>({

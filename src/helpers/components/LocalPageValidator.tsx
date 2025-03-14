@@ -23,10 +23,7 @@ const LocalPageValidator = () => {
 	}
 
 	return (
-		<HelperButton
-			name="Validateur W3C (HTML local)"
-			onClick={handleValidate}
-		/>
+		<HelperButton name="Validateur W3C (HTML local)" onClick={handleValidate} />
 	);
 };
 

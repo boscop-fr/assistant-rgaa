@@ -1,6 +1,6 @@
+import path from 'node:path';
 import {defineConfig} from '@rspack/cli';
 import rspack from '@rspack/core';
-import path from 'path';
 import manifest from './manifest.json' with {type: 'json'};
 
 const fullPath = path.resolve.bind(null, process.cwd());

@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {type InstructionsByTest} from '../../common/types';
+import type {InstructionsByTest} from '../../common/types';
 
 type InstructionsState = {
 	instructions: InstructionsByTest;

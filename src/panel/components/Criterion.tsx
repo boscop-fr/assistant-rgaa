@@ -2,8 +2,8 @@
 import classNames from 'classnames';
 import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {type JSX} from 'react/jsx-runtime';
-import {type Criterion} from '../../common/types';
+import type {JSX} from 'react/jsx-runtime';
+import type {Criterion} from '../../common/types';
 import {selectCriterionStatus} from '../slices/audit';
 import {selectIsCriterionOpen, toggleCriterion} from '../slices/criteria';
 import {
@@ -97,10 +97,7 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 
 						{level ? (
 							<span className="Criterion-level">
-								{intl.formatMessage(
-									{id: 'Criterion.level'},
-									{lvl: level}
-								)}
+								{intl.formatMessage({id: 'Criterion.level'}, {lvl: level})}
 							</span>
 						) : null}
 
@@ -165,16 +162,14 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 						) : null}
 
 						<ul className="Criterion-tests">
-							{Object.values(tests).map(
-								({id: testId, title: testTitle}) => (
-									<li
-										className="Criterion-test"
-										key={`criterion-${id}-test-${testId}`}
-									>
-										<Test id={testId} title={testTitle} />
-									</li>
-								)
-							)}
+							{Object.values(tests).map(({id: testId, title: testTitle}) => (
+								<li
+									className="Criterion-test"
+									key={`criterion-${id}-test-${testId}`}
+								>
+									<Test id={testId} title={testTitle} />
+								</li>
+							))}
 						</ul>
 					</>
 				) : null}

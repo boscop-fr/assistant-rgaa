@@ -13,11 +13,10 @@ const renderer = new marked.Renderer();
  * @param {string | null} text
  * @returns {string}
  */
-renderer.link = function (href, title, text) {
-	return `<a  href="https://accessibilite.numerique.gouv.fr/methode/glossaire/${href}" target="_blank" title="${
+renderer.link = (href, title, text) =>
+	`<a  href="https://accessibilite.numerique.gouv.fr/methode/glossaire/${href}" target="_blank" title="${
 		title ?? text
 	}">${text}</a>`;
-};
 
 /**
  *	Scrapes version 4 of the RGAA instructions into JSON.

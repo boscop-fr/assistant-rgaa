@@ -1,6 +1,6 @@
 import React from 'react';
 import {useIntl} from 'react-intl';
-import {type TestStatus as TestStatusType} from '../../common/types';
+import type {TestStatus as TestStatusType} from '../../common/types';
 
 type TestStatusProps = {
 	status: TestStatusType;

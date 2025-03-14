@@ -4,7 +4,7 @@ import {
 	createSelector,
 	createSlice
 } from '@reduxjs/toolkit';
-import {type Test} from '../../common/types';
+import type {Test} from '../../common/types';
 import {selectAllTests, selectTestsByCriterion} from './reference';
 
 type TestsState = {

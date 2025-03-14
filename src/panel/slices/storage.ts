@@ -7,7 +7,7 @@ import {
 } from '@reduxjs/toolkit';
 import {omit} from '../../common/utils/objects';
 import {type StatePersistence, getOption} from '../../options/utils/storage';
-import {type AppState} from '../store';
+import type {AppState} from '../store';
 import {selectTargetTabId, selectTargetTabUrl} from './panel';
 import {selectVersion} from './reference';
 

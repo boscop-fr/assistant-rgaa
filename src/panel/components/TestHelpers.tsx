@@ -42,10 +42,7 @@ function TestHelpers({id}: TestHelpersProps) {
 					{helpers.map((helper, i) => {
 						const {module, args} = helperInfo(helper);
 
-						return (
-							// eslint-disable-next-line react/no-array-index-key
-							<li key={i}>{module.describe(intl, args)}</li>
-						);
+						return <li key={i}>{module.describe(intl, args)}</li>;
 					})}
 				</ol>
 			</div>
@@ -57,10 +54,7 @@ function TestHelpers({id}: TestHelpersProps) {
 						const {module, args} = helperInfo(helper);
 						const Helper = module.component;
 
-						return Helper ? (
-							// eslint-disable-next-line react/no-array-index-key
-							<Helper key={i} {...args} />
-						) : null;
+						return Helper ? <Helper key={i} {...args} /> : null;
 					})
 					.filter((helper) => !!helper)}
 			</div>

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type {PropsWithChildren} from 'react';
 import React from 'react';
 import {useIntl} from 'react-intl';
-import {type JSX} from 'react/jsx-runtime';
+import type {JSX} from 'react/jsx-runtime';
 import {cssToHex} from '../../common/utils/color';
 
 const isValidColor = (color: string) => {

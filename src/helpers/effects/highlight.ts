@@ -17,10 +17,7 @@ const getElementHighlightOptions = (
 	targetElement = element
 ) => {
 	if (!optionsByElement.has(element)) {
-		optionsByElement.set(
-			element,
-			new HighlightOptions(element, targetElement)
-		);
+		optionsByElement.set(element, new HighlightOptions(element, targetElement));
 	}
 
 	return optionsByElement.get(element);

@@ -1,4 +1,4 @@
-import {type Action} from '@reduxjs/toolkit';
+import type {Action} from '@reduxjs/toolkit';
 import {helpersReady} from '../../background/slices/runtime';
 import type {AppStartListening} from '../middlewares/listener';
 import {selectIsLoading} from '../slices/app';

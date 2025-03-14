@@ -1,6 +1,6 @@
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
-import {type ShallowTheme} from '../../common/types';
+import type {ShallowTheme} from '../../common/types';
 import {selectCriteriaByTheme} from '../slices/reference';
 import {useAppSelector} from '../utils/hooks';
 import Criterion from './Criterion';

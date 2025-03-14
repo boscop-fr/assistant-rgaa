@@ -14,7 +14,7 @@ import {createStore} from './store';
 const init = async () => {
 	const query = new URLSearchParams(window.location.search);
 	const targetTabId = query.has('tabId')
-		? parseInt(query.get('tabId'), 10)
+		? Number.parseInt(query.get('tabId'), 10)
 		: null;
 
 	const currentTab = await fetchCurrentTab();

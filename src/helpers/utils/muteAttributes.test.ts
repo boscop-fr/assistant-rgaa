@@ -5,9 +5,9 @@ import {
 	restoreAttribute
 } from './muteAttributes';
 
-describe('muteAttributes', function () {
-	describe('muteAttribute', function () {
-		test('should restore an attribute', function () {
+describe('muteAttributes', () => {
+	describe('muteAttribute', () => {
+		test('should restore an attribute', () => {
 			const p = document.createElement('p');
 			p.style.width = '100px';
 
@@ -15,14 +15,12 @@ describe('muteAttributes', function () {
 
 			expect(p.getAttribute('style')).toBeNull();
 			expect(p.getAttribute('data-rgaa-ext-muted')).toBe('style');
-			expect(p.getAttribute('data-rgaa-ext-muted-style')).toBe(
-				'width: 100px;'
-			);
+			expect(p.getAttribute('data-rgaa-ext-muted-style')).toBe('width: 100px;');
 		});
 	});
 
-	describe('restoreAttribute', function () {
-		test('should restore an attribute', function () {
+	describe('restoreAttribute', () => {
+		test('should restore an attribute', () => {
 			const p = document.createElement('p');
 			p.style.width = '100px';
 
@@ -35,8 +33,8 @@ describe('muteAttributes', function () {
 		});
 	});
 
-	describe('restoreAllAttributes', function () {
-		test('should restore all muted attributes', function () {
+	describe('restoreAllAttributes', () => {
+		test('should restore all muted attributes', () => {
 			const p = document.createElement('p');
 			p.style.width = '100px';
 			p.lang = 'en';

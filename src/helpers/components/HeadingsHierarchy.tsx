@@ -46,9 +46,7 @@ const HeadingsHierarchy = ({showMissing}: HeadingsHierarchyProps) => {
 								'HeadingsHierarchy-item--missing': !text
 							})}
 						>
-							<span className="Label HeadingsHierarchy-level">
-								{level}
-							</span>
+							<span className="Label HeadingsHierarchy-level">{level}</span>
 							<span className="HeadingsHierarchy-text">
 								{text || 'Titre manquant'}
 							</span>

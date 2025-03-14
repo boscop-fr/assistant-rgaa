@@ -80,9 +80,7 @@ function parseCriteria(criterias, topicNumber) {
 					}) || undefined,
 				techniques:
 					marked(
-						getWcagTechniques(
-							criteria.criterium.references[1]?.techniques
-						),
+						getWcagTechniques(criteria.criterium.references[1]?.techniques),
 						{
 							renderer: externalLinksRenderer(w3cTechniquesUrl)
 						}
@@ -170,8 +168,7 @@ function getWcagTechniques(techniques) {
 		return '';
 	}
 
-	const buildMdLink = (uri, ref) =>
-		`[${ref.join('')}](${uri}/${ref.join('')})`;
+	const buildMdLink = (uri, ref) => `[${ref.join('')}](${uri}/${ref.join('')})`;
 	return values
 		.map((v) => {
 			const ref = v.split('');

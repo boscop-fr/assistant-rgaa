@@ -2530,12 +2530,7 @@
 		{
 			"helper": "showElement",
 			"selector": "[aria-label], [aria-labelledby], [aria-describedby], [id]",
-			"attributes": [
-				"aria-label",
-				"aria-labelledby",
-				"aria-describedby",
-				"id"
-			]
+			"attributes": ["aria-label", "aria-labelledby", "aria-describedby", "id"]
 		},
 		{
 			"helper": "showElement",

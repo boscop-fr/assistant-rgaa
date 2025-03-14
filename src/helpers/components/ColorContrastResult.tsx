@@ -19,16 +19,13 @@ const ColorContrastResult = ({
 				<span
 					className={classNames({
 						'ColorContrastResult-actualRatio': true,
-						'ColorContrastResult-actualRatio--invalid':
-							ratio < minimumRatio
+						'ColorContrastResult-actualRatio--invalid': ratio < minimumRatio
 					})}
 				>
 					{ratio}
 				</span>
 				<span> / </span>
-				<span className="ColorContrastResult-minimumRatio">
-					{minimumRatio}
-				</span>
+				<span className="ColorContrastResult-minimumRatio">{minimumRatio}</span>
 			</span>
 		) : (
 			<span className="ColorContrastResult-ratio">

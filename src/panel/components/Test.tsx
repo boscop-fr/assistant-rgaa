@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
-import {type Test} from '../../common/types';
+import type {Test} from '../../common/types';
 import {useOption} from '../../options/utils/storage';
 import {selectTestHasHelpers} from '../slices/helpers';
 import {selectInstructionsByTest} from '../slices/instructions';
@@ -18,9 +18,7 @@ type TestProps = {
 
 function Test({id, title}: TestProps) {
 	const intl = useIntl();
-	const applicable = useAppSelector((state) =>
-		selectTestHasHelpers(state, id)
-	);
+	const applicable = useAppSelector((state) => selectTestHasHelpers(state, id));
 	const applied = useAppSelector((state) => selectIsTestEnabled(state, id));
 	const instructions = useAppSelector((state) =>
 		selectInstructionsByTest(state, id)

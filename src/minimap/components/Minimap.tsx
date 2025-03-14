@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {type JSX} from 'react/jsx-runtime';
+import type {JSX} from 'react/jsx-runtime';
 import MinimapPins from './MinimapPins';
 import MinimapWindow from './MinimapWindow';
 

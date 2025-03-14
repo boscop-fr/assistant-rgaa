@@ -1,4 +1,4 @@
-import {resolve} from 'url';
+import {resolve} from 'node:url';
 
 /**
  *

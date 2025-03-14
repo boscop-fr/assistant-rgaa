@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
-import {type JSX} from 'react/jsx-runtime';
+import type {JSX} from 'react/jsx-runtime';
 import versions from '../../../data/versions.json';
 import type {Options} from '../utils/storage';
 import {

@@ -36,22 +36,11 @@ const serializeAttribute = (
 	if (typeof value === 'string') {
 		const linkedIds = linkAttributes.includes(name) ? linkIds(value) : value;
 
-		return (
-			'<span class="rgaaExt-Attribute">' +
-			`<span class="rgaaExt-Attribute-name">${name}</span>` +
-			`="<span class="rgaaExt-Attribute-value">${linkedIds}</span>"` +
-			'</span>'
-		);
+		return `<span class="rgaaExt-Attribute"><span class="rgaaExt-Attribute-name">${name}</span>="<span class="rgaaExt-Attribute-value">${linkedIds}</span>"</span>`;
 	}
 
 	if (showMissing) {
-		return (
-			'<span class="rgaaExt-Attribute">' +
-			'<span class="rgaaExt-Attribute-missing">' +
-			`${name} <span class="rgaaExt-ScreenReaderOnly">absent</span>` +
-			'</span>' +
-			'</span>'
-		);
+		return `<span class="rgaaExt-Attribute"><span class="rgaaExt-Attribute-missing">${name} <span class="rgaaExt-ScreenReaderOnly">absent</span></span></span>`;
 	}
 
 	return null;

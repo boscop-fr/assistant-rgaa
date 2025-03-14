@@ -9,13 +9,13 @@ const getHeadingLevel = (element: HTMLElement) => {
 	// If an aria-level attribute is set, it takes precedence
 	// over hx levels.
 	if (element.hasAttribute('aria-level')) {
-		return parseInt(element.getAttribute('aria-level'), 10);
+		return Number.parseInt(element.getAttribute('aria-level'), 10);
 	}
 
 	const matches = element.tagName.match(HxPattern);
 
 	if (matches) {
-		return parseInt(matches[1], 10);
+		return Number.parseInt(matches[1], 10);
 	}
 
 	// In case the semantics are provided by a role attribute
@@ -25,7 +25,7 @@ const getHeadingLevel = (element: HTMLElement) => {
 		return 2;
 	}
 
-	return NaN;
+	return Number.NaN;
 };
 
 const getHeadingText = (element: HTMLElement) => {

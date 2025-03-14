@@ -93,9 +93,7 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 			try {
 				browser.tabs.sendMessage(
 					tabId,
-					allHelpers.length
-						? applyHelpers(allHelpers)
-						: revertActiveHelpers()
+					allHelpers.length ? applyHelpers(allHelpers) : revertActiveHelpers()
 				);
 			} catch (e) {
 				// Content scripts on the receiving end

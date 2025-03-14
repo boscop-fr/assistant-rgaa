@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {type Storage} from 'webextension-polyfill';
+import type {Storage} from 'webextension-polyfill';
 
 export type StatePersistence = 'always' | 'tab' | 'url' | 'tabUrl';
 
@@ -34,9 +34,7 @@ export const getOption = <K extends keyof Options>(
 ): Promise<Options[K]> =>
 	browser.storage.local
 		.get(key)
-		.then((options) =>
-			key in options ? options[key] : DEFAULT_OPTIONS[key]
-		);
+		.then((options) => (key in options ? options[key] : DEFAULT_OPTIONS[key]));
 
 export const setAllOptions = (options: Options) =>
 	browser.storage.local.set(options);

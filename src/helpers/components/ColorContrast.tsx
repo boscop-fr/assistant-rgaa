@@ -167,10 +167,7 @@ const ColorContrast = ({
 				</div>
 
 				{extractor ? (
-					<ToggleButton
-						pressed={isPickingStyle()}
-						onClick={() => pickStyle()}
-					>
+					<ToggleButton pressed={isPickingStyle()} onClick={() => pickStyle()}>
 						{intl.formatMessage({id: extractor.label})}
 					</ToggleButton>
 				) : null}

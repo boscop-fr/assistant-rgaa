@@ -4,17 +4,17 @@
 	--line-height-base: 1.5;
 	--font-size-xxlarge: 1.313rem;
 	--line-height-xxlarge: calc(
-		var(--line-height-base) / var(--font-size-xxlarge)
+		var(--line-height-base) /
+		var(--font-size-xxlarge)
 	);
 	--font-size-xlarge: 1.0625rem;
-	--line-height-xlarge: calc(
-		var(--line-height-base) / var(--font-size-xlarge)
-	);
+	--line-height-xlarge: calc(var(--line-height-base) / var(--font-size-xlarge));
 	--font-size-large: 0.9375rem;
 	--line-height-large: calc(var(--line-height-base) / var(--font-size-large));
 	--font-size-regular: 0.8125rem;
 	--line-height-regular: calc(
-		var(--line-height-base) / var(--font-size-regular)
+		var(--line-height-base) /
+		var(--font-size-regular)
 	);
 	--font-size-small: 0.688rem;
 	--line-height-small: calc(var(--line-height-base) / var(--font-size-small));
@@ -36,7 +36,7 @@
 	--color-red: firebrick;
 	--color-green: green;
 
-	--color-highlight: (in srgb, yellow 30%, transparent);
+	--color-highlight: color-mix(in srgb, yellow 30%, transparent);
 	--color-theme: var(--color-blue);
 	--color-theme-text: var(--color-white);
 	--color-theme-dark: var(--color-blue-dark);

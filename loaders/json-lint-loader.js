@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 // We're using the contents of JSON files as TS objects to
 // leverage the compiler typechecking.

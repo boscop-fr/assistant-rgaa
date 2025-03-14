@@ -1,4 +1,4 @@
-import {type HelpersByTest} from '../../common/types';
+import type {HelpersByTest} from '../../common/types';
 
 /*
  * retrieve the helpers mapping full json object from a given reference version

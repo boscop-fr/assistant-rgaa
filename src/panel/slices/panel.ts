@@ -25,10 +25,7 @@ const panelSlice = createSlice({
 			state.targetTabId = payload.targetTabId;
 			state.popupTabId = payload.popupTabId;
 		},
-		setTabInfo(
-			state,
-			{payload}: PayloadAction<{url: string; title: string}>
-		) {
+		setTabInfo(state, {payload}: PayloadAction<{url: string; title: string}>) {
 			state.targetTabUrl = payload.url;
 			state.targetTabTitle = payload.title;
 		},
