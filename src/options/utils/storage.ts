@@ -34,7 +34,9 @@ export const getOption = <K extends keyof Options>(
 ): Promise<Options[K]> =>
 	browser.storage.local
 		.get(key)
-		.then((options) => (key in options ? options[key] : DEFAULT_OPTIONS[key]));
+		.then((options: Options) =>
+			key in options ? options[key] : DEFAULT_OPTIONS[key]
+		);
 
 export const setAllOptions = (options: Options) =>
 	browser.storage.local.set(options);
@@ -51,7 +53,7 @@ export const onOptionChange = <K extends keyof Options>(
 ) => {
 	const onChange = (changes: Storage.StorageAreaOnChangedChangesType) => {
 		if (key in changes && changes[key].oldValue !== changes[key].newValue) {
-			callback(changes[key].newValue);
+			callback(changes[key].newValue as Options[K]);
 		}
 	};
 

@@ -4,7 +4,7 @@ import {
 } from './muteAttributes';
 
 // @see http://stackoverflow.com/a/30930653
-const escape = (html: string) =>
+const escapeHtml = (html: string) =>
 	(
 		document.createElement('div').appendChild(document.createTextNode(html))
 			.parentNode as HTMLElement
@@ -14,31 +14,31 @@ const escape = (html: string) =>
 // extension's elements.
 const innerHtml = (element: HTMLElement) => {
 	const copy = element.cloneNode(true) as HTMLElement;
+	const ownElements = copy.querySelectorAll('[class*=rgaaExt]');
 
-	// removes extension's elements
-	copy.querySelectorAll('[class*=rgaaExt]').forEach((element) => {
+	for (const element of ownElements) {
 		element.remove();
-	});
+	}
 
 	// The majority of SVG child nodes aren't relevant for an
 	// audit, we're stripping all of them except `title` and
 	// `desc`.
 	if (copy.matches('svg')) {
-		Array.from(copy.children).forEach((element) => {
+		for (const element of Array.from(copy.children)) {
 			if (element.matches('title, desc')) {
-				Array.from(element.attributes).forEach(({name}) => {
+				for (const {name} of Array.from(element.attributes)) {
 					element.removeAttribute(name);
-				});
+				}
 			} else {
 				element.remove();
 			}
-		});
+		}
 	}
 
 	// restores muted attributees
 	restoreAllAttributes(copy.querySelectorAll(anyMutedAttributeSelector()));
 
-	return escape(copy.innerHTML);
+	return escapeHtml(copy.innerHTML);
 };
 
 const serializeElement = (

@@ -50,7 +50,7 @@ export const withMissingHeadings = (hierarchy: HeadingHierarchyNode[]) => {
 	const newHierarchy: HeadingHierarchyNode[] = [];
 	let previousLevel = 0;
 
-	hierarchy.forEach((heading) => {
+	for (const heading of hierarchy) {
 		for (
 			let missingLevel = previousLevel + 1;
 			missingLevel < heading.level;
@@ -63,7 +63,7 @@ export const withMissingHeadings = (hierarchy: HeadingHierarchyNode[]) => {
 
 		newHierarchy.push(heading);
 		previousLevel = heading.level;
-	});
+	}
 
 	return newHierarchy;
 };

@@ -1,5 +1,3 @@
-/* stylelint-disable declaration-no-important */
-
 .rgaaExt-Body--withHelpers :target {
 	outline: 1px var(--rgaa-ext-color-green) solid !important;
 	box-shadow: 0 0 10px var(--rgaa-ext-color-green) !important;

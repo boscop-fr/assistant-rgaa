@@ -42,7 +42,9 @@ function TestHelpers({id}: TestHelpersProps) {
 					{helpers.map((helper, i) => {
 						const {module, args} = helperInfo(helper);
 
-						return <li key={i}>{module.describe(intl, args)}</li>;
+						return (
+							<li key={`${i}-${module.name}`}>{module.describe(intl, args)}</li>
+						);
 					})}
 				</ol>
 			</div>
@@ -54,7 +56,9 @@ function TestHelpers({id}: TestHelpersProps) {
 						const {module, args} = helperInfo(helper);
 						const Helper = module.component;
 
-						return Helper ? <Helper key={i} {...args} /> : null;
+						return Helper ? (
+							<Helper key={`${i}-${module.name}`} {...args} />
+						) : null;
 					})
 					.filter((helper) => !!helper)}
 			</div>

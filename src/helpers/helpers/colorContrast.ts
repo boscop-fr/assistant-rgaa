@@ -22,10 +22,11 @@ const PickingStates = {
 	processing: 'rgaaExt-ColorContrastHelper--processing'
 };
 
-const setPickingState = (className: string) =>
-	Object.values(PickingStates).forEach((c) => {
+const setPickingState = (className: string) => {
+	for (const c of Object.values(PickingStates)) {
 		document.body.classList.toggle(c, c === className);
-	});
+	}
+};
 
 const startPicking = (state: string) => {
 	setPickingState(state);

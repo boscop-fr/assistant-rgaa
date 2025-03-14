@@ -1,15 +1,18 @@
-import {useEffect} from 'preact/hooks';
+import {useCallback, useEffect} from 'preact/hooks';
 import {tabAction} from '../../background/slices/runtime';
 
 export const useTabAction = (
 	tabId: number,
 	listener: (message: unknown) => void
 ) => {
-	const handleMessage = (message: unknown) => {
-		if (tabAction.match(message) && message.payload.tabId === tabId) {
-			listener(message.payload.action);
-		}
-	};
+	const handleMessage = useCallback(
+		(message: unknown) => {
+			if (tabAction.match(message) && message.payload.tabId === tabId) {
+				listener(message.payload.action);
+			}
+		},
+		[tabId, listener]
+	);
 
 	useEffect(() => {
 		browser.runtime.onMessage.addListener(handleMessage);
@@ -17,5 +20,5 @@ export const useTabAction = (
 		return () => {
 			browser.runtime.onMessage.removeListener(handleMessage);
 		};
-	}, []);
+	}, [handleMessage]);
 };

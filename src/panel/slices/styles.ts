@@ -13,7 +13,7 @@ const stylesSlice = createSlice({
 	initialState,
 	reducers: {
 		toggleStyles(state, {payload: enabled}: PayloadAction<boolean>) {
-			state.enabled = enabled; // eslint-disable-line no-param-reassign
+			state.enabled = enabled;
 		}
 	},
 	selectors: {

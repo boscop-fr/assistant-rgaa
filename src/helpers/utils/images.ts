@@ -1,7 +1,7 @@
 import {captureCurrentTab} from '../../background/slices/runtime';
 import {srgbToHex} from '../../common/utils/color';
 
-export const imageElement = async (base64: string) => {
+const imageElement = async (base64: string) => {
 	const {promise, resolve} = Promise.withResolvers<HTMLImageElement>();
 	const image = new Image();
 	image.onload = () => {

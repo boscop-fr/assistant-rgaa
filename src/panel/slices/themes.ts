@@ -13,7 +13,7 @@ const themesSlice = createSlice({
 	initialState,
 	reducers: {
 		saveScrollPosition(state, {payload: position}: PayloadAction<number>) {
-			state.scrollPosition = position; // eslint-disable-line no-param-reassign
+			state.scrollPosition = position;
 		}
 	},
 	selectors: {

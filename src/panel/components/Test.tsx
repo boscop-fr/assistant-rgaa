@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
-import type {Test} from '../../common/types';
+import type {Test as TestType} from '../../common/types';
 import {useOption} from '../../options/utils/storage';
 import {selectTestHasHelpers} from '../slices/helpers';
 import {selectInstructionsByTest} from '../slices/instructions';
@@ -12,7 +12,7 @@ import TestInstructions from './TestInstructions';
 import TestStatuses from './TestStatuses';
 
 type TestProps = {
-	id: Test['id'];
+	id: TestType['id'];
 	title: string;
 };
 
@@ -52,7 +52,7 @@ function Test({id, title}: TestProps) {
 
 					<div
 						className="Test-description"
-						// eslint-disable-next-line react/no-danger
+						// biome-ignore lint/security/noDangerouslySetInnerHtml :
 						dangerouslySetInnerHTML={{
 							__html: title
 						}}

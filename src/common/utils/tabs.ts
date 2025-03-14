@@ -13,7 +13,7 @@ export const fetchCurrentTab = async () => {
 	return tabs[0];
 };
 
-export const onTabUpdated = (
+const onTabUpdated = (
 	callback: Parameters<typeof browser.tabs.onUpdated.addListener>[0]
 ) => {
 	browser.tabs.onUpdated.addListener(callback);

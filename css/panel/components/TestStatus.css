@@ -31,19 +31,16 @@ label .TestStatus {
 	}
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
 .TestStatus--C {
 	--test-result-background: var(--color-success);
 	--test-result-color: var(--color-on-success);
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
 .TestStatus--NC {
 	--test-result-background: var(--color-error);
 	--test-result-color: var(--color-on-error);
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
 .TestStatus--NA {
 	--test-result-background: var(--color-warning);
 	--test-result-color: var(--color-on-warning);

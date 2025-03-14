@@ -15,7 +15,7 @@ export const useMutationObserver = (callback: () => void, delay = 15) => {
 		return () => {
 			observer.disconnect();
 		};
-	}, []);
+	}, [callback, delay]);
 };
 
 export const useScrollEffect = (callback: () => void) => {
@@ -25,7 +25,7 @@ export const useScrollEffect = (callback: () => void) => {
 		return () => {
 			window.removeEventListener('scroll', callback);
 		};
-	}, []);
+	}, [callback]);
 };
 
 export const useResizeEffect = (callback: () => void, delay = 15) => {
@@ -37,5 +37,5 @@ export const useResizeEffect = (callback: () => void, delay = 15) => {
 		return () => {
 			window.removeEventListener('resize', handleResize);
 		};
-	}, []);
+	}, [callback, delay]);
 };

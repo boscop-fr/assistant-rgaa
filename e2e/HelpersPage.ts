@@ -1,8 +1,9 @@
 import {type Page, expect} from '@playwright/test';
+import type {Action} from 'redux';
 
 export default class HelpersPage {
 	readonly #page: Page;
-	#sendMessage: (action: any) => void;
+	#sendMessage: (action: Action) => void;
 
 	constructor(page: Page) {
 		this.#page = page;
@@ -57,13 +58,13 @@ export default class HelpersPage {
 		});
 	}
 
-	async sendMessage(action: any) {
+	async sendMessage(action: Action) {
 		return this.#page.evaluate(async (a) => {
 			globalThis.sendMessage(a);
 		}, action);
 	}
 
-	async sentMessages(): Promise<any[]> {
+	async sentMessages(): Promise<Action[]> {
 		return this.#page.evaluate(async () => {
 			return globalThis.sentMessages;
 		});
@@ -74,12 +75,12 @@ export default class HelpersPage {
 		return messages.length;
 	}
 
-	async lastSentMessage(): Promise<any> {
+	async lastSentMessage(): Promise<Action | undefined> {
 		const messages = await this.sentMessages();
 		return messages.at(-1);
 	}
 
-	async waitForNextSentMessage(): Promise<any> {
+	async waitForNextSentMessage(): Promise<void> {
 		const messageCount = await this.sentMessageCount();
 
 		await expect(async () => {

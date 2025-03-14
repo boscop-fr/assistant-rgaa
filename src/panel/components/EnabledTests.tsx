@@ -22,6 +22,7 @@ function EnabledTests() {
 				{tests.map(({id}) => (
 					<li key={id} className="EnabledTests-testItem">
 						<button
+							type="button"
 							className="EnabledTests-disableButton ActionButton ActionButton--small"
 							title={intl.formatMessage(
 								{

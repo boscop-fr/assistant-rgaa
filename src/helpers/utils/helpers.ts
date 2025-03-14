@@ -11,7 +11,6 @@ export const applyHelpers = (helpers: Helper[]) => {
 			const {module, args} = helperInfo(helper);
 			return module.apply(args);
 		} catch (e) {
-			// eslint-disable-next-line no-console
 			console.error(e);
 		}
 	});

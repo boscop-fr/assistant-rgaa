@@ -4,11 +4,12 @@ export const combineEffects =
 	(effects: Effect[]): Effect =>
 	() => {
 		const reverters = effects.map((effect) => effect());
+
 		return () => {
-			reverters.forEach((revert) => {
+			for (const revert of reverters) {
 				if (revert) {
 					revert();
 				}
-			});
+			}
 		};
 	};

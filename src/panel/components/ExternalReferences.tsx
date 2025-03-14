@@ -37,7 +37,7 @@ function ExternalReferences({references}: ExternalReferencesProps) {
 
 						<div
 							className="ExternalReferences-subSectionBody"
-							// eslint-disable-next-line react/no-danger
+							// biome-ignore lint/security/noDangerouslySetInnerHtml :
 							dangerouslySetInnerHTML={{__html: text}}
 						/>
 					</div>

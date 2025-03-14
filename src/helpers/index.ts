@@ -6,7 +6,7 @@ import {
 import {onDomLoaded} from './utils/dom';
 import {applyHelpers, revertActiveHelpers} from './utils/helpers';
 
-browser.runtime.onMessage.addListener((action) => {
+browser.runtime.onMessage.addListener((action: unknown) => {
 	if (applyHelpersAction.match(action)) {
 		applyHelpers(action.payload);
 	} else if (revertActiveHelpersAction.match(action)) {

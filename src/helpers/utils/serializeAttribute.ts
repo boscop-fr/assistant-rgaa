@@ -3,11 +3,11 @@ const linkAttributes = ['for', 'aria-labelledby', 'aria-describedby'];
 
 // Transforms the given id into a link if possible, otherwise just return the id
 const linkId = (id: string) => {
-	let elements;
+	let elements: Element[];
 	let error = false;
 
 	try {
-		elements = document.querySelectorAll(`#${id}`);
+		elements = Array.from(document.querySelectorAll(`#${id}`));
 	} catch (e) {
 		error = true;
 	}

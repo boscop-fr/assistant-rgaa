@@ -17,7 +17,7 @@ const helpersSlice = createSlice({
 	initialState,
 	reducers: {
 		setHelpers(state, {payload: helpers}: PayloadAction<HelpersByTest>) {
-			state.helpers = helpers; // eslint-disable-line no-param-reassign
+			state.helpers = helpers;
 		},
 		setGlobalHelper(
 			state,
@@ -29,12 +29,7 @@ const helpersSlice = createSlice({
 		removeGlobalHelper(state, {payload: id}: PayloadAction<string>) {
 			delete state.globalHelpers[id];
 		},
-		applyHelpers(
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			state,
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			action: PayloadAction<Helper[]>
-		) {},
+		applyHelpers(state, action: PayloadAction<Helper[]>) {},
 		revertActiveHelpers() {}
 	},
 	selectors: {

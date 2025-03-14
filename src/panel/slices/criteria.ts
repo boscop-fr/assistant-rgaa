@@ -23,12 +23,7 @@ const criteriaSlice = createSlice({
 				state.opened.splice(index, 1);
 			}
 		},
-		toggleCriterion(
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			state,
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			action: PayloadAction<Criterion['id']>
-		) {}
+		toggleCriterion(state, action: PayloadAction<Criterion['id']>) {}
 	},
 	selectors: {
 		selectIsCriterionOpen(state, id) {

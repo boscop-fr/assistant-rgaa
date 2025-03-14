@@ -19,8 +19,7 @@ const Minimap = () => {
 	};
 
 	return (
-		// eslint-disable-next-line max-len
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+		// biome-ignore lint/a11y/useKeyWithClickEvents :
 		<div ref={mapRef} className="Minimap" onClick={scrollToPosition}>
 			<MinimapWindow />
 			<MinimapPins />

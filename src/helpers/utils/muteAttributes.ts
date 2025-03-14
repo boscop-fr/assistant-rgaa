@@ -65,11 +65,11 @@ const restoreAttributeOnElement = (element: HTMLElement, attribute: string) => {
 export const muteAttribute = (elements: HTMLElementList, attribute: string) => {
 	const selector = `[${attribute}]:not([class^="rgaaExt"])`;
 
-	elements.forEach((element) => {
+	for (const element of elements) {
 		if (element.matches(selector)) {
 			muteAttributeOnElement(element, attribute);
 		}
-	});
+	}
 };
 
 export const restoreAttribute = (
@@ -79,17 +79,17 @@ export const restoreAttribute = (
 	const alias = attributeAlias(attribute);
 	const selector = `[${alias}]`;
 
-	elements.forEach((element) => {
+	for (const element of elements) {
 		if (element.matches(selector)) {
 			restoreAttributeOnElement(element, attribute);
 		}
-	});
+	}
 };
 
 export const restoreAllAttributes = (elements: HTMLElementList) => {
-	elements.forEach((element) => {
-		getMutedAttributes(element).forEach((attribute) => {
+	for (const element of elements) {
+		for (const attribute of getMutedAttributes(element)) {
 			restoreAttributeOnElement(element, attribute);
-		});
-	});
+		}
+	}
 };

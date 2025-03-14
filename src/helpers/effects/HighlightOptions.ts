@@ -55,12 +55,12 @@ export class HighlightOptions {
 	}
 
 	pushAttributes(attributes: string[], showMissing = false) {
-		attributes.forEach((attribute) => {
+		for (const attribute of attributes) {
 			this.#attributes.add(attribute);
 
 			if (showMissing) {
 				this.#missingAttributes.add(attribute);
 			}
-		});
+		}
 	}
 }

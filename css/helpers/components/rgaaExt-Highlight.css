@@ -1,5 +1,3 @@
-/* stylelint-disable declaration-no-important */
-
 .rgaaExt-Highlight--outline {
 	outline: 2px var(--rgaa-ext-color-red) solid !important;
 	box-shadow: 0 0 10px var(--rgaa-ext-color-red) !important;
@@ -16,8 +14,6 @@
 		}
 	}
 }
-
-/* stylelint-disable max-nesting-depth, no-descending-specificity */
 
 :is(ul, ol, [role='list']).rgaaExt-Highlight--outline {
 	outline: solid 2px var(--rgaa-ext-color-red) !important;

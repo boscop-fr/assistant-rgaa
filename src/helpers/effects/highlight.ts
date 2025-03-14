@@ -66,9 +66,11 @@ export const setHighlightOptionsEffect =
 		register: (highlights: HighlightOptions) => void
 	): Effect =>
 	() => {
-		Array.from(document.querySelectorAll<HTMLElement>(selector))
-			.map((element) => getElementHighlightOptions(element))
-			.forEach(register);
+		const elements = document.querySelectorAll<HTMLElement>(selector);
+
+		for (const element of elements) {
+			register(getElementHighlightOptions(element));
+		}
 
 		return () => {};
 	};
@@ -80,11 +82,15 @@ export const setChildHighlightOptionsEffect =
 		register: (highlights: HighlightOptions) => void
 	): Effect =>
 	() => {
-		document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
-			Array.from(element.querySelectorAll<HTMLElement>(childrenSelector))
-				.map((child) => getElementHighlightOptions(child, element))
-				.forEach(register);
-		});
+		const elements = document.querySelectorAll<HTMLElement>(selector);
+
+		for (const element of elements) {
+			const children = element.querySelectorAll<HTMLElement>(childrenSelector);
+
+			for (const child of children) {
+				register(getElementHighlightOptions(child, element));
+			}
+		}
 
 		return () => {};
 	};

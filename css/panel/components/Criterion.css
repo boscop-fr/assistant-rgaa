@@ -150,7 +150,6 @@
 .Criterion-detailsBody {
 	padding: 0.25lh var(--app-gutter);
 
-	/* stylelint-disable-next-line no-descending-specificity */
 	a {
 		color: var(--color-theme-text);
 	}

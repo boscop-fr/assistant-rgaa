@@ -1,3 +1,5 @@
+import {isAction} from 'redux';
+import type {Runtime} from 'webextension-polyfill';
 import {fetchCurrentTab} from '../common/utils/tabs';
 import {
 	appLoaded,
@@ -30,57 +32,59 @@ browser.tabs.onActivated.addListener((tab) => {
 	reloadSidebar(tab.tabId);
 });
 
-browser.runtime.onMessage.addListener((message, sender) => {
-	switch (true) {
-		case openSidebarAction.match(message):
-			openSidebar(message.payload.tabId);
-			break;
+browser.runtime.onMessage.addListener(
+	(message: unknown, sender: Runtime.MessageSender) => {
+		switch (true) {
+			case openSidebarAction.match(message):
+				openSidebar(message.payload.tabId);
+				break;
 
-		case openPopup.match(message):
-			closeSidebar(message.payload.tabId);
-			browser.windows.create({
-				url: `${browser.runtime.getURL(PANEL_PAGE)}?tabId=${message.payload.tabId}`,
-				type: 'popup'
-			});
-			break;
-
-		case closePopup.match(message):
-			browser.tabs.remove(message.payload.popupTabId);
-			openSidebar(message.payload.tabId);
-			break;
-
-		case appLoaded.match(message):
-			injectContentScripts(message.payload.tabId);
-			break;
-
-		case captureCurrentTab.match(message):
-			return captureVisibleTab();
-
-		case validatePage.match(message):
-			validateLocalPage(message.payload.url);
-			break;
-
-		case viewPageSource.match(message):
-			viewSource(message.payload.url);
-			break;
-
-		case createTab.match(message):
-			fetchCurrentTab().then(({index}) => {
-				browser.tabs.create({
-					url: message.payload.url,
-					index: index + 1
+			case openPopup.match(message):
+				closeSidebar(message.payload.tabId);
+				browser.windows.create({
+					url: `${browser.runtime.getURL(PANEL_PAGE)}?tabId=${message.payload.tabId}`,
+					type: 'popup'
 				});
-			});
+				break;
 
-			break;
+			case closePopup.match(message):
+				browser.tabs.remove(message.payload.popupTabId);
+				openSidebar(message.payload.tabId);
+				break;
 
-		case !!sender?.tab?.id:
-			browser.runtime.sendMessage(
-				tabAction({
-					tabId: sender.tab.id,
-					action: message
-				})
-			);
-			break;
+			case appLoaded.match(message):
+				injectContentScripts(message.payload.tabId);
+				break;
+
+			case captureCurrentTab.match(message):
+				return captureVisibleTab();
+
+			case validatePage.match(message):
+				validateLocalPage(message.payload.url);
+				break;
+
+			case viewPageSource.match(message):
+				viewSource(message.payload.url);
+				break;
+
+			case createTab.match(message):
+				fetchCurrentTab().then(({index}) => {
+					browser.tabs.create({
+						url: message.payload.url,
+						index: index + 1
+					});
+				});
+
+				break;
+
+			case isAction(message) && !!sender?.tab?.id:
+				browser.runtime.sendMessage(
+					tabAction({
+						tabId: sender.tab.id,
+						action: message
+					})
+				);
+				break;
+		}
 	}
-});
+);

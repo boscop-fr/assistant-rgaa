@@ -1,3 +1,4 @@
+import type {ComponentChild} from 'preact';
 import type {ComponentType} from 'react';
 import type {IntlShape} from 'react-intl';
 import modules from './helpers';
@@ -6,9 +7,8 @@ import modules from './helpers';
 // function to revert what it did.
 export type Effect = () => () => void;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type HelperOptions = Record<string, any>;
-type HelperDescription = ReturnType<IntlShape['formatMessage']>;
+type HelperOptions = Record<string, unknown>;
+type HelperDescription = ComponentChild;
 
 export type HelperModule<Name, Options extends HelperOptions> = {
 	name: Name;
@@ -18,20 +18,17 @@ export type HelperModule<Name, Options extends HelperOptions> = {
 	apply?: (options: Options) => Effect;
 };
 
-export type HelperDef<Module> = Module extends HelperModule<infer N, infer O>
+type HelperDef<Module> = Module extends HelperModule<infer N, infer O>
 	? O & {helper: N}
 	: never;
 
-export type HelperModuleOptions<Module> = Module extends HelperModule<
-	infer N,
-	infer O
->
+type HelperModuleOptions<Module> = Module extends HelperModule<infer N, infer O>
 	? O
 	: never;
 
 export type Helper = HelperDef<(typeof modules)[keyof typeof modules]>;
 
-export type HelpersInfo = {
+type HelpersInfo = {
 	[K in keyof typeof modules]: {
 		mod: (typeof modules)[K];
 		opts: HelperModuleOptions<(typeof modules)[K]>;
@@ -39,8 +36,8 @@ export type HelpersInfo = {
 	};
 };
 
-export type UnionToIntersection<U> = (
-	U extends any
+type UnionToIntersection<U> = (
+	U extends unknown
 		? (x: U) => void
 		: never
 ) extends (x: infer I) => void

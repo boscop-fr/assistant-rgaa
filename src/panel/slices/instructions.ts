@@ -14,7 +14,7 @@ const instructionsSlice = createSlice({
 	initialState,
 	reducers: {
 		setInstructions(state, {payload: instructions}) {
-			state.instructions = instructions; // eslint-disable-line no-param-reassign
+			state.instructions = instructions;
 		}
 	},
 	selectors: {

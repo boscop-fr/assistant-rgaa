@@ -1,5 +1,5 @@
 import debounce from 'debounce';
-import React, {useCallback} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {selectAllThemes, selectIsLoaded} from '../slices/reference';
 import {saveScrollPosition, selectScrollPosition} from '../slices/themes';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';
@@ -7,7 +7,8 @@ import Theme from './Theme';
 
 const ReferencePage = () => {
 	const isReferenceLoaded = useAppSelector(selectIsLoaded);
-	const initialScrollPosition = useAppSelector(selectScrollPosition);
+	const scrollPosition = useAppSelector(selectScrollPosition);
+	const initialScrollPosition = useRef(scrollPosition);
 	const themes = useAppSelector(selectAllThemes);
 	const dispatch = useAppDispatch();
 
@@ -16,9 +17,8 @@ const ReferencePage = () => {
 	}, 500);
 
 	const themesRef = useCallback((node: HTMLDivElement) => {
-		if (node !== null && initialScrollPosition) {
-			// eslint-disable-next-line no-param-reassign
-			node.scrollTop = initialScrollPosition;
+		if (node !== null && initialScrollPosition.current) {
+			node.scrollTop = initialScrollPosition.current;
 		}
 	}, []);
 

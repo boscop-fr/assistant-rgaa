@@ -29,7 +29,7 @@ const auditSlice = createSlice({
 			};
 		},
 		resetResults() {
-			return initialState; // eslint-disable-line no-param-reassign, no-unused-vars
+			return initialState;
 		}
 	},
 	selectors: {

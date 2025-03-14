@@ -4,9 +4,9 @@ import {useMutationObserver, useResizeEffect} from '../api/hooks';
 // Tells if the given element is positionned relatively to
 // the window or the page by searching over its offset parents.
 const isWindowRelative = (element: HTMLElement) => {
-	let parent = element;
+	let parent = element.offsetParent as HTMLElement;
 
-	while ((parent = parent.offsetParent as HTMLElement)) {
+	while (parent) {
 		// We're skipping our own positionned elements.
 		if (parent?.className.includes('rgaaExt')) {
 			continue;
@@ -17,6 +17,8 @@ const isWindowRelative = (element: HTMLElement) => {
 		if (style.position === 'fixed' || style.position === 'sticky') {
 			return true;
 		}
+
+		parent = parent.offsetParent as HTMLElement;
 	}
 
 	return false;
@@ -63,23 +65,24 @@ const MinimapPins = ({minimumPinSize = 4}: MinimapPinsProps) => {
 		canvas.height = canvas.parentElement.clientHeight;
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-		document
-			.querySelectorAll<HTMLElement>('.rgaaExt-Mappable')
-			.forEach((element) => {
-				const isWinRelative = isWindowRelative(element);
-				const {offset, size} = isWinRelative
-					? windowRelativeBounds(element)
-					: pageRelativeBounds(element);
+		const mappable =
+			document.querySelectorAll<HTMLElement>('.rgaaExt-Mappable');
 
-				ctx.fillStyle = isWinRelative ? windowPinColor : pagePinColor;
-				ctx.fillRect(
-					0,
-					offset * canvas.height,
-					canvas.width,
-					Math.max(minimumPinSize, size * canvas.height)
-				);
-			});
-	}, [canvasRef]);
+		for (const element of mappable) {
+			const isWinRelative = isWindowRelative(element);
+			const {offset, size} = isWinRelative
+				? windowRelativeBounds(element)
+				: pageRelativeBounds(element);
+
+			ctx.fillStyle = isWinRelative ? windowPinColor : pagePinColor;
+			ctx.fillRect(
+				0,
+				offset * canvas.height,
+				canvas.width,
+				Math.max(minimumPinSize, size * canvas.height)
+			);
+		}
+	}, [minimumPinSize]);
 
 	const frame = useCallback(() => {
 		requestAnimationFrame(updatePins);

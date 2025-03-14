@@ -7,16 +7,14 @@ export const toggleStyleSheetsEffect =
 	() => {
 		const sheets = Array.from(document.styleSheets);
 
-		sheets.forEach((sheet) => {
-			// eslint-disable-next-line no-param-reassign
+		for (const sheet of sheets) {
 			sheet.disabled = !toggle;
-		});
+		}
 
 		return () => {
-			sheets.forEach((sheet) => {
-				// eslint-disable-next-line no-param-reassign
+			for (const sheet of sheets) {
 				sheet.disabled = toggle;
-			});
+			}
 		};
 	};
 

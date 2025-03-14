@@ -49,6 +49,7 @@ const ThemesList = () => {
 	return (
 		<div className="ThemesList">
 			<button
+				type="button"
 				id="themesMenu"
 				className="ThemesList-toggle ActionButton"
 				popovertarget="themesMenuDropdown"

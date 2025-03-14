@@ -78,6 +78,7 @@ const Header = () => {
 					href="http://assistant-rgaa.boscop.fr/#fonctionnalites"
 					target="_blank"
 					title={helpTitle}
+					rel="noreferrer"
 				>
 					<Icon icon={CircleHelpIcon} title={helpTitle} />
 				</a>

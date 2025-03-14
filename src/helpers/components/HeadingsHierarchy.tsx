@@ -27,7 +27,7 @@ const HeadingsHierarchy = ({showMissing}: HeadingsHierarchyProps) => {
 
 	useEffect(() => {
 		browser.tabs.sendMessage(tabId, getHierarchy());
-	}, []);
+	}, [tabId]);
 
 	return (
 		<div className="HeadingsHierarchy Widget" aria-live="polite">
@@ -39,8 +39,7 @@ const HeadingsHierarchy = ({showMissing}: HeadingsHierarchyProps) => {
 				<ul className="HeadingsHierarchy-list">
 					{allItems.map(({level, text}, i) => (
 						<li
-							// eslint-disable-next-line react/no-array-index-key
-							key={i}
+							key={`${i}-${level}`}
 							className={classNames('HeadingsHierarchy-item', {
 								[`HeadingsHierarchy-item--level${level}`]: true,
 								'HeadingsHierarchy-item--missing': !text

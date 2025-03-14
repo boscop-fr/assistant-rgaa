@@ -57,7 +57,6 @@ function OptionsForm() {
 					htmlFor="OptionsForm-input--referenceVersion"
 				>
 					<FormattedMessage id="OptionsForm.referenceVersion" />
-					{'' /* forces eslint to consider that the label has some text */}
 				</label>
 
 				<select
@@ -89,7 +88,6 @@ function OptionsForm() {
 					htmlFor="OptionsForm-input--allowMultipleTests"
 				>
 					<FormattedMessage id="OptionsForm.allowMultipleTests" />
-					{'' /* forces eslint to consider that the label has some text */}
 				</label>
 			</div>
 
@@ -108,7 +106,6 @@ function OptionsForm() {
 					htmlFor="OptionsForm-input--autoOpenInstructions"
 				>
 					<FormattedMessage id="OptionsForm.autoOpenInstructions" />
-					{'' /* forces eslint to consider that the label has some text */}
 				</label>
 			</div>
 
@@ -135,7 +132,6 @@ function OptionsForm() {
 								onChange={handleChange}
 							/>
 
-							{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 							<label htmlFor={id}>
 								<FormattedMessage
 									id={`OptionsForm.statePersistence.${option}`}

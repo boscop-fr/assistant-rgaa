@@ -3,7 +3,7 @@ import {FormattedMessage} from 'react-intl';
 import type {ShallowTheme} from '../../common/types';
 import {selectCriteriaByTheme} from '../slices/reference';
 import {useAppSelector} from '../utils/hooks';
-import Criterion from './Criterion';
+import CriterionType from './Criterion';
 
 type ThemeProps = {
 	theme: ShallowTheme;
@@ -29,7 +29,7 @@ const Theme = ({theme}: ThemeProps) => {
 
 			<ul className="Theme-criteria">
 				{criteria.map((criterion) => (
-					<Criterion key={criterion.id} {...criterion} />
+					<CriterionType key={criterion.id} {...criterion} />
 				))}
 			</ul>
 		</div>

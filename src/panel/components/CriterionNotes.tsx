@@ -7,7 +7,7 @@ type CriterionNotesProps = {
 const CriterionNotes = ({notes}: CriterionNotesProps) => (
 	<div
 		className="CriterionNotes"
-		// eslint-disable-next-line react/no-danger
+		// biome-ignore lint/security/noDangerouslySetInnerHtml :
 		dangerouslySetInnerHTML={{
 			__html: notes
 		}}

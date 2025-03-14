@@ -1,9 +1,8 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 import classNames from 'classnames';
 import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import type {JSX} from 'react/jsx-runtime';
-import type {Criterion} from '../../common/types';
+import type {Criterion as CriterionType} from '../../common/types';
 import {selectCriterionStatus} from '../slices/audit';
 import {selectIsCriterionOpen, toggleCriterion} from '../slices/criteria';
 import {
@@ -20,7 +19,7 @@ import Test from './Test';
 import TestStatus from './TestStatus';
 
 type CriterionProps = {
-	id: Criterion['id'];
+	id: CriterionType['id'];
 	level: string;
 	title: string;
 };
@@ -63,6 +62,7 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 	return (
 		<li id={`Criterion-${id}`} className={className} data-id={id}>
 			<header className={headerClassName}>
+				{/* biome-ignore lint/a11y/useKeyWithClickEvents : */}
 				<div className="Criterion-title" onClick={handleToggle}>
 					<div className="Criterion-titleText">
 						<button
@@ -103,7 +103,7 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 
 						<div
 							className="Criterion-description"
-							// eslint-disable-next-line react/no-danger
+							// biome-ignore lint/security/noDangerouslySetInnerHtml :
 							dangerouslySetInnerHTML={{__html: title}}
 						/>
 					</div>

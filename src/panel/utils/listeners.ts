@@ -25,9 +25,7 @@ export const pollEffect =
 				resolve(args);
 			});
 
-			// eslint-disable-next-line no-constant-condition
 			while (true) {
-				// eslint-disable-next-line no-await-in-loop
 				const args = await promise;
 				({promise, resolve} = Promise.withResolvers<P>());
 				effect(api, ...args);
