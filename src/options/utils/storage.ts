@@ -41,11 +41,6 @@ export const getOption = <K extends keyof Options>(
 export const setAllOptions = (options: Options) =>
 	browser.storage.local.set(options);
 
-export const setOption = <T>(key: keyof Options, value: T) =>
-	browser.storage.local.set({
-		[key]: value
-	});
-
 export const onOptionChange = <K extends keyof Options>(
 	key: keyof Options,
 	callback: (value: Options[K]) => void,
