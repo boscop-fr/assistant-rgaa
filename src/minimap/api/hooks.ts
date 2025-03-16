@@ -1,10 +1,17 @@
 import debounce from 'debounce';
-import {useEffect} from 'react';
+import {useCallback, useEffect, useRef} from 'react';
 
-export const useMutationObserver = (callback: () => void, delay = 15) => {
+export const useAnimationFrame = (callback: () => void) => {
+	const id = useRef(0);
+	return useCallback(() => {
+		cancelAnimationFrame(id.current);
+		id.current = requestAnimationFrame(callback);
+	}, [callback]);
+};
+
+export const useMutationObserver = (callback: () => void) => {
 	useEffect(() => {
-		const debounced = debounce(callback, delay);
-		const observer = new MutationObserver(debounced);
+		const observer = new MutationObserver(callback);
 
 		observer.observe(document.body, {
 			subtree: true,
@@ -15,7 +22,7 @@ export const useMutationObserver = (callback: () => void, delay = 15) => {
 		return () => {
 			observer.disconnect();
 		};
-	}, [callback, delay]);
+	}, [callback]);
 };
 
 export const useScrollEffect = (callback: () => void) => {

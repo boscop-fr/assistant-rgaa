@@ -1,5 +1,9 @@
-import React, {useCallback, useEffect, useRef} from 'react';
-import {useMutationObserver, useResizeEffect} from '../api/hooks';
+import React, {useEffect, useRef} from 'react';
+import {
+	useAnimationFrame,
+	useMutationObserver,
+	useResizeEffect
+} from '../api/hooks';
 
 // Tells if the given element is positionned relatively to
 // the window or the page by searching over its offset parents.
@@ -8,14 +12,12 @@ const isWindowRelative = (element: HTMLElement) => {
 
 	while (parent) {
 		// We're skipping our own positionned elements.
-		if (parent?.className.includes('rgaaExt')) {
-			continue;
-		}
+		if (!parent.className.includes('rgaaExt')) {
+			const style = getComputedStyle(parent);
 
-		const style = getComputedStyle(parent);
-
-		if (style.position === 'fixed' || style.position === 'sticky') {
-			return true;
+			if (style.position === 'fixed' || style.position === 'sticky') {
+				return true;
+			}
 		}
 
 		parent = parent.offsetParent as HTMLElement;
@@ -53,8 +55,7 @@ type MinimapPinsProps = {
 
 const MinimapPins = ({minimumPinSize = 4}: MinimapPinsProps) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
-
-	const updatePins = useCallback(() => {
+	const updatePins = useAnimationFrame(() => {
 		const canvas = canvasRef.current;
 		const ctx = canvas.getContext('2d');
 		const style = getComputedStyle(canvas);
@@ -82,15 +83,11 @@ const MinimapPins = ({minimumPinSize = 4}: MinimapPinsProps) => {
 				Math.max(minimumPinSize, size * canvas.height)
 			);
 		}
-	}, [minimumPinSize]);
+	});
 
-	const frame = useCallback(() => {
-		requestAnimationFrame(updatePins);
-	}, [updatePins]);
-
-	useMutationObserver(frame);
-	useResizeEffect(frame);
-	useEffect(frame, []);
+	useMutationObserver(updatePins);
+	useResizeEffect(updatePins);
+	useEffect(updatePins, []);
 
 	return <canvas ref={canvasRef} className="Minimap-pins" />;
 };

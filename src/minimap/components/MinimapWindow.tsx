@@ -1,10 +1,13 @@
-import React, {useEffect, useRef} from 'react';
-import {useResizeEffect, useScrollEffect} from '../api/hooks';
+import React, {useCallback, useEffect, useRef} from 'react';
+import {
+	useAnimationFrame,
+	useResizeEffect,
+	useScrollEffect
+} from '../api/hooks';
 
 const MinimapWindow = () => {
 	const windowRef = useRef(null);
-
-	const updateWindow = () => {
+	const updateWindow = useAnimationFrame(() => {
 		const {scrollHeight} = document.documentElement;
 		const {scrollY, innerHeight} = window;
 
@@ -17,15 +20,11 @@ const MinimapWindow = () => {
 			'--window-size-ratio',
 			innerHeight / scrollHeight
 		);
-	};
+	});
 
-	const frame = () => {
-		requestAnimationFrame(updateWindow);
-	};
-
-	useScrollEffect(frame);
-	useResizeEffect(frame);
-	useEffect(frame, []);
+	useScrollEffect(updateWindow);
+	useResizeEffect(updateWindow);
+	useEffect(updateWindow, []);
 
 	return <div ref={windowRef} className="Minimap-window" />;
 };
