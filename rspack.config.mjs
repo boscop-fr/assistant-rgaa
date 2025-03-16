@@ -2,6 +2,7 @@ import path from 'node:path';
 import {defineConfig} from '@rspack/cli';
 import rspack from '@rspack/core';
 import manifest from './manifest.json' with {type: 'json'};
+import pkg from './package.json' with {type: 'json'};
 
 const fullPath = path.resolve.bind(null, process.cwd());
 const devMode = process.env.NODE_ENV === 'development';
@@ -11,6 +12,7 @@ const jsonLintRule = (include, type) => ({
 	type: 'javascript/auto',
 	include,
 	use: [
+		fullPath('loaders/null-loader'),
 		{
 			loader: 'builtin:swc-loader',
 			options: {
@@ -57,7 +59,7 @@ export default defineConfig({
 	},
 	devtool: 'source-map',
 	experiments: {
-		css: false
+		futureDefaults: true
 	},
 	resolve: {
 		extensions: ['.tsx', '.ts', '...'],
@@ -80,6 +82,9 @@ export default defineConfig({
 						loader: 'builtin:swc-loader',
 						options: {
 							sourceMap: true,
+							env: {
+								targets: pkg.browserslist
+							},
 							jsc: {
 								parser: {
 									syntax: 'typescript'
@@ -101,6 +106,7 @@ export default defineConfig({
 				// they are injected as a string into a shadow
 				// DOM.
 				test: /\.css$/,
+				type: 'javascript/auto',
 				include: fullPath('css/minimap'),
 				use: [
 					{
@@ -111,30 +117,25 @@ export default defineConfig({
 					}
 				]
 			},
-			{
-				test: /\.css$/,
-				include: fullPath('css'),
-				exclude: fullPath('css/minimap'),
-				use: [
-					rspack.CssExtractRspackPlugin.loader,
-					{
-						loader: 'css-loader',
-						options: {
-							url: false
-						}
-					}
-				]
-			},
 			jsonLintRule(fullPath('data/references'), 'Reference'),
 			jsonLintRule(fullPath('data/instructions'), 'InstructionsByTest'),
 			jsonLintRule(fullPath('data/helpers'), 'HelpersByTest')
+		]
+	},
+	optimization: {
+		minimizer: [
+			new rspack.SwcJsMinimizerRspackPlugin(),
+			new rspack.LightningCssMinimizerRspackPlugin({
+				minimizerOptions: {
+					targets: pkg.browserslist
+				}
+			})
 		]
 	},
 	plugins: [
 		new rspack.EnvironmentPlugin({
 			VERSION: manifest.version
 		}),
-		new rspack.CssExtractRspackPlugin(),
 		new rspack.ProvidePlugin({
 			browser: 'webextension-polyfill'
 		}),
