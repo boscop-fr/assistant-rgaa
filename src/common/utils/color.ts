@@ -1,12 +1,15 @@
-import Color from 'colorjs.io';
+import colorString from 'color-string';
+import {hex as wcagContrast} from 'wcag-contrast';
 
-export const srgbToHex = (r: number, g: number, b: number) =>
-	new Color('srgb', [r, g, b]).toString({
-		format: 'hex'
-	});
+export const isValidColor = (color: string) =>
+	colorString.get.rgb(color) !== null;
 
-export const cssToHex = (color: string) =>
-	new Color(color).toString({format: 'hex'});
+export const rgbToHex = (r: number, g: number, b: number) =>
+	colorString.to.hex(r, g, b);
 
-export const contrast = (a: string, b: string) =>
-	new Color(a).contrastWCAG21(new Color(b));
+export const cssToHex = (color: string) => {
+	const [r, g, b] = colorString.get.rgb(color);
+	return rgbToHex(r, g, b);
+};
+
+export const contrastRatio = (a: string, b: string) => wcagContrast(a, b);

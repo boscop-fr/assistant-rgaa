@@ -3,16 +3,7 @@ import type {PropsWithChildren} from 'react';
 import React from 'react';
 import {useIntl} from 'react-intl';
 import type {JSX} from 'react/jsx-runtime';
-import {cssToHex} from '../../common/utils/color';
-
-const isValidColor = (color: string) => {
-	try {
-		cssToHex(color);
-		return true;
-	} catch (e) {
-		return false;
-	}
-};
+import {cssToHex, isValidColor} from '../../common/utils/color';
 
 type ColorInputProps = PropsWithChildren<{
 	id: string;

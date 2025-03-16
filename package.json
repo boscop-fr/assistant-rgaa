@@ -29,8 +29,9 @@
     "@types/node": "^22.13.10",
     "@types/preact-custom-element": "^4.0.4",
     "@types/react-dom": "^18.3.5",
+    "@types/wcag-contrast": "^3.0.3",
     "@types/webextension-polyfill": "^0.12.3",
-    "colorjs.io": "^0.5.2",
+    "color-string": "^2.0.1",
     "commander": "^13.1.0",
     "css-loader": "^7.1.2",
     "husky": "^9.1.7",
@@ -40,6 +41,7 @@
     "request": "^2.88.2",
     "ts-jest": "^29.2.6",
     "typescript": "^5.8.2",
+    "wcag-contrast": "^3.0.0",
     "web-ext": "^8.4.0",
     "webextension-polyfill": "^0.12.0"
   },

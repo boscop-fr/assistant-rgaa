@@ -1,5 +1,5 @@
 import {captureCurrentTab} from '../../background/slices/runtime';
-import {srgbToHex} from '../../common/utils/color';
+import {rgbToHex} from '../../common/utils/color';
 
 const imageElement = async (base64: string) => {
 	const {promise, resolve} = Promise.withResolvers<HTMLImageElement>();
@@ -29,7 +29,7 @@ export const captureCurrentTabPixel = async (x: number, y: number) => {
 	const image = await imageElement(base64);
 	const [r, g, b] = imageCanvas(image)
 		.getContext('2d')
-		.getImageData(x, y, 1, 1).data;
+		.getImageData(x, y, 1, 1, {colorSpace: 'srgb'}).data;
 
-	return srgbToHex(r / 255, g / 255, b / 255);
+	return rgbToHex(r, g, b);
 };

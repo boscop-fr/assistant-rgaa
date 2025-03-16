@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
 import {useSelector} from 'react-redux';
-import {contrast} from '../../common/utils/color';
+import {contrastRatio} from '../../common/utils/color';
 import {selectTargetTabId} from '../../panel/slices/panel';
 import type {
 	ColorExtractorConfig,
@@ -174,7 +174,7 @@ const ColorContrast = ({
 			</form>
 
 			<ColorContrastResult
-				ratio={Number(contrast(colors.left, colors.right).toFixed(2))}
+				ratio={contrastRatio(colors.left, colors.right)}
 				minimumRatio={minimumRatio}
 			/>
 		</div>

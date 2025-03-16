@@ -22,7 +22,7 @@ const ColorContrastResult = ({
 						'ColorContrastResult-actualRatio--invalid': ratio < minimumRatio
 					})}
 				>
-					{ratio}
+					{Number(ratio).toFixed(2)}
 				</span>
 				<span> / </span>
 				<span className="ColorContrastResult-minimumRatio">{minimumRatio}</span>
