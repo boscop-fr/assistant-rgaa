@@ -1,4 +1,4 @@
-import {createListenerMiddleware} from '@reduxjs/toolkit';
+import {addListener, createListenerMiddleware} from '@reduxjs/toolkit';
 import {addCriteriaListeners} from '../listeners/criteria';
 import {addHelpersListeners} from '../listeners/helpers';
 import {addOptionsListener} from '../listeners/options';
@@ -15,6 +15,8 @@ const startListening = listener.startListening.withTypes<
 >();
 
 export type AppStartListening = typeof startListening;
+
+export const addAppListener = addListener.withTypes<AppState, AppDispatch>();
 
 addCriteriaListeners(startListening);
 addHelpersListeners(startListening);

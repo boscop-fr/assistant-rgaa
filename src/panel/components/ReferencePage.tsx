@@ -1,33 +1,46 @@
-import debounce from 'debounce';
-import React, {useCallback, useRef} from 'react';
-import {selectAllThemes, selectIsLoaded} from '../slices/reference';
+import React, {useEffect, useRef, useState} from 'react';
+import {addAppListener} from '../middlewares/listener';
+import {selectAllThemes} from '../slices/reference';
+import {stateLoaded} from '../slices/storage';
 import {saveScrollPosition, selectScrollPosition} from '../slices/themes';
-import {useAppDispatch, useAppSelector} from '../utils/hooks';
+import {useAppDispatch, useAppSelector, useDebounce} from '../utils/hooks';
 import Theme from './Theme';
 
 const ReferencePage = () => {
-	const isReferenceLoaded = useAppSelector(selectIsLoaded);
-	const scrollPosition = useAppSelector(selectScrollPosition);
-	const initialScrollPosition = useRef(scrollPosition);
+	const [currentScrollPosition, setCurrentScrollPosition] = useState(0);
+	const debouncedScrollPosition = useDebounce(currentScrollPosition, 300);
 	const themes = useAppSelector(selectAllThemes);
 	const dispatch = useAppDispatch();
+	const themesRef = useRef<HTMLDivElement>();
 
-	const handleScroll = debounce((event) => {
-		dispatch(saveScrollPosition(event.target.scrollTop));
-	}, 500);
+	useEffect(
+		() =>
+			dispatch(
+				addAppListener({
+					actionCreator: stateLoaded,
+					effect: (action, api) => {
+						if (themesRef.current) {
+							const position = selectScrollPosition(api.getState());
+							themesRef.current.scrollTop = position;
+						}
+					}
+				})
+			),
+		[dispatch]
+	);
 
-	const themesRef = useCallback((node: HTMLDivElement) => {
-		if (node !== null && initialScrollPosition.current) {
-			node.scrollTop = initialScrollPosition.current;
-		}
-	}, []);
-
-	if (!isReferenceLoaded) {
-		return null;
-	}
+	useEffect(() => {
+		dispatch(saveScrollPosition(debouncedScrollPosition));
+	}, [dispatch, debouncedScrollPosition]);
 
 	return (
-		<div className="ReferencePage" onScroll={handleScroll} ref={themesRef}>
+		<div
+			ref={themesRef}
+			className="ReferencePage"
+			onScroll={(event) => {
+				setCurrentScrollPosition((event.target as HTMLElement).scrollTop);
+			}}
+		>
 			{Object.values(themes).map((theme) => (
 				<Theme key={theme.id} theme={theme} />
 			))}

@@ -1,4 +1,9 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import {
+	type UnsubscribeListener,
+	addListener,
+	combineReducers,
+	configureStore
+} from '@reduxjs/toolkit';
 import listener from './middlewares/listener';
 import app from './slices/app';
 import audit from './slices/audit';
@@ -31,7 +36,11 @@ export const createStore = () =>
 	configureStore({
 		reducer: storable(reducer),
 		middleware: (getDefaultMiddleware) =>
-			getDefaultMiddleware().concat(listener)
+			getDefaultMiddleware({
+				serializableCheck: {
+					ignoredActions: [addListener.type]
+				}
+			}).concat(listener)
 	});
 
 export type AppDispatch = ReturnType<typeof createStore>['dispatch'];
