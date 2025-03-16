@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import {onOptionChange} from '../../options/utils/storage';
 import type {AppStartListening} from '../middlewares/listener';
 import {loadReference} from '../slices/app';

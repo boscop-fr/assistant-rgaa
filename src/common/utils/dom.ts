@@ -1,3 +1,5 @@
+import browser from 'webextension-polyfill';
+
 export const loadScript = (path: string, onLoad: () => void) => {
 	const script = document.createElement('script');
 	script.type = 'module';

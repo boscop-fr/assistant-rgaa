@@ -2,6 +2,7 @@ import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {IntlProvider} from 'react-intl';
 import {Provider} from 'react-redux';
+import browser from 'webextension-polyfill';
 import {fetchCurrentTab, onTabMount} from '../common/utils/tabs';
 import {getOption} from '../options/utils/storage';
 import App from './components/App';

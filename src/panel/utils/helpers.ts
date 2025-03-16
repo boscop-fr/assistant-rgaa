@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import type {HelpersByTest} from '../../common/types';
 
 /*

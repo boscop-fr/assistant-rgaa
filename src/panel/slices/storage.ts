@@ -5,6 +5,7 @@ import {
 	createAsyncThunk,
 	createSelector
 } from '@reduxjs/toolkit';
+import browser from 'webextension-polyfill';
 import {omit} from '../../common/utils/objects';
 import {type StatePersistence, getOption} from '../../options/utils/storage';
 import type {AppState} from '../store';

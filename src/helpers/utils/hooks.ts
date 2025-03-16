@@ -1,4 +1,5 @@
 import {useCallback, useEffect} from 'preact/hooks';
+import browser from 'webextension-polyfill';
 import {tabAction} from '../../background/slices/runtime';
 
 export const useTabAction = (

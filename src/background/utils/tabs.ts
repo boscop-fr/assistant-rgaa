@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import wait from '../../common/utils/wait';
 
 export const PANEL_PAGE = 'pages/panel.html';

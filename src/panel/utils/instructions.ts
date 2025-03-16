@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import type {Instructions} from '../../common/types';
 
 // Retrieves instructions mapping for the given version.

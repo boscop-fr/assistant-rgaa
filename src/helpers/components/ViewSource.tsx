@@ -1,4 +1,5 @@
 import React from 'react';
+import browser from 'webextension-polyfill';
 import {createTab, viewPageSource} from '../../background/slices/runtime';
 import {isFirefox} from '../../common/utils/browser';
 import {selectTargetTabUrl} from '../../panel/slices/panel';

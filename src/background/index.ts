@@ -1,4 +1,5 @@
 import {isAction} from 'redux';
+import browser from 'webextension-polyfill';
 import type {Runtime} from 'webextension-polyfill';
 import {fetchCurrentTab} from '../common/utils/tabs';
 import {

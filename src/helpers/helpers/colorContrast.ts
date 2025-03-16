@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import ColorContrast from '../components/ColorContrast';
 import {
 	requestPixelColor,

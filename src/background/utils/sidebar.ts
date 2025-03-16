@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import {PANEL_PAGE} from './tabs';
 
 const isChromeApi = () =>

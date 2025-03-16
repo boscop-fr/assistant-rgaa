@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import {fetchCurrentTab, onTabLoaded} from '../../common/utils/tabs';
 import {getSource} from './source';
 

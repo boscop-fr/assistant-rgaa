@@ -136,9 +136,6 @@ export default defineConfig({
 		new rspack.EnvironmentPlugin({
 			VERSION: manifest.version
 		}),
-		new rspack.ProvidePlugin({
-			browser: 'webextension-polyfill'
-		}),
 		new rspack.IgnorePlugin({
 			resourceRegExp: /\.woff$/
 		})

@@ -3,6 +3,7 @@ import {
 	type UnknownAction,
 	isAnyOf
 } from '@reduxjs/toolkit';
+import browser from 'webextension-polyfill';
 import {helpersReady, tabAction} from '../../background/slices/runtime';
 import type {AppStartListening} from '../middlewares/listener';
 import {

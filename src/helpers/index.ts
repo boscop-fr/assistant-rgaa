@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import {helpersReady} from '../background/slices/runtime';
 import {
 	applyHelpers as applyHelpersAction,

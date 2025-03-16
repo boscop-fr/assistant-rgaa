@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, {useEffect, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useSelector} from 'react-redux';
+import browser from 'webextension-polyfill';
 import {selectTargetTabId} from '../../panel/slices/panel';
 import {getHierarchy, setHierarchy} from '../slices/headingsHierarchy';
 import {

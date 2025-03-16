@@ -3,6 +3,7 @@ import {
 	createAsyncThunk,
 	createSlice
 } from '@reduxjs/toolkit';
+import browser from 'webextension-polyfill';
 import {appLoaded} from '../../background/slices/runtime';
 import type {AppState as StoreState} from '../store';
 import {fetchHelpers} from '../utils/helpers';

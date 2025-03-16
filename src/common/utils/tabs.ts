@@ -1,3 +1,5 @@
+import browser from 'webextension-polyfill';
+
 export const fetchCurrentTab = async () => {
 	const query = {
 		active: true,

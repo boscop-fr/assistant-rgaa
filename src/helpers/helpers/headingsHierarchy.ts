@@ -1,4 +1,5 @@
 import debounce from 'debounce';
+import browser from 'webextension-polyfill';
 import HeadingsHierarchy from '../components/HeadingsHierarchy';
 import {getHierarchy, setHierarchy} from '../slices/headingsHierarchy';
 import {createHelper} from '../utils/createHelper';

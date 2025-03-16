@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import {captureCurrentTab} from '../../background/slices/runtime';
 import {rgbToHex} from '../../common/utils/color';
 
