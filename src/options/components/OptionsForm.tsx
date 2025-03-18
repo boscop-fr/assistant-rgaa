@@ -50,109 +50,127 @@ function OptionsForm() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="OptionsForm">
-			<div className="OptionsForm-field">
-				<label
-					className="OptionsForm-label"
-					htmlFor="OptionsForm-input--referenceVersion"
+		<form className="OptionsForm" onSubmit={handleSubmit}>
+			<table role="presentation">
+				<tr>
+					<td>
+						<label htmlFor="OptionsForm-input--referenceVersion">
+							<FormattedMessage id="OptionsForm.referenceVersion" />
+						</label>
+					</td>
+					<td>
+						<select
+							id="OptionsForm-input--referenceVersion"
+							name="referenceVersion"
+							value={options.referenceVersion}
+							onChange={handleChange}
+						>
+							{versions
+								.toSorted((a, b) => b.version.localeCompare(a.version))
+								.map((ref) => (
+									<option key={`ref-${ref.version}`} value={ref.version}>
+										{ref.name}
+									</option>
+								))}
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<label htmlFor="OptionsForm-input--allowMultipleTests">
+							<FormattedMessage id="OptionsForm.allowMultipleTests" />
+						</label>
+					</td>
+					<td>
+						<input
+							id="OptionsForm-input--allowMultipleTests"
+							type="checkbox"
+							name="allowMultipleTests"
+							value="true"
+							checked={options.allowMultipleTests}
+							onChange={handleChange}
+						/>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<label htmlFor="OptionsForm-input--autoOpenInstructions">
+							<FormattedMessage id="OptionsForm.autoOpenInstructions" />
+						</label>
+					</td>
+					<td>
+						<input
+							id="OptionsForm-input--autoOpenInstructions"
+							type="checkbox"
+							name="autoOpenInstructions"
+							value="true"
+							checked={options.autoOpenInstructions}
+							onChange={handleChange}
+						/>
+					</td>
+				</tr>
+
+				<tr
+					// biome-ignore lint/a11y/useSemanticElements:
+					role="group"
+					aria-labelledby="OptionsForm-statePersistence-label"
+					aria-describedby="OptionsForm-statePersistence-hint"
 				>
-					<FormattedMessage id="OptionsForm.referenceVersion" />
-				</label>
+					<td>
+						<p id="OptionsForm-statePersistence-label">
+							<FormattedMessage id="OptionsForm.statePersistence" />
+						</p>
 
-				<select
-					id="OptionsForm-input--referenceVersion"
-					name="referenceVersion"
-					value={options.referenceVersion}
-					onChange={handleChange}
-				>
-					{versions.map((ref) => (
-						<option key={`ref-${ref.version}`} value={ref.version}>
-							{ref.name}
-						</option>
-					))}
-				</select>
-			</div>
+						<p
+							className="OptionsForm-hint"
+							id="OptionsForm-statePersistence-hint"
+						>
+							<FormattedMessage id="OptionsForm.statePersistence.hint" />
+						</p>
+					</td>
+					<td>
+						{['always', 'tab', 'url', 'tabUrl'].map((option) => {
+							const id = `OptionsForm-input--statePersistence-${option}`;
 
-			<div className="OptionsForm-field OptionsForm-field--inline">
-				<input
-					id="OptionsForm-input--allowMultipleTests"
-					type="checkbox"
-					name="allowMultipleTests"
-					value="true"
-					checked={options.allowMultipleTests}
-					onChange={handleChange}
-				/>
+							return (
+								<div className="OptionsForm-field--inline" key={option}>
+									<input
+										id={id}
+										type="radio"
+										name="statePersistence"
+										value={option}
+										checked={options.statePersistence === option}
+										onChange={handleChange}
+									/>
 
-				<label
-					className="OptionsForm-label"
-					htmlFor="OptionsForm-input--allowMultipleTests"
-				>
-					<FormattedMessage id="OptionsForm.allowMultipleTests" />
-				</label>
-			</div>
+									<label htmlFor={id}>
+										<FormattedMessage
+											id={`OptionsForm.statePersistence.${option}`}
+										/>
+									</label>
+								</div>
+							);
+						})}
+					</td>
+				</tr>
 
-			<div className="OptionsForm-field OptionsForm-field--inline">
-				<input
-					id="OptionsForm-input--autoOpenInstructions"
-					type="checkbox"
-					name="autoOpenInstructions"
-					value="true"
-					checked={options.autoOpenInstructions}
-					onChange={handleChange}
-				/>
+				<tr>
+					<td />
+					<td>
+						<button type="submit">
+							<FormattedMessage id="OptionsForm.submit" />
+						</button>
 
-				<label
-					className="OptionsForm-label"
-					htmlFor="OptionsForm-input--autoOpenInstructions"
-				>
-					<FormattedMessage id="OptionsForm.autoOpenInstructions" />
-				</label>
-			</div>
-
-			<fieldset className="OptionsForm-field">
-				<legend className="OptionsForm-label">
-					<FormattedMessage id="OptionsForm.statePersistence" />
-				</legend>
-
-				<p className="OptionsForm-hint">
-					<FormattedMessage id="OptionsForm.statePersistence.hint" />
-				</p>
-
-				{['always', 'tab', 'url', 'tabUrl'].map((option) => {
-					const id = `OptionsForm-input--statePersistence-${option}`;
-
-					return (
-						<div className="OptionsForm-field--inline" key={option}>
-							<input
-								id={id}
-								type="radio"
-								name="statePersistence"
-								value={option}
-								checked={options.statePersistence === option}
-								onChange={handleChange}
-							/>
-
-							<label htmlFor={id}>
-								<FormattedMessage
-									id={`OptionsForm.statePersistence.${option}`}
-								/>
-							</label>
-						</div>
-					);
-				})}
-			</fieldset>
-
-			<div className="OptionsForm-submit">
-				<button type="submit">
-					<FormattedMessage id="OptionsForm.submit" />
-				</button>
-			</div>
-
-			{isSuccess ? (
-				<p className="OptionsForm-success">
-					<FormattedMessage id="OptionsForm.successMessage" />
-				</p>
-			) : null}
+						{isSuccess ? (
+							<p className="OptionsForm-success">
+								<FormattedMessage id="OptionsForm.successMessage" />
+							</p>
+						) : null}
+					</td>
+				</tr>
+			</table>
 		</form>
 	);
 }

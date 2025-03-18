@@ -42,6 +42,16 @@
 				"indentStyle": "space",
 				"indentWidth": 2
 			}
+		},
+		{
+			"include": ["src/options/components/OptionsForm.tsx"],
+			"linter": {
+				"rules": {
+					"a11y": {
+						"noInteractiveElementToNoninteractiveRole": "off"
+					}
+				}
+			}
 		}
 	]
 }

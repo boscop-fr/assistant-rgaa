@@ -1,9 +1,19 @@
-.OptionsForm-label {
-	display: block;
+.OptionsForm table {
+	border-spacing: 2ch 1em;
 }
 
-.OptionsForm-field {
-	margin-bottom: 1lh;
+.OptionsForm td {
+	padding: 0;
+	vertical-align: baseline;
+}
+
+.OptionsForm td:first-child {
+	width: 50%;
+}
+
+.OptionsForm-group {
+	display: grid;
+	grid-template-columns: subgrid;
 }
 
 .OptionsForm-field--inline {

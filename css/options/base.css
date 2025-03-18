@@ -1,9 +1,8 @@
-body {
-	padding: 1lh;
+html {
+	min-width: 460px;
+	width: 100%;
 }
 
-fieldset {
-	margin: 0;
-	border: 0;
-	padding: 0;
+label {
+	display: block;
 }
