@@ -5,6 +5,15 @@ import type {
 } from '@reduxjs/toolkit';
 import type {AppDispatch, AppState} from '../store';
 
+// @see https://redux-toolkit.js.org/api/createListenerMiddleware#complex-async-workflows
+export const debounceListener = async (
+	api: ListenerEffectAPI<AppState, AppDispatch>,
+	delay: number
+) => {
+	api.cancelActiveListeners();
+	await api.delay(delay);
+};
+
 // Executes an effect each time a subscriber emits a new value.
 export const pollEffect =
 	<P extends unknown[]>(

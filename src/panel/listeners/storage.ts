@@ -3,7 +3,7 @@ import {helpersReady} from '../../background/slices/runtime';
 import type {AppStartListening} from '../middlewares/listener';
 import {selectIsLoading} from '../slices/app';
 import {stateLoaded, storeState} from '../slices/storage';
-import {pollEffect} from '../utils/listeners';
+import {debounceListener, pollEffect} from '../utils/listeners';
 
 export const addStorageListeners = (startListening: AppStartListening) => {
 	const isStorageAction = ({type}: Action) => type.startsWith('storage/');
@@ -24,11 +24,7 @@ export const addStorageListeners = (startListening: AppStartListening) => {
 				return;
 			}
 
-			// Debounces the next dispatch.
-			// @see https://redux-toolkit.js.org/api/createListenerMiddleware#complex-async-workflows
-			api.cancelActiveListeners();
-			await api.delay(50);
-
+			await debounceListener(api, 50);
 			api.dispatch(storeState());
 		}
 	});

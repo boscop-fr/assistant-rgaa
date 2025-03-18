@@ -17,7 +17,7 @@ import {
 import {selectTargetTabId} from '../slices/panel';
 import {selectEnabledTestIds, toggleTest} from '../slices/tests';
 import type {AppDispatch, AppState} from '../store';
-import {pollEffect} from '../utils/listeners';
+import {debounceListener, pollEffect} from '../utils/listeners';
 
 export const addHelpersListeners = (startListening: AppStartListening) => {
 	// Dispatches actions received from the background script
@@ -80,10 +80,12 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 			setGlobalHelper,
 			removeGlobalHelper
 		),
-		effect: (
+		effect: async (
 			action: UnknownAction,
 			api: ListenerEffectAPI<AppState, AppDispatch>
 		) => {
+			await debounceListener(api, 50);
+
 			const state = api.getState();
 			const ids = selectEnabledTestIds(state);
 			const helpers = selectHelpersByTests(state, ids);
