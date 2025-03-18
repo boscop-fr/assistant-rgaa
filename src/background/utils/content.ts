@@ -2,22 +2,28 @@ import browser from 'webextension-polyfill';
 const CONTENT_SCRIPTS = ['dist/helpers.js', 'dist/minimap.js'];
 const CONTENT_STYLES = ['dist/helpers.css'];
 
+declare global {
+	var rgaaExt: boolean;
+}
+
 const areScriptsInjected = async (tabId: number) => {
 	const results = await browser.scripting.executeScript({
 		target: {tabId},
-		func() {
-			return document.body.dataset?.rgaaExt === 'true';
+		world: 'MAIN',
+		func: () => {
+			return !!globalThis?.rgaaExt;
 		}
 	});
 
-	return !!results?.[0]?.result;
+	return results?.[0]?.result;
 };
 
 const setScriptsInjected = (tabId: number) =>
 	browser.scripting.executeScript({
 		target: {tabId},
-		func() {
-			document.body.dataset.rgaaExt = 'true';
+		world: 'MAIN',
+		func: () => {
+			globalThis.rgaaExt = true;
 		}
 	});
 
