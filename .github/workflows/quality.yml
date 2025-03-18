@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: lts/*
       - run: npm ci
-      - run: npx playwright install --with-deps
+      - run: npx playwright install --with-deps chromium firefox
       # The build must be done before linting because web-ext
       # checks for existence of files listed in the manifest.
       - run: npm run build
