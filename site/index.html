@@ -155,34 +155,38 @@
 					<img alt="Menu principal" src="./img/menu.png" />
 
 					<dl>
-						<dt>Version du référentiel utilisée</dt>
+						<dt>Référentiel</dt>
 						<dd>
-							À l'heure actuelle, les versions 3-2016, 3-2017, 4.0
-							(2019), 4.1 (2021) et 4.1.2 (2023) sont supportées.
+							Affiche la version du référentiel utilisée. À l'heure
+							actuelle, les versions 3 (2016 ou 2017), 4.0 (2019), 4.1
+							(2021) et 4.1.2 (2023) sont supportées.
 						</dd>
-						<dt>Aide</dt>
-						<dd>Vous y êtes !</dd>
+						<dt>Popup</dt>
+						<dd>
+							Permet d'ouvrir l'extension dans une fenêtre séparée pour
+							disposer de plus d'espace, par exemple sur deux moniteurs.
+						</dd>
+						<dt>Réinitialisation</dt>
+						<dd>
+							Désactive les tests en cours et réinitialise les résultats
+							enregistrés.
+						</dd>
 						<dt>Options</dt>
 						<dd>
 							Options globales de l'extension, permettant notamment de
 							configurer la version du référentiel à utiliser.
 						</dd>
-						<dt>Mode popup</dt>
+						<dt>Aide</dt>
+						<dd>Vous y êtes !</dd>
+						<dt>Thématiques</dt>
 						<dd>
-							Grâce à ce menu, l'extension peut-être ouverte dans une
-							fenêtre séparée.
+							Fournit un accès rapide aux thématiques du référentiel.
 						</dd>
-						<dt>Menu de navigation dans les thématiques</dt>
-						<dd>
-							Comme dans le référentiel, les tests sont d'abord organisés
-							par thématiques. Ces thématiques sont visibles au premier
-							niveau de la liste des tests, et accessibles par un menu
-							déroulant présent dans le menu principal.
-						</dd>
-						<dt>Activation des styles</dt>
+						<dt>Styles</dt>
 						<dd>
 							Ce bouton permet d'activer ou désactiver intégralement les
-							styles de la page auditée.
+							styles de la page auditée, ce qui peut faciliter l'audit de
+							certains tests.
 						</dd>
 					</dl>
 
@@ -250,6 +254,43 @@
 								Un clic sur un point de la carte permet de naviguer à la
 								position correspondante dans la page.
 							</p>
+						</div>
+					</div>
+
+					<h3>Options</h3>
+
+					<div class="Split Split--reverse">
+						<img alt="Minimap" src="./img/options.png" />
+
+						<div>
+							<dl>
+								<dt>Référentiel</dt>
+								<dd>
+									Permet de modifier la version du référentiel
+									utilisée.
+								</dd>
+								<dt>Tests multiples</dt>
+								<dd>
+									Permet l'activation de plusieurs tests à la fois:,
+									auquel cas leurs effets dans la page se cumulent
+								</dd>
+
+								<dt>Ouverture automatique des instructions</dt>
+								<dd>
+									Par défaut, les instructions d'un test s'ouvrent
+									automatiquement lors de l'activation. On peut
+									désactiver ce comportement pour alléger l'interface.
+								</dd>
+								<dt>Conservation de l'état</dt>
+								<dd>
+									Permet de définir le comportemenent de l'extension
+									lors d'un changement de page ou d'onglet.
+									<br />
+									L'extension peut sauvegarder l'état courant (tests
+									appliqués, résultats enregistrés), pour les
+									réappliquer au changement de page ou d'onglet.
+								</dd>
+							</dl>
 						</div>
 					</div>
 
