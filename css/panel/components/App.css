@@ -1,0 +1,31 @@
+/**
+ *	A light animation applied on load that makes content
+ *	raise from the bottom.
+ *	This makes opening the panel easier on the eye, avoiding
+ *	a hard transition from the loading state to the fully
+ *	loaded app.
+ */
+@keyframes slide-up {
+	from {
+		transform-origin: top center;
+		transform: scaleY(1.025);
+		opacity: 0.4;
+	}
+
+	to {
+		transform-origin: top center;
+	}
+}
+
+.App {
+	height: 100%;
+	color-scheme: light;
+	color: var(--color-black);
+	animation: 250ms cubic-bezier(0.165, 0.84, 0.44, 1) both slide-up;
+}
+
+.App-content {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}

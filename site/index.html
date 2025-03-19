@@ -1,227 +1,547 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="fr">
 	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-		<title>Assistant RGAA - Extension de navigateur permettant d'auditer des pages web en suivant le référentiel RGAA</title>
-
-		<link rel="stylesheet" href="style.css" />
-		<link rel="icon" type="image/png" href="/favicon.png" />
-
-		<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<meta property="og:title" content="Assistant RGAA" />
-		<meta property="og:description" content="Extension de navigateur permettant d'auditer des pages web en suivant le référentiel RGAA" />
+		<meta
+			property="og:description"
+			content="Extension de navigateur permettant d'auditer des pages web en suivant le référentiel RGAA"
+		/>
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://assistant-rgaa.empreintedigitale.fr" />
-		<meta property="og:image" content="https://assistant-rgaa.empreintedigitale.fr/img/assistant-rgaa.png" />
+		<meta property="og:url" content="https://assistant-rgaa.boscop.fr" />
+		<meta
+			property="og:image"
+			content="https://assistant-rgaa.boscop.fr/img/panel-large.png"
+		/>
 		<meta property="og:locale" content="fr_FR" />
 
 		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:site" content="@empr1tedigitale" />
 		<meta name="twitter:title" content="Assistant RGAA" />
-		<meta name="twitter:description" content="Extension de navigateur permettant d'auditer des pages web en suivant le référentiel RGAA" />
-		<meta name="twitter:image" content="https://assistant-rgaa.empreintedigitale.fr/img/assistant-rgaa.png" />
-		<meta name="twitter:image:alt" content="Logo de l'assistant RGAA" />
+		<meta
+			name="twitter:description"
+			content="Extension de navigateur permettant d'auditer des pages web en suivant le référentiel RGAA"
+		/>
+		<meta
+			name="twitter:image"
+			content="https://assistant-rgaa.boscop.fr/img/panel-large.png"
+		/>
+		<meta
+			name="twitter:image:alt"
+			content="Exemple d'utilisation de l'assistant RGAA"
+		/>
+
+		<title>
+			Assistant RGAA - Extension de navigateur permettant d'auditer des pages
+			web en suivant le référentiel RGAA
+		</title>
+
+		<link rel="icon" type="image/png" href="/favicon.png" />
+
+		<link
+			rel="stylesheet"
+			href="https://boscop.fr/wp-content/themes/boscop/dist/app.css"
+		/>
+
+		<style>
+			@font-face {
+				font-family: Outfit Variable;
+				font-style: normal;
+				font-display: swap;
+				font-weight: 200 900;
+				src: url('./outfit-variable.woff2') format('woff2');
+			}
+
+			#fonctionnalites {
+				margin-top: 0;
+			}
+
+			@media screen and (min-width: 80ch) {
+				.Split {
+					display: grid;
+					grid-template-columns: 1fr 1fr;
+					gap: 0 var(--spacing-inline--xl);
+				}
+
+				.Split--reverse :first-child {
+					order: 1;
+				}
+			}
+		</style>
 	</head>
 
 	<body>
-		<div id="app">
-			<header class="Header">
-				<div class="Container">
-					<div class="Header-inner">
-
-						<a
-							href="https://empreintedigitale.fr"
-							title="Empreinte Digitale - Créateur de vos solutions numériques responsables"
-						>
-							<img
-								class="Header-logo"
-								src="img/logo.svg"
-								alt="Empreinte Digitale - Créateur de vos solutions numériques responsables"
-							/>
-						</a>
-					</div>
+		<div class="Surface Theme--primary">
+			<div class="Container Container--m">
+				<div class="Header">
+					<header class="Header-banner" role="banner">
+						<img
+							class="Header-logo"
+							src="https://boscop.fr/wp-content/themes/boscop/dist/design-system/logo-horizontal-borderless.svg"
+							alt="boscop"
+						/>
+					</header>
 				</div>
-			</header>
 
-			<main role="main">
-				<div class="Hero">
-					<div class="Container">
-						<div class="Hero-inner">
-							<h1 class="Hero-title">
-								Assistant RGAA
-							</h1>
+				<div class="Section Section--padding-l">
+					<h1>Assistant RGAA</h1>
+
+					<p>
+						L’assistant RGAA (Référentiel Général d’Amélioration de
+						l’Accessibilité) est une extension pour les navigateurs Chrome
+						ou Firefox. Elle offre aux personnes effectuant des
+						<a href="https://boscop.fr/nos-prestations/audit-rgaa-wcag/"
+							>audits d’accessibilité</a
+						>
+						une aide pratique à la mise en œuvre de tests de conformité,
+						critère par critère.
+					</p>
+
+					<p>
+						L’objectif de cet outil n’est pas d'automatiser les tests,
+						mais de faciliter la vérification des critères et des tests
+						d’accessibilité du RGAA, par le biais de modifications dans
+						les pages.
+					</p>
+
+					<ul class="ButtonList">
+						<li>
+							<a class="Button" href="#fonctionnalites"
+								>Fonctionnalités</a
+							>
+						</li>
+						<li>
+							<a class="Button" href="#telechargement">Téléchargement</a>
+						</li>
+						<li>
+							<a class="Button" href="#a-propos">À propos</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<main class="Section Section--padding-xl" role="main">
+			<div class="Container">
+				<div class="RichText">
+					<h2 id="fonctionnalites">Comment ça fonctionne ?</h2>
+
+					<p>
+						Cette extension propose une liste complète des tests du
+						référentiel RGAA. Pour chacun de ces tests, l'extension permet
+						d'appliquer des modifications à la page courante
+						(modifications de style, ajout d'informations, outils),
+						permettant d'effectuer plus simplement les tests.
+					</p>
+
+					<h3>Interface</h3>
+
+					<a
+						class="ImagePreview"
+						href="./img/panel-large.png"
+						title="L'extension ouverte sur une page avec un test activé"
+					>
+						<img
+							alt="L'extension ouverte sur une page avec un test activé"
+							src="./img/panel.png"
+						/>
+					</a>
+
+					<h4>Menu principal</h4>
+
+					<img alt="Menu principal" src="./img/menu.png" />
+
+					<dl>
+						<dt>Référentiel</dt>
+						<dd>
+							Affiche la version du référentiel utilisée. À l'heure
+							actuelle, les versions 3 (2016 ou 2017), 4.0 (2019), 4.1
+							(2021) et 4.1.2 (2023) sont supportées.
+						</dd>
+						<dt>Popup</dt>
+						<dd>
+							Permet d'ouvrir l'extension dans une fenêtre séparée pour
+							disposer de plus d'espace, par exemple sur deux moniteurs.
+						</dd>
+						<dt>Réinitialisation</dt>
+						<dd>
+							Désactive les tests en cours et réinitialise les résultats
+							enregistrés.
+						</dd>
+						<dt>Options</dt>
+						<dd>
+							Options globales de l'extension, permettant notamment de
+							configurer la version du référentiel à utiliser.
+						</dd>
+						<dt>Aide</dt>
+						<dd>Vous y êtes !</dd>
+						<dt>Thématiques</dt>
+						<dd>
+							Fournit un accès rapide aux thématiques du référentiel.
+						</dd>
+						<dt>Styles</dt>
+						<dd>
+							Ce bouton permet d'activer ou désactiver intégralement les
+							styles de la page auditée, ce qui peut faciliter l'audit de
+							certains tests.
+						</dd>
+					</dl>
+
+					<h4>Navigation</h4>
+
+					<p>
+						Sous chaque thème se trouve une liste de critères, qui peuvent
+						être dépliés pour révéler la liste de tests qu'ils
+						contiennent.
+					</p>
+
+					<div class="Split">
+						<img
+							alt="Vue à l'ouverture de la page"
+							src="./img/reference.png"
+						/>
+
+						<img alt="Critère ouvert" src="./img/criterion.png" />
+					</div>
+
+					<h3>Tests</h3>
+
+					<div class="Split Split--reverse">
+						<img alt="Test actif" src="./img/test.png" />
+
+						<p>
+							Pour chaque test, une case à cocher permet d'appliquer les
+							modifications associées dans la page. Une fois cochée, les
+							modifications s'appliquent, et les instructions à suivre
+							pour valider le test s'affichent. Pour plus de détail, une
+							zone "description du test" liste les modifications exactes
+							apportées à la page.
+						</p>
+					</div>
+
+					<div class="Split Split--reverse">
+						<img alt="Statut d'un test" src="./img/statuses.png" />
+
+						<p>
+							Un résultat peut être assigné à chaque test pour suivre
+							l'avancée de l'audit. Ces résultats sont agrégés
+							automatiquement sur les critères parents.
+						</p>
+					</div>
+
+					<h3>Minimap</h3>
+
+					<div class="Split Split--reverse">
+						<img alt="Minimap" src="./img/minimap.png" />
+
+						<div>
+							<p>
+								Lors de l'application d'un test, une petite carte
+								s'affiche sur le côté de la page pour indiquer les zones
+								affectées par le test. Elle permet de savoir rapidement
+								si le test a affecté la page, et à quels endroits.
+							</p>
 
 							<p>
-								Extension de navigateur permettant d'auditer des pages
-								web en suivant le référentiel RGAA.
+								Cette carte représente l'ensemble de la page, et les
+								zones en surbrillance les éléments mis en valeur.
+							</p>
+
+							<p>
+								Un clic sur un point de la carte permet de naviguer à la
+								position correspondante dans la page.
 							</p>
 						</div>
 					</div>
+
+					<h3>Options</h3>
+
+					<div class="Split Split--reverse">
+						<img alt="Minimap" src="./img/options.png" />
+
+						<div>
+							<dl>
+								<dt>Référentiel</dt>
+								<dd>
+									Permet de modifier la version du référentiel
+									utilisée.
+								</dd>
+								<dt>Tests multiples</dt>
+								<dd>
+									Permet l'activation de plusieurs tests à la fois:,
+									auquel cas leurs effets dans la page se cumulent
+								</dd>
+
+								<dt>Ouverture automatique des instructions</dt>
+								<dd>
+									Par défaut, les instructions d'un test s'ouvrent
+									automatiquement lors de l'activation. On peut
+									désactiver ce comportement pour alléger l'interface.
+								</dd>
+								<dt>Conservation de l'état</dt>
+								<dd>
+									Permet de définir le comportemenent de l'extension
+									lors d'un changement de page ou d'onglet.
+									<br />
+									L'extension peut sauvegarder l'état courant (tests
+									appliqués, résultats enregistrés), pour les
+									réappliquer au changement de page ou d'onglet.
+								</dd>
+							</dl>
+						</div>
+					</div>
+
+					<h3>Outils</h3>
+
+					<h4>Analyseur de contraste</h4>
+
+					<div class="Split Split--reverse">
+						<img
+							alt="Outil d'analyse de contraste"
+							src="./img/color-contrast.png"
+						/>
+
+						<div>
+							<p>
+								Cet outil permet de calculer le ratio de contraste entre
+								2 couleurs.
+							</p>
+
+							<p>
+								Pour chaque couleur, il est possible d'éditer
+								directement son code hexadécimal ou son nom (par exemple
+								<code>#fff</code>, <code>#bada55</code>,
+								<code>green</code>), ou de la sélectionner dans la page
+								de deux manières diférentes :
+							</p>
+
+							<dl>
+								<dt>Sélecteur de pixel</dt>
+								<dd>
+									Cliquez dessus, puis cliquez dans la page pour
+									extraire la couleur du pixel sous le curseur.
+								</dd>
+								<dt>Sélecteur de texte</dt>
+								<dd>
+									Cliquez-dessus, puis sélectionnez une zone de texte
+									dans la page pour extraire sa couleur.
+								</dd>
+							</dl>
+
+							<p>
+								Pour certains tests, vous trouverez également un bouton
+								permettant d'extraire les deux couleurs d'un seul coup
+								depuis une sélection de texte. Dans l'exemple ci-dessus,
+								il extraira la couleur de texte et d'arrière-plan.
+							</p>
+						</div>
+					</div>
+
+					<h4>Hiérarchie de titres</h4>
+
+					<div class="Split Split--reverse">
+						<img
+							alt="Hiérarchie de titres en erreur"
+							src="./img/headings-hierarchy.png"
+						/>
+
+						<div>
+							<p>
+								Cet outil, utilisé dans le test 9.1.1, affiche la
+								hiérarchie de titres de la page. Chaque titre (balises
+								<code>h1</code> à <code>h6</code>, ou élément avec
+								attribut <code>aria-level</code>) est listé ici dans
+								l'ordre d'apparition des éléments dans le DOM. Si une
+								erreur dans la hiérarchie est détectée, les titres
+								manquants et leur niveau sont affichés dans la liste.
+							</p>
+
+							<p>
+								Attention cependant, dans les version 4.0 et 4.1 du
+								référentiel, la gestion des titres à été assouplie, de
+								fait l'indication d'un titre manquant en rouge ou d'un
+								"trou" dans le plan du document n'est pas nécessairement
+								des contenus à considérer comme non-conforme (NC).
+							</p>
+						</div>
+					</div>
+
+					<h4>Validateur W3C</h4>
+
+					<div class="Split Split--reverse">
+						<img
+							alt="Boutons du validateur W3C"
+							src="./img/w3c-validator.png"
+						/>
+
+						<div>
+							<p>
+								Le bouton "Validateur W3C" sert à valider le code source
+								d'un site en ligne via
+								<a href="https://validator.w3.org">
+									validator.w3.org
+								</a>
+								.
+							</p>
+
+							<p>
+								Le bouton "Validateur W3C (HTML local)" sert à valider
+								le code source d'un site non disponible en ligne (
+								<code>http://localhost</code>, intranet, site protégé
+								par .htaccess, etc).
+								<br />
+								<em>
+									Note : valider le code source d'un fichier (<code
+										>file://...</code
+									>
+									dans la barre d'adresse du navigateur) n'est pas
+									supporté.
+								</em>
+							</p>
+						</div>
+					</div>
+
+					<h4>Validateur de liens</h4>
+
+					<div class="Split Split--reverse">
+						<img
+							alt="Boutons du validateur de liens"
+							src="./img/link-checker.png"
+						/>
+
+						<p>
+							Le bouton "Validateur de liens" sert à vérifier que les
+							liens de la page courante sont fonctionnels via
+							<a href="https://validator.w3.org/checklink">
+								validator.w3.org/checklink </a
+							>.
+						</p>
+					</div>
+
+					<h4>Voir les sources</h4>
+
+					<div class="Split Split--reverse">
+						<img alt="Voir les sources" src="./img/view-sources.png" />
+
+						<p>
+							Le bouton "Voir les sources" affiche le code source de la
+							page dans un nouvel onglet.
+						</p>
+					</div>
+
+					<h2 id="telechargement">Télécharger l'extension</h2>
 				</div>
 
-				<div class="Container">
-					<h2 class="Section-title">Télécharger l'extension</h2>
+				<ul class="Grid Grid--s Theme--primary">
+					<li class="Card">
+						<div class="Card-illustration Tile">
+							<img class="Tile-img" src="img/firefox.svg" alt="" />
+						</div>
 
-					<ul class="Tiles">
-						<li>
+						<h3 class="Card-title">
 							<a
-								class="Tile"
+								class="Card-link"
 								href="https://addons.mozilla.org/fr/firefox/addon/assistant-rgaa"
 								title="Télécharger l'extension pour Mozilla Firefox"
 							>
-								<img src="img/firefox.svg" alt="Télécharger l'extension pour Mozilla Firefox">
+								Firefox
 							</a>
-						</li>
-						<li>
+						</h3>
+					</li>
+
+					<li class="Card">
+						<div class="Card-illustration Tile">
+							<img class="Tile-img" src="img/chrome.svg" alt="" />
+						</div>
+
+						<h3 class="Card-title">
 							<a
-								class="Tile"
+								class="Card-link"
 								href="https://chrome.google.com/webstore/detail/assistant-rgaa/cgpmofepeeiaaljkcclfldhaalfpcand"
 								title="Télécharger l'extension pour Google Chrome"
 							>
-								<img src="img/chrome.svg" alt="Télécharger l'extension pour Google Chrome">
+								Chrome
 							</a>
-						</li>
-						<li>
+						</h3>
+					</li>
+
+					<li class="Card">
+						<div class="Card-illustration Tile">
+							<img class="Tile-img" src="img/github.svg" alt="" />
+						</div>
+
+						<h3 class="Card-title">
 							<a
-								class="Tile"
-								href="https://github.com/empreinte-digitale/assistant-rgaa"
+								class="Card-link"
+								href="https://github.com/boscop-fr/assistant-rgaa"
 								title="Consulter le code source de l'extension sur GitHub"
 							>
-								<img src="img/github.svg" alt="Consulter le code source de l'extension sur GitHub">
+								GitHub
 							</a>
-						</li>
-					</ul>
+						</h3>
+					</li>
+				</ul>
 
-					<h2 class="Section-title">Qu’est-ce que l’assistant RGAA ?</h2>
-
-					<p>
-						<a href="https://accessibilitenumerique.empreintedigitale.fr/nos-references/developpement-doutils/">L’assistant RGAA</a>
-						(Référentiel Général d’Amélioration de
-						l’Accessibilité) est une extension pour les navigateurs
-						Chrome ou Firefox. Il offre aux personnes effectuant des
-						<a href="https://accessibilitenumerique.empreintedigitale.fr/nos-prestations/audit-rgaa-wcag/">audits d’accessibilité</a>
-						une aide pratique à la mise en
-						œuvre de tests de conformité, critère par critère.
-					</p>
+				<div class="RichText">
+					<h2 id="a-propos">L’histoire de l’assistant RGAA</h2>
 
 					<p>
-						L’objectif de cet outil n’est pas de faire des audits
-						automatisés, mais de vérifier plus simplement, par le
-						biais de règles CSS, des contenus mis en avant et ainsi
-						effectuer la vérification des critères et des tests
-						d’accessibilité du RGAA.
-					</p>
-
-					<h2 class="Section-title">Comment ça fonctionne ?</h2>
-
-					<p>
-						L'extension propose la liste complète des critères et
-						tests des référentiels RGAA 3.0 2016 & 2017 ainsi que
-						des référentiels 4.0 & 4.1, le référentiel général
-						d'accessibilité pour les administrations de l'État
-						français.
+						Cet outil avait initialement été développé avec les ressources
+						accompagnant le RGAA 3 , pour un marché dont nous étions
+						cotitulaires pour le compte de la DINSIC (Direction
+						Interministérielle du Numérique et du Système d’Information et
+						de Communication), devenue DINUM (Direction Interministérielle
+						du Numérique).
 						<br />
-						Ce référentiel est une adaptation opérationnelle des
-						règles internationales d'accessibilité (WCAG 2.0 pour
-						le RGAA 3 et WCAG 2.1 pour le RGAA 4).
+						Nous l’avions ensuite forké (reprise d’un code source existant
+						pour y apporter des modifications) pour intégrer la dernière
+						version du RGAA 3.
 					</p>
 
-					<div class="Tile Tile--wide">
-						<img
-							src="img/example.png"
-							alt="Test 1.1.1 avec l'assistant RGAA"
-						/>
-					</div>
-
-					<p>Pour chaque test du RGAA, l'assistant RGAA présente :</p>
-					<ul>
-						<li>
-							une liste d'instructions permettant de conclure sur
-							le statut conforme ou non d'un test
-						</li>
-						<li>
-							la liste des modifications appliquées à la page par
-							la fonctionnalité de test de l'assistant.
-						</li>
-					</ul>
+					<h2>Et aujourd’hui ?</h2>
 
 					<p>
-						L'extension dispose d'une page d'aide expliquant plus en
-						détail sa construction et son fonctionnement.
-						<br />
-						L’assistant peut être positionné à différents endroits
-						du navigateur (à droite, à gauche, en bas) ou ouvert
-						dans une fenêtre séparée.
-					</p>
-
-
-					<h2 class="Section-title">L’histoire de l’assistant RGAA</h2>
-
-					<p>
-						Cet outil avait initialement été développé avec les
-						<a href="https://blog.empreintedigitale.fr/2017/10/20/ressources-rgaa-agence-web/">ressources accompagnant le RGAA 3</a>, pour  un marché dont
-						nous étions cotitulaires pour le compte de la DINSIC
-						(Direction Interministérielle du Numérique et du Système
-						d’Information et de Communication), devenue DINUM
-						(Direction Interministérielle du Numérique).
-						<br />
-						Nous l’avions ensuite forké (reprise d’un code source
-						existant pour y apporter des modifications) pour intégrer
-						la dernière version du RGAA 3.
-					</p>
-
-					<h2 class="Section-title">Et aujourd’hui ?</h2>
-
-					<p>
-						Aujourd’hui l'assistant est toujours maintenu et développé
-						par nos équipes chez Empreinte Digitale. Libre et open
-						source, nous voulions faire de cet outil un bien commun
-						pour faire avancer le sujet de l’accessibilité qui nous
-						tient tant à cœur.
-						<a href="https://design.numerique.gouv.fr/articles/2021-10-06-assistant-rgaa/">
+						Aujourd’hui l'assistant est toujours maintenu et développé par
+						nos équipes chez Boscop. Libre et open source, nous voulions
+						faire de cet outil un bien commun pour faire avancer le sujet
+						de l’accessibilité qui nous tient tant à cœur.
+						<a
+							href="https://design.numerique.gouv.fr/articles/2021-10-06-assistant-rgaa/"
+						>
 							L'assistant RGAA a d'ailleurs été approuvé par la DINUM !
 						</a>
 					</p>
 
 					<p>
 						Si vous souhaitez contribuer, nous accueillerons volontiers
-						vos propositions d’amélioration qu’elles soient d’ordre
-						technique (<a lang="en" href="https://github.com/empreinte-digitale/assistant-rgaa/pulls">pull requests</a>)
-						ou fonctionnel (<a lang="en" href="https://github.com/empreinte-digitale/assistant-rgaa/issues">issues</a>).
+						vos propositions d’améliorations, qu’elles soient d’ordre
+						technique (<a
+							lang="en"
+							href="https://github.com/boscop-fr/assistant-rgaa/pulls"
+							>pull requests</a
+						>) ou fonctionnel (<a
+							lang="en"
+							href="https://github.com/boscop-fr/assistant-rgaa/issues"
+							>issues</a
+						>).
 					</p>
 				</div>
-			</main>
+			</div>
+		</main>
 
-			<footer class="Footer" role="contentinfo">
-				<div class="Container">
-					<p>
-						<strong>Empreinte Digitale</strong>
-					<p>
-					<ul>
-						<li><a href="https://developpement.ligeo.fr">Développement</a></li>
-						<li><a href="https://accessibilitenumerique.empreintedigitale.fr">Accessibilité</a></li>
-						<li><a href="https://cloud.empreintedigitale.fr">Cloud</a></li>
-						<li><a href="https://rgpd.empreintedigitale.fr">RGPD</a></li>
-					</ul>
-					<ul>
-						<li><a href="mailto:contact@empreintedigitale.fr">E-mail</a></li>
-						<li><a href="https://twitter.com/empr1tedigitale">Twitter</a></li>
-						<li><a href="https://linkedin.com/company/empreinte-digitale-angers">LinkedIn</a></li>
-						<li><a href="https://www.facebook.com/empr1tedigitale/">Facebook</a></li>
-						<li><a href="https://github.com/empreinte-digitale">GitHub</a></li>
-					</ul>
-					<p>
-						11 rue des Noyers<br />
-						49000 Angers<br />
-						France
-					</p>
-				</div>
-			</footer>
-		</div>
+		<footer
+			class="Footer Section Section--padding-l Surface Theme--tertiary"
+			role="contentinfo"
+		>
+			<div class="Container">
+				<p>
+					<strong><a href="https://boscop.fr">Boscop</a></strong>
+					| Numérique engagé
+				</p>
+			</div>
+		</footer>
 	</body>
 </html>

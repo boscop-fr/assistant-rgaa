@@ -1,8 +1,0 @@
-.Widget {
-	border-top: 1px solid lighten($color-black, 80%);
-	padding: $app-gutter 0;
-}
-
-.Widget + .Widget {
-	margin-top: 0;
-}

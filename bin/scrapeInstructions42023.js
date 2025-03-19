@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const {marked} = require('marked');
+import {marked} from 'marked';
 
 /**
  * marked js Renderer
@@ -13,11 +13,10 @@ const renderer = new marked.Renderer();
  * @param {string | null} text
  * @returns {string}
  */
-renderer.link = function (href, title, text) {
-	return `<a  href="https://accessibilite.numerique.gouv.fr/methode/glossaire/${href}" target="_blank" title="${
+renderer.link = (href, title, text) =>
+	`<a  href="https://accessibilite.numerique.gouv.fr/methode/glossaire/${href}" target="_blank" title="${
 		title ?? text
 	}">${text}</a>`;
-};
 
 /**
  *	Scrapes version 4 of the RGAA instructions into JSON.
@@ -28,7 +27,7 @@ renderer.link = function (href, title, text) {
  *		- {boolean} merge - Whether or not to merge the output
  *			file with the existing one, if any.
  */
-module.exports = (options) => (json) => {
+export default (options) => (json) => {
 	if (!json || typeof json !== 'string') {
 		throw new Error('RGAA Criteria  Json file missing');
 	}

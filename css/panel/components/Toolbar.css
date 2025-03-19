@@ -1,0 +1,26 @@
+.Toolbar {
+	position: relative;
+	flex-shrink: 0;
+	display: flex;
+	gap: 2ch;
+	box-shadow: 0 0 1lh rgba(0 0 0 / 15%);
+	padding: 0.25lh 0.5lh;
+	align-items: center;
+	background: var(--color-toolbar);
+	color: var(--color-on-toolbar);
+	z-index: 1;
+}
+
+.Toolbar-title {
+	line-height: 1;
+}
+
+.Toolbar-title--wide {
+	flex: 1;
+}
+
+.Toolbar-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1ch;
+}

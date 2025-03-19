@@ -1,0 +1,13 @@
+.rgaaExt-Attribute {
+	color: var(--rgaa-ext-color-orange-text) !important;
+	background: var(--rgaa-ext-color-orange) !important;
+}
+
+.rgaaExt-Attribute-name {
+	color: var(--rgaa-ext-color-orange-text) !important;
+	background: var(--rgaa-ext-color-orange) !important;
+}
+
+.rgaaExt-Attribute-missing {
+	text-decoration: line-through !important;
+}

@@ -1,0 +1,57 @@
+.ThemesList {
+	position: relative;
+}
+
+.ThemesList-title {
+	flex-shrink: 0;
+	padding: 0;
+	display: block;
+	width: 100%;
+	text-align: left;
+	cursor: pointer;
+}
+
+.ThemesList-toggleIcon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1em;
+	height: 1em;
+}
+
+.ThemesList-list {
+	position: absolute;
+	top: 2lh;
+	right: 0;
+	left: 0;
+	width: 100%;
+	background: var(--color-white);
+	border: 1px solid var(--color-gutter-light);
+	border-top: 0;
+	box-shadow: 0 0.5lh 1lh 0 rgb(0 0 0 / 40%);
+	z-index: 10;
+}
+
+.ThemesList-link {
+	display: block;
+	padding: 0.25lh var(--app-gutter);
+	background: var(--color-white) none no-repeat 0.6rem 50%;
+	background-size: 24px;
+	border-top: 1px solid var(--color-gutter-light);
+	text-decoration: underline;
+}
+
+.ThemesList-item + .ThemesList-item .ThemesList-link {
+	border-top: 0;
+}
+
+.ThemesList-itemIcon {
+	margin-right: var(--app-gutter);
+	width: 1.2em;
+	height: 1.2em;
+	vertical-align: -0.3em;
+}
+
+.ThemesList-item:last-child .ThemesList-link {
+	border-bottom: 0;
+}

@@ -1,0 +1,47 @@
+.TestStatus {
+	--test-result-background: var(--color-neutral);
+	--test-result-color: var(--color-on-neutral);
+	--internal-test-result-background: var(--test-result-background);
+	--internal-test-result-color: var(--test-result-color);
+
+	display: block;
+	box-shadow: 0 0 0 1px rgba(255 255 255 / 25%);
+	border-radius: 3px;
+	min-width: 4ch;
+	background: var(--internal-test-result-background);
+	color: var(--internal-test-result-color);
+	text-align: center;
+	line-height: var(--line-height-small);
+	font-size: var(--font-size-small);
+	font-weight: bold;
+	font-family: var(--font-body);
+}
+
+label .TestStatus {
+	--internal-test-result-background: var(--test-result-color);
+	--internal-test-result-color: var(--test-result-background);
+
+	cursor: pointer;
+
+	label:hover &,
+	label:focus &,
+	input:checked + label & {
+		--internal-test-result-background: var(--test-result-background);
+		--internal-test-result-color: var(--test-result-color);
+	}
+}
+
+.TestStatus--C {
+	--test-result-background: var(--color-success);
+	--test-result-color: var(--color-on-success);
+}
+
+.TestStatus--NC {
+	--test-result-background: var(--color-error);
+	--test-result-color: var(--color-on-error);
+}
+
+.TestStatus--NA {
+	--test-result-background: var(--color-warning);
+	--test-result-color: var(--color-on-warning);
+}

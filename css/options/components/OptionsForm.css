@@ -1,0 +1,35 @@
+.OptionsForm table {
+	border-spacing: 2ch 1em;
+}
+
+.OptionsForm td {
+	padding: 0;
+	vertical-align: baseline;
+}
+
+.OptionsForm td:first-child {
+	width: 50%;
+}
+
+.OptionsForm-group {
+	display: grid;
+	grid-template-columns: subgrid;
+}
+
+.OptionsForm-field--inline {
+	display: flex;
+	align-items: baseline;
+	gap: 1ch;
+}
+
+.OptionsForm-hint {
+	margin-bottom: 1em;
+	line-height: var(--line-height-small);
+	font-size: var(--font-size-small);
+	font-style: italic;
+}
+
+.OptionsForm-success {
+	margin-top: 1lh;
+	color: var(--color-green);
+}

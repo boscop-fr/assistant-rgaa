@@ -1,0 +1,181 @@
+.Criterion {
+	border-bottom: 1px solid var(--color-gutter);
+}
+
+.Criterion-header {
+	display: flex;
+	justify-content: space-between;
+	padding: 0;
+	background-color: var(--color-white);
+	color: var(--color-black);
+
+	a {
+		color: var(--color-black);
+		text-decoration: underline;
+
+		&:hover,
+		&:focus {
+			text-decoration: none;
+		}
+
+		&:active {
+			text-decoration: underline;
+		}
+	}
+}
+
+.Criterion:nth-child(even) .Criterion-header {
+	background: color-mix(in srgb, var(--color-blue) 5%, transparent);
+}
+
+.Criterion .Criterion-header:hover {
+	background: var(--color-highlight);
+}
+
+.Criterion--hasActiveTest:not(.is-open) .Criterion-header,
+.Criterion.is-open .Criterion-header {
+	background-color: var(--color-theme);
+	color: var(--color-theme-text);
+
+	a {
+		color: var(--color-theme-text);
+	}
+}
+
+.Criterion.is-open .Criterion-header {
+	line-height: var(--line-height-large);
+	font-size: var(--font-size-large);
+}
+
+.Criterion-title {
+	display: block;
+	width: 100%;
+	cursor: pointer;
+	font-weight: normal;
+	padding: 0.25lh var(--app-gutter);
+	text-align: left;
+	position: relative;
+}
+
+.Criterion-titleText,
+.Criterion-id {
+	display: inline;
+}
+
+.Criterion-description {
+	display: block;
+}
+
+.Criterion-level {
+	position: absolute;
+	top: 0.125lh;
+	right: var(--app-gutter);
+	line-height: var(--line-height-small);
+	font-size: var(--font-size-small);
+}
+
+.Criterion.is-open .Criterion-level {
+	top: 0.25lh;
+}
+
+.Criterion-id {
+	font-weight: bold;
+}
+
+.Criterion.is-open .Criterion-id {
+	font-weight: normal;
+}
+
+.Criterion-activeTest {
+	font-weight: normal;
+	font-style: italic;
+
+	&::before {
+		content: ' - ';
+		display: inline;
+		font-weight: normal;
+	}
+}
+
+.Criterion-toggle {
+	margin-right: 3px;
+}
+
+.Criterion-toggle::before {
+	display: inline-block;
+	font-family: var(--font-body);
+	content: '►';
+	transition: transform 200ms ease-in;
+}
+
+.Criterion.is-open .Criterion-toggle::before {
+	transform: rotate(90deg);
+}
+
+.Criterion-actions {
+	flex-shrink: 0;
+}
+
+.Criterion-action {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0.25rlh 0.5ch;
+	border-left: 1px solid var(--color-gutter);
+	height: 100%;
+}
+
+.Criterion.is-open .Criterion-action {
+	border-color: var(--color-gutter-theme);
+}
+
+.Criterion-content {
+	background-color: var(--color-theme);
+}
+
+.Criterion.is-open .Criterion-content {
+	padding-left: var(--app-gutter);
+}
+
+.Criterion-details {
+	border-top: 1px solid var(--color-gutter-theme);
+	background: var(--color-theme);
+	color: var(--color-blue-lighter);
+}
+
+.Criterion-detailsSummary {
+	padding: 0.25lh var(--app-gutter);
+	font-variant: all-petite-caps;
+}
+
+.Criterion-detailsBody {
+	padding: 0.25lh var(--app-gutter);
+
+	a {
+		color: var(--color-theme-text);
+	}
+
+	code {
+		background: var(--color-blue-dark) !important;
+	}
+}
+
+.Criterion-tests {
+	background: var(--color-white);
+}
+
+.Criterion-test:not(:last-child) {
+	border-bottom: 1px solid var(--color-gutter);
+}
+
+.Criterion-test:nth-child(even) {
+	background: color-mix(in srgb, var(--color-blue) 5%, transparent);
+}
+
+.Criterion-test:hover {
+	background: var(--color-highlight);
+}
+
+.Criterion-tabPanel {
+	width: 100%;
+	padding: 0.5lh var(--app-gutter);
+}

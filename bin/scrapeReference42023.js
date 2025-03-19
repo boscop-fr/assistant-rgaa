@@ -1,6 +1,5 @@
 #!/usr/bin/env node
-const {marked} = require('marked');
-const {isEmpty} = require('lodash');
+import {marked} from 'marked';
 
 const accessGouvUrl =
 	'https://accessibilite.numerique.gouv.fr/methode/glossaire/';
@@ -30,7 +29,7 @@ function externalLinksRenderer(link) {
  *		- {boolean} merge - Whether or not to merge the output
  *		- file with the existing one, if any.
  */
-module.exports = (json) => {
+export default (json) => {
 	if (!json || typeof json !== 'string') {
 		throw new Error('RGAA Criteria  Json file missing');
 	}
@@ -71,30 +70,23 @@ function parseCriteria(criterias, topicNumber) {
 			criteria.criterium.number,
 			topicNumber
 		),
-		specialCases: formatSpecialCasesToMarkdown(
-			criteria.criterium?.particularCases
-		),
-		technicalNotes: formatTechnicalNotesToMarkdown(
-			criteria.criterium?.technicalNote
-		),
-		references: [
-			{
-				wcag: marked(
-					getWcagCriteria(criteria.criterium.references[0]?.wcag),
-					{
+		specialCases: formatNotesToMarkdown(criteria.criterium?.particularCases),
+		technicalNotes: formatNotesToMarkdown(criteria.criterium?.technicalNote),
+		references: {
+			wcag: {
+				criteria:
+					marked(getWcagCriteria(criteria.criterium.references[0]?.wcag), {
 						renderer: externalLinksRenderer(w3cWcag21FrUrl)
-					}
-				)
-			},
-			{
-				techniques: marked(
-					getWcagTechniques(criteria.criterium.references[1]?.techniques),
-					{
-						renderer: externalLinksRenderer(w3cTechniquesUrl)
-					}
-				)
+					}) || undefined,
+				techniques:
+					marked(
+						getWcagTechniques(criteria.criterium.references[1]?.techniques),
+						{
+							renderer: externalLinksRenderer(w3cTechniquesUrl)
+						}
+					) || undefined
 			}
-		]
+		}
 	}));
 }
 
@@ -150,9 +142,7 @@ function getWcagCriteria(titles) {
 	return titles
 		.map(parseWcagCriteria)
 		.map(({id, title, level}) => {
-			const anchor = title
-				? `#${wcagTitleSlug(title)}`
-				: '';
+			const anchor = title ? `#${wcagTitleSlug(title)}` : '';
 
 			return ` * [${id} (${level})](${anchor})`;
 		})
@@ -172,12 +162,14 @@ const wcagCategories = {
  * @returns {string} String
  */
 function getWcagTechniques(techniques) {
-	if (isEmpty(techniques)) {
+	const values = Object.values(techniques);
+
+	if (!values.length) {
 		return '';
 	}
-	const buildMdLink = (uri, ref) =>
-		`[${ref.join('')}](${uri}/${ref.join('')})`;
-	return Object.values(techniques)
+
+	const buildMdLink = (uri, ref) => `[${ref.join('')}](${uri}/${ref.join('')})`;
+	return values
 		.map((v) => {
 			const ref = v.split('');
 			return ` * ${buildMdLink(wcagCategories[ref[0]], ref)}`;
@@ -187,45 +179,23 @@ function getWcagTechniques(techniques) {
 
 /**
  *
- * @param {Array<object|string>|undefined} specialCases
+ * @param {Array<object|string>|undefined} notes
  */
-function formatSpecialCasesToMarkdown(specialCases) {
-	if (!specialCases) {
-		return null;
+function formatNotesToMarkdown(notes) {
+	if (!notes) {
+		return undefined;
 	}
 
-	return specialCases.map((specialCase) => {
-		if (typeof specialCase === 'string') {
-			return marked(specialCase, {
+	return notes
+		.map((note) => {
+			const content =
+				typeof note === 'string'
+					? note
+					: note.ul.map((item) => item.replace(/ ;$/, '')).join('\n');
+
+			return marked(content, {
 				renderer: externalLinksRenderer(accessGouvUrl)
 			});
-		}
-
-		return {
-			case: marked(specialCase.ul.join('\n'), {
-				renderer: externalLinksRenderer(accessGouvUrl)
-			})
-		};
-	});
-}
-
-/**
- *
- * @param {Array<string>} technicalNotes
- */
-function formatTechnicalNotesToMarkdown(technicalNotes) {
-	if (!technicalNotes) {
-		return null;
-	}
-
-	return technicalNotes.map((note) => {
-		if (typeof note === 'string') {
-			return marked(note, {
-				renderer: externalLinksRenderer(accessGouvUrl)
-			});
-		}
-		return marked(note.ul.join('\n').replace(',', '\n'), {
-			renderer: externalLinksRenderer(accessGouvUrl)
-		});
-	});
+		})
+		.join('');
 }

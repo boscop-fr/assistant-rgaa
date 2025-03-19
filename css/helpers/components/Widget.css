@@ -1,0 +1,8 @@
+.Widget {
+	border-top: 1px solid var(--color-gutter-light);
+	padding: var(--app-gutter) 0;
+}
+
+.Widget + .Widget {
+	margin-top: 0;
+}

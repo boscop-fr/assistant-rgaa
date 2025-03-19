@@ -1,24 +1,21 @@
 #!/usr/bin/env node
-const path = require('path');
-const program = require('commander');
-const formatInstructions = require('./formatInstructions');
-
-
+import {program} from 'commander';
+import path from 'path';
+import formatInstructions from './formatInstructions';
 
 /**
  *
  */
 program
 	.command('instructions-3-2016')
-	.description('Transform a flat v3-2016 instructions JSON file to the correct instructions format.')
-	.option(
-		'-s, --source <source>',
-		'Source URL.'
+	.description(
+		'Transform a flat v3-2016 instructions JSON file to the correct instructions format.'
 	)
+	.option('-s, --source <source>', 'Source URL.')
 	.option(
 		'-d, --dest <dest>',
 		'Destination file.',
-		path.resolve(__dirname, '../data/instructions/3-2016.json')
+		path.resolve(import.meta.dirname, '../data/instructions/3-2016.json')
 	)
 	.action((options) => {
 		if (!options.source) {

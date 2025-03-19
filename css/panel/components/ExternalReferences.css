@@ -1,0 +1,24 @@
+.ExternalReferences-sectionTitle {
+	margin-bottom: 0.25lh;
+	font-weight: bold;
+}
+
+.ExternalReferences-subSectionTitle {
+	display: inline-block;
+	margin-right: 0.5ch;
+	font-weight: normal;
+}
+
+.ExternalReferences-subSectionBody {
+	display: contents;
+
+	ul {
+		display: inline-flex;
+		flex-wrap: wrap;
+	}
+
+	li:not(:last-child) a::after {
+		content: ', ';
+		margin-right: 0.5ch;
+	}
+}

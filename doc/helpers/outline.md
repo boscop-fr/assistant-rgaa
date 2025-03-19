@@ -21,5 +21,5 @@ Entoure un élément HTML dans la page.
 
 ## Paramètres
 
-* **selector** : un sélecteur CSS ciblant les éléments à entourer.
-* **showTag** (bool) : affiche le nom des balises entourées. `false` par défaut.
+- **selector** : un sélecteur CSS ciblant les éléments à entourer.
+- **showTag** (bool) : affiche le nom des balises entourées. `false` par défaut.

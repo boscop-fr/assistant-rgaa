@@ -1,0 +1,18 @@
+html,
+body {
+	height: 100vh;
+	overflow: hidden;
+}
+
+button,
+summary {
+	cursor: pointer;
+}
+
+button:disabled {
+	cursor: default;
+}
+
+*:focus {
+	outline: 2px solid orange;
+}
