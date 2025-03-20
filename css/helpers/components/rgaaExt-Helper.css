@@ -10,6 +10,7 @@
 	font-size: var(--rgaa-ext-font-size-base) !important;
 	z-index: calc(var(--rgaa-ext-max-z-index) - 5) !important;
 	background: var(--rgaa-ext-color-red) !important;
+	direction: ltr !important;
 
 	a {
 		color: var(--rgaa-ext-color-orange-text) !important;
