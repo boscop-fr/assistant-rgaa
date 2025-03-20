@@ -3,7 +3,6 @@ import type {Action} from 'redux';
 
 export default class HelpersPage {
 	readonly #page: Page;
-	#sendMessage: (action: Action) => void;
 
 	constructor(page: Page) {
 		this.#page = page;

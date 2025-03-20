@@ -4,9 +4,9 @@ import HelpersPage from './HelpersPage';
 
 const test = baseTest.extend<{helpersPage: HelpersPage}>({
 	helpersPage: async ({page}, use) => {
-		const todoPage = new HelpersPage(page);
-		await todoPage.setup();
-		await use(todoPage);
+		const helpersPage = new HelpersPage(page);
+		await helpersPage.setup();
+		await use(helpersPage);
 	}
 });
 
