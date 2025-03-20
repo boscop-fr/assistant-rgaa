@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill';
 import type {
 	Reference,
 	ShallowCriterion,
@@ -10,9 +9,10 @@ import type {
 // Retrieves the reference full json object from a given
 // reference version property.
 export const fetchReference = (version: string) =>
-	fetch(browser.runtime.getURL(`data/references/${version}.json`)).then(
-		(response) => response.json()
-	);
+	import(
+		/* webpackChunkName: "reference-" */
+		`../../../data/references/${version}.json`
+	).then((module) => module.default as Reference);
 
 // Flattens a hierarchical reference object into a series of
 // objects referencing each other : "reference", "themes",

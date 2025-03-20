@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import type {JSX} from 'react/jsx-runtime';
-import versions from '../../../data/versions.json';
 import type {Options} from '../utils/storage';
 import {
 	DEFAULT_OPTIONS,
@@ -9,6 +8,14 @@ import {
 	isBooleanOption,
 	setAllOptions
 } from '../utils/storage';
+
+const VERSIONS = [
+	{name: 'RGAA 4.1.2 (2023)', version: '4-2023'},
+	{name: 'RGAA 4.1 (2021)', version: '4-2021'},
+	{name: 'RGAA 4.0 (2019)', version: '4-2019'},
+	{name: 'RGAA 3-2017', version: '3-2017'},
+	{name: 'RGAA 3-2016', version: '3-2016'}
+];
 
 function OptionsForm() {
 	const [isSuccess, setSuccess] = useState(false);
@@ -65,13 +72,11 @@ function OptionsForm() {
 							value={options.referenceVersion}
 							onChange={handleChange}
 						>
-							{versions
-								.toSorted((a, b) => b.version.localeCompare(a.version))
-								.map((ref) => (
-									<option key={`ref-${ref.version}`} value={ref.version}>
-										{ref.name}
-									</option>
-								))}
+							{VERSIONS.map((ref) => (
+								<option key={`ref-${ref.version}`} value={ref.version}>
+									{ref.name}
+								</option>
+							))}
 						</select>
 					</td>
 				</tr>

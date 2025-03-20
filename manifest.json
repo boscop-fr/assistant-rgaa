@@ -28,7 +28,7 @@
 	},
 	"web_accessible_resources": [
 		{
-			"resources": ["dist/minimap-component.js", "data/references/*"],
+			"resources": ["dist/minimap-component.js"],
 			"matches": ["<all_urls>"]
 		}
 	],
