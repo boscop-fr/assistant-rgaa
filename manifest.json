@@ -18,8 +18,7 @@
 		"default_panel": "pages/default-panel.html",
 		"open_at_install": false
 	},
-	"permissions": ["tabs", "storage", "scripting", "sidePanel"],
-	"host_permissions": ["<all_urls>"],
+	"permissions": ["activeTab", "storage", "scripting", "sidePanel"],
 	"background": {
 		"service_worker": "dist/background.js",
 		"scripts": ["dist/background.js"]
