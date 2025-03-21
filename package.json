@@ -6,7 +6,10 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
-  "browserslist": ["chrome >= 121", "ff >= 125"],
+  "browserslist": [
+    "chrome >= 121",
+    "ff >= 125"
+  ],
   "scripts": {
     "start": "NODE_ENV=development rspack build --watch",
     "serve": "rspack serve",
