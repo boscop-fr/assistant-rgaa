@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Assistant RGAA",
 	"description": "Extension de navigateur permettant d'auditer des pages web en suivant le référentiel RGAA.",
-	"version": "1.3.0",
+	"version": "1.4.0",
 	"icons": {
 		"48": "img/icon-48.png",
 		"96": "img/icon-96.png"
@@ -10,34 +10,12 @@
 	"applications": {
 		"gecko": {
 			"id": "assistant-rgaa@empreintedigitale.fr",
-			"strict_min_version": "57.0"
+			"strict_min_version": "58.0"
 		}
 	},
 	"browser_action": {
 		"default_icon": "img/icon-96.png",
-		"default_title": "Assistant RGAA"
-	},
-	"permissions": [
-		"tabs",
-		"storage",
-		"<all_urls>"
-	],
-	"background": {
-		"scripts": [
-			"dist/common.js",
-			"dist/background.js"
-		]
-	},
-	"options_ui": {
-		"page": "pages/options.html"
-	},
-	"web_accessible_resources": [
-		"pages/panel.html",
-		"pages/devtools.html",
-		"data/references/3-2016.json",
-		"data/references/3-2017.json",
-		"data/references/4-2019.json",
-		"data/references/4-2021.json",
-		"data/references/4-2023.json"
-	]
+		"default_title": "Assistant RGAA",
+		"default_popup": "src/popup.html"
+	}
 }

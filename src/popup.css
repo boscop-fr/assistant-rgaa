@@ -1,0 +1,41 @@
+html {
+	max-width: 400px;
+	width: auto;
+	font-size: 87.5%;
+}
+
+body {
+	padding: 1rem;
+	background: #fff;
+	color: #111;
+	font-family: sans-serif;
+}
+
+h1 {
+	margin: 0 0 1rem 0;
+	line-height: 1;
+	font-size: 1.5rem;
+}
+
+p {
+	margin: 0 0 1rem 0;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+a {
+	display: inline-block;
+	border: 0;
+	border-radius: 3px;
+	padding: 0.5rem 1ch;
+	background: #2868c9;
+	color: #fff;
+	text-decoration: none;
+	font: inherit;
+}
+
+a:is(:hover, :focus) {
+	background: #0c397c;
+}
