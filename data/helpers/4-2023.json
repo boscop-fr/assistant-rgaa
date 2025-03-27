@@ -2700,6 +2700,17 @@
 			"attributes": ["http-equiv", "content"]
 		}
 	],
+	"13.3.1": [
+		{
+			"helper": "outline",
+			"selector": "a[href*='.pdf']",
+		},
+		{
+			"helper": "showAttributes",
+			"selector": "a[href*='.pdf']",
+			"attributes": ["href"]
+		}
+	],
 	"13.5.1": [
 		{
 			"helper": "showAttributes",
@@ -2720,5 +2731,5 @@
 			"selector": "video, img, svg, canvas, embed, object",
 			"showTag": true
 		}
-	]
+	],
 }
