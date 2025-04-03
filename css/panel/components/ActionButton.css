@@ -18,9 +18,3 @@
 	line-height: var(--line-height-small);
 	font-size: var(--font-size-small);
 }
-
-.ActionButton--large {
-	padding: 0.2lh 1ch;
-	line-height: var(--line-height-xlarge);
-	font-size: var(--font-size-xlarge);
-}
