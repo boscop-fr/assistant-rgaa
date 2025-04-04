@@ -49,7 +49,7 @@ const referenceSlice = createSlice({
 			return state.tests;
 		},
 		selectReferenceLinksByCriterion(state, id) {
-			return state.criteria[id]?.references ?? {};
+			return state.criteria[id]?.references ?? null;
 		},
 		selectSpecialCasesByCriterion(state, id) {
 			return state.criteria[id]?.specialCases ?? null;
