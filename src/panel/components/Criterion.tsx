@@ -110,9 +110,7 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 				</div>
 
 				<div className="Criterion-actions">
-					<div className="Criterion-action">
-						<TestStatus status={status} />
-					</div>
+					<TestStatus status={status} />
 				</div>
 			</header>
 

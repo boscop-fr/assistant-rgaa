@@ -5,6 +5,7 @@
 .Criterion-header {
 	display: flex;
 	justify-content: space-between;
+	align-items: stretch;
 	padding: 0;
 	background-color: var(--color-white);
 	color: var(--color-black);
@@ -114,17 +115,12 @@
 
 .Criterion-actions {
 	flex-shrink: 0;
-}
-
-.Criterion-action {
-	display: inline-block;
-	vertical-align: middle;
-	padding: 0.25rlh 0.5ch;
+	min-width: var(--app-toolbar-size);
 	border-left: 1px solid var(--color-gutter);
-	height: 100%;
+	padding: 0.25rlh 0.5ch;
 }
 
-.Criterion.is-open .Criterion-action {
+.Criterion.is-open .Criterion-actions {
 	border-color: var(--color-gutter-theme);
 }
 

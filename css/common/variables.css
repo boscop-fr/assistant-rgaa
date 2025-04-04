@@ -19,6 +19,7 @@
 	--font-size-small: 0.688rem;
 	--line-height-small: calc(var(--line-height-base) / var(--font-size-small));
 	--app-gutter: 0.5lh;
+	--app-toolbar-size: 5rch;
 	--font-title: 'Avenir', 'Georgia', 'DejaVu Serif', 'Norasi', serif;
 	--font-body: 'Arial', 'Helvetica', 'Liberation Sans', 'FreeSans', sans-serif;
 	--font-mono: monospace;
@@ -31,8 +32,6 @@
 	--color-blue-lighter: #e9f2ff;
 	--color-blue-dark: #0c397c;
 	--color-blue-dark-text: var(--color-white);
-	--color-orange: #e6a420;
-	--color-orange-text: #222;
 	--color-red: firebrick;
 	--color-green: green;
 
@@ -49,8 +48,7 @@
 	);
 	--color-accent: orange;
 	--color-accent-text: var(--color-black);
-	--color-accent-darker: color-mix(in srgb, orange, black 7%);
-	--color-accent-contrast: #7c570e;
+	--color-accent-darker: color-mix(in srgb, orange, darkorange);
 	--max-z-index: 2147483647;
 
 	/* @see https://schemist.fglt.fr?preset=1@a@6728x5a,4500,6728x59,9a02,6728x5b,bc04,6728x5a,de06,6x1128x5a,fx1028a8,!0122313579@clr,,color,2868c9,inf,Info,ctr,On%20$,amount,pos,Success,wrn,Warning,neg,Error,s,neutral,on%20neutral */

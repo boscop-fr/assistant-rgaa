@@ -1,16 +1,31 @@
 .Test {
+	display: grid;
+	grid-template:
+		'header tools' min-content
+		'body tools' 1fr
+		/ 1fr var(--app-toolbar-size);
+
 	&.is-applied {
 		background: var(--color-blue-lighter);
 	}
 }
 
 .Test-header {
-	display: flex;
-	justify-content: space-between;
+	grid-area: header;
+	padding: 0.25lh var(--app-gutter);
 }
 
-.Test-title {
-	padding: 0.25lh var(--app-gutter);
+.Test-header a {
+	text-decoration: underline;
+
+	&:hover,
+	&:focus {
+		text-decoration: none;
+	}
+
+	&:active {
+		text-decoration: underline;
+	}
 }
 
 .Test-id,
@@ -34,47 +49,57 @@
 	padding-left: 1lh;
 }
 
-.Test-actions {
-	flex-shrink: 0;
-}
-
-.Test-action {
-	display: inline-block;
-	vertical-align: middle;
-	padding: 0.25rlh 0.5ch;
+.Test-tools {
+	grid-area: tools;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rlh;
 	border-left: 1px solid var(--color-gutter-light);
-	height: 100%;
+	padding: 0.25rlh 0.5ch;
 }
 
-.Test-action--application {
-	display: inline-flex;
-	padding: 0;
-
-	label {
-		padding: 0.25rlh 1ch;
-	}
-
-	input {
-		margin-left: 0;
-		margin-right: 0;
-		accent-color: var(--color-theme);
-	}
+.Test-toggle {
+	flex-grow: 1;
 }
 
-.Test-actionLabel {
+.Test-toggleArea {
 	display: block;
+	height: 100%;
 	cursor: pointer;
 }
 
-.Test-header a {
-	text-decoration: underline;
+.Test-toggleButton {
+	display: block;
+	border-radius: 5px;
+	padding: 0.25lh 1ch;
+	background: color-mix(in srgb, var(--color-accent), transparent 80%);
+	color: var(--color-accent-text);
+	text-align: center;
+}
 
-	&:hover,
-	&:focus {
-		text-decoration: none;
+.Test-toggleArea:is(:hover, :focus) .Test-toggleButton {
+	background: var(--color-accent-darker);
+}
+
+input:checked + .Test-toggleArea .Test-toggleButton {
+	background: var(--color-accent);
+	color: var(--color-accent-text);
+}
+
+.Test-toggleIcon--off {
+	display: none;
+}
+
+input:checked + .Test-toggleArea .Test-toggleButton {
+	.Test-toggleIcon--on {
+		display: none;
 	}
 
-	&:active {
-		text-decoration: underline;
+	.Test-toggleIcon--off {
+		display: inline-block;
 	}
+}
+
+.Test-body {
+	grid-area: body;
 }
