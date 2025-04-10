@@ -32,7 +32,6 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 	const references = useAppSelector((state) =>
 		selectReferenceLinksByCriterion(state, id)
 	);
-	const hasReferences = Object.keys(references).length > 0;
 	const specialCases = useAppSelector((state) =>
 		selectSpecialCasesByCriterion(state, id)
 	);
@@ -119,7 +118,7 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 			<div className="Criterion-content" id={`Criterion-${id}-content`}>
 				{isOpen ? (
 					<>
-						{hasReferences ? (
+						{references ? (
 							<details className="Criterion-details">
 								<summary className="Criterion-detailsSummary">
 									{intl.formatMessage({
