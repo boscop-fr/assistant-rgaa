@@ -29,6 +29,7 @@ export default createHelper({
 		return setHighlightOptionsEffect(selector, (highlights) => {
 			highlights.showOutline(true);
 			highlights.showTag(showTag);
+			highlights.showIfEmpty(true);
 		});
 	}
 });
