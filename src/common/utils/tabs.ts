@@ -43,7 +43,7 @@ export const onTabMount = (id: number, callback: () => () => void) => {
 			return;
 		}
 
-		if (status === 'loading') {
+		if (status === 'loading' && !isLoading) {
 			isLoading = true;
 			cleanup();
 			return;

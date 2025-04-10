@@ -43,6 +43,9 @@ const init = async () => {
 			.unwrap()
 			.then(() => {
 				store.dispatch(setLoading(false));
+			})
+			.catch((e) => {
+				console.error(e);
 			});
 
 		return () => {
