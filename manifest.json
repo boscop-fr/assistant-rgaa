@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "Assistant RGAA",
 	"description": "Extension de navigateur permettant d'auditer des pages web en suivant le référentiel RGAA.",
-	"version": "2.0.2",
+	"version": "2.0.3",
 	"icons": {
 		"48": "img/icon-48.png",
 		"96": "img/icon-96.png"
