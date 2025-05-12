@@ -1,0 +1,49 @@
+{
+	"button": [
+		"button",
+		"input[type='button']",
+		"input[type='image']",
+		"input[type='reset']",
+		"input[type='submit']"
+	],
+	"graphical-element": [
+		"[role='img']",
+		"area",
+		"canvas",
+		"embed",
+		"img",
+		"input[type='image']",
+		"object[type='image']",
+		"svg"
+	],
+	"input": [
+		"input:not([type='button']):not([type='hidden']):not([type='image']):not([type='reset']):not([type='submit'])",
+		"textarea",
+		"[role='checkbox']",
+		"[role='combobox']",
+		"[role='listbox']",
+		"[role='option']",
+		"[role='progressbar']",
+		"[role='radio']",
+		"[role='searchbox']",
+		"[role='slider']",
+		"[role='spinbutton']",
+		"[role='switch']",
+		"[role='textbox']",
+		"datalist",
+		"meter",
+		"optgroup",
+		"option",
+		"output",
+		"progress",
+		"select"
+	],
+	"link": ["[role='link']", "a[href]"],
+	"zone": [
+		"[role='banner']",
+		"[role='contentinfo']",
+		"[role='main']",
+		"[role='navigation']",
+		"[role='search']"
+	]
+}

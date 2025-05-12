@@ -86,6 +86,11 @@ export default defineConfig({
 						}
 					}
 				]
+			},
+			{
+				test: /\.json$/,
+				include: [fullPath('data/helpers')],
+				loader: './build/helpers-loader.ts'
 			}
 		]
 	},

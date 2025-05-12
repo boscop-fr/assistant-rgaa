@@ -2025,7 +2025,7 @@
 	"10.6.1": [
 		{
 			"helper": "outline",
-			"selector": "a[href], [role='link']",
+			"selector": ":rgaa(link)",
 			"showTag": true
 		},
 		{
@@ -2111,11 +2111,11 @@
 	"11.1.1": [
 		{
 			"helper": "outline",
-			"selector": "label, input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']"
+			"selector": "label, :rgaa(input)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']",
+			"selector": ":rgaa(input)",
 			"attributes": ["title", "aria-label", "aria-labelledby"]
 		},
 		{
@@ -2133,11 +2133,11 @@
 	"11.1.2": [
 		{
 			"helper": "outline",
-			"selector": "label, input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']"
+			"selector": "label, :rgaa(input)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']",
+			"selector": ":rgaa(input)",
 			"attributes": ["id"]
 		},
 		{
@@ -2150,11 +2150,11 @@
 	"11.1.3": [
 		{
 			"helper": "outline",
-			"selector": "input[aria-label]:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select[aria-label], textarea[aria-label], output[aria-label], progress[aria-label], meter[aria-label], input[aria-labelledby]:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select[aria-labelledby], textarea[aria-labelledby], output[aria-labelledby], progress[aria-labelledby], meter[aria-labelledby], [role='checkbox'][aria-label], [role='switch'][aria-label], [role='radio'][aria-label], [role='checkbox'][aria-labelledby], [role='switch'][aria-labelledby], [role='radio'][aria-labelledby]"
+			"selector": ":rgaa(input):is([aria-label], [aria-labelledby])"
 		},
 		{
 			"helper": "showAttributes",
-			"selector": "input[aria-label]:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select[aria-label], textarea[aria-label], output[aria-label], progress[aria-label], meter[aria-label], input[aria-labelledby]:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select[aria-labelledby], textarea[aria-labelledby], output[aria-labelledby], progress[aria-labelledby], meter[aria-labelledby], [role='checkbox'][aria-label], [role='switch'][aria-label], [role='radio'][aria-label], [role='checkbox'][aria-labelledby], [role='switch'][aria-labelledby], [role='radio'][aria-labelledby]",
+			"selector": ":rgaa(input):is([aria-label], [aria-labelledby])",
 			"attributes": ["aria-label", "aria-labelledby", "title"]
 		},
 		{
@@ -2166,11 +2166,11 @@
 	"11.2.1": [
 		{
 			"helper": "outline",
-			"selector": "label, input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']"
+			"selector": "label, :rgaa(input)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']",
+			"selector": ":rgaa(input)",
 			"attributes": ["id"]
 		},
 		{
@@ -2183,44 +2183,44 @@
 	"11.2.2": [
 		{
 			"helper": "outline",
-			"selector": "input[title]:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select[title], textarea[title], output[title], progress[title], meter[title], [role='checkbox'][title], [role='switch'][title], [role='radio'][title]"
+			"selector": "[title]:rgaa(input)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "input[title]:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select[title], textarea[title], output[title], progress[title], meter[title], [role='checkbox'][title], [role='switch'][title], [role='radio'][title]",
+			"selector": "[title]:rgaa(input)",
 			"attributes": ["title"]
 		}
 	],
 	"11.2.3": [
 		{
 			"helper": "outline",
-			"selector": "input[aria-label]:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select[aria-label], textarea[aria-label], output[aria-label], progress[aria-label], meter[aria-label], [role='checkbox'][aria-label], [role='switch'][aria-label], [role='radio'][aria-label]"
+			"selector": "[aria-label]:rgaa(input)"
 		},
 		{
 			"helper": "showAttributes",
-			"selector": "input[aria-label]:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select[aria-label], textarea[aria-label], output[aria-label], progress[aria-label], meter[aria-label], [role='checkbox'][aria-label], [role='switch'][aria-label], [role='radio'][aria-label]",
+			"selector": "[aria-label]:rgaa(input)",
 			"attributes": ["aria-label"]
 		}
 	],
 	"11.2.4": [
 		{
 			"helper": "outline",
-			"selector": "input[aria-labelledby]:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select[aria-labelledby], textarea[aria-labelledby], output[aria-labelledby], progress[aria-labelledby], meter[aria-labelledby], [role='checkbox'][aria-labelledby], [role='switch'][aria-labelledby], [role='radio'][aria-labelledby]"
+			"selector": "[aria-labelledby]:rgaa(input)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "input[aria-labelledby]:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select[aria-labelledby], textarea[aria-labelledby], output[aria-labelledby], progress[aria-labelledby], meter[aria-labelledby], [role='checkbox'][aria-labelledby], [role='switch'][aria-labelledby], [role='radio'][aria-labelledby]",
+			"selector": "[aria-labelledby]:rgaa(input)",
 			"attributes": ["aria-labelledby"]
 		}
 	],
 	"11.2.5": [
 		{
 			"helper": "outline",
-			"selector": "input[aria-labelledby]:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select[aria-labelledby], textarea[aria-labelledby], output[aria-labelledby], progress[aria-labelledby], meter[aria-labelledby], [role='checkbox'][aria-labelledby], [role='switch'][aria-labelledby], [role='radio'][aria-labelledby]"
+			"selector": "[aria-labelledby]:rgaa(input)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "input[aria-labelledby]:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select[aria-labelledby], textarea[aria-labelledby], output[aria-labelledby], progress[aria-labelledby], meter[aria-labelledby], [role='checkbox'][aria-labelledby], [role='switch'][aria-labelledby], [role='radio'][aria-labelledby]",
+			"selector": "[aria-labelledby]:rgaa(input)",
 			"attributes": ["aria-labelledby", "aria-label", "title", "id"]
 		},
 		{
@@ -2239,11 +2239,11 @@
 		},
 		{
 			"helper": "outline",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']"
+			"selector": ":rgaa(input)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']",
+			"selector": ":rgaa(input)",
 			"attributes": ["title", "aria-label", "aria-labelledby"]
 		}
 	],
@@ -2255,11 +2255,11 @@
 		},
 		{
 			"helper": "outline",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']"
+			"selector": ":rgaa(input)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']",
+			"selector": ":rgaa(input)",
 			"attributes": ["title", "aria-label", "aria-labelledby"]
 		}
 	],
@@ -2290,11 +2290,11 @@
 		},
 		{
 			"helper": "outline",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter"
+			"selector": ":rgaa(input)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter",
+			"selector": ":rgaa(input)",
 			"attributes": ["title", "aria-describedby"]
 		}
 	],
@@ -2312,11 +2312,11 @@
 		},
 		{
 			"helper": "outline",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter"
+			"selector": ":rgaa(input)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter",
+			"selector": ":rgaa(input)",
 			"attributes": [
 				"title",
 				"aria-label",
@@ -2339,11 +2339,11 @@
 		},
 		{
 			"helper": "outline",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter"
+			"selector": ":rgaa(input)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter",
+			"selector": ":rgaa(input)",
 			"attributes": [
 				"title",
 				"aria-label",
@@ -2411,11 +2411,11 @@
 	"11.9.1": [
 		{
 			"helper": "outline",
-			"selector": "button, [type='submit'], [type='reset'], [type='image'], [type='button']"
+			"selector": ":rgaa(button)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "button, [type='submit'], [type='reset'], [type='image'], [type='button']",
+			"selector": ":rgaa(button)",
 			"attributes": [
 				"type",
 				"value",
@@ -2434,11 +2434,11 @@
 	"11.9.2": [
 		{
 			"helper": "outline",
-			"selector": "button, [type='submit'], [type='reset'], [type='image'], [type='button']"
+			"selector": ":rgaa(button)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "button, [type='submit'], [type='reset'], [type='image'], [type='button']",
+			"selector": ":rgaa(button)",
 			"attributes": [
 				"type",
 				"value",
@@ -2462,7 +2462,7 @@
 		},
 		{
 			"helper": "outline",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']"
+			"selector": ":rgaa(input)"
 		},
 		{
 			"helper": "showElement",
@@ -2486,7 +2486,7 @@
 		},
 		{
 			"helper": "outline",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']"
+			"selector": ":rgaa(input)"
 		},
 		{
 			"helper": "showElement",
@@ -2517,7 +2517,7 @@
 		},
 		{
 			"helper": "outline",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']"
+			"selector": ":rgaa(input)"
 		},
 		{
 			"helper": "showElement",
@@ -2538,7 +2538,7 @@
 		},
 		{
 			"helper": "outline",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']"
+			"selector": ":rgaa(input)"
 		},
 		{
 			"helper": "showElement",
@@ -2578,7 +2578,7 @@
 		},
 		{
 			"helper": "outline",
-			"selector": "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='image']):not([type='button']), select, textarea, output, progress, meter, [role='checkbox'], [role='switch'], [role='radio']"
+			"selector": ":rgaa(input)"
 		},
 		{
 			"helper": "showElement",
@@ -2624,11 +2624,11 @@
 	"12.6.1": [
 		{
 			"helper": "outline",
-			"selector": "header, main, nav, footer, [role='main'], [role='banner'], [role='navigation'], [role='contentinfo'], [role='search']"
+			"selector": ":rgaa(zone)"
 		},
 		{
 			"helper": "showElement",
-			"selector": "header, main, nav, footer, [role='main'], [role='banner'], [role='navigation'], [role='contentinfo'], [role='search']",
+			"selector": ":rgaa(zone)",
 			"attributes": ["role"],
 			"showName": true,
 			"showMissingAttributes": true
