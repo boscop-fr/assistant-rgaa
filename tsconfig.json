@@ -16,5 +16,5 @@
 		"outDir": "./dist/",
 		"target": "esnext"
 	},
-	"include": ["src/**/*", "data/**/*"]
+	"include": ["src/**/*", "data/**/*", "build/**/*"]
 }
