@@ -1,3 +1,5 @@
+import {escapeHtml} from './dom';
+
 // Attributes that contain a list of ids.
 const linkAttributes = ['for', 'aria-labelledby', 'aria-describedby'];
 
@@ -34,9 +36,11 @@ const serializeAttribute = (
 	const value = element.getAttribute(name);
 
 	if (typeof value === 'string') {
-		const linkedIds = linkAttributes.includes(name) ? linkIds(value) : value;
+		const displayValue = linkAttributes.includes(name)
+			? linkIds(value)
+			: escapeHtml(value);
 
-		return `<span class="rgaaExt-Attribute"><span class="rgaaExt-Attribute-name">${name}</span>="<span class="rgaaExt-Attribute-value">${linkedIds}</span>"</span>`;
+		return `<span class="rgaaExt-Attribute"><span class="rgaaExt-Attribute-name">${name}</span>="<span class="rgaaExt-Attribute-value">${displayValue}</span>"</span>`;
 	}
 
 	if (showMissing) {
