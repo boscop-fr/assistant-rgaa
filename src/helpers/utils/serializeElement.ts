@@ -1,14 +1,8 @@
+import {escapeHtml} from './dom';
 import {
 	anyMutedAttributeSelector,
 	restoreAllAttributes
 } from './muteAttributes';
-
-// @see http://stackoverflow.com/a/30930653
-const escapeHtml = (html: string) =>
-	(
-		document.createElement('div').appendChild(document.createTextNode(html))
-			.parentNode as HTMLElement
-	).innerHTML;
 
 // Returns inner HTML of the given element, without reserved
 // extension's elements.
