@@ -1,5 +1,13 @@
 # Changelog 2025
 
+## 2.1.1
+
+### Fixes
+
+- Attributes are now sanitized before being shown
+  ([original issue](https://github.com/boscop-fr/assistant-rgaa/issues/116) /
+  [pull request](https://github.com/boscop-fr/assistant-rgaa/pull/117))
+
 ## Thématique 1 – Images
 
 - **1.1.x**
