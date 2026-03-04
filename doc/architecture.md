@@ -1,7 +1,7 @@
 # Architecture du code
 
 L'extension est basée sur le standard
-[WebExtensions](https://developer.mozilla.org/en-US/Add-ons/WebExtensions).
+[WebExtensions](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions).
 
 Le `manifest.json` décrit la configuration de l'application et permet d'avoir
 une vue globale sur quelle partie du code est chargée où.
