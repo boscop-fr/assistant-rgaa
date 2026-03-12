@@ -77,7 +77,7 @@
 ## Thématique 5 – Tableaux
 
 - Correction des sélecteurs enfants de tables :
-  - `& > caption` remplacé par `> caption` pour fiabiliser la détection.
+  - `& > caption` remplacé par `caption` pour fiabiliser la détection.
 - Maintien des règles d’outline pour identifier la présence de `caption`.
 
 ---

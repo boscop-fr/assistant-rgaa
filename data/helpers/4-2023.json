@@ -1300,7 +1300,7 @@
 		{
 			"helper": "showChildElements",
 			"selector": "table",
-			"childrenSelector": " > caption",
+			"childrenSelector": "caption",
 			"attributes": [],
 			"showContent": true
 		},
@@ -1340,7 +1340,7 @@
 		{
 			"helper": "showChildElements",
 			"selector": "table",
-			"childrenSelector": " > caption",
+			"childrenSelector": "caption",
 			"attributes": [],
 			"showContent": true
 		},
@@ -1393,7 +1393,7 @@
 		{
 			"helper": "showChildElements",
 			"selector": "table",
-			"childrenSelector": " > caption",
+			"childrenSelector": "caption",
 			"attributes": [],
 			"showContent": true
 		},
@@ -1423,7 +1423,7 @@
 		{
 			"helper": "showChildElements",
 			"selector": "table",
-			"childrenSelector": " > caption",
+			"childrenSelector": "caption",
 			"attributes": [],
 			"showContent": true
 		},
@@ -1595,7 +1595,7 @@
 		{
 			"helper": "showChildElements",
 			"selector": "table",
-			"childrenSelector": " > caption",
+			"childrenSelector": "caption",
 			"attributes": [],
 			"showContent": true
 		},
@@ -1617,6 +1617,13 @@
 			"helper": "showChildElements",
 			"selector": "table",
 			"childrenSelector": "tfoot",
+			"attributes": [],
+			"showContent": true
+		},
+		{
+			"helper": "showChildElements",
+			"selector": "table",
+			"childrenSelector": "colgroup",
 			"attributes": [],
 			"showContent": true
 		},
