@@ -1,5 +1,13 @@
 # Changelog 2025
 
+## 2.1.2
+
+### Fixes
+
+- Table captions are now properly shown
+  ([original issue](https://github.com/boscop-fr/assistant-rgaa/issues/118) /
+  [pull request](https://github.com/boscop-fr/assistant-rgaa/pull/119))
+
 ## 2.1.1
 
 ### Fixes
