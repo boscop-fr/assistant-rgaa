@@ -24,6 +24,10 @@ const getElementHighlightOptions = (
 };
 
 const applyHighlights = (options: HighlightOptions) => {
+	if (!options.ifHidden && !options.element.checkVisibility()) {
+		return;
+	}
+
 	const serializedAttributes = serializeAttributes(
 		options.element,
 		options.attributes,
