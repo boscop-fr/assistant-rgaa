@@ -30,6 +30,7 @@ test('should toggle styles', async ({helpersPage: page}) => {
 });
 
 test('should outline elements', async ({helpersPage: page}) => {
+	await expect(page.visibleElement).toBeVisible();
 	await expect(page.visibleElement).not.toContainClass(
 		'rgaaExt-Highlight--outline'
 	);
@@ -46,6 +47,51 @@ test('should outline elements', async ({helpersPage: page}) => {
 	await page.sendMessage('runtime', revertActiveHelpers());
 
 	await expect(page.visibleElement).not.toContainClass(
+		'rgaaExt-Highlight--outline'
+	);
+});
+
+test('should not outline hidden elements', async ({helpersPage: page}) => {
+	await expect(page.elementHiddenViaStyleSheet).not.toBeVisible();
+	await expect(page.elementHiddenViaStyleSheet).not.toContainClass(
+		'rgaaExt-Highlight--outline'
+	);
+
+	await page.sendMessage(
+		'runtime',
+		applyHelpers([{helper: 'outline', selector: 'p'}])
+	);
+
+	await expect(page.elementHiddenViaStyleSheet).not.toBeVisible();
+	await expect(page.elementHiddenViaStyleSheet).not.toContainClass(
+		'rgaaExt-Highlight--outline'
+	);
+
+	await page.sendMessage('runtime', revertActiveHelpers());
+
+	await expect(page.elementHiddenViaStyleSheet).not.toBeVisible();
+	await expect(page.elementHiddenViaStyleSheet).not.toContainClass(
+		'rgaaExt-Highlight--outline'
+	);
+
+	// When styles are disabled, elements should still be
+	// outlined, as no style can effectively hide them.
+	await page.sendMessage(
+		'runtime',
+		applyHelpers([
+			{helper: 'disableAllStyles'},
+			{helper: 'outline', selector: 'p'}
+		])
+	);
+
+	await expect(page.elementHiddenViaStyleSheet).toBeVisible();
+	await expect(page.elementHiddenViaStyleSheet).toContainClass(
+		'rgaaExt-Highlight--outline'
+	);
+
+	await page.sendMessage('runtime', revertActiveHelpers());
+
+	await expect(page.elementHiddenViaStyleSheet).not.toContainClass(
 		'rgaaExt-Highlight--outline'
 	);
 });
