@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {addAppListener} from '../middlewares/listener';
 import {selectAllThemes} from '../slices/reference';
 import {stateLoaded} from '../slices/storage';
@@ -18,7 +18,7 @@ const ReferencePage = () => {
 			dispatch(
 				addAppListener({
 					actionCreator: stateLoaded,
-					effect: (action, api) => {
+					effect: (_action, api) => {
 						if (themesRef.current) {
 							const position = selectScrollPosition(api.getState());
 							themesRef.current.scrollTop = position;

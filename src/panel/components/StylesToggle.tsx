@@ -1,5 +1,4 @@
 import {EyeIcon, EyeOffIcon} from 'lucide-react';
-import React from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {selectAreStylesEnabled, toggleStyles} from '../slices/styles';
 import {useAppDispatch, useAppSelector} from '../utils/hooks';

@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import type {LucideIcon} from 'lucide-react';
-import React from 'react';
 
 type IconProps = {
 	icon: LucideIcon;

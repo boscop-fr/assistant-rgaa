@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {useIntl} from 'react-intl';
 import type {Test as TestType} from '../../common/types';
 import {useOption} from '../../options/utils/storage';
@@ -52,7 +52,6 @@ function Test({id, title}: TestProps) {
 
 					<div
 						className="Test-description"
-						// biome-ignore lint/security/noDangerouslySetInnerHtml :
 						dangerouslySetInnerHTML={{
 							__html: title
 						}}

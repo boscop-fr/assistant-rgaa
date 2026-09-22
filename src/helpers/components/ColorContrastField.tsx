@@ -1,5 +1,4 @@
 import {PipetteIcon, TextCursorIcon} from 'lucide-react';
-import React from 'react';
 import {useIntl} from 'react-intl';
 import Icon from '../../panel/components/Icon';
 import ColorInput from './ColorInput';

@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {FormattedMessage} from 'react-intl';
+import {useEffect, useState} from 'react';
 import type {JSX} from 'react/jsx-runtime';
+import {FormattedMessage} from 'react-intl';
 import type {Options} from '../utils/storage';
 import {
 	DEFAULT_OPTIONS,
@@ -117,8 +117,8 @@ function OptionsForm() {
 					</td>
 				</tr>
 
+				{/* biome-ignore lint/a11y/useSemanticElements: presentation table */}
 				<tr
-					// biome-ignore lint/a11y/useSemanticElements:
 					role="group"
 					aria-labelledby="OptionsForm-statePersistence-label"
 					aria-describedby="OptionsForm-statePersistence-hint"

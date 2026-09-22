@@ -23,7 +23,7 @@ export const pollEffect =
 			...values: P
 		) => void
 	): ListenerEffect<UnknownAction, AppState, AppDispatch> =>
-	(action, api) => {
+	(_action, api) => {
 		// We want the effect to run only once and start a
 		// background task.
 		api.unsubscribe();

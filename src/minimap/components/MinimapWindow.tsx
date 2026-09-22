@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import {
 	useAnimationFrame,
 	useResizeEffect,
