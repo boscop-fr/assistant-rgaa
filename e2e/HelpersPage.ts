@@ -17,6 +17,10 @@ export default class HelpersPage extends ExtensionPage {
 		});
 	}
 
+	get visibleElement() {
+		return this.page.locator('#visible');
+	}
+
 	get elementHiddenViaStyleSheet() {
 		return this.page.locator('#hidden-sheet');
 	}

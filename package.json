@@ -29,7 +29,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@jest/globals": "^29.7.0",
-    "@playwright/test": "^1.51.0",
+    "@playwright/test": "^1.63.0",
     "@rspack/cli": "^1.2.8",
     "@types/node": "^22.13.10",
     "@types/preact-custom-element": "^4.0.4",

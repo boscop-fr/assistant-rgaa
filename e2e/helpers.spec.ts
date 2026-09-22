@@ -29,6 +29,27 @@ test('should toggle styles', async ({helpersPage: page}) => {
 	await expect(page.elementHiddenViaStyleAttribute).toBeHidden();
 });
 
+test('should outline elements', async ({helpersPage: page}) => {
+	await expect(page.visibleElement).not.toContainClass(
+		'rgaaExt-Highlight--outline'
+	);
+
+	await page.sendMessage(
+		'runtime',
+		applyHelpers([{helper: 'outline', selector: 'p'}])
+	);
+
+	await expect(page.visibleElement).toContainClass(
+		'rgaaExt-Highlight--outline'
+	);
+
+	await page.sendMessage('runtime', revertActiveHelpers());
+
+	await expect(page.visibleElement).not.toContainClass(
+		'rgaaExt-Highlight--outline'
+	);
+});
+
 test('should extract headings hierarchy', async ({helpersPage: page}) => {
 	await page.sendMessage(
 		'runtime',
