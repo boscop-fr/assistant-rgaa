@@ -1,9 +1,4 @@
-import {
-	type UnsubscribeListener,
-	addListener,
-	combineReducers,
-	configureStore
-} from '@reduxjs/toolkit';
+import {addListener, combineReducers, configureStore} from '@reduxjs/toolkit';
 import listener from './middlewares/listener';
 import app from './slices/app';
 import audit from './slices/audit';

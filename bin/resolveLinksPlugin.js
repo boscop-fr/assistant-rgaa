@@ -9,7 +9,7 @@ const resolveLinksPlugin = ($) => {
 	 *	a string.
 	 */
 	$.prototype.resolveLinks = function (url) {
-		this.find('a').each((i, el) => {
+		this.find('a').each((_i, el) => {
 			const link = $(el);
 			const href = link.attr('href');
 			const resolved = resolve(url, href);

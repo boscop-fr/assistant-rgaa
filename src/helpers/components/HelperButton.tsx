@@ -1,5 +1,3 @@
-import React from 'react';
-
 type HelperButtonProps = {
 	name: string;
 	title?: string;

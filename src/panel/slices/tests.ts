@@ -1,8 +1,8 @@
 import {
-	type PayloadAction,
 	createAction,
 	createSelector,
-	createSlice
+	createSlice,
+	type PayloadAction
 } from '@reduxjs/toolkit';
 import type {Test} from '../../common/types';
 import {selectAllTests, selectTestsByCriterion} from './reference';

@@ -1,5 +1,4 @@
 import type {ChangeEventHandler} from 'react';
-import React from 'react';
 import {useIntl} from 'react-intl';
 import type {Test, TestStatus as TestStatusType} from '../../common/types';
 import {selectTestStatus, setTestStatus} from '../slices/audit';

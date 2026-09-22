@@ -72,6 +72,10 @@ export default defineConfig({
 				]
 			},
 			{
+				test: /\.css$/i,
+				type: 'css/auto'
+			},
+			{
 				// Custom CSS build for the minimap styles, as
 				// they are injected as a string into a shadow
 				// DOM.

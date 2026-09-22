@@ -1,4 +1,3 @@
-import React from 'react';
 import {useIntl} from 'react-intl';
 import type {TestStatus as TestStatusType} from '../../common/types';
 

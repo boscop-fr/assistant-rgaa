@@ -1,7 +1,7 @@
 import {
-	type PayloadAction,
 	createAsyncThunk,
-	createSlice
+	createSlice,
+	type PayloadAction
 } from '@reduxjs/toolkit';
 import browser from 'webextension-polyfill';
 import {appLoaded} from '../../background/slices/runtime';

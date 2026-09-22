@@ -1,4 +1,3 @@
-import React from 'react';
 import {setChildHighlightOptionsEffect} from '../effects/highlight';
 import {createHelper} from '../utils/createHelper';
 import {sanitize} from '../utils/selectors';
