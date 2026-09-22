@@ -2016,12 +2016,14 @@
 		{
 			"helper": "outline",
 			"selector": "h1, h2, h3, h4, h5, h6, p, p:empty, li, blockquote, br, q, [role='presentation']",
-			"showTag": true
+			"showTag": true,
+			"showIfHidden": false
 		},
 		{
 			"helper": "showAttributes",
 			"selector": "[role='presentation']",
-			"attributes": ["role"]
+			"attributes": ["role"],
+			"showIfHidden": false
 		}
 	],
 	"8.10.1": [
