@@ -6,6 +6,7 @@ import {sanitize} from '../utils/selectors';
 type OutlineOptions = {
 	selector: string;
 	showTag?: boolean;
+	showIfHidden?: boolean;
 };
 
 export default createHelper({
@@ -25,11 +26,15 @@ export default createHelper({
 			}
 		);
 	},
-	apply({selector, showTag = false}) {
+	apply({selector, showTag = false, showIfHidden}) {
 		return setHighlightOptionsEffect(selector, (highlights) => {
 			highlights.showOutline(true);
 			highlights.showTag(showTag);
 			highlights.showIfEmpty(true);
+
+			if (typeof showIfHidden === 'boolean') {
+				highlights.showIfHidden(showIfHidden);
+			}
 		});
 	}
 });

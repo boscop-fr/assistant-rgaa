@@ -24,7 +24,7 @@ const getElementHighlightOptions = (
 };
 
 const applyHighlights = (options: HighlightOptions) => {
-	if (!options.element.checkVisibility()) {
+	if (!options.ifHidden && !options.element.checkVisibility()) {
 		return;
 	}
 

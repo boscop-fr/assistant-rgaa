@@ -8,6 +8,7 @@ type ShowAttributesOptions = {
 	attributes: string[];
 	// Whether or not to show attributes that aren't set.
 	showMissing?: boolean;
+	showIfHidden?: boolean;
 };
 
 export default createHelper({
@@ -30,9 +31,13 @@ export default createHelper({
 			}
 		);
 	},
-	apply({selector, attributes, showMissing = false}) {
+	apply({selector, attributes, showMissing = false, showIfHidden}) {
 		return setHighlightOptionsEffect(selector, (highlights) => {
 			highlights.pushAttributes(attributes, showMissing);
+
+			if (typeof showIfHidden === 'boolean') {
+				highlights.showIfHidden(showIfHidden);
+			}
 		});
 	}
 });

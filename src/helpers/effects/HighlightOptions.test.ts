@@ -30,6 +30,20 @@ describe('HighlightOptions', () => {
 		expect(options.ifEmpty).toBeTruthy();
 	});
 
+	test('ifHidden', () => {
+		const options = new HighlightOptions(null as HTMLElement);
+		expect(options.ifHidden).toBeTruthy();
+
+		options.showIfHidden(false);
+		expect(options.ifHidden).toBeFalsy();
+
+		options.showIfHidden(true);
+		expect(options.ifHidden).toBeTruthy();
+
+		options.showIfHidden(false);
+		expect(options.ifHidden).toBeTruthy();
+	});
+
 	test('content', () => {
 		const options = new HighlightOptions(null as HTMLElement);
 		expect(options.content).toBeFalsy();

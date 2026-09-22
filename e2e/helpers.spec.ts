@@ -52,39 +52,53 @@ test('should outline elements', async ({helpersPage: page}) => {
 });
 
 test('should not outline hidden elements', async ({helpersPage: page}) => {
-	await expect(page.elementHiddenViaStyleSheet).not.toBeVisible();
-	await expect(page.elementHiddenViaStyleSheet).not.toContainClass(
-		'rgaaExt-Highlight--outline'
-	);
-
 	await page.sendMessage(
 		'runtime',
-		applyHelpers([{helper: 'outline', selector: 'p'}])
+		applyHelpers([{helper: 'outline', selector: 'p', showIfHidden: false}])
 	);
 
-	await expect(page.elementHiddenViaStyleSheet).not.toBeVisible();
 	await expect(page.elementHiddenViaStyleSheet).not.toContainClass(
 		'rgaaExt-Highlight--outline'
 	);
 
 	await page.sendMessage('runtime', revertActiveHelpers());
 
-	await expect(page.elementHiddenViaStyleSheet).not.toBeVisible();
 	await expect(page.elementHiddenViaStyleSheet).not.toContainClass(
 		'rgaaExt-Highlight--outline'
 	);
 
-	// When styles are disabled, elements should still be
+	// If any helper requests highlights on hidden elements,
+	// it takes precedence over the others.
+	await page.sendMessage(
+		'runtime',
+		applyHelpers([
+			{helper: 'outline', selector: 'p', showIfHidden: false},
+			{helper: 'outline', selector: 'p', showIfHidden: true},
+			{helper: 'outline', selector: 'p', showIfHidden: false}
+		])
+	);
+
+	await expect(page.elementHiddenViaStyleSheet).toContainClass(
+		'rgaaExt-Highlight--outline'
+	);
+
+	await page.sendMessage('runtime', revertActiveHelpers());
+
+	await expect(page.elementHiddenViaStyleSheet).not.toContainClass(
+		'rgaaExt-Highlight--outline'
+	);
+
+	// When styles are disabled, elements should always be
 	// outlined, as no style can effectively hide them.
 	await page.sendMessage(
 		'runtime',
 		applyHelpers([
 			{helper: 'disableAllStyles'},
-			{helper: 'outline', selector: 'p'}
+			{helper: 'outline', selector: 'p'},
+			{helper: 'outline', selector: 'p', showIfHidden: false}
 		])
 	);
 
-	await expect(page.elementHiddenViaStyleSheet).toBeVisible();
 	await expect(page.elementHiddenViaStyleSheet).toContainClass(
 		'rgaaExt-Highlight--outline'
 	);

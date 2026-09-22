@@ -4,6 +4,7 @@ export class HighlightOptions {
 
 	#tag = false;
 	#ifEmpty = false;
+	#ifHidden: boolean | undefined = undefined;
 	#attributes = new Set<string>();
 	#missingAttributes = new Set<string>();
 	#content = false;
@@ -20,6 +21,10 @@ export class HighlightOptions {
 
 	get ifEmpty() {
 		return this.#ifEmpty;
+	}
+
+	get ifHidden() {
+		return this.#ifHidden !== false;
 	}
 
 	get attributes() {
@@ -44,6 +49,17 @@ export class HighlightOptions {
 
 	showIfEmpty(show: boolean) {
 		this.#ifEmpty ||= show;
+	}
+
+	// By default, highlights would show even on hidden
+	// elements. Helpers can alter this behavior only once
+	// (showing primes over hiding).
+	showIfHidden(show: boolean) {
+		if (this.#ifHidden === undefined) {
+			this.#ifHidden = show;
+		} else {
+			this.#ifHidden ||= show;
+		}
 	}
 
 	showContent(show: boolean) {
