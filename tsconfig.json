@@ -1,10 +1,9 @@
 {
 	"compilerOptions": {
 		"allowJs": true,
-		"baseUrl": ".",
 		"erasableSyntaxOnly": true,
 		"esModuleInterop": true,
-		"jsx": "react",
+		"jsx": "preserve",
 		"module": "esnext",
 		"moduleResolution": "bundler",
 		"noImplicitAny": true,
@@ -13,6 +12,7 @@
 			"react/jsx-runtime": ["./node_modules/preact/jsx-runtime"],
 			"react-dom": ["./node_modules/preact/compat/"]
 		},
+		"rootDir": "./src/",
 		"outDir": "./dist/",
 		"target": "esnext"
 	},

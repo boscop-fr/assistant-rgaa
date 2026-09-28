@@ -1,9 +1,8 @@
 import classNames from 'classnames';
 import type {PropsWithChildren} from 'react';
-import React from 'react';
-import {useIntl} from 'react-intl';
 import type {JSX} from 'react/jsx-runtime';
-import {cssToHex, isValidColor} from '../../common/utils/color';
+import {useIntl} from 'react-intl';
+import {isValidColor} from '../../common/utils/color';
 
 type ColorInputProps = PropsWithChildren<{
 	id: string;

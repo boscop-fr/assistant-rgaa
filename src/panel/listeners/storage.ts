@@ -45,7 +45,7 @@ export const addStorageListeners = (startListening: AppStartListening) => {
 	// Reloads helpers whenever the state is loaded.
 	startListening({
 		actionCreator: stateLoaded,
-		effect(action, api) {
+		effect(_action, api) {
 			api.dispatch(helpersReady());
 		}
 	});

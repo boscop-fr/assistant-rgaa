@@ -1,4 +1,3 @@
-import React from 'react';
 import browser from 'webextension-polyfill';
 import {createTab} from '../../background/slices/runtime';
 import {selectTargetTabUrl} from '../../panel/slices/panel';

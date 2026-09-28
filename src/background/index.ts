@@ -1,6 +1,6 @@
 import {isAction} from 'redux';
-import browser from 'webextension-polyfill';
 import type {Runtime} from 'webextension-polyfill';
+import browser from 'webextension-polyfill';
 import {fetchCurrentTab} from '../common/utils/tabs';
 import {
 	appLoaded,
@@ -15,7 +15,7 @@ import {
 } from './slices/runtime';
 import {injectContentScripts} from './utils/content';
 import {closeSidebar, openSidebar, reloadSidebar} from './utils/sidebar';
-import {PANEL_PAGE, captureVisibleTab} from './utils/tabs';
+import {captureVisibleTab, PANEL_PAGE} from './utils/tabs';
 import {validateLocalPage} from './utils/validateLocalPage';
 import {viewSource} from './utils/viewSource';
 

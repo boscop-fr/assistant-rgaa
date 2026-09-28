@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 51500 51500">
+	<title>Firefox</title>
 	<radialGradient id="b" cx="87.4%" cy="-12.9%" r="128%" gradientTransform="matrix(.8 0 0 1 .18 .13)">
 		<stop offset=".13" stop-color="#ffbd4f"/>
 		<stop offset=".28" stop-color="#ff980e"/>

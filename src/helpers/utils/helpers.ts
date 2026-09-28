@@ -12,6 +12,7 @@ export const applyHelpers = (helpers: Helper[]) => {
 			return module.apply(args);
 		} catch (e) {
 			console.error(e);
+			return [];
 		}
 	});
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from '../../../css/minimap/index.css';
 import Minimap from './Minimap';
 

@@ -1,4 +1,4 @@
-import {test as baseTest, expect} from '@playwright/test';
+import {test as baseTest} from '@playwright/test';
 import disableAllStyles from '../src/helpers/helpers/disableAllStyles';
 import {applyHelpers, revertActiveHelpers} from '../src/panel/slices/helpers';
 import PanelPage from './PanelPage';

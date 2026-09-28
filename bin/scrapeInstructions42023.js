@@ -27,7 +27,7 @@ renderer.link = (href, title, text) =>
  *		- {boolean} merge - Whether or not to merge the output
  *			file with the existing one, if any.
  */
-export default (options) => (json) => {
+export default (_options) => (json) => {
 	if (!json || typeof json !== 'string') {
 		throw new Error('RGAA Criteria  Json file missing');
 	}

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"ignore": []
+		"includes": ["**", "!fixtures"]
 	},
 	"formatter": {
 		"bracketSpacing": false,
@@ -15,13 +15,13 @@
 		"indentStyle": "tab",
 		"lineWidth": 80
 	},
-	"organizeImports": {
-		"enabled": true
-	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"preset": "recommended",
+			"complexity": {
+				"noImportantStyles": "off"
+			}
 		}
 	},
 	"javascript": {
@@ -37,7 +37,7 @@
 	},
 	"overrides": [
 		{
-			"include": ["package.json", "package-lock.json"],
+			"includes": ["**/package.json", "**/package-lock.json"],
 			"formatter": {
 				"indentStyle": "space",
 				"indentWidth": 2,
@@ -45,7 +45,7 @@
 			}
 		},
 		{
-			"include": ["src/options/components/OptionsForm.tsx"],
+			"includes": ["**/src/options/components/OptionsForm.tsx"],
 			"linter": {
 				"rules": {
 					"a11y": {
@@ -53,6 +53,24 @@
 					}
 				}
 			}
+		},
+		{
+			"includes": ["site/index.html"],
+			"linter": {
+				"rules": {
+					"a11y": {
+						"noInteractiveElementToNoninteractiveRole": "off",
+						"noRedundantRoles": "off"
+					}
+				}
+			}
 		}
-	]
+	],
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	}
 }

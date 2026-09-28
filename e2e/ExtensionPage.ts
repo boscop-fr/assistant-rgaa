@@ -1,4 +1,4 @@
-import {type Page, expect} from '@playwright/test';
+import {expect, type Page} from '@playwright/test';
 import type {Action} from 'redux';
 
 type ExtensionApi = 'runtime' | 'tabs';
@@ -70,7 +70,7 @@ export default class ExtensionPage {
 						async get() {
 							return {};
 						},
-						async set(values) {}
+						async set(_values) {}
 					}
 				},
 				tabs: {

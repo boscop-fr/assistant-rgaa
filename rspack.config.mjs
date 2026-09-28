@@ -72,6 +72,19 @@ export default defineConfig({
 				]
 			},
 			{
+				test: /\.css$/i,
+				exclude: fullPath('css/minimap'),
+				use: [
+					rspack.CssExtractRspackPlugin.loader,
+					{
+						loader: 'css-loader',
+						options: {
+							url: false
+						}
+					}
+				]
+			},
+			{
 				// Custom CSS build for the minimap styles, as
 				// they are injected as a string into a shadow
 				// DOM.
@@ -103,8 +116,6 @@ export default defineConfig({
 		new rspack.EnvironmentPlugin({
 			VERSION: manifest.version
 		}),
-		new rspack.IgnorePlugin({
-			resourceRegExp: /\.woff$/
-		})
+		new rspack.CssExtractRspackPlugin()
 	]
 });

@@ -4,7 +4,6 @@ import {
 	DatabaseBackupIcon,
 	SettingsIcon
 } from 'lucide-react';
-import React from 'react';
 import {useIntl} from 'react-intl';
 import {openOptionsPage} from '../slices/options';
 import {

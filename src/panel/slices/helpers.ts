@@ -1,4 +1,4 @@
-import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {createSlice, type PayloadAction} from '@reduxjs/toolkit';
 import type {HelpersByTest, Test} from '../../common/types';
 import type {Helper} from '../../helpers/types';
 
@@ -29,7 +29,7 @@ const helpersSlice = createSlice({
 		removeGlobalHelper(state, {payload: id}: PayloadAction<string>) {
 			delete state.globalHelpers[id];
 		},
-		applyHelpers(state, action: PayloadAction<Helper[]>) {},
+		applyHelpers(_state, _action: PayloadAction<Helper[]>) {},
 		revertActiveHelpers() {}
 	},
 	selectors: {

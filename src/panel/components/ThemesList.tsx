@@ -15,7 +15,7 @@ import {
 	TablePropertiesIcon,
 	TextCursorInputIcon
 } from 'lucide-react';
-import React, {useRef} from 'react';
+import {useRef} from 'react';
 import {FormattedMessage} from 'react-intl';
 import type {Theme} from '../../common/types';
 import {selectAllThemes} from '../slices/reference';

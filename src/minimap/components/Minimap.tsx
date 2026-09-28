@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import {useRef} from 'react';
 import type {JSX} from 'react/jsx-runtime';
 import MinimapPins from './MinimapPins';
 import MinimapWindow from './MinimapWindow';
@@ -19,7 +19,8 @@ const Minimap = () => {
 	};
 
 	return (
-		// biome-ignore lint/a11y/useKeyWithClickEvents :
+		// biome-ignore lint/a11y/useKeyWithClickEvents : mouse interaction only
+		// biome-ignore lint/a11y/noStaticElementInteractions : mouse interaction only
 		<div ref={mapRef} className="Minimap" onClick={scrollToPosition}>
 			<MinimapWindow />
 			<MinimapPins />

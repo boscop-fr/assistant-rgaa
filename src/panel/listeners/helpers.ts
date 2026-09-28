@@ -1,7 +1,7 @@
 import {
+	isAnyOf,
 	type ListenerEffectAPI,
-	type UnknownAction,
-	isAnyOf
+	type UnknownAction
 } from '@reduxjs/toolkit';
 import browser from 'webextension-polyfill';
 import {helpersReady, tabAction} from '../../background/slices/runtime';
@@ -81,7 +81,7 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 			removeGlobalHelper
 		),
 		effect: async (
-			action: UnknownAction,
+			_action: UnknownAction,
 			api: ListenerEffectAPI<AppState, AppDispatch>
 		) => {
 			await debounceListener(api, 50);
@@ -98,7 +98,7 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 					tabId,
 					allHelpers.length ? applyHelpers(allHelpers) : revertActiveHelpers()
 				);
-			} catch (e) {
+			} catch (_e) {
 				// Content scripts on the receiving end
 				// might not be loaded yet.
 			}

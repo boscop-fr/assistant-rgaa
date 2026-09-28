@@ -1,4 +1,3 @@
-import React from 'react';
 import {useIntl} from 'react-intl';
 import type {CriterionReferences} from '../../common/types';
 
@@ -37,7 +36,6 @@ function ExternalReferences({references}: ExternalReferencesProps) {
 
 						<div
 							className="ExternalReferences-subSectionBody"
-							// biome-ignore lint/security/noDangerouslySetInnerHtml :
 							dangerouslySetInnerHTML={{__html: text}}
 						/>
 					</div>

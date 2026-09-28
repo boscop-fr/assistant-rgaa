@@ -1,7 +1,7 @@
 import {
-	type PayloadAction,
 	createSelector,
-	createSlice
+	createSlice,
+	type PayloadAction
 } from '@reduxjs/toolkit';
 import type {
 	ShallowCriterion,
@@ -28,7 +28,7 @@ const referenceSlice = createSlice({
 	name: 'reference',
 	initialState,
 	reducers: {
-		setReferenceData(state, {payload}: PayloadAction<ReferenceState>) {
+		setReferenceData(_state, {payload}: PayloadAction<ReferenceState>) {
 			return payload;
 		}
 	},

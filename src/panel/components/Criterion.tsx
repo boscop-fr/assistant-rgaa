@@ -1,7 +1,6 @@
 import classNames from 'classnames';
-import React from 'react';
-import {FormattedMessage, useIntl} from 'react-intl';
 import type {JSX} from 'react/jsx-runtime';
+import {FormattedMessage, useIntl} from 'react-intl';
 import type {Criterion as CriterionType} from '../../common/types';
 import {selectCriterionStatus} from '../slices/audit';
 import {selectIsCriterionOpen, toggleCriterion} from '../slices/criteria';
@@ -61,7 +60,8 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 	return (
 		<li id={`Criterion-${id}`} className={className} data-id={id}>
 			<header className={headerClassName}>
-				{/* biome-ignore lint/a11y/useKeyWithClickEvents : */}
+				{/* biome-ignore lint/a11y/useKeyWithClickEvents: mouse interaction only */}
+				{/* biome-ignore lint/a11y/noStaticElementInteractions: mouse interaction only */}
 				<div className="Criterion-title" onClick={handleToggle}>
 					<div className="Criterion-titleText">
 						<button
@@ -102,7 +102,6 @@ const Criterion = ({id, level, title}: CriterionProps) => {
 
 						<div
 							className="Criterion-description"
-							// biome-ignore lint/security/noDangerouslySetInnerHtml :
 							dangerouslySetInnerHTML={{__html: title}}
 						/>
 					</div>

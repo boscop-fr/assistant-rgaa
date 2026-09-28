@@ -18,13 +18,11 @@ export type HelperModule<Name, Options extends HelperOptions> = {
 	apply?: (options: Options) => Effect;
 };
 
-type HelperDef<Module> = Module extends HelperModule<infer N, infer O>
-	? O & {helper: N}
-	: never;
+type HelperDef<Module> =
+	Module extends HelperModule<infer N, infer O> ? O & {helper: N} : never;
 
-type HelperModuleOptions<Module> = Module extends HelperModule<infer N, infer O>
-	? O
-	: never;
+type HelperModuleOptions<Module> =
+	Module extends HelperModule<infer _N, infer O> ? O : never;
 
 export type Helper = HelperDef<(typeof modules)[keyof typeof modules]>;
 

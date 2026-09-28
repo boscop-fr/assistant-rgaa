@@ -1,13 +1,13 @@
 import {
 	type Action,
-	type Reducer,
 	createAction,
 	createAsyncThunk,
-	createSelector
+	createSelector,
+	type Reducer
 } from '@reduxjs/toolkit';
 import browser from 'webextension-polyfill';
 import {omit} from '../../common/utils/objects';
-import {type StatePersistence, getOption} from '../../options/utils/storage';
+import {getOption, type StatePersistence} from '../../options/utils/storage';
 import type {AppState} from '../store';
 import {selectTargetTabId, selectTargetTabUrl} from './panel';
 import {selectVersion} from './reference';

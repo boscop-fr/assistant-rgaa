@@ -1,7 +1,7 @@
 import {
-	type PayloadAction,
 	createSelector,
-	createSlice
+	createSlice,
+	type PayloadAction
 } from '@reduxjs/toolkit';
 import type {AuditResults, Test, TestStatus} from '../../common/types';
 import {aggregateStatuses} from '../utils/tests';
