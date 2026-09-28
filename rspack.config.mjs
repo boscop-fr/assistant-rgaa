@@ -73,7 +73,16 @@ export default defineConfig({
 			},
 			{
 				test: /\.css$/i,
-				type: 'css/auto'
+				exclude: fullPath('css/minimap'),
+				use: [
+					rspack.CssExtractRspackPlugin.loader,
+					{
+						loader: 'css-loader',
+						options: {
+							url: false
+						}
+					}
+				]
 			},
 			{
 				// Custom CSS build for the minimap styles, as
@@ -107,8 +116,6 @@ export default defineConfig({
 		new rspack.EnvironmentPlugin({
 			VERSION: manifest.version
 		}),
-		new rspack.IgnorePlugin({
-			resourceRegExp: /\.woff$/
-		})
+		new rspack.CssExtractRspackPlugin()
 	]
 });
