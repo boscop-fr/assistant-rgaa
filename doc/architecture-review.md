@@ -336,7 +336,8 @@ function changing the page and returning its revert.
 
 ### H5 - Outdated helpers documentation {#h5}
 
-- [ ] Done
+- [x] Done: [doc/helpers.md](helpers.md) describes the post-H1 model (kinds,
+      page and panel sides, adding a helper).
 
 - Where: [doc/helpers.md](helpers.md).
 - Problem: describes `apply(id)` / `revert(id)`, which no longer exist.
