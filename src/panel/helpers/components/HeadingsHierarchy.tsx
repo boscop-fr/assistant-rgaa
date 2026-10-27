@@ -48,9 +48,9 @@ const HeadingsHierarchy = ({showMissing}: HeadingsHierarchyProps) => {
 
 	return (
 		<div className="HeadingsHierarchy Widget" aria-live="polite">
-			<h4 className="HeadingsHierarchy-title">
+			<h6 className="HeadingsHierarchy-title">
 				<FormattedMessage id="HeadingsHierarchy.title" />
-			</h4>
+			</h6>
 
 			{allItems.length ? (
 				<ul className="HeadingsHierarchy-list">

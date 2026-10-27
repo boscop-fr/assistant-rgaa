@@ -25,7 +25,7 @@ function TestHelpers({id}: TestHelpersProps) {
 
 	return (
 		<div className={containerClass}>
-			<h3 className="TestSection-header">
+			<h5 className="TestSection-header">
 				<button
 					type="button"
 					className="TestSection-title TestSection-toggle InvisibleButton"
@@ -35,7 +35,7 @@ function TestHelpers({id}: TestHelpersProps) {
 				>
 					<FormattedMessage id="TestHelpers.title" />
 				</button>
-			</h3>
+			</h5>
 
 			<div id={`TestHelpers-${id}`} className={contentClass}>
 				<ol>

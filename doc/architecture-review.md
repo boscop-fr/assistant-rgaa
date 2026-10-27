@@ -469,7 +469,8 @@ fine; the findings below are what stood out.
 
 ### U3 - Heading levels out of order {#u3}
 
-- [ ] Done
+- [x] Done: references `h4`/`h5`, test sections `h5`, headings hierarchy `h6`.
+      The criterion toggle stays outside its heading (layout change).
 
 - Where: [Criterion.tsx](../src/panel/components/Criterion.tsx),
   [ExternalReferences.tsx](../src/panel/components/ExternalReferences.tsx),
