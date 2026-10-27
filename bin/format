@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import {program} from 'commander';
 import path from 'path';
-import formatInstructions from './formatInstructions';
+import formatInstructions from './formatInstructions.js';
 
 /**
  *
