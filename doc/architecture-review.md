@@ -529,7 +529,7 @@ Versions from `npm outdated` on 2026-10-27.
 
 ### D6 - Test runner {#d6}
 
-- [ ] Done
+- [x] Done with [T3](#t3).
 
 - See [T3](#t3).
 
