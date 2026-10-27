@@ -1,9 +1,9 @@
 import React from 'react';
 import browser from 'webextension-polyfill';
-import {createTab, viewPageSource} from '../../background/slices/runtime';
-import {isFirefox} from '../../common/utils/browser';
-import {selectTargetTabUrl} from '../../panel/slices/panel';
-import {useAppSelector} from '../../panel/utils/hooks';
+import {createTab, viewPageSource} from '../../../background/slices/runtime';
+import {isFirefox} from '../../../common/utils/browser';
+import {selectTargetTabUrl} from '../../slices/panel';
+import {useAppSelector} from '../../utils/hooks';
 import HelperButton from './HelperButton';
 
 const ViewSource = () => {

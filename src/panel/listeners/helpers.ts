@@ -4,11 +4,10 @@ import {
 	isAnyOf
 } from '@reduxjs/toolkit';
 import {helpersReady} from '../../background/slices/runtime';
+import {applyHelpers, revertActiveHelpers} from '../../helpers/slices/helpers';
 import type {AppStartListening} from '../middlewares/listener';
 import {
-	applyHelpers,
 	removeGlobalHelper,
-	revertActiveHelpers,
 	selectGlobalHelpers,
 	selectHelpersByTests,
 	setGlobalHelper

@@ -28,9 +28,7 @@ const helpersSlice = createSlice({
 		},
 		removeGlobalHelper(state, {payload: id}: PayloadAction<string>) {
 			delete state.globalHelpers[id];
-		},
-		applyHelpers(state, action: PayloadAction<Helper[]>) {},
-		revertActiveHelpers() {}
+		}
 	},
 	selectors: {
 		selectGlobalHelpers(state) {
@@ -50,13 +48,7 @@ const helpersSlice = createSlice({
 
 const {actions, reducer, selectors} = helpersSlice;
 
-export const {
-	setHelpers,
-	setGlobalHelper,
-	removeGlobalHelper,
-	applyHelpers,
-	revertActiveHelpers
-} = actions;
+export const {setHelpers, setGlobalHelper, removeGlobalHelper} = actions;
 
 export const {
 	selectGlobalHelpers,

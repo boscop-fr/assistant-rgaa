@@ -1,7 +1,7 @@
 import {
 	applyHelpers as applyHelpersAction,
 	revertActiveHelpers as revertActiveHelpersAction
-} from '../panel/slices/helpers';
+} from './slices/helpers';
 import {applyHelpers, revertActiveHelpers} from './utils/helpers';
 import {listenToPanel} from './utils/panel';
 

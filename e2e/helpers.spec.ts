@@ -1,6 +1,6 @@
 import {test as baseTest, expect} from '@playwright/test';
 import {getHierarchy} from '../src/helpers/slices/headingsHierarchy';
-import {applyHelpers, revertActiveHelpers} from '../src/panel/slices/helpers';
+import {applyHelpers, revertActiveHelpers} from '../src/helpers/slices/helpers';
 import HelpersPage from './HelpersPage';
 
 const test = baseTest.extend<{helpersPage: HelpersPage}>({

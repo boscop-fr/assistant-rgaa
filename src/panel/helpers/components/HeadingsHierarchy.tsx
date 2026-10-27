@@ -3,13 +3,16 @@ import React, {useEffect, useState} from 'react';
 import {FormattedMessage} from 'react-intl';
 import {useSelector} from 'react-redux';
 import browser from 'webextension-polyfill';
-import {selectTargetTabId} from '../../panel/slices/panel';
-import {onTabMessage} from '../../panel/utils/port';
-import {getHierarchy, setHierarchy} from '../slices/headingsHierarchy';
+import {
+	getHierarchy,
+	setHierarchy
+} from '../../../helpers/slices/headingsHierarchy';
 import {
 	type HeadingHierarchyNode,
 	withMissingHeadings
-} from '../utils/getHeadingsHierarchy';
+} from '../../../helpers/utils/getHeadingsHierarchy';
+import {selectTargetTabId} from '../../slices/panel';
+import {onTabMessage} from '../../utils/port';
 
 type HeadingsHierarchyProps = {
 	showMissing?: boolean;

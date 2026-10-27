@@ -1,25 +1,26 @@
+import type {Effect, HelperName, HelperOptions} from '../types';
 import colorContrast from './colorContrast';
 import disableAllStyles from './disableAllStyles';
-import externalTool from './externalTool';
 import headingsHierarchy from './headingsHierarchy';
 import outline from './outline';
 import showAttributes from './showAttributes';
 import showChildElements from './showChildElements';
 import showElement from './showElement';
 import style from './style';
-import validateLocalPage from './validateLocalPage';
-import viewSource from './viewSource';
 
-export default {
+// Effects of each helper on the page. Some helpers only
+// provide a widget in the panel, and have no effect.
+const effects: {
+	[N in HelperName]?: (options: HelperOptions<N>) => Effect;
+} = {
 	colorContrast,
 	disableAllStyles,
-	externalTool,
 	headingsHierarchy,
 	outline,
 	showAttributes,
 	showChildElements,
 	showElement,
-	style,
-	validateLocalPage,
-	viewSource
+	style
 };
+
+export default effects;

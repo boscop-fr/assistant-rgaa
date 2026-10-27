@@ -248,7 +248,14 @@ function changing the page and returning its revert.
 
 ### H1 - One module, two runtimes {#h1}
 
-- [ ] Done
+- [x] Done: option types and defaults in [types.ts](../src/helpers/types.ts),
+  effects in [src/helpers/helpers/](../src/helpers/helpers/), descriptions and
+  widgets in [src/panel/helpers/](../src/panel/helpers/). `dist/helpers.js`
+  went from 85 KB to 30 KB. `applyHelpers` / `revertActiveHelpers` moved to
+  [helpers/slices/helpers.ts](../src/helpers/slices/helpers.ts) (part of S1).
+  RTK's `createAction` and `isAction` (1.2 KB) are still bundled through the
+  shared messages; dropping them means replacing `createAction` for messages.
+  `createHelper` is gone, each helper is typed by its own options (part of H4).
 
 - Where: every file in [src/helpers/helpers/](../src/helpers/helpers/).
 - Problem: `describe` and `component` run in the panel, `apply` in the page.

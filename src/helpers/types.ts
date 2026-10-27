@@ -1,61 +1,171 @@
-import type {ComponentChild} from 'preact';
-import type {ComponentType} from 'react';
-import type {IntlShape} from 'react-intl';
-import modules from './helpers';
+// Helpers are split between the page, which applies their
+// effects, and the panel, which describes them and shows
+// their widgets. Both share the options defined here.
 
 // An effect is a function that does something and returns a
 // function to revert what it did.
 export type Effect = () => () => void;
 
-type HelperOptions = Record<string, unknown>;
-type HelperDescription = ComponentChild;
-
-export type HelperModule<Name, Options extends HelperOptions> = {
-	name: Name;
-	defaultOptions: Options;
-	component?: ComponentType<Options>;
-	describe: (intl: IntlShape, options: Options) => HelperDescription;
-	apply?: (options: Options) => Effect;
+export type ColorContrastStyle = {
+	backgroundColor: string;
+	color: string;
+	fontSize: string;
+	fontWeight: string;
 };
 
-type HelperDef<Module> = Module extends HelperModule<infer N, infer O>
-	? O & {helper: N}
-	: never;
-
-type HelperModuleOptions<Module> = Module extends HelperModule<infer N, infer O>
-	? O
-	: never;
-
-export type Helper = HelperDef<(typeof modules)[keyof typeof modules]>;
-
-type HelpersInfo = {
-	[K in keyof typeof modules]: {
-		mod: (typeof modules)[K];
-		opts: HelperModuleOptions<(typeof modules)[K]>;
-		def: HelperDef<(typeof modules)[K]>;
-	};
+export type ColorInputConfig = {
+	label: string;
+	pixelPicker: boolean;
+	textPicker: boolean;
 };
 
-type UnionToIntersection<U> = (
-	U extends unknown
-		? (x: U) => void
-		: never
-) extends (x: infer I) => void
-	? I
-	: never;
+export type ColorExtractorConfig = {
+	label: string;
+	left: keyof ColorContrastStyle;
+	right: keyof ColorContrastStyle;
+};
 
-// Finds actual module and arguments from a helper definition.
-export const helperInfo = <Name extends keyof HelpersInfo>({
+type ColorContrastOptions = {
+	minimumRatio: number;
+	left: ColorInputConfig;
+	right: ColorInputConfig;
+	extractor?: ColorExtractorConfig;
+};
+
+type ExternalToolOptions = {
+	name: string;
+	url: string;
+};
+
+type HeadingsHierarchyOptions = {
+	// Whether or not to report missing heading levels.
+	showMissing?: boolean;
+};
+
+type OutlineOptions = {
+	selector: string;
+	showTag?: boolean;
+};
+
+type ShowAttributesOptions = {
+	selector: string;
+	attributes: string[];
+	// Whether or not to show attributes that aren't set.
+	showMissing?: boolean;
+};
+
+type ShowChildElementsOptions = {
+	selector: string;
+	childrenSelector: string;
+	// Children attributes to show.
+	attributes?: string[];
+	// Show the tag even if it is empty (i.e. it has neither
+	// content nor attributes.
+	showEmpty?: boolean;
+	showName?: boolean;
+	// Show requested attributes that are not set on the element.
+	showMissingAttributes?: boolean;
+	showContent?: boolean;
+};
+
+type ShowElementOptions = {
+	selector: string;
+	attributes?: string[];
+	// Show the tag even if it is empty (i.e. it has
+	// neither content nor attributes.
+	showEmpty?: boolean;
+	showName?: boolean;
+	// Show requested attributes that are not set on the
+	// element.
+	showMissingAttributes?: boolean;
+	showContent?: boolean;
+};
+
+export type StyleOptions = {
+	style: string;
+	description?: string;
+};
+
+type NoOptions = Record<never, never>;
+
+type OptionsByHelper = {
+	colorContrast: ColorContrastOptions;
+	disableAllStyles: NoOptions;
+	externalTool: ExternalToolOptions;
+	headingsHierarchy: HeadingsHierarchyOptions;
+	outline: OutlineOptions;
+	showAttributes: ShowAttributesOptions;
+	showChildElements: ShowChildElementsOptions;
+	showElement: ShowElementOptions;
+	style: StyleOptions;
+	validateLocalPage: NoOptions;
+	viewSource: NoOptions;
+};
+
+export type HelperName = keyof OptionsByHelper;
+export type HelperOptions<N extends HelperName> = OptionsByHelper[N];
+export type HelperOf<N extends HelperName> = HelperOptions<N> & {helper: N};
+
+// A helper as found in the helpers mapping.
+export type Helper = {[N in HelperName]: HelperOf<N>}[HelperName];
+
+const defaultOptions: {[N in HelperName]: Partial<HelperOptions<N>>} = {
+	colorContrast: {
+		left: {
+			label: 'ColorContrast.textColor',
+			pixelPicker: true,
+			textPicker: true
+		},
+		right: {
+			label: 'ColorContrast.backgroundColor',
+			pixelPicker: true,
+			textPicker: false
+		},
+		extractor: {
+			label: 'ColorContrast.extract',
+			left: 'color',
+			right: 'backgroundColor'
+		}
+	},
+	disableAllStyles: {},
+	externalTool: {},
+	headingsHierarchy: {
+		showMissing: true
+	},
+	outline: {
+		showTag: false
+	},
+	showAttributes: {
+		attributes: [],
+		showMissing: false
+	},
+	showChildElements: {
+		attributes: [],
+		showEmpty: false,
+		showName: true,
+		showMissingAttributes: false,
+		showContent: false
+	},
+	showElement: {
+		attributes: [],
+		showEmpty: false,
+		showName: true,
+		showMissingAttributes: false,
+		showContent: false
+	},
+	style: {},
+	validateLocalPage: {},
+	viewSource: {}
+};
+
+// Returns the options of a helper, completed with defaults.
+// TypeScript can't relate the rest of a generic object to
+// its options, hence the cast.
+export const helperOptions = <N extends HelperName>({
 	helper: name,
-	...args
-}: HelpersInfo[Name]['def']) => {
-	const module = modules[name];
-
-	return {
-		module,
-		args: {
-			...module.defaultOptions,
-			...args
-		} as UnionToIntersection<HelpersInfo[Name]['opts']>
-	};
-};
+	...options
+}: HelperOf<N>) =>
+	({
+		...defaultOptions[name],
+		...options
+	}) as unknown as HelperOptions<N>;

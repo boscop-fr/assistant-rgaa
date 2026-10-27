@@ -1,16 +1,28 @@
 import {toggleClassEffect} from '../effects/dom';
 import {highlightElementsEffect} from '../effects/highlight';
-import {type Effect, type Helper, helperInfo} from '../types';
+import effects from '../helpers';
+import {
+	type Effect,
+	type Helper,
+	type HelperName,
+	type HelperOf,
+	helperOptions
+} from '../types';
 import {combineEffects} from './effects';
 
 let revertEffects: () => void;
 
+// Some helpers only provide a widget in the panel, and no
+// effect.
+const helperEffects = <N extends HelperName>(helper: HelperOf<N>): Effect[] => {
+	const apply = effects[helper.helper];
+	return apply ? [apply(helperOptions(helper))] : [];
+};
+
 export const applyHelpers = (helpers: Helper[]) => {
-	const helperEffects = helpers.flatMap((helper): Effect[] => {
+	const effects = helpers.flatMap((helper): Effect[] => {
 		try {
-			const {module, args} = helperInfo(helper);
-			// Some helpers only provide a component, and no effect.
-			return module.apply ? [module.apply(args)] : [];
+			return helperEffects(helper);
 		} catch (e) {
 			console.error(e);
 			return [];
@@ -18,7 +30,7 @@ export const applyHelpers = (helpers: Helper[]) => {
 	});
 
 	const apply = combineEffects([
-		...helperEffects,
+		...effects,
 		highlightElementsEffect(),
 		toggleClassEffect(document.body, 'rgaaExt-Body'),
 		toggleClassEffect(document.body, 'rgaaExt-Body--withHelpers')

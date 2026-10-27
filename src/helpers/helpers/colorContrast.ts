@@ -1,11 +1,10 @@
 import browser from 'webextension-polyfill';
-import ColorContrast from '../components/ColorContrast';
 import {
 	requestPixelColor,
 	requestStyle,
 	requestTextColor
 } from '../slices/colorContrast';
-import {createHelper} from '../utils/createHelper';
+import type {Effect} from '../types';
 import getSelectionStyle from '../utils/getSelectionStyle';
 import {captureCurrentTabPixel} from '../utils/images';
 import {
@@ -77,64 +76,10 @@ const handleMessage = (action: unknown) => {
 	}
 };
 
-export type ColorContrastStyle = {
-	backgroundColor: string;
-	color: string;
-	fontSize: string;
-	fontWeight: string;
+export default (): Effect => () => {
+	browser.runtime.onMessage.addListener(handleMessage);
+
+	return () => {
+		browser.runtime.onMessage.removeListener(handleMessage);
+	};
 };
-
-export type ColorInputConfig = {
-	label: string;
-	pixelPicker: boolean;
-	textPicker: boolean;
-};
-
-export type ColorExtractorConfig = {
-	label: string;
-	left: keyof ColorContrastStyle;
-	right: keyof ColorContrastStyle;
-};
-
-type ColorContrastOptions = {
-	minimumRatio: number;
-	left: ColorInputConfig;
-	right: ColorInputConfig;
-	extractor?: ColorExtractorConfig;
-};
-
-export default createHelper({
-	name: 'colorContrast',
-	defaultOptions: {
-		left: {
-			label: 'ColorContrast.textColor',
-			pixelPicker: true,
-			textPicker: true
-		},
-		right: {
-			label: 'ColorContrast.backgroundColor',
-			pixelPicker: true,
-			textPicker: false
-		},
-		extractor: {
-			label: 'ColorContrast.extract',
-			left: 'color',
-			right: 'backgroundColor'
-		}
-	} as ColorContrastOptions,
-	component: ColorContrast,
-	describe(intl) {
-		return intl.formatMessage({
-			id: 'Helper.colorContrast'
-		});
-	},
-	apply() {
-		return () => {
-			browser.runtime.onMessage.addListener(handleMessage);
-
-			return () => {
-				browser.runtime.onMessage.removeListener(handleMessage);
-			};
-		};
-	}
-});

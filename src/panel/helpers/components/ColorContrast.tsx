@@ -2,18 +2,18 @@ import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
 import {useSelector} from 'react-redux';
 import browser from 'webextension-polyfill';
-import {contrastRatio} from '../../common/utils/color';
-import {selectTargetTabId} from '../../panel/slices/panel';
-import type {
-	ColorContrastStyle,
-	ColorExtractorConfig,
-	ColorInputConfig
-} from '../helpers/colorContrast';
+import {contrastRatio} from '../../../common/utils/color';
 import {
 	requestPixelColor,
 	requestStyle,
 	requestTextColor
-} from '../slices/colorContrast';
+} from '../../../helpers/slices/colorContrast';
+import type {
+	ColorContrastStyle,
+	ColorExtractorConfig,
+	ColorInputConfig
+} from '../../../helpers/types';
+import {selectTargetTabId} from '../../slices/panel';
 import ColorContrastField from './ColorContrastField';
 import ColorContrastResult from './ColorContrastResult';
 import ToggleButton from './ToggleButton';

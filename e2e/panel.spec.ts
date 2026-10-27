@@ -1,6 +1,5 @@
 import {test as baseTest, expect} from '@playwright/test';
-import disableAllStyles from '../src/helpers/helpers/disableAllStyles';
-import {applyHelpers, revertActiveHelpers} from '../src/panel/slices/helpers';
+import {applyHelpers, revertActiveHelpers} from '../src/helpers/slices/helpers';
 import PanelPage from './PanelPage';
 
 const test = baseTest.extend<{panelPage: PanelPage}>({
@@ -17,7 +16,7 @@ test('should toggle styles', async ({panelPage: page}) => {
 		'port',
 		applyHelpers([
 			{
-				helper: disableAllStyles.name
+				helper: 'disableAllStyles'
 			}
 		])
 	);

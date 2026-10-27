@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, {useState} from 'react';
 import {FormattedMessage, useIntl} from 'react-intl';
 import type {Test} from '../../common/types';
-import {helperInfo} from '../../helpers/types';
+import {HelperWidget, describeHelper} from '../helpers';
 import {selectHelpersByTest} from '../slices/helpers';
 import {useAppSelector} from '../utils/hooks';
 
@@ -39,28 +39,19 @@ function TestHelpers({id}: TestHelpersProps) {
 
 			<div id={`TestHelpers-${id}`} className={contentClass}>
 				<ol>
-					{helpers.map((helper, i) => {
-						const {module, args} = helperInfo(helper);
-
-						return (
-							<li key={`${i}-${module.name}`}>{module.describe(intl, args)}</li>
-						);
-					})}
+					{helpers.map((helper, i) => (
+						<li key={`${i}-${helper.helper}`}>
+							{describeHelper(intl, helper)}
+						</li>
+					))}
 				</ol>
 			</div>
 
 			<div className="TestSection-body">
 				{/* show helper widgets if any */}
-				{helpers
-					.map((helper, i) => {
-						const {module, args} = helperInfo(helper);
-						const Helper = module.component;
-
-						return Helper ? (
-							<Helper key={`${i}-${module.name}`} {...args} />
-						) : null;
-					})
-					.filter((helper) => !!helper)}
+				{helpers.map((helper, i) => (
+					<HelperWidget key={`${i}-${helper.helper}`} helper={helper} />
+				))}
 			</div>
 		</div>
 	);
