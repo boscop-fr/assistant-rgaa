@@ -1,9 +1,4 @@
-import {
-	type UnsubscribeListener,
-	addListener,
-	combineReducers,
-	configureStore
-} from '@reduxjs/toolkit';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import listener from './middlewares/listener';
 import app from './slices/app';
 import audit from './slices/audit';
@@ -35,12 +30,12 @@ export type AppState = ReturnType<typeof reducer>;
 export const createStore = () =>
 	configureStore({
 		reducer: storable(reducer),
+		// The listener middleware goes first, so it handles
+		// `addListener` actions (holding functions) before the
+		// serializability check, and its dispatch type takes
+		// precedence over the thunk one.
 		middleware: (getDefaultMiddleware) =>
-			getDefaultMiddleware({
-				serializableCheck: {
-					ignoredActions: [addListener.type]
-				}
-			}).concat(listener)
+			getDefaultMiddleware().prepend(listener)
 	});
 
 export type AppDispatch = ReturnType<typeof createStore>['dispatch'];

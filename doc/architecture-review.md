@@ -349,7 +349,12 @@ function changing the page and returning its revert.
 
 ### T1 - TypeScript is never run {#t1}
 
-- [ ] Done
+- [x] Done: `lint:types` (`tsc --noEmit`) runs in `lint`, with `skipLibCheck`
+      for the preact/React type clashes in dependencies. The last error came
+      from the listener middleware being appended after the thunk one, so
+      `dispatch(addAppListener())` was typed as returning the action instead of
+      its unsubscribe function; it is now prepended, as RTK recommends.
+      `strictNullChecks` is still off: it reports 82 errors.
 
 - Where: [package.json](../package.json) scripts,
   [quality.yml](../.github/workflows/quality.yml),
