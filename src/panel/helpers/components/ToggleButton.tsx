@@ -4,24 +4,10 @@ import React from 'react';
 type ToggleButtonProps = ComponentProps<'button'> &
 	PropsWithChildren<{
 		pressed: boolean;
-		onPress?: () => void;
-		onRelease?: () => void;
 	}>;
 
-const ToggleButton = ({
-	pressed,
-	onPress,
-	onRelease,
-	children,
-	...props
-}: ToggleButtonProps) => (
-	<button
-		className="Button"
-		type="button"
-		aria-pressed={pressed}
-		onClick={() => (pressed ? onRelease?.() : onPress?.())}
-		{...props}
-	>
+const ToggleButton = ({pressed, children, ...props}: ToggleButtonProps) => (
+	<button className="Button" type="button" aria-pressed={pressed} {...props}>
 		{children}
 	</button>
 );

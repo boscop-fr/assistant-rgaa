@@ -60,6 +60,11 @@ const usePicker = (extractor: ColorExtractorConfig) => {
 		pickingAction: PickAction,
 		onPicked: (value: T) => void
 	) => {
+		// Concurrent picks would mix their state on the page.
+		if (pickerState.pickingAction) {
+			return;
+		}
+
 		setPickerState((state) => ({...state, pickingName, pickingAction}));
 
 		try {

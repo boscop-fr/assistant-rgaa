@@ -43,7 +43,7 @@ const ColorContrastField = ({
 				{hasPixelPicker ? (
 					<ToggleButton
 						pressed={isPickingPixel}
-						onPress={onPickPixel}
+						onClick={onPickPixel}
 						title={intl.formatMessage({
 							id: 'ColorInput.pickPixelButton.title'
 						})}

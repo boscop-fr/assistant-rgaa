@@ -511,7 +511,9 @@ fine; the findings below are what stood out.
 
 ### U6 - `ToggleButton` press/release API used inconsistently {#u6}
 
-- [ ] Done
+- [x] Done: `ToggleButton` only takes `pressed` and button props. All pickers
+      use `onClick`, and a pick is ignored while another one is pending. No
+      cancel added.
 
 - Where: [ToggleButton.tsx](../src/panel/helpers/components/ToggleButton.tsx),
   [ColorContrastField.tsx](../src/panel/helpers/components/ColorContrastField.tsx),
