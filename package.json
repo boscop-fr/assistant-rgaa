@@ -35,7 +35,6 @@
     "@types/node": "^24.19.2",
     "@types/preact-custom-element": "^4.0.4",
     "@types/webextension-polyfill": "^0.12.6",
-    "commander": "^13.1.0",
     "css-loader": "^7.1.5",
     "husky": "^9.1.7",
     "jsdom": "^30.1.3",

@@ -504,7 +504,9 @@ Versions from `npm outdated` on 2026-10-27.
 
 ### D4 - Small dependencies {#d4}
 
-- [ ] Done
+- [x] Done: `bin/fix` and `bin/format` use `parseArgs` from `node:util`, with
+      the same commands and options; they print a usage line and exit 1 on a
+      wrong command. `commander` is removed. `debounce` and `classnames` kept.
 
 - `commander`: only `bin/fix` and `bin/format`, `node:util` `parseArgs` does the
   job.

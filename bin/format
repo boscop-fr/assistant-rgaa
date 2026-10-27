@@ -1,31 +1,33 @@
 #!/usr/bin/env node
-import {program} from 'commander';
 import path from 'path';
+import {parseArgs} from 'util';
 import formatInstructions from './formatInstructions.js';
 
-/**
- *
- */
-program
-	.command('instructions-3-2016')
-	.description(
-		'Transform a flat v3-2016 instructions JSON file to the correct instructions format.'
-	)
-	.option('-s, --source <source>', 'Source URL.')
-	.option(
-		'-d, --dest <dest>',
-		'Destination file.',
-		path.resolve(import.meta.dirname, '../data/instructions/3-2016.json')
-	)
-	.action((options) => {
-		if (!options.source) {
-			console.log('Error: source option required');
-			return false;
-		}
-		return formatInstructions(options);
-	});
+const usage =
+	'Usage: bin/format instructions-3-2016 -s <source> [-d <dest>]\n' +
+	'Transform a flat v3-2016 instructions JSON file to the correct instructions format.';
 
-/**
- *
- */
-program.parse(process.argv);
+const {
+	positionals: [command],
+	values: options
+} = parseArgs({
+	allowPositionals: true,
+	options: {
+		source: {type: 'string', short: 's'},
+		dest: {
+			type: 'string',
+			short: 'd',
+			default: path.resolve(
+				import.meta.dirname,
+				'../data/instructions/3-2016.json'
+			)
+		}
+	}
+});
+
+if (command !== 'instructions-3-2016' || !options.source) {
+	console.log(usage);
+	process.exit(1);
+}
+
+formatInstructions(options);
