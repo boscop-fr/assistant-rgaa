@@ -1,17 +1,19 @@
 import {toggleClassEffect} from '../effects/dom';
 import {highlightElementsEffect} from '../effects/highlight';
-import {type Helper, helperInfo} from '../types';
+import {type Effect, type Helper, helperInfo} from '../types';
 import {combineEffects} from './effects';
 
 let revertEffects: () => void;
 
 export const applyHelpers = (helpers: Helper[]) => {
-	const helperEffects = helpers.flatMap((helper) => {
+	const helperEffects = helpers.flatMap((helper): Effect[] => {
 		try {
 			const {module, args} = helperInfo(helper);
-			return module.apply(args);
+			// Some helpers only provide a component, and no effect.
+			return module.apply ? [module.apply(args)] : [];
 		} catch (e) {
 			console.error(e);
+			return [];
 		}
 	});
 
