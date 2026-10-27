@@ -296,7 +296,13 @@ function changing the page and returning its revert.
 
 ### H3 - Three kinds of helpers behind one shape {#h3}
 
-- [ ] Done
+- [x] Done: each helper's kind (effect, service, highlight, tool) is declared
+      with its options in [types.ts](../src/helpers/types.ts). The page
+      registries in [helpers/index.ts](../src/helpers/helpers/index.ts) are
+      checked with `satisfies` to hold every helper of their kinds, so a
+      forgotten or misplaced helper is a type error instead of a silent no-op.
+      Services still listen to `runtime.onMessage` while applied, as M1 kept
+      requests on `tabs.sendMessage` rather than the port.
 
 - Where: `colorContrast`, `headingsHierarchy` (services: they install message
   listeners), `viewSource`, `validateLocalPage`, `externalTool` (panel-only

@@ -88,19 +88,43 @@ export type StyleOptions = {
 
 type NoOptions = Record<never, never>;
 
-type OptionsByHelper = {
-	colorContrast: ColorContrastOptions;
-	disableAllStyles: NoOptions;
-	externalTool: ExternalToolOptions;
-	headingsHierarchy: HeadingsHierarchyOptions;
-	outline: OutlineOptions;
-	showAttributes: ShowAttributesOptions;
-	showChildElements: ShowChildElementsOptions;
-	showElement: ShowElementOptions;
-	style: StyleOptions;
-	validateLocalPage: NoOptions;
-	viewSource: NoOptions;
+// Options of each helper, by kind:
+// - effect: changes the page while applied;
+// - service: answers requests from its panel widget while
+//   applied;
+// - highlight: shows info about elements in the page;
+// - tool: only a widget in the panel.
+type OptionsByKind = {
+	effect: {
+		disableAllStyles: NoOptions;
+		style: StyleOptions;
+	};
+	service: {
+		colorContrast: ColorContrastOptions;
+		headingsHierarchy: HeadingsHierarchyOptions;
+	};
+	highlight: {
+		outline: OutlineOptions;
+		showAttributes: ShowAttributesOptions;
+		showChildElements: ShowChildElementsOptions;
+		showElement: ShowElementOptions;
+	};
+	tool: {
+		externalTool: ExternalToolOptions;
+		validateLocalPage: NoOptions;
+		viewSource: NoOptions;
+	};
 };
+
+export type HelperKind = keyof OptionsByKind;
+export type HelperNameOfKind<K extends HelperKind> = {
+	[P in K]: keyof OptionsByKind[P];
+}[K];
+
+type OptionsByHelper = OptionsByKind['effect'] &
+	OptionsByKind['service'] &
+	OptionsByKind['highlight'] &
+	OptionsByKind['tool'];
 
 export type HelperName = keyof OptionsByHelper;
 export type HelperOptions<N extends HelperName> = OptionsByHelper[N];
