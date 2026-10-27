@@ -487,7 +487,8 @@ fine; the findings below are what stood out.
 
 ### U4 - External tool URL not encoded {#u4}
 
-- [ ] Done
+- [x] Done: the tab URL is passed through `encodeURIComponent` (all tool URLs
+      use `:url` as a query parameter).
 
 - Where: [ExternalTool.tsx](../src/panel/helpers/components/ExternalTool.tsx).
 - Problem: `url.replace(':url', tabUrl)` inserts the raw URL in

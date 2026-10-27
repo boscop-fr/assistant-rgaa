@@ -14,7 +14,7 @@ const ExternalTool = ({name, url}: ExternalToolProps) => {
 	const tabUrl = useAppSelector(selectTargetTabUrl);
 
 	const handleCreateTab = () => {
-		const interpolated = url.replace(':url', tabUrl);
+		const interpolated = url.replace(':url', encodeURIComponent(tabUrl));
 
 		browser.runtime.sendMessage(
 			createTab({
