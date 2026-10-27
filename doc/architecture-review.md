@@ -222,7 +222,12 @@ affected: a message wakes the service worker up.
 
 ### M6 - `pollEffect` used as a startup hook {#m6}
 
-- [ ] Done
+- [x] Done
+
+  `pollEffect` is deleted. Browser events are subscribed to in
+  [subscriptions.ts](../src/panel/subscriptions.ts), called once the store is
+  created. The version switch is now the `switchReferenceVersion` thunk. The
+  auto save keeps `predicate: () => true`, as it does react to every action.
 
 - Where: [utils/listeners.ts](../src/panel/utils/listeners.ts), used with
   `predicate: () => true` in `listeners/*.ts`.

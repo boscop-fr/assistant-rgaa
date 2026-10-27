@@ -11,6 +11,7 @@ import {loadReference, loadTab, setLoadError, setLoading} from './slices/app';
 import {setTabIds} from './slices/panel';
 import {storeState} from './slices/storage';
 import {createStore} from './store';
+import {subscribeToBrowserEvents} from './subscriptions';
 
 const init = async () => {
 	const query = new URLSearchParams(window.location.search);
@@ -25,6 +26,7 @@ const init = async () => {
 		: currentTab;
 
 	const store = createStore();
+	subscribeToBrowserEvents(store);
 
 	store.dispatch(
 		setTabIds({

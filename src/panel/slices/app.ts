@@ -15,7 +15,7 @@ import {setHelpers} from './helpers';
 import {setInstructions} from './instructions';
 import {selectTargetTabId, setTabInfo} from './panel';
 import {selectVersion, setReferenceData} from './reference';
-import {loadState} from './storage';
+import {loadState, storeState} from './storage';
 
 type AppState = {
 	isLoading: boolean;
@@ -71,6 +71,29 @@ export const loadReference = createAsyncThunk(
 		api.dispatch(setReferenceData(flattenReference(reference)));
 		api.dispatch(setHelpers(helpers));
 		api.dispatch(setInstructions(instructions));
+	}
+);
+
+// Loads another version of the reference, along with the
+// state stored for it.
+export const switchReferenceVersion = createAsyncThunk(
+	'app/switchReferenceVersion',
+	async (version: string, api) => {
+		// Saves the current state right away, as a pending
+		// auto save would be skipped while loading.
+		await api.dispatch(storeState()).unwrap();
+
+		// Loading blocks the auto save, which would otherwise
+		// overwrite the state stored for the new version
+		// with an empty one.
+		api.dispatch(setLoading(true));
+
+		try {
+			await api.dispatch(loadReference(version)).unwrap();
+			await api.dispatch(loadState()).unwrap();
+		} finally {
+			api.dispatch(setLoading(false));
+		}
 	}
 );
 
