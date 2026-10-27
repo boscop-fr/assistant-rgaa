@@ -314,7 +314,13 @@ function changing the page and returning its revert.
 
 ### H4 - Helper typing is mostly unchecked {#h4}
 
-- [ ] Done
+- [x] Done: mostly by H1. `createHelper`, `helperInfo` and the `as XOptions`
+      casts are gone; defaults are checked against `Partial<HelperOptions<N>>`,
+      and each effect, highlight and description gets its own helper's options.
+      One cast remains in `helperOptions` (merging defaults with the options of
+      a generic helper). Options having a default are still typed as optional,
+      which only matters once `strictNullChecks` is on (T1); destructuring
+      defaults duplicating them were removed.
 
 - Where: [types.ts](../src/helpers/types.ts),
   [createHelper.ts](../src/helpers/utils/createHelper.ts), every helper's

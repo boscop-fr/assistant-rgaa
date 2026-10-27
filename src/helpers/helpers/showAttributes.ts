@@ -4,7 +4,7 @@ import type {HelperOptions} from '../types';
 export default ({
 	selector,
 	attributes,
-	showMissing = false
+	showMissing
 }: HelperOptions<'showAttributes'>): Highlight => ({
 	selector,
 	attributes,

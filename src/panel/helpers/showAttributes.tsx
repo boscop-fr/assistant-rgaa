@@ -3,7 +3,7 @@ import {sanitize} from '../../helpers/utils/selectors';
 import type {PanelHelper} from './index';
 
 export default {
-	describe(intl, {selector, attributes, showMissing = false}) {
+	describe(intl, {selector, attributes, showMissing}) {
 		return intl.formatMessage(
 			{
 				id: 'Helper.showAttributes'
