@@ -27,6 +27,16 @@ test('should toggle styles', async ({helpersPage: page}) => {
 	await expect(page.elementHiddenViaStyleAttribute).toBeHidden();
 });
 
+test('should revert helpers when the panel disconnects', async ({
+	helpersPage: page
+}) => {
+	await page.postToPort(applyHelpers([{helper: 'disableAllStyles'}]));
+	await expect(page.elementHiddenViaStyleSheet).toBeVisible();
+
+	await page.disconnectPort();
+	await expect(page.elementHiddenViaStyleSheet).toBeHidden();
+});
+
 test('should apply helpers along with helpers without effects', async ({
 	helpersPage: page
 }) => {

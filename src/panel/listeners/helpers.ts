@@ -15,37 +15,10 @@ import {
 } from '../slices/helpers';
 import {selectEnabledTestIds, toggleTest} from '../slices/tests';
 import type {AppDispatch, AppState} from '../store';
-import {debounceListener, pollEffect} from '../utils/listeners';
+import {debounceListener} from '../utils/listeners';
 import {sendToTab} from '../utils/port';
 
 export const addHelpersListeners = (startListening: AppStartListening) => {
-	startListening({
-		predicate: () => true,
-		effect: pollEffect(
-			window.addEventListener.bind(null, 'visibilitychange'),
-			(api) => {
-				switch (document.visibilityState) {
-					// Reverts helpers when the panel is closed or
-					// hidden. We're relying on this because there
-					// no event to tell when the panel is open or
-					// closed. This requires more work as helpers
-					// are applied or reverted each time the user
-					// switches tab, but it is the only reliable
-					// method.
-					case 'hidden':
-						sendToTab(revertActiveHelpers());
-						break;
-
-					// Reapplies helpers when the panel becomes
-					// visible again.
-					case 'visible':
-						api.dispatch(helpersReady());
-						break;
-				}
-			}
-		)
-	});
-
 	startListening({
 		matcher: isAnyOf(
 			helpersReady,

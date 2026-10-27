@@ -5,8 +5,12 @@ import {PANEL_PORT} from '../../background/slices/runtime';
 let panelPort: Runtime.Port | null = null;
 
 // Handles messages from the panel. The latest panel to
-// connect replaces any previous one.
-export const listenToPanel = (handle: (message: unknown) => void) => {
+// connect replaces any previous one, and `onLeave` is called
+// when it disconnects (i.e. it was closed).
+export const listenToPanel = (
+	handle: (message: unknown) => void,
+	onLeave: () => void
+) => {
 	browser.runtime.onConnect.addListener((port) => {
 		if (port.name !== PANEL_PORT) {
 			return;
@@ -17,6 +21,7 @@ export const listenToPanel = (handle: (message: unknown) => void) => {
 		port.onDisconnect.addListener(() => {
 			if (panelPort === port) {
 				panelPort = null;
+				onLeave();
 			}
 		});
 	});

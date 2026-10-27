@@ -178,7 +178,14 @@ affected: a message wakes the service worker up.
 
 ### M4 - No panel lifecycle {#m4}
 
-- [ ] Done
+- [x] Done
+
+  The page reverts helpers when the port of its current panel disconnects. The
+  panel no longer reverts and re-applies helpers on `visibilitychange`
+  (decision: helpers stay applied as long as the tab's panel is alive). Saving
+  the state when the panel is hidden is kept. The prototype checks in
+  [History: why ports were dropped](#history-why-ports-were-dropped) are still
+  to be done manually.
 
 - Where: `visibilitychange` listeners in
   [listeners/helpers.ts](../src/panel/listeners/helpers.ts) and
