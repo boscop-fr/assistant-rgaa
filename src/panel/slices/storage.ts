@@ -60,6 +60,13 @@ const selectStorageKey = createSelector(
 	}
 );
 
+// Tells if any of the stored slices changed.
+export const hasStoredStateChanged = (current: AppState, previous: AppState) =>
+	(Object.keys(current) as Array<keyof AppState>).some(
+		(slice) =>
+			!SKIPPED_SLICES.includes(slice) && current[slice] !== previous[slice]
+	);
+
 const selectStorableState = createSelector(
 	(state: AppState) => state,
 	(state): StoredState => omit(state, SKIPPED_SLICES)

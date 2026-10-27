@@ -414,7 +414,10 @@ function changing the page and returning its revert.
 
 ### S2 - Auto save on every action {#s2}
 
-- [ ] Done
+- [x] Done: the auto save runs only when a stored slice changed (any slice not
+      in `SKIPPED_SLICES`, compared by reference), and not on `stateLoaded`. The
+      `isLoading` gate stays: during a version switch, `loadReference` resets
+      results before the new version's state is loaded.
 
 - Where: [listeners/storage.ts](../src/panel/listeners/storage.ts).
 - Problem: saves after any non-`storage/*` action, gated by `isLoading`. Two

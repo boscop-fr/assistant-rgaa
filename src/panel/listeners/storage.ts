@@ -1,22 +1,20 @@
-import type {Action} from '@reduxjs/toolkit';
 import type {AppStartListening} from '../middlewares/listener';
 import {selectIsLoading} from '../slices/app';
 import {helpersReady} from '../slices/helpers';
-import {stateLoaded, storeState} from '../slices/storage';
+import {
+	hasStoredStateChanged,
+	stateLoaded,
+	storeState
+} from '../slices/storage';
 import {debounceListener} from '../utils/listeners';
 
 export const addStorageListeners = (startListening: AppStartListening) => {
-	const isStorageAction = ({type}: Action) => type.startsWith('storage/');
-
-	// Saves the state whenever something happens.
+	// Saves the state whenever a stored part of it changes,
+	// except when it was just loaded.
 	startListening({
-		predicate: () => true,
+		predicate: (action, current, previous) =>
+			!stateLoaded.match(action) && hasStoredStateChanged(current, previous),
 		async effect(action, api) {
-			// Avoids loops.
-			if (isStorageAction(action)) {
-				return;
-			}
-
 			// Avoids storing state until the app is fully
 			// loaded, as it would overwrite any saved
 			// state before it is even loaded.
