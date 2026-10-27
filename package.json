@@ -34,7 +34,6 @@
     "@rspack/core": "^1.7.12",
     "@types/node": "^24.19.2",
     "@types/preact-custom-element": "^4.0.4",
-    "@types/wcag-contrast": "^3.0.3",
     "@types/webextension-polyfill": "^0.12.6",
     "commander": "^13.1.0",
     "css-loader": "^7.1.5",
@@ -49,14 +48,12 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.13.0",
     "classnames": "^2.5.1",
-    "color-string": "^2.1.4",
     "debounce": "^2.2.0",
     "lucide-react": "^0.482.0",
     "preact": "^10.29.8",
     "preact-custom-element": "^4.6.0",
     "react-intl": "^7.1.14",
-    "react-redux": "^9.3.0",
-    "wcag-contrast": "^3.0.0"
+    "react-redux": "^9.3.0"
   },
   "volta": {
     "node": "24.22.1"

@@ -490,7 +490,12 @@ Versions from `npm outdated` on 2026-10-27.
 
 ### D3 - Native color handling {#d3}
 
-- [ ] Done
+- [x] Done: [color.ts](../src/common/utils/color.ts) validates with
+      `CSS.supports()` and parses by painting a pixel on a 1×1 canvas, which
+      handles any CSS color (named, `oklch()`…). `contrastRatio()` therefore
+      accepts any valid color, not only hex, and returns `NaN` for invalid ones
+      (no ratio displayed, as before). Alpha is still ignored, approximately for
+      translucent colors.
 
 - `wcag-contrast`: about 15 lines of formula, can be inlined in
   [color.ts](../src/common/utils/color.ts).
