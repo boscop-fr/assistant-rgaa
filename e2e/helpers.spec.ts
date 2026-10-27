@@ -68,4 +68,15 @@ test('should extract headings hierarchy', async ({helpersPage: page}) => {
 			{level: 3, text: 'Heading 3'}
 		]
 	});
+
+	await page.addNestedHeading();
+
+	await page.expectNextSentMessage('runtime', {
+		type: 'helpers/headingsHierarchy/set',
+		payload: [
+			{level: 1, text: 'Heading 1'},
+			{level: 3, text: 'Heading 3'},
+			{level: 4, text: 'Heading 4'}
+		]
+	});
 });

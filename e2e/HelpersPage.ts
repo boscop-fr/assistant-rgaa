@@ -34,4 +34,12 @@ export default class HelpersPage extends ExtensionPage {
 			document.querySelector('h2')?.remove();
 		});
 	}
+
+	async addNestedHeading() {
+		await this.page.evaluate(() => {
+			const heading = document.createElement('h4');
+			heading.textContent = 'Heading 4';
+			document.querySelector('#nested-headings')?.appendChild(heading);
+		});
+	}
 }

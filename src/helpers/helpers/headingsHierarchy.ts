@@ -35,10 +35,12 @@ export default createHelper({
 
 			browser.runtime.onMessage.addListener(handleMessage);
 
-			const observer = new MutationObserver(debounce(sendHierarchy, 100));
+			const debouncedSendHierarchy = debounce(sendHierarchy, 100);
+			const observer = new MutationObserver(debouncedSendHierarchy);
 
 			observer.observe(document.body, {
-				childList: true
+				childList: true,
+				subtree: true
 			});
 
 			// We're sending the hierarchy once at start,
@@ -49,6 +51,7 @@ export default createHelper({
 			return () => {
 				browser.runtime.onMessage.removeListener(handleMessage);
 				observer.disconnect();
+				debouncedSendHierarchy.clear();
 			};
 		};
 	}
