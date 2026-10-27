@@ -1,4 +1,4 @@
-import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {type PayloadAction, createAction, createSlice} from '@reduxjs/toolkit';
 import type {HelpersByTest, Test} from '../../common/types';
 import type {Helper} from '../../helpers/types';
 
@@ -58,3 +58,6 @@ export const {
 } = selectors;
 
 export default reducer;
+
+// Helpers can be sent to the page.
+export const helpersReady = createAction('helpers/ready');

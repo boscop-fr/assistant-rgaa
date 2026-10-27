@@ -1,7 +1,10 @@
 import type {ListenerEffectAPI} from '@reduxjs/toolkit';
-import {helpersReady} from '../../background/slices/runtime';
 import type {AppStartListening} from '../middlewares/listener';
-import {removeGlobalHelper, setGlobalHelper} from '../slices/helpers';
+import {
+	helpersReady,
+	removeGlobalHelper,
+	setGlobalHelper
+} from '../slices/helpers';
 import {selectAreStylesEnabled, toggleStyles} from '../slices/styles';
 import type {AppDispatch, AppState} from '../store';
 

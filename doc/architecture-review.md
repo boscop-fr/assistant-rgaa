@@ -401,7 +401,10 @@ function changing the page and returning its revert.
 
 ### S1 - Empty reducers used as action creators {#s1}
 
-- [ ] Done
+- [x] Done: `toggleCriterion` and `togglePopup` use `createAction` (same types).
+      `applyHelpers` / `revertActiveHelpers` moved in H1. `helpersReady`, now
+      only used inside the panel, moved from `runtime.ts` to
+      [slices/helpers.ts](../src/panel/slices/helpers.ts).
 
 - Where: `toggleCriterion` ([criteria.ts](../src/panel/slices/criteria.ts)),
   `togglePopup` ([panel.ts](../src/panel/slices/panel.ts)), `applyHelpers` and

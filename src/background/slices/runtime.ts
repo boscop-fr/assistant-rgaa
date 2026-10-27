@@ -16,7 +16,6 @@ export const viewPageSource = createAction<{url: string}>(
 );
 export const createTab = createAction<{url: string}>('runtime/createTab');
 export const appLoaded = createAction<{tabId: number}>('runtime/appLoaded');
-export const helpersReady = createAction('runtime/helpersReady');
 
 // Name of the port connecting a panel to the content
 // scripts of its target tab.

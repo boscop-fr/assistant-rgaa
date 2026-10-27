@@ -1,4 +1,4 @@
-import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {type PayloadAction, createAction, createSlice} from '@reduxjs/toolkit';
 
 type PanelState = {
 	targetTabId: number;
@@ -28,8 +28,7 @@ const panelSlice = createSlice({
 		setTabInfo(state, {payload}: PayloadAction<{url: string; title: string}>) {
 			state.targetTabUrl = payload.url;
 			state.targetTabTitle = payload.title;
-		},
-		togglePopup() {}
+		}
 	},
 	selectors: {
 		selectTargetTabId(state) {
@@ -48,7 +47,8 @@ const panelSlice = createSlice({
 });
 
 const {actions, reducer, selectors} = panelSlice;
-export const {setTabIds, setTabInfo, togglePopup} = actions;
+export const {setTabIds, setTabInfo} = actions;
+export const togglePopup = createAction('panel/togglePopup');
 export const {
 	selectTargetTabId,
 	selectTargetTabTitle,

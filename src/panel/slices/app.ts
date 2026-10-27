@@ -4,14 +4,14 @@ import {
 	createSlice
 } from '@reduxjs/toolkit';
 import browser from 'webextension-polyfill';
-import {appLoaded, helpersReady} from '../../background/slices/runtime';
+import {appLoaded} from '../../background/slices/runtime';
 import type {AppState as StoreState} from '../store';
 import {fetchHelpers} from '../utils/helpers';
 import {fetchInstructions} from '../utils/instructions';
 import {connectToTab} from '../utils/port';
 import {fetchReference, flattenReference} from '../utils/reference';
 import {resetResults} from './audit';
-import {setHelpers} from './helpers';
+import {helpersReady, setHelpers} from './helpers';
 import {setInstructions} from './instructions';
 import {selectTargetTabId, setTabInfo} from './panel';
 import {selectVersion, setReferenceData} from './reference';

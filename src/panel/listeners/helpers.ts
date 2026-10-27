@@ -3,10 +3,10 @@ import {
 	type UnknownAction,
 	isAnyOf
 } from '@reduxjs/toolkit';
-import {helpersReady} from '../../background/slices/runtime';
 import {applyHelpers, revertActiveHelpers} from '../../helpers/slices/helpers';
 import type {AppStartListening} from '../middlewares/listener';
 import {
+	helpersReady,
 	removeGlobalHelper,
 	selectGlobalHelpers,
 	selectHelpersByTests,
