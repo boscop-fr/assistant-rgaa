@@ -498,7 +498,8 @@ fine; the findings below are what stood out.
 
 ### U5 - Test checkbox may have no accessible name {#u5}
 
-- [ ] Done
+- [x] Done: `aria-label` on the checkbox, the label keeps its `title` (tooltip)
+      and padding (click area). The input `id` is used by e2e tests.
 
 - Where: [Test.tsx](../src/panel/components/Test.tsx).
 - Problem: the label wrapping the "apply" checkbox is empty and carries the
