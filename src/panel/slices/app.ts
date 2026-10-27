@@ -18,10 +18,12 @@ import {loadState} from './storage';
 
 type AppState = {
 	isLoading: boolean;
+	hasLoadError: boolean;
 };
 
 const initialState: AppState = {
-	isLoading: true
+	isLoading: true,
+	hasLoadError: false
 };
 
 const appSlice = createSlice({
@@ -30,18 +32,24 @@ const appSlice = createSlice({
 	reducers: {
 		setLoading(state, {payload: isLoading}: PayloadAction<boolean>) {
 			state.isLoading = isLoading;
+		},
+		setLoadError(state, {payload: hasError}: PayloadAction<boolean>) {
+			state.hasLoadError = hasError;
 		}
 	},
 	selectors: {
 		selectIsLoading(state) {
 			return state.isLoading;
+		},
+		selectHasLoadError(state) {
+			return state.hasLoadError;
 		}
 	}
 });
 
 const {actions, reducer, selectors} = appSlice;
-export const {setLoading} = actions;
-export const {selectIsLoading} = selectors;
+export const {setLoading, setLoadError} = actions;
+export const {selectIsLoading, selectHasLoadError} = selectors;
 
 export const loadReference = createAsyncThunk(
 	'app/loadReference',

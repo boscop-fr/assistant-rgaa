@@ -7,7 +7,7 @@ import {fetchCurrentTab, onTabMount} from '../common/utils/tabs';
 import {getOption} from '../options/utils/storage';
 import App from './components/App';
 import messages from './messages/fr';
-import {loadReference, loadTab, setLoading} from './slices/app';
+import {loadReference, loadTab, setLoadError, setLoading} from './slices/app';
 import {setTabIds} from './slices/panel';
 import {storeState} from './slices/storage';
 import {createStore} from './store';
@@ -42,10 +42,15 @@ const init = async () => {
 			.dispatch(loadTab())
 			.unwrap()
 			.then(() => {
+				store.dispatch(setLoadError(false));
 				store.dispatch(setLoading(false));
 			})
 			.catch((e) => {
+				// The app stays in a loading state, which prevents
+				// saving the state of the previous page under the
+				// key of the current one.
 				console.error(e);
+				store.dispatch(setLoadError(true));
 			});
 
 		return () => {

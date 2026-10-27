@@ -2,6 +2,8 @@ const messages = {
 	'Panel.toggle': 'Afficher le panneau Assistant RGAA',
 	'PanelIframe.title': 'Panneau Assistant RGAA',
 	'Header.title': 'Assistant RGAA',
+	'App.loadError':
+		"Impossible de charger l'état de cette page, les résultats ne seront pas sauvegardés. Rechargez la page ou rouvrez l'extension.",
 	'Header.options': 'Options',
 	'Header.help': 'Aide',
 	'Header.openPopup': 'Ouvrir dans une fenêtre',
