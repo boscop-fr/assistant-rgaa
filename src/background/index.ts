@@ -15,9 +15,8 @@ import {
 } from './slices/runtime';
 import {injectContentScripts} from './utils/content';
 import {closeSidebar, openSidebar, reloadSidebar} from './utils/sidebar';
+import {openWithSource} from './utils/source';
 import {PANEL_PAGE, captureVisibleTab} from './utils/tabs';
-import {validateLocalPage} from './utils/validateLocalPage';
-import {viewSource} from './utils/viewSource';
 
 // We're avoiding promises (and thus async/await) here,
 // because of a sneaky chrome bug.
@@ -61,11 +60,11 @@ browser.runtime.onMessage.addListener(
 				return captureVisibleTab();
 
 			case validatePage.match(message):
-				validateLocalPage(message.payload.url);
+				openWithSource('pages/validateLocalPage.html', message.payload.url);
 				break;
 
 			case viewPageSource.match(message):
-				viewSource(message.payload.url);
+				openWithSource('pages/viewSource.html', message.payload.url);
 				break;
 
 			case createTab.match(message):
