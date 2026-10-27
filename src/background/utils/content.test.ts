@@ -1,27 +1,28 @@
-import {beforeEach, describe, expect, jest, test} from '@jest/globals';
+import {beforeEach, describe, expect, test, vi} from 'vitest';
 
 // Simulates the isolated world of a single tab.
 let world: {rgaaExt?: boolean} = {};
 
 type Injection = {func?: () => unknown; files?: string[]};
 
-const executeScript = jest.fn(async ({func, files}: Injection) => {
-	if (files) {
-		return [];
-	}
+// Hoisted along with `vi.mock()`, which uses them.
+const {executeScript, insertCSS} = vi.hoisted(() => ({
+	executeScript: vi.fn(async ({func, files}: Injection) => {
+		if (files) {
+			return [];
+		}
 
-	const previous = globalThis.rgaaExt;
-	globalThis.rgaaExt = world.rgaaExt;
-	const result = func();
-	world.rgaaExt = globalThis.rgaaExt;
-	globalThis.rgaaExt = previous;
-	return [{result}];
-});
+		const previous = globalThis.rgaaExt;
+		globalThis.rgaaExt = world.rgaaExt;
+		const result = func();
+		world.rgaaExt = globalThis.rgaaExt;
+		globalThis.rgaaExt = previous;
+		return [{result}];
+	}),
+	insertCSS: vi.fn(async () => {})
+}));
 
-const insertCSS = jest.fn(async () => {});
-
-jest.mock('webextension-polyfill', () => ({
-	__esModule: true,
+vi.mock('webextension-polyfill', () => ({
 	default: {scripting: {executeScript, insertCSS}}
 }));
 

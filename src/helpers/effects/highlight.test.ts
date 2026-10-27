@@ -1,4 +1,4 @@
-import {describe, expect, jest, test} from '@jest/globals';
+import {describe, expect, test, vi} from 'vitest';
 import {highlightElementsEffect, mergeDisplays} from './highlight';
 
 describe('mergeDisplays', () => {
@@ -43,7 +43,7 @@ describe('highlightElementsEffect', () => {
 
 	test('skips invalid selectors', () => {
 		document.body.innerHTML = '<p id="p">Text</p>';
-		jest.spyOn(console, 'error').mockImplementation(() => {});
+		vi.spyOn(console, 'error').mockImplementation(() => {});
 
 		const revert = highlightElementsEffect([
 			{selector: '[invalid'},

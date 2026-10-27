@@ -384,7 +384,10 @@ function changing the page and returning its revert.
 
 ### T3 - Jest + jsdom friction {#t3}
 
-- [ ] Done
+- [x] Done: Vitest 5 with jsdom 30 (`vitest`, `vite`, `jsdom` replace the four
+      Jest packages). Vitest needs Node 22.12+, so volta now pins Node 24 (see
+      D1). Tests are no longer type checked by the runner; `lint:types` covers
+      them.
 
 - Where: [jest.config.js](../jest.config.js), 4 small test files.
 - Problem: four dependencies (`jest`, `ts-jest`, `jest-environment-jsdom`,
@@ -446,7 +449,7 @@ Versions from `npm outdated` on 2026-10-27.
 - Move `@rspack/core` to devDependencies, `color-string` and `wcag-contrast` to
   dependencies (they are bundled at runtime).
 - Node: volta pins 20.0.0 (end of life since April 2026) while CI uses `lts/*`.
-  Pin 22 or 24 in both.
+  Pin 22 or 24 in both. (Volta pinned to 24 in T3, CI still on `lts/*`.)
 
 ### D2 - Drop `webextension-polyfill` {#d2}
 
