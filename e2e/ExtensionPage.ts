@@ -1,5 +1,5 @@
 import {type Page, expect} from '@playwright/test';
-import type {Action} from 'redux';
+import type {Action} from '@reduxjs/toolkit';
 
 type ExtensionApi = 'runtime' | 'tabs' | 'storage';
 

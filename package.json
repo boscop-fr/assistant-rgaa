@@ -58,8 +58,7 @@
     "preact": "^10.26.4",
     "preact-custom-element": "^4.3.0",
     "react-intl": "^7.1.6",
-    "react-redux": "^9.2.0",
-    "redux": "^5.0.1"
+    "react-redux": "^9.2.0"
   },
   "volta": {
     "node": "20.0.0"

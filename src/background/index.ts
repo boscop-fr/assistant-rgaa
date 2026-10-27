@@ -1,4 +1,4 @@
-import {isAction} from 'redux';
+import {isAction} from '@reduxjs/toolkit';
 import browser from 'webextension-polyfill';
 import type {Runtime} from 'webextension-polyfill';
 import {fetchCurrentTab} from '../common/utils/tabs';
