@@ -93,15 +93,15 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 			const allHelpers = helpers.concat(globalHelpers);
 			const tabId = selectTargetTabId(api.getState());
 
-			try {
-				browser.tabs.sendMessage(
+			browser.tabs
+				.sendMessage(
 					tabId,
 					allHelpers.length ? applyHelpers(allHelpers) : revertActiveHelpers()
-				);
-			} catch (e) {
-				// Content scripts on the receiving end
-				// might not be loaded yet.
-			}
+				)
+				.catch(() => {
+					// Content scripts on the receiving end
+					// might not be loaded yet.
+				});
 		}
 	});
 };

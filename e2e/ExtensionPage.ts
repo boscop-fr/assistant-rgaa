@@ -49,7 +49,7 @@ export default class ExtensionPage {
 			globalThis.browser = {
 				runtime: {
 					id: 'playwright',
-					sendMessage(...args) {
+					async sendMessage(...args) {
 						pushMessage('runtime', args);
 					},
 					onMessage: {
@@ -107,7 +107,7 @@ export default class ExtensionPage {
 
 						return [];
 					},
-					sendMessage(...args) {
+					async sendMessage(...args) {
 						pushMessage('tabs', args);
 					},
 					onUpdated: {
