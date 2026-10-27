@@ -1,6 +1,6 @@
 import {
 	AppWindowIcon,
-	CircleHelpIcon,
+	CircleQuestionMarkIcon,
 	DatabaseBackupIcon,
 	SettingsIcon
 } from 'lucide-react';
@@ -80,7 +80,7 @@ const Header = () => {
 					title={helpTitle}
 					rel="noreferrer"
 				>
-					<Icon icon={CircleHelpIcon} title={helpTitle} />
+					<Icon icon={CircleQuestionMarkIcon} title={helpTitle} />
 				</a>
 			</div>
 

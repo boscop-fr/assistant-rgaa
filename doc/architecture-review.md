@@ -515,7 +515,9 @@ Versions from `npm outdated` on 2026-10-27.
 
 ### D5 - Majors to plan {#d5}
 
-- [ ] Done
+- [x] Done: `react-intl` 12 and `lucide-react` 1.x, no code change apart from
+      `CircleHelpIcon` renamed to `CircleQuestionMarkIcon`. `@rspack/*` 2.x,
+      `preact` 11 and `typescript` 7 are still waiting.
 
 - `react-intl` 7 → 12: the biggest runtime dependency, for one locale. ICU
   messages (select/plural) justify keeping it. Leaves the content script with

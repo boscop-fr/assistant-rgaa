@@ -48,10 +48,10 @@
     "@reduxjs/toolkit": "^2.13.0",
     "classnames": "^2.5.1",
     "debounce": "^2.2.0",
-    "lucide-react": "^0.482.0",
+    "lucide-react": "^1.62.0",
     "preact": "^10.29.8",
     "preact-custom-element": "^4.6.0",
-    "react-intl": "^7.1.14",
+    "react-intl": "^12.1.6",
     "react-redux": "^9.3.0"
   },
   "volta": {
