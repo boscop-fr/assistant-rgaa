@@ -1,4 +1,3 @@
-import {hashCode} from '../../common/utils/strings';
 import {createHelper} from '../utils/createHelper';
 
 type StyleOptions = {
@@ -22,14 +21,12 @@ export default createHelper({
 	},
 	apply({style}) {
 		return () => {
-			const id = hashCode(style);
 			const tag = document.createElement('style');
-			tag.id = id;
-			tag.innerText = style;
+			tag.textContent = style;
 			document.head.insertAdjacentElement('beforeend', tag);
 
 			return () => {
-				document.getElementById(id).remove();
+				tag.remove();
 			};
 		};
 	}
