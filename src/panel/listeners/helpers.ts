@@ -3,8 +3,7 @@ import {
 	type UnknownAction,
 	isAnyOf
 } from '@reduxjs/toolkit';
-import browser from 'webextension-polyfill';
-import {helpersReady, tabAction} from '../../background/slices/runtime';
+import {helpersReady} from '../../background/slices/runtime';
 import type {AppStartListening} from '../middlewares/listener';
 import {
 	applyHelpers,
@@ -14,35 +13,12 @@ import {
 	selectHelpersByTests,
 	setGlobalHelper
 } from '../slices/helpers';
-import {selectTargetTabId} from '../slices/panel';
 import {selectEnabledTestIds, toggleTest} from '../slices/tests';
 import type {AppDispatch, AppState} from '../store';
 import {debounceListener, pollEffect} from '../utils/listeners';
+import {sendToTab} from '../utils/port';
 
 export const addHelpersListeners = (startListening: AppStartListening) => {
-	// Dispatches actions received from the background script
-	// to the store.
-	startListening({
-		predicate: () => true,
-		effect: pollEffect(
-			browser.runtime.onMessage.addListener,
-			(api, message) => {
-				if (
-					!tabAction.match(message) ||
-					!helpersReady.match(message.payload.action)
-				) {
-					return;
-				}
-
-				const tabId = selectTargetTabId(api.getState());
-
-				if (message.payload.tabId === tabId) {
-					api.dispatch(message.payload.action);
-				}
-			}
-		)
-	});
-
 	startListening({
 		predicate: () => true,
 		effect: pollEffect(
@@ -57,10 +33,7 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 					// switches tab, but it is the only reliable
 					// method.
 					case 'hidden':
-						browser.tabs.sendMessage(
-							selectTargetTabId(api.getState()),
-							revertActiveHelpers()
-						);
+						sendToTab(revertActiveHelpers());
 						break;
 
 					// Reapplies helpers when the panel becomes
@@ -91,17 +64,10 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 			const helpers = selectHelpersByTests(state, ids);
 			const globalHelpers = selectGlobalHelpers(state);
 			const allHelpers = helpers.concat(globalHelpers);
-			const tabId = selectTargetTabId(api.getState());
 
-			browser.tabs
-				.sendMessage(
-					tabId,
-					allHelpers.length ? applyHelpers(allHelpers) : revertActiveHelpers()
-				)
-				.catch(() => {
-					// Content scripts on the receiving end
-					// might not be loaded yet.
-				});
+			sendToTab(
+				allHelpers.length ? applyHelpers(allHelpers) : revertActiveHelpers()
+			);
 		}
 	});
 };

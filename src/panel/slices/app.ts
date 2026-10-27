@@ -4,10 +4,11 @@ import {
 	createSlice
 } from '@reduxjs/toolkit';
 import browser from 'webextension-polyfill';
-import {appLoaded} from '../../background/slices/runtime';
+import {appLoaded, helpersReady} from '../../background/slices/runtime';
 import type {AppState as StoreState} from '../store';
 import {fetchHelpers} from '../utils/helpers';
 import {fetchInstructions} from '../utils/instructions';
+import {connectToTab} from '../utils/port';
 import {fetchReference, flattenReference} from '../utils/reference';
 import {resetResults} from './audit';
 import {setHelpers} from './helpers';
@@ -91,7 +92,19 @@ export const loadTab = createAsyncThunk('app/loadTab', async (_, api) => {
 	// the according state.
 	await api.dispatch(loadState()).unwrap();
 
-	browser.runtime.sendMessage(appLoaded({tabId}));
+	try {
+		// Resolves once content scripts are injected.
+		await browser.runtime.sendMessage(appLoaded({tabId}));
+	} catch (e) {
+		// Content scripts can't be injected in some pages
+		// (i.e. browser pages), which shouldn't prevent the
+		// panel from working.
+		console.warn(e);
+		return;
+	}
+
+	connectToTab(tabId);
+	api.dispatch(helpersReady());
 });
 
 export default reducer;

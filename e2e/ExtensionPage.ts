@@ -1,7 +1,7 @@
 import {type Page, expect} from '@playwright/test';
 import type {Action} from '@reduxjs/toolkit';
 
-type ExtensionApi = 'runtime' | 'tabs' | 'storage';
+type ExtensionApi = 'runtime' | 'tabs' | 'storage' | 'connect' | 'port';
 
 export default class ExtensionPage {
 	protected readonly page: Page;
@@ -37,6 +37,43 @@ export default class ExtensionPage {
 				globalThis.sentMessages[api].push(args);
 			};
 
+			// Fake port, kept as the current one. Messages posted
+			// by the page are recorded as sent on the 'port' API.
+			// Tests can deliver messages to the page through
+			// `receive()`, and disconnect it through `close()`.
+			globalThis.createPort = (name) => {
+				const messageListeners = new Set();
+				const disconnectListeners = new Set();
+				const port = {
+					name,
+					postMessage(message) {
+						pushMessage('port', [message]);
+					},
+					disconnect() {},
+					onMessage: {
+						addListener: (listener) => messageListeners.add(listener),
+						removeListener: (listener) => messageListeners.delete(listener)
+					},
+					onDisconnect: {
+						addListener: (listener) => disconnectListeners.add(listener),
+						removeListener: (listener) => disconnectListeners.delete(listener)
+					},
+					receive(message) {
+						for (const listener of messageListeners) {
+							listener(message, port);
+						}
+					},
+					close() {
+						for (const listener of disconnectListeners) {
+							listener(port);
+						}
+					}
+				};
+
+				globalThis.port = port;
+				return port;
+			};
+
 			// This tricks the webext polyfill into considering the
 			// page as having an extension context.
 			globalThis.chrome = {
@@ -51,6 +88,14 @@ export default class ExtensionPage {
 					id: 'playwright',
 					async sendMessage(...args) {
 						pushMessage('runtime', args);
+					},
+					onConnect: {
+						addListener(listener) {
+							pushListener('connect', listener);
+						},
+						removeListener(listener) {
+							removeListener('connect', listener);
+						}
 					},
 					onMessage: {
 						addListener(listener) {
@@ -110,6 +155,9 @@ export default class ExtensionPage {
 					async sendMessage(...args) {
 						pushMessage('tabs', args);
 					},
+					connect(tabId, {name}) {
+						return globalThis.createPort(name);
+					},
 					onUpdated: {
 						addListener(listener) {
 							pushListener('tabs', listener);
@@ -142,6 +190,30 @@ export default class ExtensionPage {
 			},
 			[api, args] as const
 		);
+	}
+
+	// Opens a port to the page, as a panel would.
+	async connect(name = 'panel') {
+		return this.page.evaluate((n) => {
+			const port = globalThis.createPort(n);
+
+			for (const listener of globalThis.messageListeners.connect ?? []) {
+				listener(port);
+			}
+		}, name);
+	}
+
+	// Delivers a message to the page through the current port.
+	async postToPort(message: unknown) {
+		return this.page.evaluate((m) => {
+			globalThis.port.receive(m);
+		}, message);
+	}
+
+	async disconnectPort() {
+		return this.page.evaluate(() => {
+			globalThis.port.close();
+		});
 	}
 
 	// Notifies listeners that an option changed in the local

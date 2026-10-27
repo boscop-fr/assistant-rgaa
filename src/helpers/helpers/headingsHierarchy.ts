@@ -4,6 +4,7 @@ import HeadingsHierarchy from '../components/HeadingsHierarchy';
 import {getHierarchy, setHierarchy} from '../slices/headingsHierarchy';
 import {createHelper} from '../utils/createHelper';
 import getHeadingsHierarchy from '../utils/getHeadingsHierarchy';
+import {sendToPanel} from '../utils/panel';
 
 type HeadingsHierarchyOptions = {
 	// Whether or not to report missing heading levels.
@@ -24,7 +25,7 @@ export default createHelper({
 	apply() {
 		return () => {
 			const sendHierarchy = () => {
-				browser.runtime.sendMessage(setHierarchy(getHeadingsHierarchy()));
+				sendToPanel(setHierarchy(getHeadingsHierarchy()));
 			};
 
 			// Answers requests with the current hierarchy.

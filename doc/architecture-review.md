@@ -141,7 +141,15 @@ affected: a message wakes the service worker up.
 
 ### M2 - Broadcasts reach every extension page {#m2}
 
-- [ ] Done
+- [x] Done
+
+  The panel connects with `tabs.connect()` once `appLoaded` answers (the
+  background answers when scripts are injected), then sends helpers over the
+  port. The page pushes headings updates through it. The `helpersReady`
+  broadcast sent by the page on load is gone: connecting is the signal. Port
+  handling lives in [panel/utils/port.ts](../src/panel/utils/port.ts) and
+  [helpers/utils/panel.ts](../src/helpers/utils/panel.ts). Injection failures
+  (browser pages) are logged without failing the tab loading.
 
 - Where: every `browser.runtime.sendMessage` from content scripts and the
   background.

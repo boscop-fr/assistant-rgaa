@@ -16,15 +16,12 @@ test('should toggle styles', async ({helpersPage: page}) => {
 	await expect(page.elementHiddenViaStyleTag).toBeHidden();
 	await expect(page.elementHiddenViaStyleAttribute).toBeHidden();
 
-	await page.sendMessage(
-		'runtime',
-		applyHelpers([{helper: 'disableAllStyles'}])
-	);
+	await page.postToPort(applyHelpers([{helper: 'disableAllStyles'}]));
 	await expect(page.elementHiddenViaStyleSheet).toBeVisible();
 	await expect(page.elementHiddenViaStyleTag).toBeVisible();
 	await expect(page.elementHiddenViaStyleAttribute).toBeVisible();
 
-	await page.sendMessage('runtime', revertActiveHelpers());
+	await page.postToPort(revertActiveHelpers());
 	await expect(page.elementHiddenViaStyleSheet).toBeHidden();
 	await expect(page.elementHiddenViaStyleTag).toBeHidden();
 	await expect(page.elementHiddenViaStyleAttribute).toBeHidden();
@@ -33,13 +30,12 @@ test('should toggle styles', async ({helpersPage: page}) => {
 test('should apply helpers along with helpers without effects', async ({
 	helpersPage: page
 }) => {
-	await page.sendMessage(
-		'runtime',
+	await page.postToPort(
 		applyHelpers([{helper: 'viewSource'}, {helper: 'disableAllStyles'}])
 	);
 	await expect(page.elementHiddenViaStyleSheet).toBeVisible();
 
-	await page.sendMessage('runtime', revertActiveHelpers());
+	await page.postToPort(revertActiveHelpers());
 	await expect(page.elementHiddenViaStyleSheet).toBeHidden();
 });
 
@@ -48,8 +44,7 @@ test('should answer requests from the helper handling them', async ({
 }) => {
 	// The color contrast helper listens to messages too, and
 	// must not answer the ones it doesn't handle.
-	await page.sendMessage(
-		'runtime',
+	await page.postToPort(
 		applyHelpers([{helper: 'colorContrast'}, {helper: 'headingsHierarchy'}])
 	);
 
@@ -61,12 +56,9 @@ test('should answer requests from the helper handling them', async ({
 });
 
 test('should extract headings hierarchy', async ({helpersPage: page}) => {
-	await page.sendMessage(
-		'runtime',
-		applyHelpers([{helper: 'headingsHierarchy'}])
-	);
+	await page.postToPort(applyHelpers([{helper: 'headingsHierarchy'}]));
 
-	await page.expectNextSentMessage('runtime', {
+	await page.expectNextSentMessage('port', {
 		type: 'helpers/headingsHierarchy/set',
 		payload: [
 			{level: 1, text: 'Heading 1'},
@@ -75,13 +67,10 @@ test('should extract headings hierarchy', async ({helpersPage: page}) => {
 		]
 	});
 
-	await page.sendMessage('runtime', revertActiveHelpers());
-	await page.sendMessage(
-		'runtime',
-		applyHelpers([{helper: 'headingsHierarchy'}])
-	);
+	await page.postToPort(revertActiveHelpers());
+	await page.postToPort(applyHelpers([{helper: 'headingsHierarchy'}]));
 
-	await page.expectNextSentMessage('runtime', {
+	await page.expectNextSentMessage('port', {
 		type: 'helpers/headingsHierarchy/set',
 		payload: [
 			{level: 1, text: 'Heading 1'},
@@ -92,7 +81,7 @@ test('should extract headings hierarchy', async ({helpersPage: page}) => {
 
 	await page.removeIntermediateHeading();
 
-	await page.expectNextSentMessage('runtime', {
+	await page.expectNextSentMessage('port', {
 		type: 'helpers/headingsHierarchy/set',
 		payload: [
 			{level: 1, text: 'Heading 1'},
@@ -102,7 +91,7 @@ test('should extract headings hierarchy', async ({helpersPage: page}) => {
 
 	await page.addNestedHeading();
 
-	await page.expectNextSentMessage('runtime', {
+	await page.expectNextSentMessage('port', {
 		type: 'helpers/headingsHierarchy/set',
 		payload: [
 			{level: 1, text: 'Heading 1'},

@@ -14,8 +14,7 @@ const test = baseTest.extend<{panelPage: PanelPage}>({
 test('should toggle styles', async ({panelPage: page}) => {
 	await page.toggleCssButton.click();
 	await page.expectNextSentMessage(
-		'tabs',
-		'current',
+		'port',
 		applyHelpers([
 			{
 				helper: disableAllStyles.name
@@ -24,7 +23,7 @@ test('should toggle styles', async ({panelPage: page}) => {
 	);
 
 	await page.toggleCssButton.click();
-	await page.expectNextSentMessage('tabs', 'current', revertActiveHelpers());
+	await page.expectNextSentMessage('port', revertActiveHelpers());
 });
 
 test('should keep results when switching reference version', async ({

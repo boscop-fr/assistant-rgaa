@@ -4,12 +4,12 @@ import {FormattedMessage} from 'react-intl';
 import {useSelector} from 'react-redux';
 import browser from 'webextension-polyfill';
 import {selectTargetTabId} from '../../panel/slices/panel';
+import {onTabMessage} from '../../panel/utils/port';
 import {getHierarchy, setHierarchy} from '../slices/headingsHierarchy';
 import {
 	type HeadingHierarchyNode,
 	withMissingHeadings
 } from '../utils/getHeadingsHierarchy';
-import {useTabAction} from '../utils/hooks';
 
 type HeadingsHierarchyProps = {
 	showMissing?: boolean;
@@ -20,11 +20,15 @@ const HeadingsHierarchy = ({showMissing}: HeadingsHierarchyProps) => {
 	const [items, setItems] = useState<HeadingHierarchyNode[]>([]);
 	const allItems = showMissing ? withMissingHeadings(items) : items;
 
-	useTabAction(tabId, (action) => {
-		if (setHierarchy.match(action)) {
-			setItems(action.payload);
-		}
-	});
+	useEffect(
+		() =>
+			onTabMessage((action) => {
+				if (setHierarchy.match(action)) {
+					setItems(action.payload);
+				}
+			}),
+		[]
+	);
 
 	useEffect(() => {
 		browser.tabs

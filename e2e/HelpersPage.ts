@@ -15,6 +15,9 @@ export default class HelpersPage extends ExtensionPage {
 		await this.page.addStyleTag({
 			path: 'e2e/helpers.css'
 		});
+
+		// Connects as a panel would once scripts are injected.
+		await this.connect();
 	}
 
 	get elementHiddenViaStyleSheet() {

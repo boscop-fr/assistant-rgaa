@@ -21,3 +21,7 @@ export const helpersReady = createAction('runtime/helpersReady');
 export const tabAction = createAction<{tabId: number; action: Action}>(
 	'runtime/tabAction'
 );
+
+// Name of the port connecting a panel to the content
+// scripts of its target tab.
+export const PANEL_PORT = 'panel';

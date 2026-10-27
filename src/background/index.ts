@@ -52,9 +52,10 @@ browser.runtime.onMessage.addListener(
 				openSidebar(message.payload.tabId);
 				break;
 
+			// Answers once scripts are injected, so the panel
+			// can connect to them.
 			case appLoaded.match(message):
-				injectContentScripts(message.payload.tabId);
-				break;
+				return injectContentScripts(message.payload.tabId).then(() => {});
 
 			case captureCurrentTab.match(message):
 				return captureVisibleTab();
