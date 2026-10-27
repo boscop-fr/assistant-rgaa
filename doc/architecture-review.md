@@ -161,7 +161,11 @@ affected: a message wakes the service worker up.
 
 ### M3 - Generic relay in the background {#m3}
 
-- [ ] Done
+- [x] Done
+
+  The relay, `tabAction` and `useTabAction` are deleted. `helpersReady` is now
+  only dispatched inside the panel, but still lives in
+  [runtime.ts](../src/background/slices/runtime.ts): move it with S1.
 
 - Where: [background/index.ts](../src/background/index.ts) (case
   `isAction(message) && !!sender?.tab?.id`), `tabAction` in

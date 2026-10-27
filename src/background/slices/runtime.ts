@@ -1,4 +1,4 @@
-import {type Action, createAction} from '@reduxjs/toolkit';
+import {createAction} from '@reduxjs/toolkit';
 
 // Runtime message types.
 // These are not used inside redux but through the extension
@@ -17,10 +17,6 @@ export const viewPageSource = createAction<{url: string}>(
 export const createTab = createAction<{url: string}>('runtime/createTab');
 export const appLoaded = createAction<{tabId: number}>('runtime/appLoaded');
 export const helpersReady = createAction('runtime/helpersReady');
-
-export const tabAction = createAction<{tabId: number; action: Action}>(
-	'runtime/tabAction'
-);
 
 // Name of the port connecting a panel to the content
 // scripts of its target tab.
