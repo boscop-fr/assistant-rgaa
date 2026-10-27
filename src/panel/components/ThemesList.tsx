@@ -15,7 +15,7 @@ import {
 	TablePropertiesIcon,
 	TextCursorInputIcon
 } from 'lucide-react';
-import React, {useRef} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {FormattedMessage} from 'react-intl';
 import type {Theme} from '../../common/types';
 import {selectAllThemes} from '../slices/reference';
@@ -42,9 +42,11 @@ const ThemesList = () => {
 	const themes = useAppSelector(selectAllThemes);
 	const popoverRef = useRef<HTMLUListElement>();
 
-	useAnchorEvent(() => {
-		popoverRef.current.hidePopover();
-	});
+	useAnchorEvent(
+		useCallback(() => {
+			popoverRef.current.hidePopover();
+		}, [])
+	);
 
 	return (
 		<div className="ThemesList">

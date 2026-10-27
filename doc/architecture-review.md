@@ -459,7 +459,7 @@ fine; the findings below are what stood out.
 
 ### U2 - `useAnchorEvent` leaks a listener per render {#u2}
 
-- [ ] Done
+- [x] Done: the listener is added in a `useEffect` and removed on cleanup.
 
 - Where: `useAnchorEvent` in [hooks.ts](../src/panel/utils/hooks.ts), used by
   [ThemesList.tsx](../src/panel/components/ThemesList.tsx).
