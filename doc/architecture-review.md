@@ -205,7 +205,13 @@ affected: a message wakes the service worker up.
 
 ### M5 - Script injection check in the wrong world {#m5}
 
-- [ ] Done
+- [x] Done
+
+  Kept the flag rather than probing with `tabs.connect`, moved to the isolated
+  world, and read and set in a single `executeScript`. The flag is cleared if
+  injection fails, so it can be retried. Concurrent calls for a tab share the
+  injection in progress, so none answers before scripts are loaded (unit tested
+  in [content.test.ts](../src/background/utils/content.test.ts)).
 
 - Where: [content.ts](../src/background/utils/content.ts).
 - Problem: the `rgaaExt` flag is read and written in the `MAIN` world, while the
