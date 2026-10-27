@@ -249,13 +249,15 @@ function changing the page and returning its revert.
 ### H1 - One module, two runtimes {#h1}
 
 - [x] Done: option types and defaults in [types.ts](../src/helpers/types.ts),
-  effects in [src/helpers/helpers/](../src/helpers/helpers/), descriptions and
-  widgets in [src/panel/helpers/](../src/panel/helpers/). `dist/helpers.js`
-  went from 85 KB to 30 KB. `applyHelpers` / `revertActiveHelpers` moved to
-  [helpers/slices/helpers.ts](../src/helpers/slices/helpers.ts) (part of S1).
-  RTK's `createAction` and `isAction` (1.2 KB) are still bundled through the
-  shared messages; dropping them means replacing `createAction` for messages.
-  `createHelper` is gone, each helper is typed by its own options (part of H4).
+      effects in [src/helpers/helpers/](../src/helpers/helpers/), descriptions
+      and widgets in [src/panel/helpers/](../src/panel/helpers/).
+      `dist/helpers.js` went from 85 KB to 30 KB. `applyHelpers` /
+      `revertActiveHelpers` moved to
+      [helpers/slices/helpers.ts](../src/helpers/slices/helpers.ts) (part of
+      S1). RTK's `createAction` and `isAction` (1.2 KB) are still bundled
+      through the shared messages; dropping them means replacing `createAction`
+      for messages. `createHelper` is gone, each helper is typed by its own
+      options (part of H4).
 
 - Where: every file in [src/helpers/helpers/](../src/helpers/helpers/).
 - Problem: `describe` and `component` run in the panel, `apply` in the page.
@@ -272,7 +274,13 @@ function changing the page and returning its revert.
 
 ### H2 - Hidden global between highlight effects {#h2}
 
-- [ ] Done
+- [x] Done: `outline`, `showAttributes`, `showElement` and `showChildElements`
+      return a `Highlight` descriptor, from their own registry in
+      [helpers/index.ts](../src/helpers/helpers/index.ts).
+      `highlightElementsEffect(highlights)` merges them per element and target
+      (fixing the `@todo` collision) and renders them. `HighlightOptions` is
+      gone. An invalid selector is logged and skipped instead of breaking every
+      helper.
 
 - Where: [highlight.ts](../src/helpers/effects/highlight.ts)
   (`optionsByElement`, `@todo` about key collisions),

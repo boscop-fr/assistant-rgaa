@@ -1,4 +1,4 @@
-import {setHighlightOptionsEffect} from '../effects/highlight';
+import type {Highlight} from '../effects/highlight';
 import type {HelperOptions} from '../types';
 
 export default ({
@@ -8,10 +8,11 @@ export default ({
 	attributes,
 	showMissingAttributes,
 	showContent
-}: HelperOptions<'showElement'>) =>
-	setHighlightOptionsEffect(selector, (options) => {
-		options.showTag(showName);
-		options.showIfEmpty(showEmpty);
-		options.pushAttributes(attributes, showMissingAttributes);
-		options.showContent(showContent);
-	});
+}: HelperOptions<'showElement'>): Highlight => ({
+	selector,
+	tag: showName,
+	ifEmpty: showEmpty,
+	attributes,
+	missingAttributes: showMissingAttributes ? attributes : [],
+	content: showContent
+});
