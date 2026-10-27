@@ -1,5 +1,8 @@
 import {defineConfig, devices} from '@playwright/test';
 
+// Uncommon port to avoid clashing with other local tools.
+const baseURL = 'http://127.0.0.1:9876';
+
 export default defineConfig({
 	testDir: './e2e',
 	fullyParallel: true,
@@ -9,12 +12,12 @@ export default defineConfig({
 	timeout: 5000,
 	reporter: 'list',
 	use: {
-		baseURL: 'http://127.0.0.1:8080',
+		baseURL,
 		trace: 'on-first-retry'
 	},
 	webServer: {
-		command: 'npm run serve',
-		url: 'http://127.0.0.1:8080/dist/panel.js',
+		command: 'npm run serve -- --port 9876',
+		url: `${baseURL}/dist/panel.js`,
 		reuseExistingServer: !process.env.CI
 	},
 	projects: [

@@ -31,6 +31,14 @@ export default defineConfig({
 	// Dynamic imports (reference data) must be bundled up
 	// front, as an extension can't compile them on demand.
 	lazyCompilation: false,
+	// The dev server only serves files to e2e tests, which
+	// don't need reloading (and browsers block its websocket).
+	devServer: {
+		hot: false,
+		liveReload: false,
+		client: false,
+		webSocketServer: false
+	},
 	experiments: {
 		futureDefaults: true
 	},
