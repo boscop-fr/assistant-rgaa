@@ -46,7 +46,7 @@ const handleMessage = async (action: unknown) => {
 		case requestPixelColor.match(action):
 			try {
 				startPicking(PickingStates.pickingPixel);
-				const {clientX, clientY} = await waitForEvent('click');
+				const {clientX, clientY} = await waitForEvent('click', true);
 				setPickingState(PickingStates.processing);
 				const color = await captureCurrentTabPixel(clientX, clientY);
 				await browser.runtime.sendMessage(updateColor(color));
