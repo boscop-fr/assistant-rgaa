@@ -129,12 +129,16 @@ export default class ExtensionPage {
 		await this.page.goto('/');
 	}
 
+	// Calls every listener, and returns the first answer, as
+	// the browser does.
 	async sendMessage(api: ExtensionApi, ...args) {
 		return this.page.evaluate(
 			async ([k, v]) => {
-				for (const listener of globalThis.messageListeners[k]) {
-					listener(...v);
-				}
+				const answers = Array.from(globalThis.messageListeners[k]).map(
+					(listener) => listener(...v)
+				);
+
+				return answers.find((answer) => answer !== undefined);
 			},
 			[api, args] as const
 		);

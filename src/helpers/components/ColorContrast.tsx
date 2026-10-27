@@ -5,17 +5,15 @@ import browser from 'webextension-polyfill';
 import {contrastRatio} from '../../common/utils/color';
 import {selectTargetTabId} from '../../panel/slices/panel';
 import type {
+	ColorContrastStyle,
 	ColorExtractorConfig,
 	ColorInputConfig
 } from '../helpers/colorContrast';
 import {
 	requestPixelColor,
 	requestStyle,
-	requestTextColor,
-	updateColor,
-	updateStyle
+	requestTextColor
 } from '../slices/colorContrast';
-import {useTabAction} from '../utils/hooks';
 import ColorContrastField from './ColorContrastField';
 import ColorContrastResult from './ColorContrastResult';
 import ToggleButton from './ToggleButton';
@@ -26,9 +24,6 @@ type PickAction =
 	| ReturnType<typeof requestTextColor>
 	| ReturnType<typeof requestStyle>;
 
-// This whole thing is VERY obscure.
-// The communication between the widgets and the page
-// needs a proper refactoring to be more simple and robust.
 const usePicker = (extractor: ColorExtractorConfig) => {
 	const tabId = useSelector(selectTargetTabId);
 	const [pickerState, setPickerState] = useState<{
@@ -58,48 +53,44 @@ const usePicker = (extractor: ColorExtractorConfig) => {
 		}));
 	};
 
-	const pickColor = (name: ColorName, action: PickAction) => {
-		browser.tabs.sendMessage(tabId, action);
-		setPickerState((state) => ({
-			...state,
-			pickingName: name,
-			pickingAction: action
-		}));
-	};
+	// Asks the page to pick something, and waits for the
+	// picked value.
+	const pick = async <T,>(
+		pickingName: ColorName,
+		pickingAction: PickAction,
+		onPicked: (value: T) => void
+	) => {
+		setPickerState((state) => ({...state, pickingName, pickingAction}));
 
-	const pickPixel = (name: ColorName) => {
-		pickColor(name, requestPixelColor());
-	};
-
-	const pickText = (name: ColorName) => {
-		pickColor(name, requestTextColor());
-	};
-
-	const pickStyle = () => {
-		pickColor(null, requestStyle());
-	};
-
-	useTabAction(tabId, (action) => {
-		switch (true) {
-			case updateColor.match(action):
-				setPickerState((state) => ({
-					...state,
-					[state.pickingName]: action.payload,
-					pickingName: null,
-					pickingAction: null
-				}));
-				break;
-
-			case updateStyle.match(action):
-				setPickerState(() => ({
-					left: action.payload[extractor.left],
-					right: action.payload[extractor.right],
-					pickingName: null,
-					pickingAction: null
-				}));
-				break;
+		try {
+			onPicked((await browser.tabs.sendMessage(tabId, pickingAction)) as T);
+		} catch (e) {
+			// The page might have been reloaded or closed while
+			// picking.
+			console.error(e);
+		} finally {
+			setPickerState((state) => ({
+				...state,
+				pickingName: null,
+				pickingAction: null
+			}));
 		}
-	});
+	};
+
+	const pickPixel = (name: ColorName) =>
+		pick<string>(name, requestPixelColor(), (color) => setColor(name, color));
+
+	const pickText = (name: ColorName) =>
+		pick<string>(name, requestTextColor(), (color) => setColor(name, color));
+
+	const pickStyle = () =>
+		pick<ColorContrastStyle>(null, requestStyle(), (style) => {
+			setPickerState((state) => ({
+				...state,
+				left: style[extractor.left],
+				right: style[extractor.right]
+			}));
+		});
 
 	return {
 		setColor,

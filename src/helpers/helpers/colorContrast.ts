@@ -3,9 +3,7 @@ import ColorContrast from '../components/ColorContrast';
 import {
 	requestPixelColor,
 	requestStyle,
-	requestTextColor,
-	updateColor,
-	updateStyle
+	requestTextColor
 } from '../slices/colorContrast';
 import {createHelper} from '../utils/createHelper';
 import getSelectionStyle from '../utils/getSelectionStyle';
@@ -41,43 +39,41 @@ const stopPicking = () => {
 	restoreAttribute(document.querySelectorAll(selector), 'href');
 };
 
-const handleMessage = async (action: unknown) => {
+const withPicking = async <T>(state: string, pick: () => Promise<T>) => {
+	try {
+		startPicking(state);
+		return await pick();
+	} finally {
+		stopPicking();
+	}
+};
+
+// Answers picking requests with the picked value.
+// This must not return anything for other messages, as the
+// first listener returning a promise answers the message.
+const handleMessage = (action: unknown) => {
 	switch (true) {
 		case requestPixelColor.match(action):
-			try {
-				startPicking(PickingStates.pickingPixel);
+			return withPicking(PickingStates.pickingPixel, async () => {
 				const {clientX, clientY} = await waitForEvent('click', true);
 				setPickingState(PickingStates.processing);
-				const color = await captureCurrentTabPixel(clientX, clientY);
-				await browser.runtime.sendMessage(updateColor(color));
-			} finally {
-				stopPicking();
-			}
-			break;
+				return captureCurrentTabPixel(clientX, clientY);
+			});
 
 		case requestTextColor.match(action):
-			try {
-				startPicking(PickingStates.pickingText);
+			return withPicking(PickingStates.pickingText, async () => {
 				await waitForEvent('mouseup');
 				setPickingState(PickingStates.processing);
 				const {color} = await getSelectionStyle();
-				await browser.runtime.sendMessage(updateColor(color));
-			} finally {
-				stopPicking();
-			}
-			break;
+				return color;
+			});
 
 		case requestStyle.match(action):
-			try {
-				startPicking(PickingStates.pickingText);
+			return withPicking(PickingStates.pickingText, async () => {
 				await waitForEvent('mouseup');
 				setPickingState(PickingStates.processing);
-				const style = await getSelectionStyle();
-				await browser.runtime.sendMessage(updateStyle(style));
-			} finally {
-				stopPicking();
-			}
-			break;
+				return getSelectionStyle();
+			});
 	}
 };
 

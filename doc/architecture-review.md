@@ -118,7 +118,14 @@ affected: a message wakes the service worker up.
 
 ### M1 - Request/response built from two broadcasts {#m1}
 
-- [ ] Done
+- [x] Done
+
+  Color and style picking, and headings hierarchy requests, are answered through
+  the return value of `tabs.sendMessage`. Content script listeners must only
+  return a promise for the messages they handle: the first promise answers
+  (covered by an e2e test). Headings updates are still pushed by broadcast until
+  M2, including one when the helper is applied, as the panel may request the
+  hierarchy before that.
 
 - Where: [ColorContrast.tsx](../src/helpers/components/ColorContrast.tsx)
   (`usePicker`, comment "This whole thing is VERY obscure"),

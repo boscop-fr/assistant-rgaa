@@ -27,9 +27,13 @@ export default createHelper({
 				browser.runtime.sendMessage(setHierarchy(getHeadingsHierarchy()));
 			};
 
-			const handleMessage = async (action: unknown) => {
+			// Answers requests with the current hierarchy.
+			// This must not return anything for other messages,
+			// as the first listener returning a promise answers
+			// the message.
+			const handleMessage = (action: unknown) => {
 				if (getHierarchy.match(action)) {
-					sendHierarchy();
+					return Promise.resolve(getHeadingsHierarchy());
 				}
 			};
 
@@ -43,9 +47,9 @@ export default createHelper({
 				subtree: true
 			});
 
-			// We're sending the hierarchy once at start,
-			// without waiting for the requesting message,
-			// in case we missed it.
+			// We're sending the hierarchy once at start, as the
+			// panel might have requested it before this helper
+			// was applied.
 			sendHierarchy();
 
 			return () => {

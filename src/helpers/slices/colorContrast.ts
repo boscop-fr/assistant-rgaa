@@ -1,6 +1,7 @@
 import {createAction} from '@reduxjs/toolkit';
-import type {ColorContrastStyle} from '../helpers/colorContrast';
 
+// Requests sent to the page, which answers with the picked
+// color or style.
 export const requestPixelColor = createAction(
 	'helpers/colorContrast/requestPixelColor'
 );
@@ -10,10 +11,3 @@ export const requestTextColor = createAction(
 );
 
 export const requestStyle = createAction('helpers/colorContrast/requestStyle');
-export const updateColor = createAction<string>(
-	'helpers/colorContrast/updateColor'
-);
-
-export const updateStyle = createAction<ColorContrastStyle>(
-	'helpers/colorContrast/updateStyle'
-);
