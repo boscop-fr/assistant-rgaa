@@ -18,12 +18,14 @@ import {selectVersion, setReferenceData} from './reference';
 import {loadState, storeState} from './storage';
 
 type AppState = {
-	isLoading: boolean;
+	// Prevents saving the state while the stored one isn't
+	// loaded yet, as it would be overwritten.
+	isAutoSavePaused: boolean;
 	hasLoadError: boolean;
 };
 
 const initialState: AppState = {
-	isLoading: true,
+	isAutoSavePaused: true,
 	hasLoadError: false
 };
 
@@ -31,16 +33,16 @@ const appSlice = createSlice({
 	name: 'app',
 	initialState,
 	reducers: {
-		setLoading(state, {payload: isLoading}: PayloadAction<boolean>) {
-			state.isLoading = isLoading;
+		pauseAutoSave(state, {payload: isPaused}: PayloadAction<boolean>) {
+			state.isAutoSavePaused = isPaused;
 		},
 		setLoadError(state, {payload: hasError}: PayloadAction<boolean>) {
 			state.hasLoadError = hasError;
 		}
 	},
 	selectors: {
-		selectIsLoading(state) {
-			return state.isLoading;
+		selectIsAutoSavePaused(state) {
+			return state.isAutoSavePaused;
 		},
 		selectHasLoadError(state) {
 			return state.hasLoadError;
@@ -49,8 +51,8 @@ const appSlice = createSlice({
 });
 
 const {actions, reducer, selectors} = appSlice;
-export const {setLoading, setLoadError} = actions;
-export const {selectIsLoading, selectHasLoadError} = selectors;
+export const {pauseAutoSave, setLoadError} = actions;
+export const {selectIsAutoSavePaused, selectHasLoadError} = selectors;
 
 export const loadReference = createAsyncThunk(
 	'app/loadReference',
@@ -80,19 +82,18 @@ export const switchReferenceVersion = createAsyncThunk(
 	'app/switchReferenceVersion',
 	async (version: string, api) => {
 		// Saves the current state right away, as a pending
-		// auto save would be skipped while loading.
+		// auto save would be skipped while paused.
 		await api.dispatch(storeState()).unwrap();
 
-		// Loading blocks the auto save, which would otherwise
-		// overwrite the state stored for the new version
+		// The auto save would otherwise overwrite the state stored for the new version
 		// with an empty one.
-		api.dispatch(setLoading(true));
+		api.dispatch(pauseAutoSave(true));
 
 		try {
 			await api.dispatch(loadReference(version)).unwrap();
 			await api.dispatch(loadState()).unwrap();
 		} finally {
-			api.dispatch(setLoading(false));
+			api.dispatch(pauseAutoSave(false));
 		}
 	}
 );

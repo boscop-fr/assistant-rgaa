@@ -7,7 +7,12 @@ import {fetchCurrentTab, onTabMount} from '../common/utils/tabs';
 import {getOption} from '../options/utils/storage';
 import App from './components/App';
 import messages from './messages/fr';
-import {loadReference, loadTab, setLoadError, setLoading} from './slices/app';
+import {
+	loadReference,
+	loadTab,
+	pauseAutoSave,
+	setLoadError
+} from './slices/app';
 import {setTabIds} from './slices/panel';
 import {storeState} from './slices/storage';
 import {createStore} from './store';
@@ -39,16 +44,16 @@ const init = async () => {
 	await store.dispatch(loadReference(version)).unwrap();
 
 	onTabMount(targetTab.id, () => {
-		store.dispatch(setLoading(true));
+		store.dispatch(pauseAutoSave(true));
 		store
 			.dispatch(loadTab())
 			.unwrap()
 			.then(() => {
 				store.dispatch(setLoadError(false));
-				store.dispatch(setLoading(false));
+				store.dispatch(pauseAutoSave(false));
 			})
 			.catch((e) => {
-				// The app stays in a loading state, which prevents
+				// The auto save stays paused, which prevents
 				// saving the state of the previous page under the
 				// key of the current one.
 				console.error(e);

@@ -428,7 +428,7 @@ function changing the page and returning its revert.
 
 ### S3 - `isLoading` only blocks saving {#s3}
 
-- [ ] Done
+- [x] Done: renamed to `isAutoSavePaused`, set with `pauseAutoSave(boolean)`.
 
 - Where: [slices/app.ts](../src/panel/slices/app.ts).
 - Problem: the UI never shows it, its only role is preventing saves.

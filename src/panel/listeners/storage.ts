@@ -1,5 +1,5 @@
 import type {AppStartListening} from '../middlewares/listener';
-import {selectIsLoading} from '../slices/app';
+import {selectIsAutoSavePaused} from '../slices/app';
 import {helpersReady} from '../slices/helpers';
 import {
 	hasStoredStateChanged,
@@ -15,17 +15,16 @@ export const addStorageListeners = (startListening: AppStartListening) => {
 		predicate: (action, current, previous) =>
 			!stateLoaded.match(action) && hasStoredStateChanged(current, previous),
 		async effect(action, api) {
-			// Avoids storing state until the app is fully
-			// loaded, as it would overwrite any saved
-			// state before it is even loaded.
-			if (selectIsLoading(api.getState())) {
+			// Avoids overwriting the stored state before it
+			// is loaded.
+			if (selectIsAutoSavePaused(api.getState())) {
 				return;
 			}
 
 			await debounceListener(api, 50);
 
-			// Loading might have started in the meantime.
-			if (!selectIsLoading(api.getState())) {
+			// It might have been paused in the meantime.
+			if (!selectIsAutoSavePaused(api.getState())) {
 				api.dispatch(storeState());
 			}
 		}
