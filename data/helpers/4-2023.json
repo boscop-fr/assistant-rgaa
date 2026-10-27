@@ -206,7 +206,7 @@
 			"helper": "showAttributes",
 			"selector": "object[type^=\"image\"]",
 			"attributes": ["aria-hidden", "hidden"],
-			"showMissingAttributes": true
+			"showMissing": true
 		},
 		{
 			"helper": "showAttributes",
@@ -973,7 +973,7 @@
 			"helper": "showAttributes",
 			"selector": "iframe, frame",
 			"attributes": ["title", "src"],
-			"showMissingAttributes": true
+			"showMissing": true
 		},
 		{
 			"helper": "showAttributes",
@@ -991,7 +991,7 @@
 			"helper": "showAttributes",
 			"selector": "iframe, frame",
 			"attributes": ["title", "src"],
-			"showMissingAttributes": true
+			"showMissing": true
 		},
 		{
 			"helper": "showAttributes",

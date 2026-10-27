@@ -368,7 +368,12 @@ function changing the page and returning its revert.
 
 ### T2 - Helpers mapping JSON never validated {#t2}
 
-- [ ] Done
+- [x] Done: [data.test.ts](../src/helpers/data.test.ts) checks every mapping for
+      unknown helpers, unknown options and missing required options. The list of
+      options it checks against is typed so the compiler keeps it in sync with
+      the option types. It found `showMissingAttributes` instead of
+      `showMissing` on three `showAttributes` entries of 4-2023 (tests 1.2.3,
+      2.1.1, 2.2.1), which were silently ignored; fixed.
 
 - Where: [data/helpers/](../data/helpers/), cast `as HelpersByTest` in
   [panel/utils/helpers.ts](../src/panel/utils/helpers.ts).
