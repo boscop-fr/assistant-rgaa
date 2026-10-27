@@ -25,7 +25,11 @@ export const addStorageListeners = (startListening: AppStartListening) => {
 			}
 
 			await debounceListener(api, 50);
-			api.dispatch(storeState());
+
+			// Loading might have started in the meantime.
+			if (!selectIsLoading(api.getState())) {
+				api.dispatch(storeState());
+			}
 		}
 	});
 
