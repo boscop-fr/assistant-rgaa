@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, {useEffect, useState} from 'react';
-import {FormattedMessage} from 'react-intl';
-import {useSelector} from 'react-redux';
+import {FormattedMessage, useIntl} from 'react-intl';
 import {browser} from '../../../common/utils/webExtension';
 import {
 	getHierarchy,
@@ -12,6 +11,7 @@ import {
 	withMissingHeadings
 } from '../../../helpers/utils/getHeadingsHierarchy';
 import {selectTargetTabId} from '../../slices/panel';
+import {useAppSelector} from '../../utils/hooks';
 import {onTabMessage} from '../../utils/port';
 
 type HeadingsHierarchyProps = {
@@ -19,7 +19,8 @@ type HeadingsHierarchyProps = {
 };
 
 const HeadingsHierarchy = ({showMissing}: HeadingsHierarchyProps) => {
-	const tabId = useSelector(selectTargetTabId);
+	const intl = useIntl();
+	const tabId = useAppSelector(selectTargetTabId);
 	const [items, setItems] = useState<HeadingHierarchyNode[]>([]);
 	const allItems = showMissing ? withMissingHeadings(items) : items;
 
@@ -64,7 +65,7 @@ const HeadingsHierarchy = ({showMissing}: HeadingsHierarchyProps) => {
 						>
 							<span className="Label HeadingsHierarchy-level">{level}</span>
 							<span className="HeadingsHierarchy-text">
-								{text || 'Titre manquant'}
+								{text || intl.formatMessage({id: 'HeadingsHierarchy.missing'})}
 							</span>
 						</li>
 					))}

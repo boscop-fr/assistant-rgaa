@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
-import {useSelector} from 'react-redux';
 import {contrastRatio} from '../../../common/utils/color';
 import {browser} from '../../../common/utils/webExtension';
 import {
@@ -14,6 +13,7 @@ import type {
 	ColorInputConfig
 } from '../../../helpers/types';
 import {selectTargetTabId} from '../../slices/panel';
+import {useAppSelector} from '../../utils/hooks';
 import ColorContrastField from './ColorContrastField';
 import ColorContrastResult from './ColorContrastResult';
 import ToggleButton from './ToggleButton';
@@ -25,7 +25,7 @@ type PickAction =
 	| ReturnType<typeof requestStyle>;
 
 const usePicker = (extractor: ColorExtractorConfig) => {
-	const tabId = useSelector(selectTargetTabId);
+	const tabId = useAppSelector(selectTargetTabId);
 	const [pickerState, setPickerState] = useState<{
 		left: string;
 		right: string;

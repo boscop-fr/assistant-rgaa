@@ -34,7 +34,7 @@ const ColorContrastField = ({
 	const id = `ColorContrastField--${name}`;
 
 	return (
-		<div className="Form-field" key={name}>
+		<div className="Form-field">
 			<label className="Form-label" htmlFor={id}>
 				{label}
 			</label>

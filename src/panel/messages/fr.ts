@@ -53,10 +53,13 @@ const messages = {
 	'ExternalReferences.wcag.criteria': 'Critère(s) de succès:',
 	'ExternalReferences.wcag.techniques':
 		'Technique(s) suffisante(s) et/ou échec(s) (en anglais):',
-	'ExternalTool.linkTitle':
-		"Ouvrir l'outil (s'ouvre dans une nouvelle fenêtre)",
 	'HeadingsHierarchy.title': 'Hiérarchie de titres',
 	'HeadingsHierarchy.noItems': 'Aucun titre trouvé dans la page.',
+	'HeadingsHierarchy.missing': 'Titre manquant',
+	'HelperButton.title': '{name} (ouverture de page dans nouvelle fenêtre)',
+	'LocalPageValidator.name': 'Validateur W3C (HTML local)',
+	'LocalPageValidator.firefoxUnavailable': 'Fonctionnalité à venir sur Firefox',
+	'ViewSource.name': 'Voir les sources',
 	'Helper.addClassName': `
 		Ajoute une classe <code>{className}</code>
 		aux éléments <code>{selector}</code>

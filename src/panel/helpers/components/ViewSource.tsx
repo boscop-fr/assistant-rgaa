@@ -1,31 +1,25 @@
 import React from 'react';
-import {createTab, viewPageSource} from '../../../background/slices/runtime';
-import {isFirefox} from '../../../common/utils/browser';
+import {useIntl} from 'react-intl';
+import {viewPageSource} from '../../../background/slices/runtime';
 import {browser} from '../../../common/utils/webExtension';
 import {selectTargetTabUrl} from '../../slices/panel';
 import {useAppSelector} from '../../utils/hooks';
 import HelperButton from './HelperButton';
 
 const ViewSource = () => {
+	const intl = useIntl();
 	const tabUrl = useAppSelector(selectTargetTabUrl);
 
 	const handleViewSource = () => {
-		// On Firefox, we're opening a home-made page showing
-		// the source code as we can't open the `view-source`
-		// page directly.
-		// @TODO Move logic to the background script.
-		browser.runtime.sendMessage(
-			isFirefox(window.navigator.userAgent)
-				? viewPageSource({
-						url: tabUrl
-					})
-				: createTab({
-						url: `view-source:${tabUrl}`
-					})
-		);
+		browser.runtime.sendMessage(viewPageSource({url: tabUrl}));
 	};
 
-	return <HelperButton name="Voir les sources" onClick={handleViewSource} />;
+	return (
+		<HelperButton
+			name={intl.formatMessage({id: 'ViewSource.name'})}
+			onClick={handleViewSource}
+		/>
+	);
 };
 
 export default ViewSource;

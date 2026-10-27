@@ -1,3 +1,4 @@
+import {isFirefox} from '../common/utils/browser';
 import {fetchCurrentTab} from '../common/utils/tabs';
 import {answerMessages, browser} from '../common/utils/webExtension';
 import {
@@ -28,6 +29,11 @@ browser.action.onClicked.addListener((tab) => {
 browser.tabs.onActivated.addListener((tab) => {
 	reloadSidebar(tab.tabId);
 });
+
+const createTabNextToCurrent = (url: string) =>
+	fetchCurrentTab().then(({index}) =>
+		browser.tabs.create({url, index: index + 1})
+	);
 
 browser.runtime.onMessage.addListener(
 	answerMessages((message) => {
@@ -69,18 +75,18 @@ browser.runtime.onMessage.addListener(
 				openWithSource('pages/validateLocalPage.html', message.payload.url);
 				break;
 
+			// Firefox can't open `view-source:` pages, so we're
+			// opening a home-made page showing the source code.
 			case viewPageSource.match(message):
-				openWithSource('pages/viewSource.html', message.payload.url);
+				if (isFirefox()) {
+					openWithSource('pages/viewSource.html', message.payload.url);
+				} else {
+					createTabNextToCurrent(`view-source:${message.payload.url}`);
+				}
 				break;
 
 			case createTab.match(message):
-				fetchCurrentTab().then(({index}) => {
-					browser.tabs.create({
-						url: message.payload.url,
-						index: index + 1
-					});
-				});
-
+				createTabNextToCurrent(message.payload.url);
 				break;
 		}
 	})

@@ -1,4 +1,5 @@
 import React from 'react';
+import {useIntl} from 'react-intl';
 
 type HelperButtonProps = {
 	name: string;
@@ -12,18 +13,22 @@ const HelperButton = ({
 	title = '',
 	disabled = false,
 	onClick
-}: HelperButtonProps) => (
-	<div className="Widget HelperButton">
-		<button
-			className="Button"
-			type="button"
-			disabled={disabled}
-			onClick={onClick}
-			title={title || `${name} (ouverture de page dans nouvelle fenêtre)`}
-		>
-			{name}
-		</button>
-	</div>
-);
+}: HelperButtonProps) => {
+	const intl = useIntl();
+
+	return (
+		<div className="Widget HelperButton">
+			<button
+				className="Button"
+				type="button"
+				disabled={disabled}
+				onClick={onClick}
+				title={title || intl.formatMessage({id: 'HelperButton.title'}, {name})}
+			>
+				{name}
+			</button>
+		</div>
+	);
+};
 
 export default HelperButton;

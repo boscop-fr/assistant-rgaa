@@ -1,4 +1,5 @@
 import React from 'react';
+import {useIntl} from 'react-intl';
 import {validatePage} from '../../../background/slices/runtime';
 import {isFirefox} from '../../../common/utils/browser';
 import {browser} from '../../../common/utils/webExtension';
@@ -7,25 +8,27 @@ import {useAppSelector} from '../../utils/hooks';
 import HelperButton from './HelperButton';
 
 const LocalPageValidator = () => {
+	const intl = useIntl();
 	const tabUrl = useAppSelector(selectTargetTabUrl);
+	const name = intl.formatMessage({id: 'LocalPageValidator.name'});
 
 	const handleValidate = () => {
 		browser.runtime.sendMessage(validatePage({url: tabUrl}));
 	};
 
-	if (isFirefox(window.navigator.userAgent)) {
+	if (isFirefox()) {
 		return (
 			<HelperButton
-				name="Validateur W3C (HTML local)"
-				title="Fonctionnalité à venir sur Firefox"
+				name={name}
+				title={intl.formatMessage({
+					id: 'LocalPageValidator.firefoxUnavailable'
+				})}
 				disabled
 			/>
 		);
 	}
 
-	return (
-		<HelperButton name="Validateur W3C (HTML local)" onClick={handleValidate} />
-	);
+	return <HelperButton name={name} onClick={handleValidate} />;
 };
 
 export default LocalPageValidator;

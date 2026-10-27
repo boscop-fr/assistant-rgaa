@@ -75,7 +75,7 @@ const Header = () => {
 
 				<a
 					className="Header-action Link"
-					href="http://assistant-rgaa.boscop.fr/#fonctionnalites"
+					href="https://assistant-rgaa.boscop.fr/#fonctionnalites"
 					target="_blank"
 					title={helpTitle}
 					rel="noreferrer"

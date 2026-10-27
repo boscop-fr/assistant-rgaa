@@ -527,7 +527,10 @@ fine; the findings below are what stood out.
 
 ### U7 - Small cleanups {#u7}
 
-- [ ] Done
+- [x] Done: all items. Strings moved to `messages/fr.ts` (the unused
+      `ExternalTool.linkTitle` removed). The background picks the view source
+      path, `isFirefox` reads the global `navigator` to work in the service
+      worker.
 
 - [Icon.tsx](../src/panel/components/Icon.tsx): `Icon--${name}` reads the global
   `window.name` (no CSS uses `Icon--`), and `...props` is always empty.
