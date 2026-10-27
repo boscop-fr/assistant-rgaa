@@ -13,7 +13,7 @@ import {
 import {injectContentScripts} from './utils/content';
 import {closeSidebar, openSidebar, reloadSidebar} from './utils/sidebar';
 import {openWithSource} from './utils/source';
-import {PANEL_PAGE, captureVisibleTab} from './utils/tabs';
+import {captureVisibleTab, PANEL_PAGE} from './utils/tabs';
 
 // We're avoiding promises (and thus async/await) here,
 // because of a sneaky chrome bug.

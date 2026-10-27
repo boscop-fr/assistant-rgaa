@@ -29,7 +29,9 @@ const getHeadingLevel = (element: HTMLElement) => {
 };
 
 const getHeadingText = (element: HTMLElement) => {
+	// biome-ignore lint/performance/useDomNodeTextContent: rendered text is needed, without hidden content.
 	if (element.innerText) {
+		// biome-ignore lint/performance/useDomNodeTextContent: same as above.
 		return element.innerText;
 	}
 	// try to get text from potential img alts

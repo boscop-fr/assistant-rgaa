@@ -14,7 +14,7 @@ export const addStorageListeners = (startListening: AppStartListening) => {
 	startListening({
 		predicate: (action, current, previous) =>
 			!stateLoaded.match(action) && hasStoredStateChanged(current, previous),
-		async effect(action, api) {
+		async effect(_action, api) {
 			// Avoids overwriting the stored state before it
 			// is loaded.
 			if (selectIsAutoSavePaused(api.getState())) {
@@ -33,7 +33,7 @@ export const addStorageListeners = (startListening: AppStartListening) => {
 	// Reloads helpers whenever the state is loaded.
 	startListening({
 		actionCreator: stateLoaded,
-		effect(action, api) {
+		effect(_action, api) {
 			api.dispatch(helpersReady());
 		}
 	});

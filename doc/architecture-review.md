@@ -442,7 +442,16 @@ Versions from `npm outdated` on 2026-10-27.
 
 ### D1 - Safe updates {#d1}
 
-- [ ] Done
+- [x] Done: all listed updates (`ts-jest` was dropped in T3), Biome 2.6 and
+      web-ext 10. Biome 2 now lints HTML, Markdown, YAML and SVG: those stay
+      with prettier (or unchecked), as the RGAA fixtures are inaccessible on
+      purpose. `jsxRuntime: reactClassic` matches the tsconfig,
+      `noImportantStyles` is off (helper styles must win over the page's), and
+      the suppressions got reasons. `@types/react-dom` removed
+      (`react-dom/client` mapped to preact in tsconfig). Runtime packages moved
+      to `dependencies`, `@rspack/core` to `devDependencies`. Node 24 in both
+      volta and CI. Rspack 1.7's dev server compiles dynamic imports lazily,
+      which hung the panel in e2e tests: `lazyCompilation: false`.
 
 - Patch/minor, low risk: `@reduxjs/toolkit` 2.6 → 2.13, `react-redux` 9.3,
   `preact` 10.29, `preact-custom-element` 4.6, `color-string` 2.1, `css-loader`

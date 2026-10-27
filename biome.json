@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.6.3/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"ignore": []
+		"includes": ["**", "!**/*.html", "!**/*.md", "!**/*.yml", "!**/*.svg"]
 	},
 	"formatter": {
 		"bracketSpacing": false,
@@ -15,16 +15,18 @@
 		"indentStyle": "tab",
 		"lineWidth": 80
 	},
-	"organizeImports": {
-		"enabled": true
-	},
+	"assist": {"actions": {"source": {"organizeImports": "on"}}},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"preset": "recommended",
+			"complexity": {
+				"noImportantStyles": "off"
+			}
 		}
 	},
 	"javascript": {
+		"jsxRuntime": "reactClassic",
 		"formatter": {
 			"quoteStyle": "single",
 			"trailingCommas": "none"
@@ -37,7 +39,7 @@
 	},
 	"overrides": [
 		{
-			"include": ["package.json", "package-lock.json"],
+			"includes": ["**/package.json", "**/package-lock.json"],
 			"formatter": {
 				"indentStyle": "space",
 				"indentWidth": 2,
@@ -45,7 +47,7 @@
 			}
 		},
 		{
-			"include": ["src/options/components/OptionsForm.tsx"],
+			"includes": ["**/src/options/components/OptionsForm.tsx"],
 			"linter": {
 				"rules": {
 					"a11y": {

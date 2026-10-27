@@ -11,7 +11,7 @@ import {storeState} from '../slices/storage';
 export const addPanelListeners = (startListening: AppStartListening) => {
 	startListening({
 		actionCreator: togglePopup,
-		async effect(action, api) {
+		async effect(_action, api) {
 			const state = api.getState();
 			const tabId = selectTargetTabId(state);
 			const popupTabId = selectPopupTabId(state);

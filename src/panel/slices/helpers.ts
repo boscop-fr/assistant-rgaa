@@ -1,4 +1,4 @@
-import {type PayloadAction, createAction, createSlice} from '@reduxjs/toolkit';
+import {createAction, createSlice, type PayloadAction} from '@reduxjs/toolkit';
 import type {HelpersByTest, Test} from '../../common/types';
 import type {Helper} from '../../helpers/types';
 

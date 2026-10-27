@@ -1,4 +1,5 @@
 import browser from 'webextension-polyfill';
+
 const CONTENT_SCRIPTS = ['dist/helpers.js', 'dist/minimap.js'];
 const CONTENT_STYLES = ['dist/helpers.css'];
 

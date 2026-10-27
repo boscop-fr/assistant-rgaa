@@ -1,7 +1,7 @@
 import {
+	isAnyOf,
 	type ListenerEffectAPI,
-	type UnknownAction,
-	isAnyOf
+	type UnknownAction
 } from '@reduxjs/toolkit';
 import {applyHelpers, revertActiveHelpers} from '../../helpers/slices/helpers';
 import type {AppStartListening} from '../middlewares/listener';
@@ -26,7 +26,7 @@ export const addHelpersListeners = (startListening: AppStartListening) => {
 			removeGlobalHelper
 		),
 		effect: async (
-			action: UnknownAction,
+			_action: UnknownAction,
 			api: ListenerEffectAPI<AppState, AppDispatch>
 		) => {
 			await debounceListener(api, 50);

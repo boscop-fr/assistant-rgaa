@@ -37,7 +37,6 @@ function ExternalReferences({references}: ExternalReferencesProps) {
 
 						<div
 							className="ExternalReferences-subSectionBody"
-							// biome-ignore lint/security/noDangerouslySetInnerHtml :
 							dangerouslySetInnerHTML={{__html: text}}
 						/>
 					</div>

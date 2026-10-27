@@ -19,7 +19,7 @@ const Minimap = () => {
 	};
 
 	return (
-		// biome-ignore lint/a11y/useKeyWithClickEvents :
+		// biome-ignore lint/a11y/useKeyWithClickEvents lint/a11y/noStaticElementInteractions: mouse shortcut, keyboard users scroll the page itself.
 		<div ref={mapRef} className="Minimap" onClick={scrollToPosition}>
 			<MinimapWindow />
 			<MinimapPins />

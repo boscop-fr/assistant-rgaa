@@ -7,7 +7,6 @@ type CriterionNotesProps = {
 const CriterionNotes = ({notes}: CriterionNotesProps) => (
 	<div
 		className="CriterionNotes"
-		// biome-ignore lint/security/noDangerouslySetInnerHtml :
 		dangerouslySetInnerHTML={{
 			__html: notes
 		}}

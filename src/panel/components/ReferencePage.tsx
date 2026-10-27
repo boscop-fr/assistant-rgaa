@@ -18,7 +18,7 @@ const ReferencePage = () => {
 			dispatch(
 				addAppListener({
 					actionCreator: stateLoaded,
-					effect: (action, api) => {
+					effect: (_action, api) => {
 						if (themesRef.current) {
 							const position = selectScrollPosition(api.getState());
 							themesRef.current.scrollTop = position;

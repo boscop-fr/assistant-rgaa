@@ -48,7 +48,9 @@ export const describeHelper = <N extends HelperName>(
 // Renders the widget of a helper, if it has one.
 export const HelperWidget = <N extends HelperName>({
 	helper
-}: {helper: HelperOf<N>}) => {
+}: {
+	helper: HelperOf<N>;
+}) => {
 	const Widget = helpers[helper.helper].component;
 	return Widget ? <Widget {...helperOptions(helper)} /> : null;
 };

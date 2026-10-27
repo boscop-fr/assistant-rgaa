@@ -13,7 +13,7 @@ const linkId = (id: string) => {
 
 	try {
 		elements = Array.from(document.querySelectorAll(`#${id}`));
-	} catch (e) {
+	} catch (_e) {
 		error = true;
 	}
 

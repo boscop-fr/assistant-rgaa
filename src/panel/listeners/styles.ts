@@ -34,7 +34,7 @@ export const addStylesListeners = (startListening: AppStartListening) => {
 
 	startListening({
 		actionCreator: helpersReady,
-		effect(action, api) {
+		effect(_action, api) {
 			const enabled = selectAreStylesEnabled(api.getState());
 			toggleGlobalHelper(api, enabled);
 		}

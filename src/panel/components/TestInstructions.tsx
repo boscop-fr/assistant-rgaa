@@ -41,7 +41,6 @@ function TestInstructions({
 			<div
 				id={`TestInstructions-${id}`}
 				className={textClass}
-				// biome-ignore lint/security/noDangerouslySetInnerHtml :
 				dangerouslySetInnerHTML={{
 					__html: instructions
 				}}

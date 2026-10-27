@@ -1,4 +1,4 @@
-import {type Page, expect} from '@playwright/test';
+import {expect, type Page} from '@playwright/test';
 import type {Action} from '@reduxjs/toolkit';
 
 type ExtensionApi = 'runtime' | 'tabs' | 'storage' | 'connect' | 'port';
@@ -155,7 +155,7 @@ export default class ExtensionPage {
 					async sendMessage(...args) {
 						pushMessage('tabs', args);
 					},
-					connect(tabId, {name}) {
+					connect(_tabId, {name}) {
 						return globalThis.createPort(name);
 					},
 					onUpdated: {

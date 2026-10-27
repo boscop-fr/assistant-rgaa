@@ -52,7 +52,6 @@ function Test({id, title}: TestProps) {
 
 					<div
 						className="Test-description"
-						// biome-ignore lint/security/noDangerouslySetInnerHtml :
 						dangerouslySetInnerHTML={{
 							__html: title
 						}}

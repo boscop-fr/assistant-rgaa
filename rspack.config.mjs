@@ -28,6 +28,9 @@ export default defineConfig({
 		clean: true
 	},
 	devtool: 'source-map',
+	// Dynamic imports (reference data) must be bundled up
+	// front, as an extension can't compile them on demand.
+	lazyCompilation: false,
 	experiments: {
 		futureDefaults: true
 	},

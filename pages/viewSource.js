@@ -6,5 +6,6 @@ api.runtime.onMessage.addListener((source) => {
 		return;
 	}
 
+	// biome-ignore lint/performance/useDomNodeTextContent: turns line breaks into <br>.
 	document.querySelector('#sources').innerText = source;
 });

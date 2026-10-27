@@ -1,4 +1,4 @@
-import {type PayloadAction, createAction, createSlice} from '@reduxjs/toolkit';
+import {createAction, createSlice, type PayloadAction} from '@reduxjs/toolkit';
 
 type PanelState = {
 	targetTabId: number;
