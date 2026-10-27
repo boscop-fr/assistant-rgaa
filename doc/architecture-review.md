@@ -36,6 +36,7 @@ protocol module.
 3. Helpers split: [H1](#h1) to [H5](#h5) (best done together with step 2).
 4. Panel state cleanups: [S1](#s1) to [S3](#s3).
 5. Dependency swaps: [D2](#d2) to [D6](#d6).
+6. Panel UI: [U1](#u1) to [U7](#u7), independent of the rest.
 
 ---
 
@@ -436,6 +437,111 @@ function changing the page and returning its revert.
 
 ---
 
+## Panel UI
+
+Components in [panel/components](../src/panel/components) and
+[panel/helpers](../src/panel/helpers), read in full. They are small and mostly
+fine; the findings below are what stood out.
+
+### U1 - Every scroll event re-renders the whole reference {#u1}
+
+- [ ] Done
+
+- Where: [ReferencePage.tsx](../src/panel/components/ReferencePage.tsx).
+- Problem: `onScroll` calls `setCurrentScrollPosition`, which re-renders
+  `ReferencePage` and, as nothing is memoized, every `Theme`, `Criterion` and
+  open `Test` (7 selectors per criterion) on each scroll event. Only the
+  debounced value is used.
+- Target: dispatch `saveScrollPosition` from a `debounce`d handler (`debounce`
+  is already a dependency) and drop the state. `useDebounce` in
+  [hooks.ts](../src/panel/utils/hooks.ts) then has no user left.
+
+### U2 - `useAnchorEvent` leaks a listener per render {#u2}
+
+- [ ] Done
+
+- Where: `useAnchorEvent` in [hooks.ts](../src/panel/utils/hooks.ts), used by
+  [ThemesList.tsx](../src/panel/components/ThemesList.tsx).
+- Problem: it is not a hook: it adds a `hashchange` listener on every render and
+  returns a cleanup nobody calls. Each `Header` re-render adds one more.
+- Target: `useEffect(() => { … return cleanup; }, [])`.
+
+### U3 - Heading levels out of order {#u3}
+
+- [ ] Done
+
+- Where: [Criterion.tsx](../src/panel/components/Criterion.tsx),
+  [ExternalReferences.tsx](../src/panel/components/ExternalReferences.tsx),
+  [Test.tsx](../src/panel/components/Test.tsx),
+  [TestInstructions.tsx](../src/panel/components/TestInstructions.tsx),
+  [TestHelpers.tsx](../src/panel/components/TestHelpers.tsx),
+  [HeadingsHierarchy.tsx](../src/panel/helpers/components/HeadingsHierarchy.tsx).
+- Problem: criterion `h3` > test `h4` > instructions and helpers `h3` > headings
+  hierarchy `h4`. References use `h3`/`h4` inside the criterion's `h3`. Awkward
+  for a tool that checks RGAA 9.1 on other pages.
+- Target: criterion `h3`, test `h4`, test sections `h5`, headings hierarchy
+  `h6`; references `h4`/`h5`. Also consider moving the criterion toggle button
+  inside its heading.
+
+### U4 - External tool URL not encoded {#u4}
+
+- [ ] Done
+
+- Where: [ExternalTool.tsx](../src/panel/helpers/components/ExternalTool.tsx).
+- Problem: `url.replace(':url', tabUrl)` inserts the raw URL in
+  `https://validator.w3.org/check?uri=:url`. A page URL with `&` or `#` is cut,
+  its other parameters go to the validator.
+- Target: `encodeURIComponent(tabUrl)`.
+
+### U5 - Test checkbox may have no accessible name {#u5}
+
+- [ ] Done
+
+- Where: [Test.tsx](../src/panel/components/Test.tsx).
+- Problem: the label wrapping the "apply" checkbox is empty and carries the
+  `title`. The name comes from the label's content, not its `title`, so the
+  checkbox is likely unnamed. To check in the accessibility tree (Chrome and
+  Firefox).
+- Target: put the text in the label (`ScreenReaderOnly`) or `aria-label` on the
+  input. The input `id` is unused.
+
+### U6 - `ToggleButton` press/release API used inconsistently {#u6}
+
+- [ ] Done
+
+- Where: [ToggleButton.tsx](../src/panel/helpers/components/ToggleButton.tsx),
+  [ColorContrastField.tsx](../src/panel/helpers/components/ColorContrastField.tsx),
+  [ColorContrast.tsx](../src/panel/helpers/components/ColorContrast.tsx).
+- Problem: the pixel picker passes `onPress` (a click while picking does
+  nothing), the text and style pickers pass `onClick`, which overrides the
+  internal handler through `...props` (a click while picking starts a second
+  request). `onRelease` is never passed, so picking can't be cancelled.
+- Target: drop `onPress`/`onRelease`, keep `pressed` + `onClick`. Add a cancel
+  only if wanted.
+
+### U7 - Small cleanups {#u7}
+
+- [ ] Done
+
+- [Icon.tsx](../src/panel/components/Icon.tsx): `Icon--${name}` reads the global
+  `window.name` (no CSS uses `Icon--`), and `...props` is always empty.
+- Hardcoded French strings in
+  [HelperButton.tsx](../src/panel/helpers/components/HelperButton.tsx),
+  [LocalPageValidator.tsx](../src/panel/helpers/components/LocalPageValidator.tsx),
+  [ViewSource.tsx](../src/panel/helpers/components/ViewSource.tsx) and
+  [HeadingsHierarchy.tsx](../src/panel/helpers/components/HeadingsHierarchy.tsx)
+  ("Titre manquant"), while the rest is in
+  [messages/fr.ts](../src/panel/messages/fr.ts).
+- `useSelector` instead of `useAppSelector` in `ColorContrast` and
+  `HeadingsHierarchy`.
+- `ViewSource` picks the Firefox/Chrome path itself (`@TODO` says the background
+  should).
+- Help link in [Header.tsx](../src/panel/components/Header.tsx) is `http://`.
+- Leftovers: `key={name}` on the root of `ColorContrastField`, `{''}` in the
+  `TestStatuses` label, `isReadOnly = true` default on a required prop.
+
+---
+
 ## Dependencies
 
 Versions from `npm outdated` on 2026-10-27.
@@ -537,7 +643,6 @@ Versions from `npm outdated` on 2026-10-27.
 
 ## Not reviewed
 
-- Panel UI components in detail, the options form, the minimap rendering beyond
-  its hooks.
+- The options form, the minimap rendering beyond its hooks.
 - Bundle contents come from the `dist/helpers.js` source map, not a bundle
   analyzer.
