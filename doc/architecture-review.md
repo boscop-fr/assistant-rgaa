@@ -445,7 +445,8 @@ fine; the findings below are what stood out.
 
 ### U1 - Every scroll event re-renders the whole reference {#u1}
 
-- [ ] Done
+- [x] Done: the scroll position is saved by a `debounce`d handler, without
+      state. `useDebounce` removed.
 
 - Where: [ReferencePage.tsx](../src/panel/components/ReferencePage.tsx).
 - Problem: `onScroll` calls `setCurrentScrollPosition`, which re-renders
