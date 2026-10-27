@@ -29,6 +29,19 @@ test('should toggle styles', async ({helpersPage: page}) => {
 	await expect(page.elementHiddenViaStyleAttribute).toBeHidden();
 });
 
+test('should apply helpers along with helpers without effects', async ({
+	helpersPage: page
+}) => {
+	await page.sendMessage(
+		'runtime',
+		applyHelpers([{helper: 'viewSource'}, {helper: 'disableAllStyles'}])
+	);
+	await expect(page.elementHiddenViaStyleSheet).toBeVisible();
+
+	await page.sendMessage('runtime', revertActiveHelpers());
+	await expect(page.elementHiddenViaStyleSheet).toBeHidden();
+});
+
 test('should extract headings hierarchy', async ({helpersPage: page}) => {
 	await page.sendMessage(
 		'runtime',

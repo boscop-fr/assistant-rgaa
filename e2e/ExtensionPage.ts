@@ -1,7 +1,7 @@
 import {type Page, expect} from '@playwright/test';
 import type {Action} from 'redux';
 
-type ExtensionApi = 'runtime' | 'tabs';
+type ExtensionApi = 'runtime' | 'tabs' | 'storage';
 
 export default class ExtensionPage {
 	protected readonly page: Page;
@@ -15,6 +15,7 @@ export default class ExtensionPage {
 		await this.page.addInitScript(() => {
 			globalThis.messageListeners = {};
 			globalThis.sentMessages = {};
+			const sessionData = {};
 
 			const pushListener = (api, listener) => {
 				if (!(api in globalThis.messageListeners)) {
@@ -64,13 +65,27 @@ export default class ExtensionPage {
 					local: {
 						async get() {
 							return {};
+						},
+						onChanged: {
+							addListener(listener) {
+								pushListener('storage', listener);
+							},
+							removeListener(listener) {
+								removeListener('storage', listener);
+							}
 						}
 					},
 					session: {
-						async get() {
-							return {};
+						async get(keys) {
+							return Object.fromEntries(
+								keys
+									.filter((key) => key in sessionData)
+									.map((key) => [key, structuredClone(sessionData[key])])
+							);
 						},
-						async set(values) {}
+						async set(values) {
+							Object.assign(sessionData, structuredClone(values));
+						}
 					}
 				},
 				tabs: {
@@ -123,6 +138,12 @@ export default class ExtensionPage {
 			},
 			[api, args] as const
 		);
+	}
+
+	// Notifies listeners that an option changed in the local
+	// storage.
+	async changeOption(key: string, oldValue: unknown, newValue: unknown) {
+		return this.sendMessage('storage', {[key]: {oldValue, newValue}});
 	}
 
 	async sentMessages(api: ExtensionApi): Promise<Action[]> {

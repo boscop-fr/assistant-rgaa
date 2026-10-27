@@ -26,3 +26,17 @@ test('should toggle styles', async ({panelPage: page}) => {
 	await page.toggleCssButton.click();
 	await page.expectNextSentMessage('tabs', 'current', revertActiveHelpers());
 });
+
+test('should keep results when switching reference version', async ({
+	panelPage: page
+}) => {
+	await page.enableTest('1.1.1');
+	await page.setTestStatus('1.1.1', 'C');
+	await expect(page.testStatus('1.1.1', 'C')).toBeChecked();
+
+	await page.changeOption('referenceVersion', '4-2023', '4-2021');
+	await expect(page.testStatus('1.1.1', 'C')).toHaveCount(0);
+
+	await page.changeOption('referenceVersion', '4-2021', '4-2023');
+	await expect(page.testStatus('1.1.1', 'C')).toBeChecked();
+});
