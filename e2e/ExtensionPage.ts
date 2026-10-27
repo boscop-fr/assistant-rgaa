@@ -74,20 +74,15 @@ export default class ExtensionPage {
 				return port;
 			};
 
-			// This tricks the webext polyfill into considering the
-			// page as having an extension context.
-			globalThis.chrome = {
-				runtime: {
-					id: 'playwright'
-				}
-			};
-
 			// Stubs the webext API.
 			globalThis.browser = {
 				runtime: {
 					id: 'playwright',
+					// Answers as the background does to `appLoaded`,
+					// once content scripts are injected.
 					async sendMessage(...args) {
 						pushMessage('runtime', args);
+						return true;
 					},
 					onConnect: {
 						addListener(listener) {
@@ -178,12 +173,20 @@ export default class ExtensionPage {
 	}
 
 	// Calls every listener, and returns the first answer, as
-	// the browser does.
+	// the browser does. Listeners answer through
+	// `sendResponse`, after returning `true`.
 	async sendMessage(api: ExtensionApi, ...args) {
 		return this.page.evaluate(
 			async ([k, v]) => {
-				const answers = Array.from(globalThis.messageListeners[k]).map(
-					(listener) => listener(...v)
+				const answers = await Promise.all(
+					Array.from(globalThis.messageListeners[k]).map(
+						(listener) =>
+							new Promise((resolve) => {
+								if (listener(...v, {}, resolve) !== true) {
+									resolve(undefined);
+								}
+							})
+					)
 				);
 
 				return answers.find((answer) => answer !== undefined);

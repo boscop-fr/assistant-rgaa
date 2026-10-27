@@ -3,8 +3,8 @@ import {
 	createSlice,
 	type PayloadAction
 } from '@reduxjs/toolkit';
-import browser from 'webextension-polyfill';
 import {appLoaded} from '../../background/slices/runtime';
+import {browser} from '../../common/utils/webExtension';
 import type {AppState as StoreState} from '../store';
 import {fetchHelpers} from '../utils/helpers';
 import {fetchInstructions} from '../utils/instructions';
@@ -116,14 +116,10 @@ export const loadTab = createAsyncThunk('app/loadTab', async (_, api) => {
 	// the according state.
 	await api.dispatch(loadState()).unwrap();
 
-	try {
-		// Resolves once content scripts are injected.
-		await browser.runtime.sendMessage(appLoaded({tabId}));
-	} catch (e) {
-		// Content scripts can't be injected in some pages
-		// (i.e. browser pages), which shouldn't prevent the
-		// panel from working.
-		console.warn(e);
+	// Resolves once content scripts are injected, telling if
+	// they could be, which shouldn't prevent the panel from
+	// working otherwise.
+	if (!(await browser.runtime.sendMessage(appLoaded({tabId})))) {
 		return;
 	}
 

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {useIntl} from 'react-intl';
 import {useSelector} from 'react-redux';
-import browser from 'webextension-polyfill';
 import {contrastRatio} from '../../../common/utils/color';
+import {browser} from '../../../common/utils/webExtension';
 import {
 	requestPixelColor,
 	requestStyle,
@@ -63,7 +63,12 @@ const usePicker = (extractor: ColorExtractorConfig) => {
 		setPickerState((state) => ({...state, pickingName, pickingAction}));
 
 		try {
-			onPicked((await browser.tabs.sendMessage(tabId, pickingAction)) as T);
+			const value = await browser.tabs.sendMessage(tabId, pickingAction);
+
+			// The page answers nothing if picking failed.
+			if (value !== undefined) {
+				onPicked(value as T);
+			}
 		} catch (e) {
 			// The page might have been reloaded or closed while
 			// picking.

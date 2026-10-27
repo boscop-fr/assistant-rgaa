@@ -1,4 +1,4 @@
-import browser from 'webextension-polyfill';
+import {browser} from '../../common/utils/webExtension';
 import type {AppStartListening} from '../middlewares/listener';
 import {openOptionsPage} from '../slices/options';
 

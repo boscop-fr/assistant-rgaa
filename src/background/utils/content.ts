@@ -1,4 +1,4 @@
-import browser from 'webextension-polyfill';
+import {browser} from '../../common/utils/webExtension';
 
 const CONTENT_SCRIPTS = ['dist/helpers.js', 'dist/minimap.js'];
 const CONTENT_STYLES = ['dist/helpers.css'];

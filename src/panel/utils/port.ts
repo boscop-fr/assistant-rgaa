@@ -1,5 +1,6 @@
-import browser, {type Runtime} from 'webextension-polyfill';
+import type {Runtime} from 'webextension-polyfill';
 import {PANEL_PORT} from '../../background/slices/runtime';
+import {browser} from '../../common/utils/webExtension';
 
 type Listener = (message: unknown) => void;
 

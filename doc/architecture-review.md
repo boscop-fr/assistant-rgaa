@@ -468,15 +468,25 @@ Versions from `npm outdated` on 2026-10-27.
 
 ### D2 - Drop `webextension-polyfill` {#d2}
 
-- [ ] Done
+- [x] Done: [webExtension.ts](../src/common/utils/webExtension.ts) exports
+      `browser` (Firefox's `browser`, or Chrome's `chrome`, both promise based
+      in MV3) and `answerMessages()`, used by the four listeners answering
+      messages (background, `colorContrast`, `headingsHierarchy`). Types still
+      come from `@types/webextension-polyfill`. `dist/helpers.js` went from 30
+      KB to 19 KB.
 
 - Chrome MV3 APIs return promises, Firefox has `browser`.
   [pages/\*.js](../pages/) already use
   `typeof browser === 'undefined' ? chrome : browser`.
-- Check first: the background `onMessage` listener returns a promise for
-  `captureCurrentTab`. Chrome historically needed `sendResponse` +
-  `return true`, which the polyfill bridges. Do it after M1 (ports or explicit
-  `sendResponse` avoid the issue).
+- The catch: listeners answering messages by returning a promise. The polyfill
+  bridges this in Chrome, which expects `sendResponse` and `return true`, at
+  least in older versions than `minimum_chrome_version` (121) allows. Since M1,
+  four listeners rely on it: the background (`appLoaded`, `captureCurrentTab`),
+  `colorContrast` and `headingsHierarchy`. Without the bridge they would answer
+  `undefined`.
+- `answerMessages()` answers through `sendResponse`. A failed answer is logged
+  and sent as `undefined` (the polyfill rejected the sender's promise), so
+  `appLoaded` now answers `true` or `false` explicitly.
 
 ### D3 - Native color handling {#d3}
 

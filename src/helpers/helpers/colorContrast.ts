@@ -1,4 +1,4 @@
-import browser from 'webextension-polyfill';
+import {answerMessages, browser} from '../../common/utils/webExtension';
 import {
 	requestPixelColor,
 	requestStyle,
@@ -48,9 +48,7 @@ const withPicking = async <T>(state: string, pick: () => Promise<T>) => {
 };
 
 // Answers picking requests with the picked value.
-// This must not return anything for other messages, as the
-// first listener returning a promise answers the message.
-const handleMessage = (action: unknown) => {
+const handleMessage = answerMessages((action) => {
 	switch (true) {
 		case requestPixelColor.match(action):
 			return withPicking(PickingStates.pickingPixel, async () => {
@@ -74,7 +72,7 @@ const handleMessage = (action: unknown) => {
 				return getSelectionStyle();
 			});
 	}
-};
+});
 
 export default (): Effect => () => {
 	browser.runtime.onMessage.addListener(handleMessage);

@@ -1,5 +1,5 @@
-import browser from 'webextension-polyfill';
 import {fetchCurrentTab, onTabLoaded} from '../../common/utils/tabs';
+import {browser} from '../../common/utils/webExtension';
 
 // Gets the source code of the page at the given URL.
 const getSource = (url: string) => fetch(url).then((content) => content.text());

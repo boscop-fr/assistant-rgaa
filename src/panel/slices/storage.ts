@@ -5,8 +5,8 @@ import {
 	createSelector,
 	type Reducer
 } from '@reduxjs/toolkit';
-import browser from 'webextension-polyfill';
 import {omit} from '../../common/utils/objects';
+import {browser} from '../../common/utils/webExtension';
 import {getOption, type StatePersistence} from '../../options/utils/storage';
 import type {AppState} from '../store';
 import {selectTargetTabId, selectTargetTabUrl} from './panel';

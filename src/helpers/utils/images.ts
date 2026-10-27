@@ -1,6 +1,6 @@
-import browser from 'webextension-polyfill';
 import {captureCurrentTab} from '../../background/slices/runtime';
 import {rgbToHex} from '../../common/utils/color';
+import {browser} from '../../common/utils/webExtension';
 
 const imageElement = async (base64: string) => {
 	const {promise, resolve} = Promise.withResolvers<HTMLImageElement>();
@@ -26,6 +26,11 @@ export const captureCurrentTabPixel = async (x: number, y: number) => {
 	const base64 = (await browser.runtime.sendMessage(
 		captureCurrentTab()
 	)) as string;
+
+	// The background answers nothing if the capture failed.
+	if (!base64) {
+		throw new Error('Could not capture the tab');
+	}
 
 	const image = await imageElement(base64);
 	// The capture is in device pixels while coordinates are in

@@ -1,6 +1,6 @@
 import React from 'react';
-import browser from 'webextension-polyfill';
 import {createTab} from '../../../background/slices/runtime';
+import {browser} from '../../../common/utils/webExtension';
 import {selectTargetTabUrl} from '../../slices/panel';
 import {useAppSelector} from '../../utils/hooks';
 import HelperButton from './HelperButton';

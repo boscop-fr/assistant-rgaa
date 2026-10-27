@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import type {Storage} from 'webextension-polyfill';
-import browser from 'webextension-polyfill';
+import {browser} from '../../common/utils/webExtension';
 
 export type StatePersistence = 'always' | 'tab' | 'url' | 'tabUrl';
 

@@ -1,5 +1,5 @@
 import debounce from 'debounce';
-import browser from 'webextension-polyfill';
+import {answerMessages, browser} from '../../common/utils/webExtension';
 import {getHierarchy, setHierarchy} from '../slices/headingsHierarchy';
 import type {Effect} from '../types';
 import getHeadingsHierarchy from '../utils/getHeadingsHierarchy';
@@ -11,14 +11,11 @@ export default (): Effect => () => {
 	};
 
 	// Answers requests with the current hierarchy.
-	// This must not return anything for other messages,
-	// as the first listener returning a promise answers
-	// the message.
-	const handleMessage = (action: unknown) => {
+	const handleMessage = answerMessages((action) => {
 		if (getHierarchy.match(action)) {
 			return Promise.resolve(getHeadingsHierarchy());
 		}
-	};
+	});
 
 	browser.runtime.onMessage.addListener(handleMessage);
 

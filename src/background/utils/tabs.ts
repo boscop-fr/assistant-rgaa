@@ -1,5 +1,5 @@
-import browser from 'webextension-polyfill';
 import wait from '../../common/utils/wait';
+import {browser} from '../../common/utils/webExtension';
 
 export const PANEL_PAGE = 'pages/panel.html';
 

@@ -22,8 +22,8 @@ const {executeScript, insertCSS} = vi.hoisted(() => ({
 	insertCSS: vi.fn(async () => {})
 }));
 
-vi.mock('webextension-polyfill', () => ({
-	default: {scripting: {executeScript, insertCSS}}
+vi.mock('../../common/utils/webExtension', () => ({
+	browser: {scripting: {executeScript, insertCSS}}
 }));
 
 import {injectContentScripts} from './content';

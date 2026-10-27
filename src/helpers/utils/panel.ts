@@ -1,5 +1,6 @@
-import browser, {type Runtime} from 'webextension-polyfill';
+import type {Runtime} from 'webextension-polyfill';
 import {PANEL_PORT} from '../../background/slices/runtime';
+import {browser} from '../../common/utils/webExtension';
 
 // Port opened by the panel auditing this tab.
 let panelPort: Runtime.Port | null = null;

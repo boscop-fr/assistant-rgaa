@@ -1,5 +1,5 @@
-import browser from 'webextension-polyfill';
 import {closePopup, openPopup} from '../../background/slices/runtime';
+import {browser} from '../../common/utils/webExtension';
 import type {AppStartListening} from '../middlewares/listener';
 import {
 	selectPopupTabId,

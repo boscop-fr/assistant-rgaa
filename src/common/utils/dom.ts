@@ -1,4 +1,4 @@
-import browser from 'webextension-polyfill';
+import {browser} from './webExtension';
 
 export const loadScript = (path: string, onLoad: () => void) => {
 	const script = document.createElement('script');

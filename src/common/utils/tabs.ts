@@ -1,4 +1,4 @@
-import browser from 'webextension-polyfill';
+import {browser} from './webExtension';
 
 export const fetchCurrentTab = async () => {
 	const query = {
