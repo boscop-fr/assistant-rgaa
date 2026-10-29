@@ -3,9 +3,8 @@ import {
 	toggleClassEffect,
 	toggleStyleSheetsEffect
 } from '../effects/dom';
-import {createHelper} from '../utils/createHelper';
 import {combineEffects} from '../utils/effects';
-import styleHelper from './style';
+import style from './style';
 
 const CssReset = `
 	img, svg, embed[type="image"], object[type="image"] {
@@ -16,22 +15,12 @@ const CssReset = `
 	}
 `;
 
-export default createHelper({
-	name: 'disableAllStyles',
-	defaultOptions: {},
-	describe(intl) {
-		return intl.formatMessage({
-			id: 'Helper.disableAllStyles'
-		});
-	},
-	apply() {
-		return combineEffects([
-			toggleClassEffect(document.body, 'rgaaExt-DisableAllStylesHelper'),
-			toggleStyleSheetsEffect(false),
-			muteElementsAttributeEffect('[style]', 'style'),
-			styleHelper.apply({
-				style: CssReset
-			})
-		]);
-	}
-});
+export default () =>
+	combineEffects([
+		toggleClassEffect(document.body, 'rgaaExt-DisableAllStylesHelper'),
+		toggleStyleSheetsEffect(false),
+		muteElementsAttributeEffect('[style]', 'style'),
+		style({
+			style: CssReset
+		})
+	]);

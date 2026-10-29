@@ -1,4 +1,4 @@
-import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {createAction, createSlice, type PayloadAction} from '@reduxjs/toolkit';
 import type {HelpersByTest, Test} from '../../common/types';
 import type {Helper} from '../../helpers/types';
 
@@ -28,9 +28,7 @@ const helpersSlice = createSlice({
 		},
 		removeGlobalHelper(state, {payload: id}: PayloadAction<string>) {
 			delete state.globalHelpers[id];
-		},
-		applyHelpers(state, action: PayloadAction<Helper[]>) {},
-		revertActiveHelpers() {}
+		}
 	},
 	selectors: {
 		selectGlobalHelpers(state) {
@@ -50,13 +48,7 @@ const helpersSlice = createSlice({
 
 const {actions, reducer, selectors} = helpersSlice;
 
-export const {
-	setHelpers,
-	setGlobalHelper,
-	removeGlobalHelper,
-	applyHelpers,
-	revertActiveHelpers
-} = actions;
+export const {setHelpers, setGlobalHelper, removeGlobalHelper} = actions;
 
 export const {
 	selectGlobalHelpers,
@@ -66,3 +58,6 @@ export const {
 } = selectors;
 
 export default reducer;
+
+// Helpers can be sent to the page.
+export const helpersReady = createAction('helpers/ready');

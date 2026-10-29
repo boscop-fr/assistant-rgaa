@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 24
       - run: npm ci
       - run: npx playwright install --with-deps chromium firefox
       # The build must be done before linting because web-ext

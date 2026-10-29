@@ -29,3 +29,10 @@
 	display: flex;
 	flex-direction: column;
 }
+
+.App-error {
+	margin: 0;
+	padding: 0.5rem 1rem;
+	color: var(--color-white);
+	background: var(--color-red);
+}

@@ -1,46 +1,75 @@
-import browser from 'webextension-polyfill';
+import {browser} from '../../common/utils/webExtension';
+
 const CONTENT_SCRIPTS = ['dist/helpers.js', 'dist/minimap.js'];
 const CONTENT_STYLES = ['dist/helpers.css'];
 
 declare global {
-	var rgaaExt: boolean;
+	var rgaaExt: boolean | undefined;
 }
 
-const areScriptsInjected = async (tabId: number) => {
+// Marks scripts as injected, and tells if they already
+// were. Both are done at once so concurrent calls can't both
+// see unmarked scripts. This runs in the extension's
+// isolated world, where content scripts run, so the page
+// can't tamper with the flag.
+const markScriptsInjected = async (tabId: number) => {
 	const results = await browser.scripting.executeScript({
 		target: {tabId},
-		world: 'MAIN',
 		func: () => {
-			return !!globalThis?.rgaaExt;
+			const injected = !!globalThis.rgaaExt;
+			globalThis.rgaaExt = true;
+			return injected;
 		}
 	});
 
 	return results?.[0]?.result;
 };
 
-const setScriptsInjected = (tabId: number) =>
+const unmarkScriptsInjected = (tabId: number) =>
 	browser.scripting.executeScript({
 		target: {tabId},
-		world: 'MAIN',
 		func: () => {
-			globalThis.rgaaExt = true;
+			globalThis.rgaaExt = false;
 		}
 	});
 
-export const injectContentScripts = async (tabId: number) => {
-	if (await areScriptsInjected(tabId)) {
-		return Promise.resolve();
+const injectOnce = async (tabId: number) => {
+	if (await markScriptsInjected(tabId)) {
+		return;
 	}
 
-	return Promise.all([
-		setScriptsInjected(tabId),
-		browser.scripting.insertCSS({
-			target: {tabId},
-			files: CONTENT_STYLES
-		}),
-		browser.scripting.executeScript({
-			target: {tabId},
-			files: CONTENT_SCRIPTS
-		})
-	]);
+	try {
+		await Promise.all([
+			browser.scripting.insertCSS({
+				target: {tabId},
+				files: CONTENT_STYLES
+			}),
+			browser.scripting.executeScript({
+				target: {tabId},
+				files: CONTENT_SCRIPTS
+			})
+		]);
+	} catch (e) {
+		// Allows another attempt.
+		await unmarkScriptsInjected(tabId).catch(() => {});
+		throw e;
+	}
+};
+
+// Injections in progress, so concurrent calls for a tab
+// wait for the same injection to complete.
+const injections = new Map<number, Promise<void>>();
+
+export const injectContentScripts = (tabId: number) => {
+	let injection = injections.get(tabId);
+
+	if (!injection) {
+		injection = injectOnce(tabId).finally(() => {
+			injections.delete(tabId);
+		});
+
+		injections.set(tabId, injection);
+	}
+
+	return injection;
 };

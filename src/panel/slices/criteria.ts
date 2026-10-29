@@ -1,4 +1,4 @@
-import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {createAction, createSlice, type PayloadAction} from '@reduxjs/toolkit';
 import type {Criterion} from '../../common/types';
 
 type CriteriaState = {
@@ -17,13 +17,12 @@ const criteriaSlice = createSlice({
 			state.opened.push(id);
 		},
 		closeCriterion(state, {payload: id}: PayloadAction<Criterion['id']>) {
-			const index = state.opened.findIndex((openedId) => id === openedId);
+			const index = state.opened.indexOf(id);
 
 			if (index >= 0) {
 				state.opened.splice(index, 1);
 			}
-		},
-		toggleCriterion(state, action: PayloadAction<Criterion['id']>) {}
+		}
 	},
 	selectors: {
 		selectIsCriterionOpen(state, id) {
@@ -33,6 +32,9 @@ const criteriaSlice = createSlice({
 });
 
 const {actions, reducer, selectors} = criteriaSlice;
-export const {openCriterion, closeCriterion, toggleCriterion} = actions;
+export const {openCriterion, closeCriterion} = actions;
+export const toggleCriterion = createAction<Criterion['id']>(
+	'criteria/toggleCriterion'
+);
 export const {selectIsCriterionOpen} = selectors;
 export default reducer;

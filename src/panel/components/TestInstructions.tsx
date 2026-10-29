@@ -26,7 +26,7 @@ function TestInstructions({
 
 	return (
 		<div className={containerClass}>
-			<h3 className="TestSection-header">
+			<h5 className="TestSection-header">
 				<button
 					type="button"
 					className="TestSection-title TestSection-toggle InvisibleButton"
@@ -36,12 +36,11 @@ function TestInstructions({
 				>
 					<FormattedMessage id="Test.instructions" />
 				</button>
-			</h3>
+			</h5>
 
 			<div
 				id={`TestInstructions-${id}`}
 				className={textClass}
-				// biome-ignore lint/security/noDangerouslySetInnerHtml :
 				dangerouslySetInnerHTML={{
 					__html: instructions
 				}}

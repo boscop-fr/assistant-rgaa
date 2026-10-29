@@ -1,13 +1,13 @@
 import {
 	type Action,
-	type Reducer,
 	createAction,
 	createAsyncThunk,
-	createSelector
+	createSelector,
+	type Reducer
 } from '@reduxjs/toolkit';
-import browser from 'webextension-polyfill';
 import {omit} from '../../common/utils/objects';
-import {type StatePersistence, getOption} from '../../options/utils/storage';
+import {browser} from '../../common/utils/webExtension';
+import {getOption, type StatePersistence} from '../../options/utils/storage';
 import type {AppState} from '../store';
 import {selectTargetTabId, selectTargetTabUrl} from './panel';
 import {selectVersion} from './reference';
@@ -60,6 +60,13 @@ const selectStorageKey = createSelector(
 	}
 );
 
+// Tells if any of the stored slices changed.
+export const hasStoredStateChanged = (current: AppState, previous: AppState) =>
+	(Object.keys(current) as Array<keyof AppState>).some(
+		(slice) =>
+			!SKIPPED_SLICES.includes(slice) && current[slice] !== previous[slice]
+	);
+
 const selectStorableState = createSelector(
 	(state: AppState) => state,
 	(state): StoredState => omit(state, SKIPPED_SLICES)
@@ -76,9 +83,10 @@ export const loadState = createAsyncThunk(
 	async (_, api) => {
 		const persistence = await getOption('statePersistence');
 		const key = selectStorageKey(api.getState() as AppState, persistence);
-		const data: Record<string, StoredState> = await browser.storage.session.get(
-			[key]
-		);
+		const data = (await browser.storage.session.get([key])) as Record<
+			string,
+			StoredState
+		>;
 
 		api.dispatch(
 			stateLoaded(key in data ? (data[key] as AppState) : undefined)

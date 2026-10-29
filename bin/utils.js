@@ -1,22 +1,4 @@
-const deepmerge = require('deepmerge');
-const fs = require('node:fs');
-const request = require('request');
-
-/**
- *
- */
-const fetchFrom = (url) =>
-	new Promise((resolve, reject) =>
-		request(url, (error, response, body) => {
-			if (error) {
-				resolve(body);
-			} else if (response.statusCode !== 200) {
-				reject(`Error ${response.statusCode}`);
-			} else {
-				resolve(body);
-			}
-		})
-	);
+import fs from 'node:fs';
 
 /**
  *
@@ -36,25 +18,15 @@ const jsonify = (data) => JSON.stringify(data, null, '\t');
 /**
  *
  */
-const writeJsonTo = (path, merge) => (data) => {
-	const oldData = readJson(path);
-	const newData = merge ? deepmerge(oldData, data) : data;
-
-	fs.writeFileSync(path, jsonify(newData));
+const writeJsonTo = (path) => (data) => {
+	fs.writeFileSync(path, jsonify(data));
 };
 
 /**
  *
  */
-const logError = (error) => console.error(error);
-
-/**
- *
- */
-module.exports = {
-	fetchFrom,
+export default {
 	readJson,
 	jsonify,
-	writeJsonTo,
-	logError
+	writeJsonTo
 };

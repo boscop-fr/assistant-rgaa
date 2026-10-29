@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
 	useAnimationFrame,
 	useResizeEffect,
@@ -6,19 +6,19 @@ import {
 } from '../api/hooks';
 
 const MinimapWindow = () => {
-	const windowRef = useRef(null);
+	const windowRef = useRef<HTMLDivElement>(null);
 	const updateWindow = useAnimationFrame(() => {
 		const {scrollHeight} = document.documentElement;
 		const {scrollY, innerHeight} = window;
 
-		windowRef.current.style.setProperty(
+		windowRef.current?.style.setProperty(
 			'--window-offset-ratio',
-			scrollY / scrollHeight
+			String(scrollY / scrollHeight)
 		);
 
-		windowRef.current.style.setProperty(
+		windowRef.current?.style.setProperty(
 			'--window-size-ratio',
-			innerHeight / scrollHeight
+			String(innerHeight / scrollHeight)
 		);
 	});
 

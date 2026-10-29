@@ -1,7 +1,10 @@
 import type {ListenerEffectAPI} from '@reduxjs/toolkit';
-import {helpersReady} from '../../background/slices/runtime';
 import type {AppStartListening} from '../middlewares/listener';
-import {removeGlobalHelper, setGlobalHelper} from '../slices/helpers';
+import {
+	helpersReady,
+	removeGlobalHelper,
+	setGlobalHelper
+} from '../slices/helpers';
 import {selectAreStylesEnabled, toggleStyles} from '../slices/styles';
 import type {AppDispatch, AppState} from '../store';
 
@@ -31,7 +34,7 @@ export const addStylesListeners = (startListening: AppStartListening) => {
 
 	startListening({
 		actionCreator: helpersReady,
-		effect(action, api) {
+		effect(_action, api) {
 			const enabled = selectAreStylesEnabled(api.getState());
 			toggleGlobalHelper(api, enabled);
 		}

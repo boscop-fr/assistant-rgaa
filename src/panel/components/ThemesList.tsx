@@ -15,7 +15,7 @@ import {
 	TablePropertiesIcon,
 	TextCursorInputIcon
 } from 'lucide-react';
-import React, {useRef} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {FormattedMessage} from 'react-intl';
 import type {Theme} from '../../common/types';
 import {selectAllThemes} from '../slices/reference';
@@ -40,11 +40,13 @@ const icons: Record<Theme['id'], LucideIcon> = {
 
 const ThemesList = () => {
 	const themes = useAppSelector(selectAllThemes);
-	const popoverRef = useRef<HTMLUListElement>();
+	const popoverRef = useRef<HTMLUListElement>(null);
 
-	useAnchorEvent(() => {
-		popoverRef.current.hidePopover();
-	});
+	useAnchorEvent(
+		useCallback(() => {
+			popoverRef.current?.hidePopover();
+		}, [])
+	);
 
 	return (
 		<div className="ThemesList">
@@ -66,8 +68,8 @@ const ThemesList = () => {
 				onBlur={(event) => {
 					const target = event.relatedTarget as HTMLElement;
 
-					if (!popoverRef.current.contains(target)) {
-						popoverRef.current.hidePopover();
+					if (!event.currentTarget.contains(target)) {
+						event.currentTarget.hidePopover();
 					}
 				}}
 			>

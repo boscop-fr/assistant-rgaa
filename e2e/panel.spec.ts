@@ -1,6 +1,5 @@
 import {test as baseTest, expect} from '@playwright/test';
-import disableAllStyles from '../src/helpers/helpers/disableAllStyles';
-import {applyHelpers, revertActiveHelpers} from '../src/panel/slices/helpers';
+import {applyHelpers, revertActiveHelpers} from '../src/helpers/slices/helpers';
 import PanelPage from './PanelPage';
 
 const test = baseTest.extend<{panelPage: PanelPage}>({
@@ -14,15 +13,28 @@ const test = baseTest.extend<{panelPage: PanelPage}>({
 test('should toggle styles', async ({panelPage: page}) => {
 	await page.toggleCssButton.click();
 	await page.expectNextSentMessage(
-		'tabs',
-		'current',
+		'port',
 		applyHelpers([
 			{
-				helper: disableAllStyles.name
+				helper: 'disableAllStyles'
 			}
 		])
 	);
 
 	await page.toggleCssButton.click();
-	await page.expectNextSentMessage('tabs', 'current', revertActiveHelpers());
+	await page.expectNextSentMessage('port', revertActiveHelpers());
+});
+
+test('should keep results when switching reference version', async ({
+	panelPage: page
+}) => {
+	await page.enableTest('1.1.1');
+	await page.setTestStatus('1.1.1', 'C');
+	await expect(page.testStatus('1.1.1', 'C')).toBeChecked();
+
+	await page.changeOption('referenceVersion', '4-2023', '4-2021');
+	await expect(page.testStatus('1.1.1', 'C')).toHaveCount(0);
+
+	await page.changeOption('referenceVersion', '4-2021', '4-2023');
+	await expect(page.testStatus('1.1.1', 'C')).toBeChecked();
 });

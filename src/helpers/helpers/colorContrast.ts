@@ -1,13 +1,10 @@
-import browser from 'webextension-polyfill';
-import ColorContrast from '../components/ColorContrast';
+import {answerMessages, browser} from '../../common/utils/webExtension';
 import {
 	requestPixelColor,
 	requestStyle,
-	requestTextColor,
-	updateColor,
-	updateStyle
+	requestTextColor
 } from '../slices/colorContrast';
-import {createHelper} from '../utils/createHelper';
+import type {Effect} from '../types';
 import getSelectionStyle from '../utils/getSelectionStyle';
 import {captureCurrentTabPixel} from '../utils/images';
 import {
@@ -23,7 +20,7 @@ const PickingStates = {
 	processing: 'rgaaExt-ColorContrastHelper--processing'
 };
 
-const setPickingState = (className: string) => {
+const setPickingState = (className: string | null) => {
 	for (const c of Object.values(PickingStates)) {
 		document.body.classList.toggle(c, c === className);
 	}
@@ -41,104 +38,46 @@ const stopPicking = () => {
 	restoreAttribute(document.querySelectorAll(selector), 'href');
 };
 
-const handleMessage = async (action: unknown) => {
+const withPicking = async <T>(state: string, pick: () => Promise<T>) => {
+	try {
+		startPicking(state);
+		return await pick();
+	} finally {
+		stopPicking();
+	}
+};
+
+// Answers picking requests with the picked value.
+const handleMessage = answerMessages((action) => {
 	switch (true) {
 		case requestPixelColor.match(action):
-			try {
-				startPicking(PickingStates.pickingPixel);
-				const {clientX, clientY} = await waitForEvent('click');
+			return withPicking(PickingStates.pickingPixel, async () => {
+				const {clientX, clientY} = await waitForEvent('click', true);
 				setPickingState(PickingStates.processing);
-				const color = await captureCurrentTabPixel(clientX, clientY);
-				await browser.runtime.sendMessage(updateColor(color));
-			} finally {
-				stopPicking();
-			}
-			break;
+				return captureCurrentTabPixel(clientX, clientY);
+			});
 
 		case requestTextColor.match(action):
-			try {
-				startPicking(PickingStates.pickingText);
+			return withPicking(PickingStates.pickingText, async () => {
 				await waitForEvent('mouseup');
 				setPickingState(PickingStates.processing);
 				const {color} = await getSelectionStyle();
-				await browser.runtime.sendMessage(updateColor(color));
-			} finally {
-				stopPicking();
-			}
-			break;
+				return color;
+			});
 
 		case requestStyle.match(action):
-			try {
-				startPicking(PickingStates.pickingText);
+			return withPicking(PickingStates.pickingText, async () => {
 				await waitForEvent('mouseup');
 				setPickingState(PickingStates.processing);
-				const style = await getSelectionStyle();
-				await browser.runtime.sendMessage(updateStyle(style));
-			} finally {
-				stopPicking();
-			}
-			break;
-	}
-};
-
-export type ColorContrastStyle = {
-	backgroundColor: string;
-	color: string;
-	fontSize: string;
-	fontWeight: string;
-};
-
-export type ColorInputConfig = {
-	label: string;
-	pixelPicker: boolean;
-	textPicker: boolean;
-};
-
-export type ColorExtractorConfig = {
-	label: string;
-	left: keyof ColorContrastStyle;
-	right: keyof ColorContrastStyle;
-};
-
-type ColorContrastOptions = {
-	minimumRatio: number;
-	left: ColorInputConfig;
-	right: ColorInputConfig;
-	extractor?: ColorExtractorConfig;
-};
-
-export default createHelper({
-	name: 'colorContrast',
-	defaultOptions: {
-		left: {
-			label: 'ColorContrast.textColor',
-			pixelPicker: true,
-			textPicker: true
-		},
-		right: {
-			label: 'ColorContrast.backgroundColor',
-			pixelPicker: true,
-			textPicker: false
-		},
-		extractor: {
-			label: 'ColorContrast.extract',
-			left: 'color',
-			right: 'backgroundColor'
-		}
-	} as ColorContrastOptions,
-	component: ColorContrast,
-	describe(intl) {
-		return intl.formatMessage({
-			id: 'Helper.colorContrast'
-		});
-	},
-	apply() {
-		return () => {
-			browser.runtime.onMessage.addListener(handleMessage);
-
-			return () => {
-				browser.runtime.onMessage.removeListener(handleMessage);
-			};
-		};
+				return getSelectionStyle();
+			});
 	}
 });
+
+export default (): Effect => () => {
+	browser.runtime.onMessage.addListener(handleMessage);
+
+	return () => {
+		browser.runtime.onMessage.removeListener(handleMessage);
+	};
+};

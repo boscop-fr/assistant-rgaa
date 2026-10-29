@@ -37,6 +37,11 @@ function Test({id, title}: TestProps) {
 		}
 	};
 
+	const applyTitle = intl.formatMessage(
+		{id: 'Test.apply.title'},
+		{id, applied}
+	);
+
 	const className = classNames({
 		Test: true,
 		'is-applied': applied
@@ -52,7 +57,6 @@ function Test({id, title}: TestProps) {
 
 					<div
 						className="Test-description"
-						// biome-ignore lint/security/noDangerouslySetInnerHtml :
 						dangerouslySetInnerHTML={{
 							__html: title
 						}}
@@ -62,17 +66,11 @@ function Test({id, title}: TestProps) {
 				<div className="Test-actions">
 					{applicable ? (
 						<div className="Test-action Test-action--application">
-							<label
-								title={intl.formatMessage(
-									{
-										id: 'Test.apply.title'
-									},
-									{id, applied}
-								)}
-							>
+							<label title={applyTitle}>
 								<input
 									type="checkbox"
 									id={`test-${id}-apply-input`}
+									aria-label={applyTitle}
 									checked={applied}
 									onChange={handleToggle}
 								/>

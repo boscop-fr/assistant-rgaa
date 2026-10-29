@@ -57,7 +57,12 @@ const MinimapPins = ({minimumPinSize = 4}: MinimapPinsProps) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const updatePins = useAnimationFrame(() => {
 		const canvas = canvasRef.current;
-		const ctx = canvas.getContext('2d');
+		const ctx = canvas?.getContext('2d');
+
+		if (!canvas?.parentElement || !ctx) {
+			return;
+		}
+
 		const style = getComputedStyle(canvas);
 		const windowPinColor = style.getPropertyValue('--window-pin-color');
 		const pagePinColor = style.getPropertyValue('--page-pin-color');

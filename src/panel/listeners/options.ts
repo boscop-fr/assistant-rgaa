@@ -1,9 +1,6 @@
-import browser from 'webextension-polyfill';
-import {onOptionChange} from '../../options/utils/storage';
+import {browser} from '../../common/utils/webExtension';
 import type {AppStartListening} from '../middlewares/listener';
-import {loadReference} from '../slices/app';
 import {openOptionsPage} from '../slices/options';
-import {pollEffect} from '../utils/listeners';
 
 export const addOptionsListener = (startListening: AppStartListening) => {
 	startListening({
@@ -11,15 +8,5 @@ export const addOptionsListener = (startListening: AppStartListening) => {
 		effect() {
 			browser.runtime.openOptionsPage();
 		}
-	});
-
-	startListening({
-		predicate: () => true,
-		effect: pollEffect<[string]>(
-			onOptionChange.bind(null, 'referenceVersion'),
-			(api, version) => {
-				api.dispatch(loadReference(version));
-			}
-		)
 	});
 };

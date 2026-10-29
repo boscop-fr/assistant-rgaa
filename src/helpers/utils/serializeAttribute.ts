@@ -5,24 +5,27 @@ const linkAttributes = ['for', 'aria-labelledby', 'aria-describedby'];
 
 // Transforms the given id into a link if possible, otherwise just return the id
 const linkId = (id: string) => {
-	let elements: Element[];
+	// The id comes from the audited page and ends up in an
+	// attribute, so quotes must be escaped as well.
+	const safeId = escapeHtml(id).replaceAll('"', '&quot;');
+	let elements: Element[] = [];
 	let error = false;
 
 	try {
 		elements = Array.from(document.querySelectorAll(`#${id}`));
-	} catch (e) {
+	} catch (_e) {
 		error = true;
 	}
 
 	// return a simple text if we can't link to the given id
 	if (error || elements.length === 0) {
-		return `${id} (introuvable)`;
+		return `${safeId} (introuvable)`;
 	}
 
 	const count = elements.length;
 	const countString = count !== 1 ? ` (${count} occurrences)` : '';
 
-	return `<a class="rgaaExt-Attribute-link" href="#${id}">${id}${countString}</a>`;
+	return `<a class="rgaaExt-Attribute-link" href="#${safeId}">${safeId}${countString}</a>`;
 };
 
 // Makes a anchor to each of the linked ids.

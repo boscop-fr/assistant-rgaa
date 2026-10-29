@@ -16,7 +16,7 @@ function ExternalReferences({references}: ExternalReferencesProps) {
 	return (
 		<div className="ExternalReferences">
 			<div className="ExternalReferences-section">
-				<h3 className="ExternalReferences-sectionTitle">
+				<h4 className="ExternalReferences-sectionTitle">
 					<abbr
 						lang="en"
 						title={intl.formatMessage({
@@ -25,19 +25,18 @@ function ExternalReferences({references}: ExternalReferencesProps) {
 					>
 						WCAG
 					</abbr>
-				</h3>
+				</h4>
 
 				{Object.entries(references.wcag).map(([type, text]) => (
 					<div className="ExternalReferences-subSection" key={type}>
-						<h4 className="ExternalReferences-subSectionTitle">
+						<h5 className="ExternalReferences-subSectionTitle">
 							{intl.formatMessage({
 								id: `ExternalReferences.wcag.${type}`
 							})}
-						</h4>
+						</h5>
 
 						<div
 							className="ExternalReferences-subSectionBody"
-							// biome-ignore lint/security/noDangerouslySetInnerHtml :
 							dangerouslySetInnerHTML={{__html: text}}
 						/>
 					</div>

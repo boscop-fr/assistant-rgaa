@@ -13,7 +13,7 @@ type TestStatusesProps = {
 
 const STATUSES: TestStatusType[] = ['C', 'NC', 'NA', 'NT'];
 
-const TestStatuses = ({id, isReadOnly = true}: TestStatusesProps) => {
+const TestStatuses = ({id, isReadOnly}: TestStatusesProps) => {
 	const actualStatus = useAppSelector((state) => selectTestStatus(state, id));
 	const dispatch = useAppDispatch();
 	const intl = useIntl();
@@ -56,7 +56,6 @@ const TestStatuses = ({id, isReadOnly = true}: TestStatusesProps) => {
 
 							<label htmlFor={inputId}>
 								<TestStatus status={status} isInline />
-								{''}
 							</label>
 						</div>
 					);

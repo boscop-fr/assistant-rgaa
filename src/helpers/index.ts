@@ -1,24 +1,18 @@
-import browser from 'webextension-polyfill';
-import {helpersReady} from '../background/slices/runtime';
 import {
 	applyHelpers as applyHelpersAction,
 	revertActiveHelpers as revertActiveHelpersAction
-} from '../panel/slices/helpers';
-import {onDomLoaded} from './utils/dom';
+} from './slices/helpers';
 import {applyHelpers, revertActiveHelpers} from './utils/helpers';
+import {listenToPanel} from './utils/panel';
 
-browser.runtime.onMessage.addListener((action: unknown) => {
+// The panel connects once this script is injected, and
+// sends the helpers to apply on connection and whenever
+// they change. Helpers are reverted when it disconnects,
+// i.e. when it is closed.
+listenToPanel((action) => {
 	if (applyHelpersAction.match(action)) {
 		applyHelpers(action.payload);
 	} else if (revertActiveHelpersAction.match(action)) {
 		revertActiveHelpers();
 	}
-});
-
-onDomLoaded(() => {
-	// Allows the sidebar to re-apply the current set of
-	// helpers, as the script isn't aware of them.
-	// This is useful when the tab is reloaded and a test is
-	// already enabled.
-	browser.runtime.sendMessage(helpersReady());
-});
+}, revertActiveHelpers);

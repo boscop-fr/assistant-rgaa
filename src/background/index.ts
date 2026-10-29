@@ -1,7 +1,6 @@
-import {isAction} from 'redux';
-import browser from 'webextension-polyfill';
-import type {Runtime} from 'webextension-polyfill';
-import {fetchCurrentTab} from '../common/utils/tabs';
+import {isFirefox} from '../common/utils/browser';
+import {fetchCurrentTab, getTabId} from '../common/utils/tabs';
+import {answerMessages, browser} from '../common/utils/webExtension';
 import {
 	appLoaded,
 	captureCurrentTab,
@@ -9,15 +8,13 @@ import {
 	createTab,
 	openPopup,
 	openSidebar as openSidebarAction,
-	tabAction,
 	validatePage,
 	viewPageSource
 } from './slices/runtime';
 import {injectContentScripts} from './utils/content';
 import {closeSidebar, openSidebar, reloadSidebar} from './utils/sidebar';
-import {PANEL_PAGE, captureVisibleTab} from './utils/tabs';
-import {validateLocalPage} from './utils/validateLocalPage';
-import {viewSource} from './utils/viewSource';
+import {openWithSource} from './utils/source';
+import {captureVisibleTab, PANEL_PAGE} from './utils/tabs';
 
 // We're avoiding promises (and thus async/await) here,
 // because of a sneaky chrome bug.
@@ -26,15 +23,20 @@ import {viewSource} from './utils/viewSource';
 // user.
 // @see https://issues.chromium.org/issues/40929586
 browser.action.onClicked.addListener((tab) => {
-	openSidebar(tab.id);
+	openSidebar(getTabId(tab));
 });
 
 browser.tabs.onActivated.addListener((tab) => {
 	reloadSidebar(tab.tabId);
 });
 
+const createTabNextToCurrent = (url: string) =>
+	fetchCurrentTab().then(({index}) =>
+		browser.tabs.create({url, index: index + 1})
+	);
+
 browser.runtime.onMessage.addListener(
-	(message: unknown, sender: Runtime.MessageSender) => {
+	answerMessages((message) => {
 		switch (true) {
 			case openSidebarAction.match(message):
 				openSidebar(message.payload.tabId);
@@ -53,39 +55,39 @@ browser.runtime.onMessage.addListener(
 				openSidebar(message.payload.tabId);
 				break;
 
+			// Answers once scripts are injected, so the panel
+			// can connect to them, telling if they could be.
+			// Content scripts can't be injected in some pages
+			// (i.e. browser pages).
 			case appLoaded.match(message):
-				injectContentScripts(message.payload.tabId);
-				break;
+				return injectContentScripts(message.payload.tabId).then(
+					() => true,
+					(e) => {
+						console.warn(e);
+						return false;
+					}
+				);
 
 			case captureCurrentTab.match(message):
 				return captureVisibleTab();
 
 			case validatePage.match(message):
-				validateLocalPage(message.payload.url);
+				openWithSource('pages/validateLocalPage.html', message.payload.url);
 				break;
 
+			// Firefox can't open `view-source:` pages, so we're
+			// opening a home-made page showing the source code.
 			case viewPageSource.match(message):
-				viewSource(message.payload.url);
+				if (isFirefox()) {
+					openWithSource('pages/viewSource.html', message.payload.url);
+				} else {
+					createTabNextToCurrent(`view-source:${message.payload.url}`);
+				}
 				break;
 
 			case createTab.match(message):
-				fetchCurrentTab().then(({index}) => {
-					browser.tabs.create({
-						url: message.payload.url,
-						index: index + 1
-					});
-				});
-
-				break;
-
-			case isAction(message) && !!sender?.tab?.id:
-				browser.runtime.sendMessage(
-					tabAction({
-						tabId: sender.tab.id,
-						action: message
-					})
-				);
+				createTabNextToCurrent(message.payload.url);
 				break;
 		}
-	}
+	})
 );

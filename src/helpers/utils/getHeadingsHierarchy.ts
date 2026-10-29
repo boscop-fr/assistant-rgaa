@@ -8,8 +8,10 @@ const HxPattern = /^h([1-6])$/i;
 const getHeadingLevel = (element: HTMLElement) => {
 	// If an aria-level attribute is set, it takes precedence
 	// over hx levels.
-	if (element.hasAttribute('aria-level')) {
-		return Number.parseInt(element.getAttribute('aria-level'), 10);
+	const ariaLevel = element.getAttribute('aria-level');
+
+	if (ariaLevel !== null) {
+		return Number.parseInt(ariaLevel, 10);
 	}
 
 	const matches = element.tagName.match(HxPattern);
@@ -29,7 +31,9 @@ const getHeadingLevel = (element: HTMLElement) => {
 };
 
 const getHeadingText = (element: HTMLElement) => {
+	// biome-ignore lint/performance/useDomNodeTextContent: rendered text is needed, without hidden content.
 	if (element.innerText) {
+		// biome-ignore lint/performance/useDomNodeTextContent: same as above.
 		return element.innerText;
 	}
 	// try to get text from potential img alts

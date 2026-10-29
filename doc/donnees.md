@@ -14,9 +14,10 @@ Le fichier est nommé en suivant la version. Dans ce fichier est décrit la
 version du référentiel, et les thématiques, critères et tests du référentiel.
 Chaque thématique, critère et test a un identifiant unique.
 
-Actuellement, on peut générer les fichiers via des utilitaires qui _scrapent_
-des page web de référentiel, ou les écrire à la main... À l'avenir, à voir si
-des fichiers "officiels" seront fournis.
+Actuellement, les fichiers sont écrits à la main. Les anciens utilitaires qui
+_scrapaient_ les pages web du référentiel ne fonctionnaient plus et ont été
+supprimés ; ils restent consultables dans l'historique git. À l'avenir, à voir
+si des fichiers "officiels" seront fournis.
 
 ## Instructions
 

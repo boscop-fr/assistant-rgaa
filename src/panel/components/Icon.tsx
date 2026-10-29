@@ -8,16 +8,15 @@ type IconProps = {
 	title?: string;
 };
 
-export default function Icon({icon, title, className, ...props}: IconProps) {
+export default function Icon({icon, title, className}: IconProps) {
 	const Component = icon;
 	return (
 		<Component
-			{...props}
-			className={classNames('Icon', `Icon--${name}`, className)}
+			className={classNames('Icon', className)}
 			size={16}
-			role={title ? 'img' : null}
+			role={title ? 'img' : undefined}
 			aria-label={title}
-			aria-hidden={title ? null : true}
+			aria-hidden={title ? undefined : true}
 		/>
 	);
 }

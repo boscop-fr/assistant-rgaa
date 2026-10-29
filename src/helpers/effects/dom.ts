@@ -5,15 +5,21 @@ import {muteAttribute, restoreAttribute} from '../utils/muteAttributes';
 export const toggleStyleSheetsEffect =
 	(toggle: boolean): Effect =>
 	() => {
-		const sheets = Array.from(document.styleSheets);
+		// Some sheets might already be disabled by the page (i.e.
+		// alternate style sheets), so their state is restored
+		// rather than toggled back.
+		const sheets = Array.from(document.styleSheets).map((sheet) => ({
+			sheet,
+			disabled: sheet.disabled
+		}));
 
-		for (const sheet of sheets) {
+		for (const {sheet} of sheets) {
 			sheet.disabled = !toggle;
 		}
 
 		return () => {
-			for (const sheet of sheets) {
-				sheet.disabled = toggle;
+			for (const {sheet, disabled} of sheets) {
+				sheet.disabled = disabled;
 			}
 		};
 	};

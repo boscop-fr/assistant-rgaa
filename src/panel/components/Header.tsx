@@ -1,6 +1,6 @@
 import {
 	AppWindowIcon,
-	CircleHelpIcon,
+	CircleQuestionMarkIcon,
 	DatabaseBackupIcon,
 	SettingsIcon
 } from 'lucide-react';
@@ -75,12 +75,12 @@ const Header = () => {
 
 				<a
 					className="Header-action Link"
-					href="http://assistant-rgaa.boscop.fr/#fonctionnalites"
+					href="https://assistant-rgaa.boscop.fr/#fonctionnalites"
 					target="_blank"
 					title={helpTitle}
 					rel="noreferrer"
 				>
-					<Icon icon={CircleHelpIcon} title={helpTitle} />
+					<Icon icon={CircleQuestionMarkIcon} title={helpTitle} />
 				</a>
 			</div>
 

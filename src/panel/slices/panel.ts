@@ -1,16 +1,17 @@
-import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {createAction, createSlice, type PayloadAction} from '@reduxjs/toolkit';
 
 type PanelState = {
 	targetTabId: number;
 	targetTabUrl: string;
 	targetTabTitle: string;
-	popupTabId: number;
+	popupTabId: number | null;
 };
 
 const initialState: PanelState = {
-	targetTabId: null,
-	targetTabUrl: null,
-	targetTabTitle: null,
+	// Set at startup, before anything reads them.
+	targetTabId: -1,
+	targetTabUrl: '',
+	targetTabTitle: '',
 	popupTabId: null
 };
 
@@ -20,7 +21,7 @@ const panelSlice = createSlice({
 	reducers: {
 		setTabIds(
 			state,
-			{payload}: PayloadAction<{targetTabId: number; popupTabId: number}>
+			{payload}: PayloadAction<{targetTabId: number; popupTabId: number | null}>
 		) {
 			state.targetTabId = payload.targetTabId;
 			state.popupTabId = payload.popupTabId;
@@ -28,8 +29,7 @@ const panelSlice = createSlice({
 		setTabInfo(state, {payload}: PayloadAction<{url: string; title: string}>) {
 			state.targetTabUrl = payload.url;
 			state.targetTabTitle = payload.title;
-		},
-		togglePopup() {}
+		}
 	},
 	selectors: {
 		selectTargetTabId(state) {
@@ -48,7 +48,8 @@ const panelSlice = createSlice({
 });
 
 const {actions, reducer, selectors} = panelSlice;
-export const {setTabIds, setTabInfo, togglePopup} = actions;
+export const {setTabIds, setTabInfo} = actions;
+export const togglePopup = createAction('panel/togglePopup');
 export const {
 	selectTargetTabId,
 	selectTargetTabTitle,

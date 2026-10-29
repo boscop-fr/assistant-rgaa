@@ -1,11 +1,25 @@
-const waitForEvent = <T extends keyof DocumentEventMap>(event: T) =>
-	new Promise<DocumentEventMap[T]>((resolve) => {
-		const handler = (e: DocumentEventMap[T]) => {
-			document.removeEventListener(event, handler);
+// Waits for the next event of the given type.
+// When `intercept` is set, the event is caught before the
+// page sees it and its default action is prevented, so the
+// page doesn't react to it.
+const waitForEvent = <T extends keyof WindowEventMap>(
+	event: T,
+	intercept = false
+) =>
+	new Promise<WindowEventMap[T]>((resolve) => {
+		const handler = (e: WindowEventMap[T]) => {
+			if (intercept) {
+				e.preventDefault();
+				e.stopPropagation();
+			}
+
 			resolve(e);
 		};
 
-		document.addEventListener(event, handler);
+		window.addEventListener(event, handler, {
+			capture: intercept,
+			once: true
+		});
 	});
 
 export default waitForEvent;

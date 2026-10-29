@@ -1,5 +1,5 @@
-import browser from 'webextension-polyfill';
 import {closePopup, openPopup} from '../../background/slices/runtime';
+import {browser} from '../../common/utils/webExtension';
 import type {AppStartListening} from '../middlewares/listener';
 import {
 	selectPopupTabId,
@@ -11,7 +11,7 @@ import {storeState} from '../slices/storage';
 export const addPanelListeners = (startListening: AppStartListening) => {
 	startListening({
 		actionCreator: togglePopup,
-		async effect(action, api) {
+		async effect(_action, api) {
 			const state = api.getState();
 			const tabId = selectTargetTabId(state);
 			const popupTabId = selectPopupTabId(state);
