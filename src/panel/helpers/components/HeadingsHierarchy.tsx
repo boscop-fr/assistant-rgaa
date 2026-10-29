@@ -35,9 +35,12 @@ const HeadingsHierarchy = ({showMissing}: HeadingsHierarchyProps) => {
 	);
 
 	useEffect(() => {
-		browser.tabs
-			.sendMessage(tabId, getHierarchy())
-			.then((hierarchy: HeadingHierarchyNode[] | undefined) => {
+		(
+			browser.tabs.sendMessage(tabId, getHierarchy()) as Promise<
+				HeadingHierarchyNode[] | undefined
+			>
+		)
+			.then((hierarchy) => {
 				// Nothing answers if the helper isn't applied yet,
 				// in which case it sends the hierarchy on its own.
 				if (hierarchy) {

@@ -40,11 +40,11 @@ const icons: Record<Theme['id'], LucideIcon> = {
 
 const ThemesList = () => {
 	const themes = useAppSelector(selectAllThemes);
-	const popoverRef = useRef<HTMLUListElement>();
+	const popoverRef = useRef<HTMLUListElement>(null);
 
 	useAnchorEvent(
 		useCallback(() => {
-			popoverRef.current.hidePopover();
+			popoverRef.current?.hidePopover();
 		}, [])
 	);
 
@@ -68,8 +68,8 @@ const ThemesList = () => {
 				onBlur={(event) => {
 					const target = event.relatedTarget as HTMLElement;
 
-					if (!popoverRef.current.contains(target)) {
-						popoverRef.current.hidePopover();
+					if (!event.currentTarget.contains(target)) {
+						event.currentTarget.hidePopover();
 					}
 				}}
 			>

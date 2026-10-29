@@ -7,7 +7,8 @@ describe('serializeAttribute', () => {
 		input.setAttribute('aria-describedby', '<img src=x onerror=alert(1)>');
 
 		const container = document.createElement('div');
-		container.innerHTML = serializeAttribute(input, 'aria-describedby', false);
+		container.innerHTML =
+			serializeAttribute(input, 'aria-describedby', false) ?? '';
 
 		expect(container.querySelector('img')).toBeNull();
 		expect(container.textContent).toContain('<img');

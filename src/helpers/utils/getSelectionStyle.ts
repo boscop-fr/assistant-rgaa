@@ -5,7 +5,13 @@ import {captureCurrentTabPixel} from './images';
 
 const getSelectionStyle = async (): Promise<ColorContrastStyle> => {
 	const selection = window.getSelection();
-	const style = window.getComputedStyle(selection.anchorNode.parentElement);
+	const parent = selection?.anchorNode?.parentElement;
+
+	if (!selection || !parent) {
+		throw new Error('Nothing is selected');
+	}
+
+	const style = window.getComputedStyle(parent);
 	const rect = selection.getRangeAt(0).getBoundingClientRect();
 
 	// cancels the selection so the color picker doesn't pick

@@ -25,7 +25,7 @@ export const anyMutedAttributeSelector = (base = '') =>
 	`${base}[${MutedAttribute}]`;
 
 const renameAttribute = (element: HTMLElement, from: string, to: string) => {
-	element.setAttribute(to, element.getAttribute(from));
+	element.setAttribute(to, element.getAttribute(from) ?? '');
 	element.removeAttribute(from);
 };
 

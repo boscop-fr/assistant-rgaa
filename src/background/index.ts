@@ -1,5 +1,5 @@
 import {isFirefox} from '../common/utils/browser';
-import {fetchCurrentTab} from '../common/utils/tabs';
+import {fetchCurrentTab, getTabId} from '../common/utils/tabs';
 import {answerMessages, browser} from '../common/utils/webExtension';
 import {
 	appLoaded,
@@ -23,7 +23,7 @@ import {captureVisibleTab, PANEL_PAGE} from './utils/tabs';
 // user.
 // @see https://issues.chromium.org/issues/40929586
 browser.action.onClicked.addListener((tab) => {
-	openSidebar(tab.id);
+	openSidebar(getTabId(tab));
 });
 
 browser.tabs.onActivated.addListener((tab) => {

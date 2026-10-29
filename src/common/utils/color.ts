@@ -8,7 +8,7 @@ let context: CanvasRenderingContext2D;
 const cssToRgb = (color: string): Rgb => {
 	context ??= document
 		.createElement('canvas')
-		.getContext('2d', {willReadFrequently: true});
+		.getContext('2d', {willReadFrequently: true}) as CanvasRenderingContext2D;
 	context.clearRect(0, 0, 1, 1);
 	context.fillStyle = color;
 	context.fillRect(0, 0, 1, 1);

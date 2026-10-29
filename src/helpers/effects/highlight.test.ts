@@ -32,8 +32,8 @@ describe('highlightElementsEffect', () => {
 		const item = document.getElementById('item');
 
 		// Each display is shown next to its own target.
-		expect(list.nextElementSibling.textContent).toContain('li');
-		expect(item.nextElementSibling.textContent).toContain('id="item"');
+		expect(list?.nextElementSibling?.textContent).toContain('li');
+		expect(item?.nextElementSibling?.textContent).toContain('id="item"');
 
 		revert();
 		expect(document.querySelectorAll('.rgaaExt-HelperContainer')).toHaveLength(
@@ -50,12 +50,12 @@ describe('highlightElementsEffect', () => {
 			{selector: '#p', outline: true}
 		])();
 
-		expect(document.getElementById('p').classList).toContain(
+		expect(document.getElementById('p')?.classList).toContain(
 			'rgaaExt-Highlight--outline'
 		);
 
 		revert();
-		expect(document.getElementById('p').classList).not.toContain(
+		expect(document.getElementById('p')?.classList).not.toContain(
 			'rgaaExt-Highlight--outline'
 		);
 	});

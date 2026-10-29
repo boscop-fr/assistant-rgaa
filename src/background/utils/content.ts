@@ -4,7 +4,7 @@ const CONTENT_SCRIPTS = ['dist/helpers.js', 'dist/minimap.js'];
 const CONTENT_STYLES = ['dist/helpers.css'];
 
 declare global {
-	var rgaaExt: boolean;
+	var rgaaExt: boolean | undefined;
 }
 
 // Marks scripts as injected, and tells if they already
@@ -61,14 +61,15 @@ const injectOnce = async (tabId: number) => {
 const injections = new Map<number, Promise<void>>();
 
 export const injectContentScripts = (tabId: number) => {
-	if (!injections.has(tabId)) {
-		injections.set(
-			tabId,
-			injectOnce(tabId).finally(() => {
-				injections.delete(tabId);
-			})
-		);
+	let injection = injections.get(tabId);
+
+	if (!injection) {
+		injection = injectOnce(tabId).finally(() => {
+			injections.delete(tabId);
+		});
+
+		injections.set(tabId, injection);
 	}
 
-	return injections.get(tabId);
+	return injection;
 };

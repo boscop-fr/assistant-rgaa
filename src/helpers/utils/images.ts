@@ -17,7 +17,7 @@ const imageCanvas = (image: HTMLImageElement) => {
 	const canvas = document.createElement('canvas');
 	canvas.width = image.width;
 	canvas.height = image.height;
-	canvas.getContext('2d').drawImage(image, 0, 0);
+	(canvas.getContext('2d') as CanvasRenderingContext2D).drawImage(image, 0, 0);
 
 	return canvas;
 };
@@ -36,9 +36,12 @@ export const captureCurrentTabPixel = async (x: number, y: number) => {
 	// The capture is in device pixels while coordinates are in
 	// CSS pixels, which differ on HiDPI screens or when zoomed.
 	const scale = image.width / window.innerWidth;
-	const [r, g, b] = imageCanvas(image)
-		.getContext('2d')
-		.getImageData(x * scale, y * scale, 1, 1, {colorSpace: 'srgb'}).data;
+	const context = imageCanvas(image).getContext(
+		'2d'
+	) as CanvasRenderingContext2D;
+	const [r, g, b] = context.getImageData(x * scale, y * scale, 1, 1, {
+		colorSpace: 'srgb'
+	}).data;
 
 	return rgbToHex(r, g, b);
 };

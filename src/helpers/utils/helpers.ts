@@ -10,7 +10,7 @@ import {
 } from '../types';
 import {combineEffects} from './effects';
 
-let revertEffects: () => void;
+let revertEffects: (() => void) | null = null;
 
 // Some helpers only provide a widget in the panel, and
 // neither an effect nor a highlight.

@@ -7,7 +7,7 @@ export default {
 		intl,
 		{
 			selector,
-			attributes,
+			attributes = [],
 			showEmpty,
 			showName,
 			showMissingAttributes,

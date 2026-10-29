@@ -83,9 +83,10 @@ export const loadState = createAsyncThunk(
 	async (_, api) => {
 		const persistence = await getOption('statePersistence');
 		const key = selectStorageKey(api.getState() as AppState, persistence);
-		const data: Record<string, StoredState> = await browser.storage.session.get(
-			[key]
-		);
+		const data = (await browser.storage.session.get([key])) as Record<
+			string,
+			StoredState
+		>;
 
 		api.dispatch(
 			stateLoaded(key in data ? (data[key] as AppState) : undefined)

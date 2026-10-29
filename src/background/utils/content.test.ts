@@ -14,7 +14,7 @@ const {executeScript, insertCSS} = vi.hoisted(() => ({
 
 		const previous = globalThis.rgaaExt;
 		globalThis.rgaaExt = world.rgaaExt;
-		const result = func();
+		const result = func?.();
 		world.rgaaExt = globalThis.rgaaExt;
 		globalThis.rgaaExt = previous;
 		return [{result}];

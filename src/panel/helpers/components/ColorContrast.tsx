@@ -24,13 +24,13 @@ type PickAction =
 	| ReturnType<typeof requestTextColor>
 	| ReturnType<typeof requestStyle>;
 
-const usePicker = (extractor: ColorExtractorConfig) => {
+const usePicker = () => {
 	const tabId = useAppSelector(selectTargetTabId);
 	const [pickerState, setPickerState] = useState<{
 		left: string;
 		right: string;
-		pickingName?: ColorName;
-		pickingAction?: PickAction;
+		pickingName?: ColorName | null;
+		pickingAction?: PickAction | null;
 	}>({
 		left: '#fff',
 		right: '#fff'
@@ -56,7 +56,7 @@ const usePicker = (extractor: ColorExtractorConfig) => {
 	// Asks the page to pick something, and waits for the
 	// picked value.
 	const pick = async <T,>(
-		pickingName: ColorName,
+		pickingName: ColorName | null,
 		pickingAction: PickAction,
 		onPicked: (value: T) => void
 	) => {
@@ -93,7 +93,7 @@ const usePicker = (extractor: ColorExtractorConfig) => {
 	const pickText = (name: ColorName) =>
 		pick<string>(name, requestTextColor(), (color) => setColor(name, color));
 
-	const pickStyle = () =>
+	const pickStyle = (extractor: ColorExtractorConfig) =>
 		pick<ColorContrastStyle>(null, requestStyle(), (style) => {
 			setPickerState((state) => ({
 				...state,
@@ -140,7 +140,7 @@ const ColorContrast = ({
 		pickPixel,
 		pickText,
 		pickStyle
-	} = usePicker(extractor);
+	} = usePicker();
 
 	const renderField = (
 		name: ColorName,
@@ -169,7 +169,10 @@ const ColorContrast = ({
 				</div>
 
 				{extractor ? (
-					<ToggleButton pressed={isPickingStyle()} onClick={() => pickStyle()}>
+					<ToggleButton
+						pressed={isPickingStyle()}
+						onClick={() => pickStyle(extractor)}
+					>
 						{intl.formatMessage({id: extractor.label})}
 					</ToggleButton>
 				) : null}

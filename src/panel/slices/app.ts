@@ -106,8 +106,8 @@ export const loadTab = createAsyncThunk('app/loadTab', async (_, api) => {
 	// change between reloads.
 	api.dispatch(
 		setTabInfo({
-			url: tab.url,
-			title: tab.title
+			url: tab.url ?? '',
+			title: tab.title ?? ''
 		})
 	);
 

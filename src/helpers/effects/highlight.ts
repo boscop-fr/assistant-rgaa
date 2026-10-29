@@ -81,11 +81,12 @@ const resolveHighlights = (highlights: Highlight[]) => {
 		}
 
 		for (const {element, target} of elements) {
-			if (!byElement.has(element)) {
-				byElement.set(element, new Map());
-			}
+			let byTarget = byElement.get(element);
 
-			const byTarget = byElement.get(element);
+			if (!byTarget) {
+				byTarget = new Map();
+				byElement.set(element, byTarget);
+			}
 			const current = byTarget.get(target);
 
 			byTarget.set(target, {

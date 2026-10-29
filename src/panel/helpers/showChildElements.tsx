@@ -8,7 +8,7 @@ export default {
 		{
 			selector,
 			childrenSelector,
-			attributes,
+			attributes = [],
 			showEmpty,
 			showName,
 			showMissingAttributes,

@@ -8,7 +8,7 @@ const linkId = (id: string) => {
 	// The id comes from the audited page and ends up in an
 	// attribute, so quotes must be escaped as well.
 	const safeId = escapeHtml(id).replaceAll('"', '&quot;');
-	let elements: Element[];
+	let elements: Element[] = [];
 	let error = false;
 
 	try {

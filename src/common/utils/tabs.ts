@@ -1,4 +1,14 @@
+import type {Tabs} from 'webextension-polyfill';
 import {browser} from './webExtension';
+
+// Only tabs outside of the tabs API (i.e. devtools) lack an id.
+export const getTabId = ({id}: Tabs.Tab) => {
+	if (id === undefined) {
+		throw new Error('Tab has no id');
+	}
+
+	return id;
+};
 
 export const fetchCurrentTab = async () => {
 	const query = {

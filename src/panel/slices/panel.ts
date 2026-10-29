@@ -4,13 +4,14 @@ type PanelState = {
 	targetTabId: number;
 	targetTabUrl: string;
 	targetTabTitle: string;
-	popupTabId: number;
+	popupTabId: number | null;
 };
 
 const initialState: PanelState = {
-	targetTabId: null,
-	targetTabUrl: null,
-	targetTabTitle: null,
+	// Set at startup, before anything reads them.
+	targetTabId: -1,
+	targetTabUrl: '',
+	targetTabTitle: '',
 	popupTabId: null
 };
 
@@ -20,7 +21,7 @@ const panelSlice = createSlice({
 	reducers: {
 		setTabIds(
 			state,
-			{payload}: PayloadAction<{targetTabId: number; popupTabId: number}>
+			{payload}: PayloadAction<{targetTabId: number; popupTabId: number | null}>
 		) {
 			state.targetTabId = payload.targetTabId;
 			state.popupTabId = payload.popupTabId;

@@ -8,8 +8,10 @@ const HxPattern = /^h([1-6])$/i;
 const getHeadingLevel = (element: HTMLElement) => {
 	// If an aria-level attribute is set, it takes precedence
 	// over hx levels.
-	if (element.hasAttribute('aria-level')) {
-		return Number.parseInt(element.getAttribute('aria-level'), 10);
+	const ariaLevel = element.getAttribute('aria-level');
+
+	if (ariaLevel !== null) {
+		return Number.parseInt(ariaLevel, 10);
 	}
 
 	const matches = element.tagName.match(HxPattern);

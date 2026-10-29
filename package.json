@@ -18,7 +18,7 @@
     "sign-extension": "npm run build && web-ext sign",
     "lint:code": "biome check && prettier --check **/*.{html,md,yml}",
     "lint:extension": "web-ext lint",
-    "lint:types": "tsc --noEmit",
+    "lint:types": "tsc --noEmit && tsc --noEmit -p e2e",
     "lint": "npm run lint:code && npm run lint:types && npm run lint:extension",
     "format": "biome check --write --unsafe && prettier --write **/*.{html,md,yml}",
     "test:unit": "vitest run",

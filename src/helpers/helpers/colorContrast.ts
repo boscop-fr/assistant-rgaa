@@ -20,7 +20,7 @@ const PickingStates = {
 	processing: 'rgaaExt-ColorContrastHelper--processing'
 };
 
-const setPickingState = (className: string) => {
+const setPickingState = (className: string | null) => {
 	for (const c of Object.values(PickingStates)) {
 		document.body.classList.toggle(c, c === className);
 	}

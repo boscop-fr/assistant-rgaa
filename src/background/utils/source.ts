@@ -1,4 +1,4 @@
-import {fetchCurrentTab, onTabLoaded} from '../../common/utils/tabs';
+import {fetchCurrentTab, getTabId, onTabLoaded} from '../../common/utils/tabs';
 import {browser} from '../../common/utils/webExtension';
 
 // Gets the source code of the page at the given URL.
@@ -13,8 +13,9 @@ export const openWithSource = async (page: string, url: string) => {
 		url: browser.runtime.getURL(page),
 		index: currentTab.index + 1
 	});
+	const tabId = getTabId(tab);
 
-	onTabLoaded(tab.id, () => {
-		browser.tabs.sendMessage(tab.id, source);
+	onTabLoaded(tabId, () => {
+		browser.tabs.sendMessage(tabId, source);
 	});
 };

@@ -1,6 +1,7 @@
 import {test as baseTest, expect} from '@playwright/test';
 import {getHierarchy} from '../src/helpers/slices/headingsHierarchy';
 import {applyHelpers, revertActiveHelpers} from '../src/helpers/slices/helpers';
+import type {Helper} from '../src/helpers/types';
 import HelpersPage from './HelpersPage';
 
 const test = baseTest.extend<{helpersPage: HelpersPage}>({
@@ -55,7 +56,11 @@ test('should answer requests from the helper handling them', async ({
 	// The color contrast helper listens to messages too, and
 	// must not answer the ones it doesn't handle.
 	await page.postToPort(
-		applyHelpers([{helper: 'colorContrast'}, {helper: 'headingsHierarchy'}])
+		// Options missing from the helper fall back to defaults.
+		applyHelpers([
+			{helper: 'colorContrast'} as Helper,
+			{helper: 'headingsHierarchy'}
+		])
 	);
 
 	expect(await page.sendMessage('runtime', getHierarchy())).toStrictEqual([

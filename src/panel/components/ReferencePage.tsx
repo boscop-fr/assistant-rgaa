@@ -10,7 +10,7 @@ import Theme from './Theme';
 const ReferencePage = () => {
 	const themes = useAppSelector(selectAllThemes);
 	const dispatch = useAppDispatch();
-	const themesRef = useRef<HTMLDivElement>();
+	const themesRef = useRef<HTMLDivElement>(null);
 
 	useEffect(
 		() =>

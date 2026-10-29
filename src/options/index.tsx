@@ -4,7 +4,7 @@ import {IntlProvider} from 'react-intl';
 import OptionsForm from './components/OptionsForm';
 import messages from './messages/fr';
 
-const root = createRoot(document.getElementById('options'));
+const root = createRoot(document.getElementById('options') as HTMLElement);
 const app = (
 	<IntlProvider locale="fr" messages={messages}>
 		<OptionsForm />

@@ -3,6 +3,23 @@ import type {Action} from '@reduxjs/toolkit';
 
 type ExtensionApi = 'runtime' | 'tabs' | 'storage' | 'connect' | 'port';
 
+type Listener = (...args: unknown[]) => unknown;
+
+type FakePort = {
+	name: string;
+	receive(message: unknown): void;
+	close(): void;
+};
+
+// Test doubles living in the page.
+declare global {
+	var messageListeners: Record<string, Set<Listener>>;
+	var sentMessages: Record<string, unknown[]>;
+	var createPort: (name: string) => FakePort;
+	var port: FakePort;
+	var browser: unknown;
+}
+
 export default class ExtensionPage {
 	protected readonly page: Page;
 
@@ -15,9 +32,9 @@ export default class ExtensionPage {
 		await this.page.addInitScript(() => {
 			globalThis.messageListeners = {};
 			globalThis.sentMessages = {};
-			const sessionData = {};
+			const sessionData: Record<string, unknown> = {};
 
-			const pushListener = (api, listener) => {
+			const pushListener = (api: string, listener: Listener) => {
 				if (!(api in globalThis.messageListeners)) {
 					globalThis.messageListeners[api] = new Set();
 				}
@@ -25,11 +42,11 @@ export default class ExtensionPage {
 				globalThis.messageListeners[api].add(listener);
 			};
 
-			const removeListener = (api, listener) => {
+			const removeListener = (api: string, listener: Listener) => {
 				globalThis.messageListeners[api].delete(listener);
 			};
 
-			const pushMessage = (api, args) => {
+			const pushMessage = (api: string, args: unknown[]) => {
 				if (!(api in globalThis.sentMessages)) {
 					globalThis.sentMessages[api] = [];
 				}
@@ -42,23 +59,26 @@ export default class ExtensionPage {
 			// Tests can deliver messages to the page through
 			// `receive()`, and disconnect it through `close()`.
 			globalThis.createPort = (name) => {
-				const messageListeners = new Set();
-				const disconnectListeners = new Set();
+				const messageListeners = new Set<Listener>();
+				const disconnectListeners = new Set<Listener>();
 				const port = {
 					name,
-					postMessage(message) {
+					postMessage(message: unknown) {
 						pushMessage('port', [message]);
 					},
 					disconnect() {},
 					onMessage: {
-						addListener: (listener) => messageListeners.add(listener),
-						removeListener: (listener) => messageListeners.delete(listener)
+						addListener: (listener: Listener) => messageListeners.add(listener),
+						removeListener: (listener: Listener) =>
+							messageListeners.delete(listener)
 					},
 					onDisconnect: {
-						addListener: (listener) => disconnectListeners.add(listener),
-						removeListener: (listener) => disconnectListeners.delete(listener)
+						addListener: (listener: Listener) =>
+							disconnectListeners.add(listener),
+						removeListener: (listener: Listener) =>
+							disconnectListeners.delete(listener)
 					},
-					receive(message) {
+					receive(message: unknown) {
 						for (const listener of messageListeners) {
 							listener(message, port);
 						}
@@ -80,23 +100,23 @@ export default class ExtensionPage {
 					id: 'playwright',
 					// Answers as the background does to `appLoaded`,
 					// once content scripts are injected.
-					async sendMessage(...args) {
+					async sendMessage(...args: unknown[]) {
 						pushMessage('runtime', args);
 						return true;
 					},
 					onConnect: {
-						addListener(listener) {
+						addListener(listener: Listener) {
 							pushListener('connect', listener);
 						},
-						removeListener(listener) {
+						removeListener(listener: Listener) {
 							removeListener('connect', listener);
 						}
 					},
 					onMessage: {
-						addListener(listener) {
+						addListener(listener: Listener) {
 							pushListener('runtime', listener);
 						},
-						removeListener(listener) {
+						removeListener(listener: Listener) {
 							removeListener('runtime', listener);
 						}
 					}
@@ -107,36 +127,36 @@ export default class ExtensionPage {
 							return {};
 						},
 						onChanged: {
-							addListener(listener) {
+							addListener(listener: Listener) {
 								pushListener('storage', listener);
 							},
-							removeListener(listener) {
+							removeListener(listener: Listener) {
 								removeListener('storage', listener);
 							}
 						}
 					},
 					session: {
-						async get(keys) {
+						async get(keys: string[]) {
 							return Object.fromEntries(
 								keys
 									.filter((key) => key in sessionData)
 									.map((key) => [key, structuredClone(sessionData[key])])
 							);
 						},
-						async set(values) {
+						async set(values: Record<string, unknown>) {
 							Object.assign(sessionData, structuredClone(values));
 						}
 					}
 				},
 				tabs: {
-					async get(id) {
+					async get(id: number) {
 						return {
 							id,
 							url: globalThis.location.toString(),
 							title: 'Current'
 						};
 					},
-					async query(query) {
+					async query(query: {active?: boolean; currentWindow?: boolean}) {
 						if (query.active && query.currentWindow) {
 							return [
 								{
@@ -147,17 +167,17 @@ export default class ExtensionPage {
 
 						return [];
 					},
-					async sendMessage(...args) {
+					async sendMessage(...args: unknown[]) {
 						pushMessage('tabs', args);
 					},
-					connect(_tabId, {name}) {
+					connect(_tabId: number, {name}: {name: string}) {
 						return globalThis.createPort(name);
 					},
 					onUpdated: {
-						addListener(listener) {
+						addListener(listener: Listener) {
 							pushListener('tabs', listener);
 						},
-						removeListener(listener) {
+						removeListener(listener: Listener) {
 							removeListener('tabs', listener);
 						}
 					}
@@ -175,7 +195,7 @@ export default class ExtensionPage {
 	// Calls every listener, and returns the first answer, as
 	// the browser does. Listeners answer through
 	// `sendResponse`, after returning `true`.
-	async sendMessage(api: ExtensionApi, ...args) {
+	async sendMessage(api: ExtensionApi, ...args: unknown[]) {
 		return this.page.evaluate(
 			async ([k, v]) => {
 				const answers = await Promise.all(
@@ -227,7 +247,7 @@ export default class ExtensionPage {
 
 	async sentMessages(api: ExtensionApi): Promise<Action[]> {
 		return this.page.evaluate(async (a) => {
-			return globalThis.sentMessages[a] || [];
+			return (globalThis.sentMessages[a] || []) as Action[];
 		}, api);
 	}
 
@@ -236,7 +256,7 @@ export default class ExtensionPage {
 		return messages.at(-1);
 	}
 
-	async expectNextSentMessage(api: ExtensionApi, ...args) {
+	async expectNextSentMessage(api: ExtensionApi, ...args: unknown[]) {
 		await expect(async () => {
 			expect(await this.lastSentMessage(api)).toStrictEqual(args);
 		}).toPass();
